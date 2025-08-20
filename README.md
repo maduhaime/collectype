@@ -32,9 +32,17 @@ const collection = new Collection<MyType, typeof BaseFunctions>(items, BaseFunct
 You can also provide your own functions class to add custom business logic:
 
 ```typescript
+import { Collection, BaseFunctions } from 'collectype';
+import { Chainable } from 'collectype/interfaces';
+
+type MyType = {
+  /* ... */
+};
+
 class MyFunctions extends BaseFunctions<MyType> {
-  myCustomFilter() {
-    /* ... */
+  myCustomMethod(): this {
+    const p: Predicate = (a, b) => a > b;
+    return this.applyFilter(p);
   }
 }
 const collection = new Collection<MyType, typeof MyFunctions>(items, MyFunctions);
