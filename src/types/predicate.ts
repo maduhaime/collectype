@@ -8,6 +8,15 @@ import { StringOperEnum } from '../enums/stringOperation';
 import { ValueOf } from './utility';
 
 /**
+ * Generic predicate type for filtering or testing values.
+ * Accepts any number of arguments and returns a boolean.
+ *
+ * @example
+ * const isPositive: Predicate = (n) => n > 0;
+ */
+export type Predicate = (...args: any[]) => boolean;
+
+/**
  * Predicate for boolean values.
  * Evaluates a boolean value against a target using the specified operator.
  * @param source - The source boolean value.
