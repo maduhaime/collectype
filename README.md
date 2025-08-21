@@ -26,15 +26,18 @@ CollecType is built around two main abstractions: `Collection` and a set of "fun
 To create a collection, instantiate `Collection` with your items and the functions class you want to use:
 
 ```typescript
-// const collection = new Collection<MyType, Constructor<BaseFunctions>>(items, BaseFunctions); // version explicite
-const collection = new Collection<MyType>(items, BaseFunctions); // version inférée
+// Explicit type annotation: specify both the item type and the functions class type manually.
+// const collection = new Collection<MyType, Constructor<BaseFunctions>>(items, BaseFunctions);
+
+// Inferred type (recommended): TypeScript will infer the correct functions class type from the constructor argument.
+const collection = new Collection<MyType>(items, BaseFunctions);
 ```
 
 You can also provide your own functions class to add custom business logic:
 
 ```typescript
 import { Collection, BaseFunctions } from 'collectype';
-import { Chainable } from 'collectype/interfaces';
+import { PredicateFn } from 'collectype/types';
 
 type MyType = {
   /* ... */
@@ -42,12 +45,15 @@ type MyType = {
 
 class MyFunctions extends BaseFunctions<MyType> {
   myCustomMethod(): this {
-    const p: Predicate = (a, b) => a > b;
+    const p: PredicateFn = (a, b) => a > b;
     return this.applyFilter(p);
   }
 }
-// const collection = new Collection<MyType, Constructor<MyFunctions>>(items, MyFunctions); // version explicite
-const collection = new Collection<MyType>(items, MyFunctions); // version inférée
+// Explicit type annotation: specify both the item type and the functions class type manually.
+// const collection = new Collection<MyType, Constructor<MyFunctions>>(items, MyFunctions);
+
+// Inferred type (recommended): TypeScript will infer the correct functions class type from the constructor argument.
+const collection = new Collection<MyType>(items, MyFunctions);
 ```
 
 **Type requirements:**
@@ -146,8 +152,8 @@ const pokemons: Pokemon[] = [
 ```typescript
 import { Collection, BaseFunctions } from 'collectype';
 
-// const collection = new Collection<Pokemon, Constructor<BaseFunctions>>(pokemons, BaseFunctions); // version explicite
-const collection = new Collection<Pokemon>(pokemons, BaseFunctions); // version inférée
+// Creates a new colletion
+const collection = new Collection<Pokemon>(pokemons, BaseFunctions);
 
 // Sort by base_experience descending
 const sorted = collection.fn.sort('base_experience', 'desc');
@@ -160,6 +166,18 @@ const onlyFire = collection.fn.applyFilter((p) => p.types.includes('fire'));
 
 console.log(onlyFire.items.map((p) => p.name));
 // Output: ['charmander', 'charizard']
+```
+
+#### Alternative systaxes
+
+```typescript
+import { Collection, BaseFunctions } from 'collectype';
+
+// Explicit type annotation: specify both the item type and the functions class type manually.
+const collection1 = new Collection<Pokemon, Constructor<BaseFunctions>>(pokemons, BaseFunctions);
+
+// Inferred type (recommended): TypeScript will infer the correct functions class type from the constructor argument.
+const collection2 = new Collection<Pokemon>(pokemons, BaseFunctions);
 ```
 
 ### Advanced Example: Extending BaseFunctions with Domain Methods
@@ -176,10 +194,6 @@ class PokemonFunctions extends BaseFunctions<Pokemon> {
   }
 }
 
-// Explicit type annotation: use this form if you want to specify both the item type and the functions class type manually.
-// const collection = new Collection<Pokemon, Constructor<PokemonFunctions>>(pokemons, PokemonFunctions);
-
-// Inferred type (recommended): TypeScript will infer the correct functions class type from the constructor argument.
 const collection = new Collection<Pokemon>(pokemons, PokemonFunctions);
 
 const experiencedPokemons = collection.fn.experienced();
@@ -198,10 +212,9 @@ console.log(experiencedPokemons.items.map((p) => p.name));
 ```typescript
 import { Collection, FullFunctions } from 'collectype';
 
-// const collection = new Collection<Pokemon, Constructor<FullFunctions>>(pokemons, FullFunctions); // version explicite
-const collection = new Collection<Pokemon>(pokemons, FullFunctions); // version inférée
+const collection = new Collection<Pokemon>(pokemons, FullFunctions);
 
-// Complex chaining: filter non legendary Pokémon, then sort by base_experience descending, then filter those with names starting with 'cha'
+// Complex chaining: filter non legendary Pokemon, then sort by base_experience descending, then filter those with names starting with 'cha'
 const result = collection.fn
   .booleanEquals('is_legendary', false)
   .sort('base_experience', 'desc')
@@ -229,8 +242,7 @@ console.log(piped.items.map((p) => p.name));
 ```typescript
 import { Collection, FullFunctions } from 'collectype';
 
-// const collection = new Collection<Pokemon, Constructor<FullFunctions>>(pokemons, FullFunctions); // version explicite
-const collection = new Collection<Pokemon>(pokemons, FullFunctions); // version inférée
+const collection = new Collection<Pokemon>(pokemons, FullFunctions);
 
 // Filter legendary Pokémon
 const legendary = collection.fn.booleanEquals('is_legendary', true);
@@ -247,12 +259,16 @@ console.log(sortedByName.items.map((p) => p.name));
 
 ---
 
+## Inspiration and Motivation
+
+CollecType is inspired by over a decade of experience working with Ruby on Rails and ActiveRecord (2005–2017). The original prototype for this "collection framework" was built and deployed in a production environment, where it became the backbone of a complex system for KPIs and metrics. The ability to chain methods and create a domain-specific language (DSL) tailored to business needs proved to be a game changer.
+
+When combined with a frontend framework that supports signals or reactivity, this approach enables the creation of powerful, highly responsive applications. After two years of production success, I decided to completely rewrite the framework from the ground up, in my spare time, and share it with the community.
+
+CollecType is my first true open-source contribution, after two decades of learning and benefiting from the incredible work of generous developers who make open source so special. My hope is that this project gives back a little of what I have received and helps others build great things.
+
 ## Contributing
 
-This project is maintained by a single developer. Contributions are welcome and appreciated.
+At the moment, this project is maintained by a single developer. Contributions are welcome and appreciated.
 You can find CollecType on GitHub; feel free to open an issue or create a pull request:
 https://github.com/maduhaime/collectype
-
-#### Inspiration
-
-- [Beyond Basics: Streamline Your Typescript Code With Fluent Interface Design Pattern](https://samuelkollat.hashnode.dev/beyond-basics-streamline-your-typescript-code-with-fluent-interface-design-pattern) by Samuel Kollát.
