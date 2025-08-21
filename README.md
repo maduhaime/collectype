@@ -26,7 +26,8 @@ CollecType is built around two main abstractions: `Collection` and a set of "fun
 To create a collection, instantiate `Collection` with your items and the functions class you want to use:
 
 ```typescript
-const collection = new Collection<MyType, typeof BaseFunctions>(items, BaseFunctions);
+// const collection = new Collection<MyType, Constructor<BaseFunctions>>(items, BaseFunctions); // version explicite
+const collection = new Collection<MyType>(items, BaseFunctions); // version inférée
 ```
 
 You can also provide your own functions class to add custom business logic:
@@ -45,10 +46,22 @@ class MyFunctions extends BaseFunctions<MyType> {
     return this.applyFilter(p);
   }
 }
-const collection = new Collection<MyType, typeof MyFunctions>(items, MyFunctions);
+// const collection = new Collection<MyType, Constructor<MyFunctions>>(items, MyFunctions); // version explicite
+const collection = new Collection<MyType>(items, MyFunctions); // version inférée
 ```
 
 **Type requirements:**
+
+- The second argument to `Collection` is always a class constructor for your functions class, typed as `Constructor<F>`. This ensures type safety and allows CollecType to instantiate your functions class internally.
+- The `Constructor` type is a utility provided by CollecType:
+
+  ```typescript
+  /**
+   * Generic constructor type for a class taking any array as argument.
+   * @template T The instance type returned by the constructor.
+   */
+  export type Constructor<T> = new (items: any[]) => T;
+  ```
 
 - For built-in filtering, sorting, and piping to work out of the box, your items should be plain objects with primitive fields: `string`, `number`, `boolean`, or `Date`.
 - Arrays and nested objects are not fully supported by default. If your data includes arrays or nested objects, you can still use CollecType, but you will need to write custom filters or predicates to manipulate those fields.
@@ -133,7 +146,8 @@ const pokemons: Pokemon[] = [
 ```typescript
 import { Collection, BaseFunctions } from 'collectype';
 
-const collection = new Collection<Pokemon, typeof BaseFunctions>(pokemons, BaseFunctions);
+// const collection = new Collection<Pokemon, Constructor<BaseFunctions>>(pokemons, BaseFunctions); // version explicite
+const collection = new Collection<Pokemon>(pokemons, BaseFunctions); // version inférée
 
 // Sort by base_experience descending
 const sorted = collection.fn.sort('base_experience', 'desc');
@@ -156,13 +170,17 @@ You can create your own domain-specific filtering functions by extending `BaseFu
 import { Collection, BaseFunctions } from 'collectype';
 
 class PokemonFunctions extends BaseFunctions<Pokemon> {
-  // Filter Pokémon with more than 150 base experience
+  // Filter Pokemon with more than 150 base experience
   experienced() {
     return this.applyFilter((p) => p.base_experience > 150);
   }
 }
 
-const collection = new Collection<Pokemon, typeof PokemonFunctions>(pokemons, PokemonFunctions);
+// Explicit type annotation: use this form if you want to specify both the item type and the functions class type manually.
+// const collection = new Collection<Pokemon, Constructor<PokemonFunctions>>(pokemons, PokemonFunctions);
+
+// Inferred type (recommended): TypeScript will infer the correct functions class type from the constructor argument.
+const collection = new Collection<Pokemon>(pokemons, PokemonFunctions);
 
 const experiencedPokemons = collection.fn.experienced();
 
@@ -180,7 +198,8 @@ console.log(experiencedPokemons.items.map((p) => p.name));
 ```typescript
 import { Collection, FullFunctions } from 'collectype';
 
-const collection = new Collection<Pokemon, typeof FullFunctions>(pokemons, FullFunctions);
+// const collection = new Collection<Pokemon, Constructor<FullFunctions>>(pokemons, FullFunctions); // version explicite
+const collection = new Collection<Pokemon>(pokemons, FullFunctions); // version inférée
 
 // Complex chaining: filter non legendary Pokémon, then sort by base_experience descending, then filter those with names starting with 'cha'
 const result = collection.fn
@@ -210,7 +229,8 @@ console.log(piped.items.map((p) => p.name));
 ```typescript
 import { Collection, FullFunctions } from 'collectype';
 
-const collection = new Collection<Pokemon, typeof FullFunctions>(pokemons, FullFunctions);
+// const collection = new Collection<Pokemon, Constructor<FullFunctions>>(pokemons, FullFunctions); // version explicite
+const collection = new Collection<Pokemon>(pokemons, FullFunctions); // version inférée
 
 // Filter legendary Pokémon
 const legendary = collection.fn.booleanEquals('is_legendary', true);

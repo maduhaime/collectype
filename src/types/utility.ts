@@ -1,4 +1,20 @@
 /**
+ * Generic constructor type for a class that takes an array of items as its only argument.
+ *
+ * This utility type is used to type the constructor parameter for functions classes in CollecType collections.
+ *
+ * @template T The instance type returned by the constructor.
+ *
+ * @example
+ * class MyFunctions {
+ *   constructor(items: MyType[]) { ... }
+ * }
+ * // Usage:
+ * const collection = new Collection<MyType, Constructor<MyFunctions>>(items, MyFunctions);
+ */
+export type Constructor<T> = new (items: any[]) => T;
+
+/**
  * Selects keys from T whose value type matches Value or is undefined.
  * @template T - The object type to inspect.
  * @template Value - The value type to match.
