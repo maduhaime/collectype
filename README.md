@@ -46,7 +46,7 @@ type MyType = {
 class MyFunctions extends BaseFunctions<MyType> {
   myCustomMethod(): this {
     const p: PredicateFn = (a, b) => a > b;
-    return this.applyFilter(p);
+    return this.where(p);
   }
 }
 // Explicit type annotation: specify both the item type and the functions class type manually.
@@ -81,13 +81,13 @@ This design allows you to compose, extend, and reuse collection logic in a type-
 
 The `BaseFunctions` class provides core methods for working with your collections.
 
-Chainable methods (`applyFilter`, `sort`, `all`, `pipe`) always return the same BaseFunctions instance (`this`), with the internal items (`this._items`) updated by the operation. This allows you to build expressive and composable queries.
+Chainable methods (`where`, `sort`, `all`, `pipe`) always return the same BaseFunctions instance (`this`), with the internal items (`this._items`) updated by the operation. This allows you to build expressive and composable queries.
 
 The `items` property gives you the current filtered and/or sorted subset, and `count` returns its quantity.
 
 Core methods in detail:
 
-- `applyFilter(predicate)`: Chainable. Returns the same instance with internal items updated to those matching the predicate function.
+- `where(predicate)`: Chainable. Returns the same instance with internal items updated to those matching the predicate function.
 - `sort(field, direction?)`: Chainable. Returns the same instance with internal items sorted by the specified field (ascending or descending).
 - `all()`: Chainable. Returns the same instance with all items.
 - `pipe('expression')`: Chainable. Returns the same instance after applying a sequence of functions, from an expression string.
@@ -162,7 +162,7 @@ console.log(sorted.items.map((p) => p.name));
 // Output: ['mewtwo', 'charizard', 'gengar', 'snorlax', 'lapras', 'pikachu', 'jigglypuff', 'bulbasaur', 'squirtle', 'charmander']
 
 // Filter by type (manual predicate)
-const onlyFire = collection.fn.applyFilter((p) => p.types.includes('fire'));
+const onlyFire = collection.fn.where((p) => p.types.includes('fire'));
 
 console.log(onlyFire.items.map((p) => p.name));
 // Output: ['charmander', 'charizard']
@@ -190,7 +190,7 @@ import { Collection, BaseFunctions } from 'collectype';
 class PokemonFunctions extends BaseFunctions<Pokemon> {
   // Filter Pokemon with more than 150 base experience
   experienced() {
-    return this.applyFilter((p) => p.base_experience > 150);
+    return this.where((p) => p.base_experience > 150);
   }
 }
 

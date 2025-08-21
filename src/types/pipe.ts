@@ -2,7 +2,7 @@ import { ReservedMethodsEnum } from '../enums/pipe';
 
 /**
  * Reserved method names that cannot be used in pipe expressions.
- * @typedef {'applyFilter' | 'sort' | 'pipe' | 'items' | 'count'} ReservedMethods
+ * @typedef {'applyFilter' | 'where' | 'sort' | 'pipe' | 'items' | 'count'} ReservedMethods
  */
 export type ReservedMethods = `${ReservedMethodsEnum}`;
 

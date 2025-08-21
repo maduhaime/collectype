@@ -32,10 +32,10 @@ describe('BaseFunctions', () => {
   it('should execute a valid pipe chain', () => {
     class ChainFn extends BaseFunctions<DummyType> {
       filterByName(name: string) {
-        return this.applyFilter((i) => i.name === name);
+        return this.where((i) => i.name === name);
       }
       filterByColor(color: string) {
-        return this.applyFilter((i) => i.color === color);
+        return this.where((i) => i.color === color);
       }
     }
     const chain = new ChainFn(items);
@@ -106,8 +106,8 @@ describe('BaseFunctions', () => {
     expect(fn.items.map((i) => i.flag)).toEqual([true, true, false]);
   });
 
-  it('should applyFilter and chain', () => {
-    const filtered = fn.applyFilter((i) => i.age === 25);
+  it('should where and chain', () => {
+    const filtered = fn.where((i) => i.age === 25);
     expect(filtered).toBe(fn);
     expect(fn.items.map((i) => i.name)).toEqual(['Bob', 'Charlie']);
   });

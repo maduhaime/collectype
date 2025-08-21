@@ -21,6 +21,20 @@ import { StringBooleanOperEnum } from './enums/stringBooleanOperation';
  * Provides chainable filter methods for boolean, date, date range, number, number range, and string fields.
  */
 export class FullFunctions<T> extends BaseFunctions<T> {
+  /**
+   * Filters items using the provided predicate function.
+   * This is the preferred, concise method for filtering collections.
+   *
+   * @param fn - The predicate function to filter items.
+   * @returns {this} The instance for chaining.
+   *
+   * @example
+   *   collection.fn.where(p => p.is_legendary)
+   */
+  where(fn: (item: T) => boolean): this {
+    this._items = this._items.filter(fn);
+    return this;
+  }
   constructor(items: T[]) {
     super(items);
   }

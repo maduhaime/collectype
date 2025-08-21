@@ -41,13 +41,28 @@ export class BaseFunctions<T> implements Collectable<T> {
   }
 
   /**
+   * Filters items using the provided predicate function.
+   * This is the preferred, concise method for filtering collections.
+   *
+   * @param fn - The predicate function to filter items.
+   * @returns {this} The instance for chaining.
+   *
+   * @example
+   *   collection.fn.where(p => p.is_legendary)
+   */
+  where(fn: PredicateFn<T>): this {
+    this._items = this._items.filter(fn);
+    return this;
+  }
+
+  /**
+   * @deprecated Use {@link where} instead for a shorter, more idiomatic syntax.
    * Applies a filter function to the items.
    * @param fn - The predicate function to filter items.
    * @returns The instance for chaining.
    */
   applyFilter(fn: PredicateFn<T>): this {
-    this._items = this._items.filter(fn);
-    return this;
+    return this.where(fn);
   }
 
   /**

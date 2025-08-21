@@ -16,6 +16,8 @@ describe('isReserved', () => {
     expect(isReserved('pipe')).toBe(true);
     expect(isReserved('sort')).toBe(true);
     expect(isReserved('applyFilter')).toBe(true);
+    expect(isReserved('where')).toBe(true);
+
     // @ts-expect-error
     expect(isReserved('nonReserved')).toBe(false);
   });
