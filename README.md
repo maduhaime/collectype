@@ -36,7 +36,13 @@ import { Collection, BaseFunctions } from 'collectype';
 const collection = new Collection(items, BaseFunctions);
 ```
 
-Or use prebuilt advanced filtering methods:
+Or use **38 prebuilt filtering methods** by injecting FullFunctions —
+this is a simple form of inversion of control: you pass the functions class
+as a dependency to the Collection constructor, making the collection's
+behavior fully configurable and extensible. This approach allows you to
+swap, extend, or override the available methods without modifying the
+Collection itself, promoting flexibility, testability, and clean separation
+of concerns.
 
 ```typescript
 import { Collection, FullFunctions } from 'collectype';
@@ -45,7 +51,7 @@ import { Collection, FullFunctions } from 'collectype';
 const collection = new Collection(items, FullFunctions);
 ```
 
-You can also provide your own functions class to add custom business logic:
+You can also provide your own functions class to add **custom business logic**. This lets you create a domain-specific language (DSL) tailored to your business needs. By encapsulating your most common filters and operations as chainable methods, you make your code more readable, predictable, and expressive. This approach bridges the gap between technical code and business language, making intent clear and reducing errors.
 
 ```typescript
 import { Collection, BaseFunctions } from 'collectype';
@@ -71,7 +77,7 @@ const collection = new Collection(people, PersonFunctions);
 collection.fn.adult().count;
 ```
 
-For full encapsulation, you can create a custom collection class and domain-specific functions:
+For full encapsulation, you can create a custom collection class and domain-specific functions. This approach isolates your business logic from the rest of your application, making it easier to reuse, test, and evolve independently. By grouping related filters and operations in dedicated classes, you ensure that your codebase remains organized, maintainable, and clear—especially as your domain grows in complexity. **Encapsulation also helps prevent accidental misuse** and makes your intent explicit, improving both reliability and onboarding for new developers:
 
 ```typescript
 // src/models/Person.ts
@@ -190,6 +196,8 @@ Core methods in detail:
 - `count`: Returns the number of items in the current filtered/sorted instance (not chainable).
 
 ## Advanced methods provided by FullFunctions
+
+`FullFunctions` inherits all the core capabilities of `BaseFunctions`, and adds 38 prebuilt, type-safe filters for booleans, numbers, strings, and dates. All filters are fully typed and support TypeScript inference, so you get autocompletion and compile-time safety for every field and method.
 
 Each method takes the field name as its first argument. Type safety is enforced automatically: for example, only fields of type `number` in your item can be used with `numberEquals` or `numberStrictInRange`, and only boolean, string, or date fields can be used with their respective filters. This ensures you get autocompletion and type checking for all filter methods, making your code safer and more productive.
 
