@@ -2,6 +2,8 @@
 
 CollecType is a modern, type-safe collection utility for TypeScript. Effortlessly filter, sort, and transform arrays of any type using a fluent, chainable API. Inspired by the Fluent Interface Design Pattern, CollecType brings expressive, readable, and robust data manipulation to your TypeScript projects.
 
+Its goal: make working with collections as productive and enjoyable as possible, with full type safety and a clean, extensible API.
+
 ---
 
 ## Documentation
@@ -10,27 +12,37 @@ More detailed documentation is coming soon.
 
 ## Installation
 
-CollecType runs on Node.js and is available as an NPM package.
+CollecType runs on Node.js and is available as an NPM package:
 
 ```bash
-npm install collectype --save
+npm install collectype
 ```
 
-## Usage : Collection and Functions Concept
+## Core Concept
 
-CollecType is built around two main abstractions: `Collection` and a set of "functions" classes (such as `BaseFunctions` and `FullFunctions`).
+CollecType is built around two main abstractions: the `Collection` class and a set of "functions" classes (such as `BaseFunctions` and `FullFunctions`).
 
-- **Collection**: A generic wrapper for your array of items. It exposes a `.fn` property, which provides a fluent API for filtering, sorting, and transforming your data.
-- **Functions classes**: These encapsulate the available operations. You can use the built-in `BaseFunctions` for basic operations, `FullFunctions` for advanced features, or define your own class extending either to add domain-specific methods.
+- **Collection**: A generic, type-safe wrapper for your array of items. It exposes a `.fn` property, which provides a fluent API for filtering, sorting, and transforming your data.
+- **Functions classes**: These encapsulate the available operations. Use the built-in `BaseFunctions` for basic operations, `FullFunctions` for advanced features, or define your own class extending either to add domain-specific methods.
+
+## Usage
 
 To create a collection, instantiate `Collection` with your items and the functions class you want to use:
 
 ```typescript
-// Explicit type annotation: specify both the item type and the functions class type manually.
-// const collection = new Collection<MyType, Constructor<BaseFunctions>>(items, BaseFunctions);
+import { Collection, BaseFunctions } from 'collectype';
 
-// Inferred type (recommended): TypeScript will infer the correct functions class type from the constructor argument.
-const collection = new Collection<MyType>(items, BaseFunctions);
+// Basic collection with core functionality
+const collection = new Collection(items, BaseFunctions);
+```
+
+Or use prebuilt advanced filtering methods:
+
+```typescript
+import { Collection, FullFunctions } from 'collectype';
+
+// Collection with advanced functionality
+const collection = new Collection(items, FullFunctions);
 ```
 
 You can also provide your own functions class to add custom business logic:
@@ -38,22 +50,105 @@ You can also provide your own functions class to add custom business logic:
 ```typescript
 import { Collection, BaseFunctions } from 'collectype';
 import { PredicateFn } from 'collectype/types';
+import { people } from './data/people';
 
-type MyType = {
-  /* ... */
+type Person = {
+  name: string;
+  gender: 'male' | 'female' | 'other';
+  age: number;
 };
 
-class MyFunctions extends BaseFunctions<MyType> {
-  myCustomMethod(): this {
-    const p: PredicateFn = (a, b) => a > b;
-    return this.where(p);
+class PersonFunctions extends BaseFunctions<Person> {
+  // Filter adults (age >= target)
+  adult(target: number = 18): this {
+    return this.where((item) => item.age >= target);
   }
 }
+
+const collection = new Collection(people, PersonFunctions);
+
+// Count how many people are adults
+collection.fn.adult().count;
+```
+
+For full encapsulation, you can create a custom collection class and domain-specific functions:
+
+```typescript
+// src/models/Person.ts
+export enum GenderEnum {
+  MALE = 'male',
+  FEMALE = 'female',
+  OTHER = 'other',
+}
+
+// export type Gender = typeof valueof GenderEnum;
+export type Gender = `${GenderEnum}`;
+
+export type Person = {
+  name: string;
+  age: number;
+  gender: Gender;
+  single: boolean;
+  country?: string;
+  industry?: string;
+  quote?: string;
+};
+
+// src/collections/Person.ts
+import { Collection, BaseFunctions } from 'collectype';
+import { PredicateFn } from 'collectype/types';
+import { GenderEnum, Person } from '../models/Person';
+
+export class PersonFunctions extends BaseFunctions<Person> {
+  male(): this {
+    return this.where((item) => item.gender === GenderEnum.MALE);
+  }
+
+  // Alternative syntaxe with type for predicate function
+  female(): this {
+    const predicate: PredicateFn = (item) => item.gender >= GenderEnum.FEMALE;
+    return this.where(predicate);
+  }
+
+  adult(target: number = 18): this {
+    return this.where((item) => item.age >= target);
+  }
+}
+
+export class PersonCollection extends Collection<Person, PersonFunctions> {
+  constructor(items: Person[]) {
+    super(items, PersonFunctions);
+  }
+}
+
+// index.ts
+import { PersonCollection } from './collections/Person';
+import { people } from './data/people';
+
+const collection = new PersonCollection(people);
+
+// Count how many people are adults
+collection.fn.adult().count;
+
+// Count how many people are female and adults
+collection.fn.female().adult().count;
+
+// Filter how many people are female and adults, then sort then by age
+collection.fn.female().adult().sort('age');
+```
+
+## Explicit type annotation versus Inferred type
+
+CollecType is powerfull enough to infer type, givin you a cleaner and more readable syntax.
+
+```typescript
+import { Collection, BaseFunctions } from 'collectype';
+
 // Explicit type annotation: specify both the item type and the functions class type manually.
-// const collection = new Collection<MyType, Constructor<MyFunctions>>(items, MyFunctions);
+const collection1 = new Collection<Person, Constructor<BaseFunctions>>(people, BaseFunctions);
 
 // Inferred type (recommended): TypeScript will infer the correct functions class type from the constructor argument.
-const collection = new Collection<MyType>(items, MyFunctions);
+const collection2 = new Collection(people, BaseFunctions);
 ```
 
 **Type requirements:**
@@ -77,7 +172,7 @@ This design allows you to compose, extend, and reuse collection logic in a type-
 
 ---
 
-### Core methods provided by BaseFunctions
+## Core methods provided by BaseFunctions
 
 The `BaseFunctions` class provides core methods for working with your collections.
 
@@ -94,168 +189,130 @@ Core methods in detail:
 - `items`: Returns the current array of items in the instance, reflecting any applied filters or sorts (not chainable).
 - `count`: Returns the number of items in the current filtered/sorted instance (not chainable).
 
-### Advanced methods provided by FullFunctions
+## Advanced methods provided by FullFunctions
 
 Each method takes the field name as its first argument. Type safety is enforced automatically: for example, only fields of type `number` in your item can be used with `numberEquals` or `numberStrictInRange`, and only boolean, string, or date fields can be used with their respective filters. This ensures you get autocompletion and type checking for all filter methods, making your code safer and more productive.
 
-| BOOLEAN          | NUMBER                    | NUMBER RANGE         | STRING           | STRING BOOLEAN   |
-| ---------------- | ------------------------- | -------------------- | ---------------- | ---------------- |
-| booleanEquals    | numberEquals              | numberInRange        | stringEquals     | stringIsEmpty    |
-| booleanNotEquals | numberNotEquals           | numberOutRange       | stringNotEquals  | stringIsNotEmpty |
-|                  | numberGreaterThan         | numberStrictInRange  | stringIncludes   |                  |
-|                  | numberGreaterThanOrEquals | numberStrictOutRange | stringExcludes   |                  |
-|                  | numberLessThan            |                      | stringStartsWith |                  |
-|                  | numberLessThanOrEquals    |                      | stringEndsWith   |                  |
-|                  |                           |                      | stringMatches    |                  |
+#### Boolean methods
 
-| DATE                 | DATE CALENDAR     | DATE RANGE         | ARRAY       |
-| -------------------- | ----------------- | ------------------ | ----------- |
-| dateEquals           | dateIsToday       | dateInRange        | coming soon |
-| dateNotEquals        | dateIsYesterday   | dateOutRange       |             |
-| dateOccursBefore     | dateIsBeforeToday | dateStrictInRange  |             |
-| dateOccursAfter      | dateIsAfterToday  | dateStrictOutRange |             |
-| dateOccursOnOrBefore | dateIsFuture      |                    |             |
-| dateOccursOnOrAfter  | dateIsWeekend     |                    |             |
-|                      | dateIsWeekday     |                    |             |
+`booleanEquals`, `booleanNotEquals`
+
+#### Number methods
+
+`numberEquals`, `numberNotEquals`, `numberGreaterThan`, `numberGreaterThanOrEquals`, `numberLessThan`, `numberLessThanOrEquals`
+
+#### Number range methods
+
+`numberInRange`, `numberOutRange`, `numberStrictInRange`, `numberStrictOutRange`
+
+#### String methods
+
+`stringEquals`, `stringNotEquals`, `stringIncludes`, `stringExcludes`, `stringStartsWith`, `stringEndsWith`, `stringMatches`
+
+#### String boolean methods
+
+`stringIsEmpty`, `stringIsNotEmpty`
+
+#### Date methods
+
+`dateEquals`, `dateNotEquals`, `dateOccursBefore`, `dateOccursAfter`, `dateOccursOnOrBefore`, `dateOccursOnOrAfter`
+
+#### Date calendar methods
+
+`dateIsToday`, `dateIsYesterday`, `dateIsBeforeToday`, `dateIsAfterToday`, `dateIsFuture`, `dateIsWeekend`, `dateIsWeekday`
+
+#### Date range methods
+
+`dateInRange`, `dateOutRange`, `dateStrictInRange`, `dateStrictOutRange`
+
+#### Array methods
+
+coming soon
 
 ---
 
-## Example: Filtering and Sorting Pokémons
+### Advanced method usage and hidden chaining
 
-Suppose you have a list of Pokémon inspired by [pokeapi.co](https://pokeapi.co/):
+This section demonstrates how to leverage advanced filtering, custom domain logic, and method chaining in CollecType. By extending the functions class, you can encapsulate complex business rules and compose them fluently.
+
+Below, we define a `PersonFunctions` class that adds domain-specific filters (such as `male`, `female`, and `adult`) and a composed method `femaleAdultByAge` that chains multiple filters and sorts the result.
 
 ```typescript
-type Pokemon = {
-  id: number;
+// src/models/Person.ts
+export enum GenderEnum {
+  MALE = 'male',
+  FEMALE = 'female',
+  OTHER = 'other',
+}
+
+export type Gender = `${GenderEnum}`;
+
+export type Person = {
   name: string;
-  types: string[];
-  base_experience: number;
-  is_legendary: boolean;
+  age: number;
+  gender: Gender;
+  single: boolean;
+  country?: string;
+  industry?: string;
+  quote?: string;
 };
 
-const pokemons: Pokemon[] = [
-  { id: 1, name: 'bulbasaur', types: ['grass', 'poison'], base_experience: 64, is_legendary: false },
-  { id: 4, name: 'charmander', types: ['fire'], base_experience: 62, is_legendary: false },
-  { id: 6, name: 'charizard', types: ['fire', 'flying'], base_experience: 240, is_legendary: false },
-  { id: 7, name: 'squirtle', types: ['water'], base_experience: 63, is_legendary: false },
-  { id: 25, name: 'pikachu', types: ['electric'], base_experience: 112, is_legendary: false },
-  { id: 39, name: 'jigglypuff', types: ['normal', 'fairy'], base_experience: 95, is_legendary: false },
-  { id: 94, name: 'gengar', types: ['ghost', 'poison'], base_experience: 225, is_legendary: false },
-  { id: 131, name: 'lapras', types: ['water', 'ice'], base_experience: 187, is_legendary: false },
-  { id: 143, name: 'snorlax', types: ['normal'], base_experience: 189, is_legendary: false },
-  { id: 150, name: 'mewtwo', types: ['psychic'], base_experience: 306, is_legendary: true },
-];
-```
+// src/collections/Person.ts
+import { Collection, FullFunctions } from 'collectype';
+import { GenderEnum, Person } from '../models/Person';
 
-### Basic usage with Collection
+// Custom functions for Person domain
+export class PersonFunctions extends FullFunctions<Person> {
+  // Filter only males
+  male(): this {
+    return this.stringEquals('gender', GenderEnum.MALE);
+  }
 
-```typescript
-import { Collection, BaseFunctions } from 'collectype';
+  // Filter only females
+  female(): this {
+    return this.stringEquals('gender', GenderEnum.FEMALE);
+  }
 
-// Creates a new colletion
-const collection = new Collection<Pokemon>(pokemons, BaseFunctions);
+  // Filter adults (age >= target)
+  adult(target: number = 18): this {
+    return this.numberGreaterThanOrEquals('age', target);
+  }
 
-// Sort by base_experience descending
-const sorted = collection.fn.sort('base_experience', 'desc');
-
-console.log(sorted.items.map((p) => p.name));
-// Output: ['mewtwo', 'charizard', 'gengar', 'snorlax', 'lapras', 'pikachu', 'jigglypuff', 'bulbasaur', 'squirtle', 'charmander']
-
-// Filter by type (manual predicate)
-const onlyFire = collection.fn.where((p) => p.types.includes('fire'));
-
-console.log(onlyFire.items.map((p) => p.name));
-// Output: ['charmander', 'charizard']
-```
-
-#### Alternative systaxes
-
-```typescript
-import { Collection, BaseFunctions } from 'collectype';
-
-// Explicit type annotation: specify both the item type and the functions class type manually.
-const collection1 = new Collection<Pokemon, Constructor<BaseFunctions>>(pokemons, BaseFunctions);
-
-// Inferred type (recommended): TypeScript will infer the correct functions class type from the constructor argument.
-const collection2 = new Collection<Pokemon>(pokemons, BaseFunctions);
-```
-
-### Advanced Example: Extending BaseFunctions with Domain Methods
-
-You can create your own domain-specific filtering functions by extending `BaseFunctions`. For example, let's add an `experienced` method that filters Pokémon with more than 150 base experience:
-
-```typescript
-import { Collection, BaseFunctions } from 'collectype';
-
-class PokemonFunctions extends BaseFunctions<Pokemon> {
-  // Filter Pokemon with more than 150 base experience
-  experienced() {
-    return this.where((p) => p.base_experience > 150);
+  // Filter females who are adults, then sort by age ascending
+  femaleAdultByAge(): this {
+    return this.female().adult().sort('age');
   }
 }
 
-const collection = new Collection<Pokemon>(pokemons, PokemonFunctions);
+// Custom collection for Person
+export class PersonCollection extends Collection<Person, PersonFunctions> {
+  constructor(items: Person[]) {
+    super(items, PersonFunctions);
+  }
+}
 
-const experiencedPokemons = collection.fn.experienced();
+// index.ts
+import { PersonCollection } from './collections/Person';
+import { people } from './data/people';
 
-console.log(experiencedPokemons.count);
-// Output: 5
+const collection = new PersonCollection(people);
 
-console.log(experiencedPokemons.items.map((p) => p.name));
-// Output: ['charizard', 'gengar', 'lapras', 'snorlax', 'mewtwo']
+// Count how many people are female and adults, sorted by age
+const count = collection.fn.femaleAdultByAge().count;
+console.log(count);
 ```
 
----
-
-### Advanced usage with FullFunctions
-
-```typescript
-import { Collection, FullFunctions } from 'collectype';
-
-const collection = new Collection<Pokemon>(pokemons, FullFunctions);
-
-// Complex chaining: filter non legendary Pokemon, then sort by base_experience descending, then filter those with names starting with 'cha'
-const result = collection.fn
-  .booleanEquals('is_legendary', false)
-  .sort('base_experience', 'desc')
-  .stringStartsWith('name', 'cha');
-
-console.log(result.items.map((p) => p.name));
-// Output: ['charizard', 'charmander']
-```
-
-### Using pipe for dynamic expressions
+#### Using pipe for dynamic expressions
 
 You can also use the `pipe` method to apply a sequence of operations from a string expression:
 
 ```typescript
-const piped = collection.fn.pipe(
-  "booleanEquals('is_legendary', true) | sort('base_experience', 'desc') | stringIncludes('name', 'mew')"
-);
+const adults = collection.fn.pipe("adult(21) | sort('age', 'desc')");
 
-console.log(piped.items.map((p) => p.name));
-// Output: ['mewtwo']
+console.log(adults.items.map((p) => p.name));
 ```
 
 > ⚠️ **Warning:** The `pipe` method evaluates the expression dynamically. If the expression contains a typo, calls a non-existent method, or passes invalid arguments, it will throw a runtime error. Use with caution and prefer direct chaining for type safety whenever possible.
-
-```typescript
-import { Collection, FullFunctions } from 'collectype';
-
-const collection = new Collection<Pokemon>(pokemons, FullFunctions);
-
-// Filter legendary Pokémon
-const legendary = collection.fn.booleanEquals('is_legendary', true);
-
-console.log(legendary.items.map((p) => p.name));
-// Output: ['mewtwo']
-
-// Sort by name
-const sortedByName = collection.fn.sort('name');
-
-console.log(sortedByName.items.map((p) => p.name));
-// Output: ['bulbasaur', 'charizard', 'charmander', 'gengar', 'jigglypuff', 'lapras', 'mewtwo', 'pikachu', 'snorlax', 'squirtle']
-```
 
 ---
 
