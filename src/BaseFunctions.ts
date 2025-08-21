@@ -2,7 +2,7 @@ import { Collectable } from './interfaces/Collectable';
 import { inferSortType } from './utils/sort/inferSortType';
 import { isReserved, parsePipeExpression } from './utils/pipe/pipeFunctions';
 import { ParsedPipeStep } from './types/pipe';
-import { Predicate } from './types/collection';
+import { PredicateFn } from './types/collection';
 import { ReservedMethodsEnum } from './enums/pipe';
 import { sortByBooleanField, sortByDateField, sortByNumberField, sortByStringField } from './utils/sort/sortFunctions';
 import { SortDir, SortType } from './types/sort';
@@ -45,7 +45,7 @@ export class BaseFunctions<T> implements Collectable<T> {
    * @param fn - The predicate function to filter items.
    * @returns The instance for chaining.
    */
-  applyFilter(fn: Predicate<T>): this {
+  applyFilter(fn: PredicateFn<T>): this {
     this._items = this._items.filter(fn);
     return this;
   }

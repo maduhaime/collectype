@@ -10,13 +10,13 @@ import { FullFunctions } from '../FullFunctions';
 export type FunctionsClass<T> = new (items: T[]) => BaseFunctions<T> | FullFunctions<T>;
 
 /**
- * Predicate type for filtering collections.
+ * Type for a predicate function that filters collections.
  * Used to filter items in a collection based on a boolean condition.
  * @template T - The type of item in the collection.
  * @param {T} item - The item to test.
  * @returns {boolean} True if the item should be included, false otherwise.
  */
-export type Predicate<T> = (item: T) => boolean;
+export type PredicateFn<T> = (item: T) => boolean;
 
 /**
  * Type for a chainable method that accepts any arguments and returns the instance (`this`).
