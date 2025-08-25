@@ -197,9 +197,61 @@ Core methods in detail:
 
 ## Advanced methods provided by FullFunctions
 
-`FullFunctions` inherits all the core capabilities of `BaseFunctions`, and adds 38 prebuilt, type-safe filters for booleans, numbers, strings, and dates. All filters are fully typed and support TypeScript inference, so you get autocompletion and compile-time safety for every field and method.
+`FullFunctions` inherits all the core capabilities of `BaseFunctions`, and adds **52 prebuilt, type-safe filters** for booleans, numbers, strings, dates, and arrays. All filters are fully typed and support TypeScript inference, so you get autocompletion and compile-time safety for every field and method.
 
-Each method takes the field name as its first argument. Type safety is enforced automatically: for example, only fields of type `number` in your item can be used with `numberEquals` or `numberStrictInRange`, and only boolean, string, or date fields can be used with their respective filters. This ensures you get autocompletion and type checking for all filter methods, making your code safer and more productive.
+Each method takes the field name as its first argument. Type safety is enforced automatically: for example, only fields of type `number` in your item can be used with `numberEquals` or `numberStrictInRange`, only boolean, string, date or array fields can be used with their respective filters. This ensures you get autocompletion and type checking for all filter methods, making your code safer and more productive.
+
+#### Array methods
+
+The following advanced, type-safe array filters are available. Each method takes the field name as its first argument, and all are chainable:
+
+**Index-based filters**
+
+- `arrayIndexEquals(field, index, value)` — Value at index equals value
+- `arrayIndexNotEquals(field, index, value)` — Value at index not equals value
+- `arrayIndexIn(field, index, values[])` — Value at index is in values
+- `arrayIndexNotIn(field, index, values[])` — Value at index is not in values
+
+**Membership filters**
+
+- `arrayIncludes(field, value)` — Array includes value
+- `arrayExcludes(field, value)` — Array excludes value
+- `arrayIncludesOneOf(field, values[])` — Array includes at least one value
+- `arrayIncludesAllOf(field, values[])` — Array includes all values
+- `arrayExcludesAllOf(field, values[])` — Array excludes all values
+
+**Quantifier filters**
+
+- `arraySomeEquals(field, value)` — At least one element equals value
+- `arrayEveryEquals(field, value)` — Every element equals value
+- `arraySomeIn(field, values[])` — At least one element is in values
+- `arrayEveryIn(field, values[])` — Every element is in values
+
+**Relationship filters**
+
+- `arrayEquals(field, array)` — Array strictly equals target array (same order)
+- `arraySetEquals(field, array)` — Array equals target as a set (any order)
+- `arrayIsSubsetOf(field, array)` — Array is a subset of target
+- `arrayIsSupersetOf(field, array)` — Array is a superset of target
+
+**Sequence filters**
+
+- `arrayStartsWith(field, prefix[])` — Array starts with prefix
+- `arrayEndsWith(field, suffix[])` — Array ends with suffix
+- `arrayContainsSubsequence(field, subsequence[])` — Array contains subsequence
+
+**Size filters**
+
+- `arrayLengthEquals(field, n)` — Array length equals n
+- `arrayLengthGreaterThan(field, n)` — Array length > n
+- `arrayLengthLessThan(field, n)` — Array length < n
+- `arrayIsEmpty(field)` — Array is empty
+- `arrayIsNotEmpty(field)` — Array is not empty
+
+**Comparaison filters**
+
+- `arrayIntersects(field, array)` — Array has at least one value in common with target
+- `arrayDisjoint(field, array)` — Array has no values in common with target
 
 #### Boolean methods
 

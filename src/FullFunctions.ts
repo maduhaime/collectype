@@ -1,3 +1,31 @@
+import {
+  arrayIncludesFilter,
+  arrayExcludesFilter,
+  arraySomeEqualsFilter,
+  arrayEveryEqualsFilter,
+  arrayEqualsFilter,
+  arraySetEqualsFilter,
+  arrayIsSubsetOfFilter,
+  arrayIsSupersetOfFilter,
+  arrayStartsWithFilter,
+  arrayEndsWithFilter,
+  arrayContainsSubsequenceFilter,
+  arrayIntersectsFilter,
+  arrayDisjointFilter,
+} from './utils/filters/arrayFilter';
+import {
+  arrayIndexEqualsFilter,
+  arrayIndexNotEqualsFilter,
+  arrayIndexInFilter,
+  arrayIndexNotInFilter,
+} from './utils/filters/arrayIndexFilter';
+import {
+  arrayLengthEqualsFilter,
+  arrayLengthGreaterThanFilter,
+  arrayLengthLessThanFilter,
+  arrayIsEmptyFilter,
+  arrayIsNotEmptyFilter,
+} from './utils/filters/arraySizeFilter';
 import { BaseFunctions } from './BaseFunctions';
 import { booleanFilter } from './utils/filters/booleanFilter';
 import { BooleanOperEnum } from './enums/booleanOperation';
@@ -21,22 +49,126 @@ import { StringBooleanOperEnum } from './enums/stringBooleanOperation';
  * Provides chainable filter methods for boolean, date, date range, number, number range, and string fields.
  */
 export class FullFunctions<T> extends BaseFunctions<T> {
-  /**
-   * Filters items using the provided predicate function.
-   * This is the preferred, concise method for filtering collections.
-   *
-   * @param fn - The predicate function to filter items.
-   * @returns {this} The instance for chaining.
-   *
-   * @example
-   *   collection.fn.where(p => p.is_legendary)
-   */
-  where(fn: (item: T) => boolean): this {
-    this._items = this._items.filter(fn);
+  // ===========================
+  // Array filters
+  // ===========================
+
+  arrayIncludes<K extends keyof ByType<T, any[]>>(field: K, target: any): this {
+    this._items = arrayIncludesFilter(this._items, field, target);
     return this;
   }
-  constructor(items: T[]) {
-    super(items);
+
+  arrayExcludes<K extends keyof ByType<T, any[]>>(field: K, target: any): this {
+    this._items = arrayExcludesFilter(this._items, field, target);
+    return this;
+  }
+
+  arraySomeEquals<K extends keyof ByType<T, any[]>>(field: K, target: any): this {
+    this._items = arraySomeEqualsFilter(this._items, field, target);
+    return this;
+  }
+
+  arrayEveryEquals<K extends keyof ByType<T, any[]>>(field: K, target: any): this {
+    this._items = arrayEveryEqualsFilter(this._items, field, target);
+    return this;
+  }
+
+  arrayEquals<K extends keyof ByType<T, any[]>>(field: K, target: any[]): this {
+    this._items = arrayEqualsFilter(this._items, field, target);
+    return this;
+  }
+
+  arraySetEquals<K extends keyof ByType<T, any[]>>(field: K, target: any[]): this {
+    this._items = arraySetEqualsFilter(this._items, field, target);
+    return this;
+  }
+
+  arrayIsSubsetOf<K extends keyof ByType<T, any[]>>(field: K, target: any[]): this {
+    this._items = arrayIsSubsetOfFilter(this._items, field, target);
+    return this;
+  }
+
+  arrayIsSupersetOf<K extends keyof ByType<T, any[]>>(field: K, target: any[]): this {
+    this._items = arrayIsSupersetOfFilter(this._items, field, target);
+    return this;
+  }
+
+  arrayStartsWith<K extends keyof ByType<T, any[]>>(field: K, target: any[]): this {
+    this._items = arrayStartsWithFilter(this._items, field, target);
+    return this;
+  }
+
+  arrayEndsWith<K extends keyof ByType<T, any[]>>(field: K, target: any[]): this {
+    this._items = arrayEndsWithFilter(this._items, field, target);
+    return this;
+  }
+
+  arrayContainsSubsequence<K extends keyof ByType<T, any[]>>(field: K, target: any[]): this {
+    this._items = arrayContainsSubsequenceFilter(this._items, field, target);
+    return this;
+  }
+
+  arrayIntersects<K extends keyof ByType<T, any[]>>(field: K, target: any[]): this {
+    this._items = arrayIntersectsFilter(this._items, field, target);
+    return this;
+  }
+
+  arrayDisjoint<K extends keyof ByType<T, any[]>>(field: K, target: any[]): this {
+    this._items = arrayDisjointFilter(this._items, field, target);
+    return this;
+  }
+
+  // ===========================
+  // Array index filters
+  // ===========================
+
+  arrayIndexEquals<K extends keyof ByType<T, any[]>>(field: K, index: number, target: any): this {
+    this._items = arrayIndexEqualsFilter(this._items, field, index, target);
+    return this;
+  }
+
+  arrayIndexNotEquals<K extends keyof ByType<T, any[]>>(field: K, index: number, target: any): this {
+    this._items = arrayIndexNotEqualsFilter(this._items, field, index, target);
+    return this;
+  }
+
+  arrayIndexIn<K extends keyof ByType<T, any[]>>(field: K, index: number, targets: any[]): this {
+    this._items = arrayIndexInFilter(this._items, field, index, targets);
+    return this;
+  }
+
+  arrayIndexNotIn<K extends keyof ByType<T, any[]>>(field: K, index: number, targets: any[]): this {
+    this._items = arrayIndexNotInFilter(this._items, field, index, targets);
+    return this;
+  }
+
+  // ===========================
+  // Array size filters
+  // ===========================
+
+  arrayLengthEquals<K extends keyof ByType<T, any[]>>(field: K, n: number): this {
+    this._items = arrayLengthEqualsFilter(this._items, field, n);
+    return this;
+  }
+
+  arrayLengthGreaterThan<K extends keyof ByType<T, any[]>>(field: K, n: number): this {
+    this._items = arrayLengthGreaterThanFilter(this._items, field, n);
+    return this;
+  }
+
+  arrayLengthLessThan<K extends keyof ByType<T, any[]>>(field: K, n: number): this {
+    this._items = arrayLengthLessThanFilter(this._items, field, n);
+    return this;
+  }
+
+  arrayIsEmpty<K extends keyof ByType<T, any[]>>(field: K): this {
+    this._items = arrayIsEmptyFilter(this._items, field);
+    return this;
+  }
+
+  arrayIsNotEmpty<K extends keyof ByType<T, any[]>>(field: K): this {
+    this._items = arrayIsNotEmptyFilter(this._items, field);
+    return this;
   }
 
   // ===========================
