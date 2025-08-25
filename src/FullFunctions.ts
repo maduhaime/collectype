@@ -1,3 +1,9 @@
+import { arrayFilter } from './utils/filters/arrayFilter';
+import { ArrayOperEnum } from './enums/arrayOperation';
+import { arrayIndexFilter } from './utils/filters/arrayIndexFilter';
+import { arraySizeFilter } from './utils/filters/arraySizeFilter';
+import { ArrayIndexOperEnum } from './enums/arrayOperation';
+import { ArraySizeOperEnum } from './enums/arrayOperation';
 import { BaseFunctions } from './BaseFunctions';
 import { booleanFilter } from './utils/filters/booleanFilter';
 import { BooleanOperEnum } from './enums/booleanOperation';
@@ -21,22 +27,183 @@ import { StringBooleanOperEnum } from './enums/stringBooleanOperation';
  * Provides chainable filter methods for boolean, date, date range, number, number range, and string fields.
  */
 export class FullFunctions<T> extends BaseFunctions<T> {
-  /**
-   * Filters items using the provided predicate function.
-   * This is the preferred, concise method for filtering collections.
-   *
-   * @param fn - The predicate function to filter items.
-   * @returns {this} The instance for chaining.
-   *
-   * @example
-   *   collection.fn.where(p => p.is_legendary)
-   */
-  where(fn: (item: T) => boolean): this {
-    this._items = this._items.filter(fn);
+  // ===========================
+  // Array filters
+  // ===========================
+
+  arrayEquals<K extends keyof ByType<T, any[]>>(field: K, target: any[]): this {
+    this._items = arrayFilter(this._items, field, ArrayOperEnum.EQUALS, target);
     return this;
   }
-  constructor(items: T[]) {
-    super(items);
+
+  arraySetEquals<K extends keyof ByType<T, any[]>>(field: K, target: any[]): this {
+    this._items = arrayFilter(this._items, field, ArrayOperEnum.SET_EQUALS, target);
+    return this;
+  }
+
+  arrayIncludes<K extends keyof ByType<T, any[]>>(field: K, target: any): this {
+    this._items = arrayFilter(this._items, field, ArrayOperEnum.INCLUDES, target);
+    return this;
+  }
+
+  arrayExcludes<K extends keyof ByType<T, any[]>>(field: K, target: any): this {
+    this._items = arrayFilter(this._items, field, ArrayOperEnum.EXCLUDES, target);
+    return this;
+  }
+
+  arraySomeEquals<K extends keyof ByType<T, any[]>>(field: K, target: any): this {
+    this._items = arrayFilter(this._items, field, ArrayOperEnum.SOME_EQUALS, target);
+    return this;
+  }
+
+  arrayEveryEquals<K extends keyof ByType<T, any[]>>(field: K, target: any): this {
+    this._items = arrayFilter(this._items, field, ArrayOperEnum.EVERY_EQUALS, target);
+    return this;
+  }
+
+  arrayIsSubsetOf<K extends keyof ByType<T, any[]>>(field: K, target: any[]): this {
+    this._items = arrayFilter(this._items, field, ArrayOperEnum.IS_SUBSET_OF, target);
+    return this;
+  }
+
+  arrayIsSupersetOf<K extends keyof ByType<T, any[]>>(field: K, target: any[]): this {
+    this._items = arrayFilter(this._items, field, ArrayOperEnum.IS_SUPERSET_OF, target);
+    return this;
+  }
+
+  arrayStartsWith<K extends keyof ByType<T, any[]>>(field: K, target: any[]): this {
+    this._items = arrayFilter(this._items, field, ArrayOperEnum.STARTS_WITH, target);
+    return this;
+  }
+
+  arrayEndsWith<K extends keyof ByType<T, any[]>>(field: K, target: any[]): this {
+    this._items = arrayFilter(this._items, field, ArrayOperEnum.ENDS_WITH, target);
+    return this;
+  }
+
+  arrayContainsSubsequence<K extends keyof ByType<T, any[]>>(field: K, target: any[]): this {
+    this._items = arrayFilter(this._items, field, ArrayOperEnum.CONTAINS_SUBSEQUENCE, target);
+    return this;
+  }
+
+  arrayIntersects<K extends keyof ByType<T, any[]>>(field: K, target: any[]): this {
+    this._items = arrayFilter(this._items, field, ArrayOperEnum.INTERSECTS, target);
+    return this;
+  }
+
+  arrayDisjoint<K extends keyof ByType<T, any[]>>(field: K, target: any[]): this {
+    this._items = arrayFilter(this._items, field, ArrayOperEnum.DISJOINT, target);
+    return this;
+  }
+
+  // ===========================
+  // Array index filters (all operations)
+  // ===========================
+
+  /** Filters items where value at index equals target. */
+  arrayIndexEquals<K extends keyof ByType<T, any[]>>(field: K, index: number, target: any): this {
+    this._items = arrayIndexFilter(this._items, field, ArrayIndexOperEnum.VALUE_AT_INDEX_EQUALS, index, target);
+    return this;
+  }
+
+  /** Filters items where value at index does not equal target. */
+  arrayIndexNotEquals<K extends keyof ByType<T, any[]>>(field: K, index: number, target: any): this {
+    this._items = arrayIndexFilter(this._items, field, ArrayIndexOperEnum.VALUE_AT_INDEX_NOT_EQUALS, index, target);
+    return this;
+  }
+
+  /** Filters items where value at index is in target array. */
+  arrayIndexIn<K extends keyof ByType<T, any[]>>(field: K, index: number, targets: any[]): this {
+    this._items = arrayIndexFilter(this._items, field, ArrayIndexOperEnum.VALUE_AT_INDEX_IN, index, targets);
+    return this;
+  }
+
+  /** Filters items where value at index is not in target array. */
+  arrayIndexNotIn<K extends keyof ByType<T, any[]>>(field: K, index: number, targets: any[]): this {
+    this._items = arrayIndexFilter(this._items, field, ArrayIndexOperEnum.VALUE_AT_INDEX_NOT_IN, index, targets);
+    return this;
+  }
+
+  /** Filters items where value at index is greater than target. */
+  arrayIndexGreaterThan<K extends keyof ByType<T, any[]>>(field: K, index: number, target: any): this {
+    this._items = arrayIndexFilter(this._items, field, ArrayIndexOperEnum.VALUE_AT_INDEX_GREATER_THAN, index, target);
+    return this;
+  }
+
+  /** Filters items where value at index is greater than or equals target. */
+  arrayIndexGreaterThanOrEquals<K extends keyof ByType<T, any[]>>(field: K, index: number, target: any): this {
+    this._items = arrayIndexFilter(
+      this._items,
+      field,
+      ArrayIndexOperEnum.VALUE_AT_INDEX_GREATER_THAN_OR_EQUALS,
+      index,
+      target
+    );
+    return this;
+  }
+
+  /** Filters items where value at index is less than target. */
+  arrayIndexLessThan<K extends keyof ByType<T, any[]>>(field: K, index: number, target: any): this {
+    this._items = arrayIndexFilter(this._items, field, ArrayIndexOperEnum.VALUE_AT_INDEX_LESS_THAN, index, target);
+    return this;
+  }
+
+  /** Filters items where value at index is less than or equals target. */
+  arrayIndexLessThanOrEquals<K extends keyof ByType<T, any[]>>(field: K, index: number, target: any): this {
+    this._items = arrayIndexFilter(
+      this._items,
+      field,
+      ArrayIndexOperEnum.VALUE_AT_INDEX_LESS_THAN_OR_EQUALS,
+      index,
+      target
+    );
+    return this;
+  }
+
+  // ===========================
+  // Array size filters (all operations)
+  // ===========================
+
+  /** Filters items where array length equals n. */
+  arrayLengthEquals<K extends keyof ByType<T, any[]>>(field: K, n: number): this {
+    this._items = arraySizeFilter(this._items, field, ArraySizeOperEnum.LENGTH_EQUALS, n);
+    return this;
+  }
+
+  /** Filters items where array length is greater than n. */
+  arrayLengthGreaterThan<K extends keyof ByType<T, any[]>>(field: K, n: number): this {
+    this._items = arraySizeFilter(this._items, field, ArraySizeOperEnum.LENGTH_GREATER_THAN, n);
+    return this;
+  }
+
+  /** Filters items where array length is greater than or equals n. */
+  arrayLengthGreaterThanOrEquals<K extends keyof ByType<T, any[]>>(field: K, n: number): this {
+    this._items = arraySizeFilter(this._items, field, ArraySizeOperEnum.LENGTH_GREATER_THAN_OR_EQUALS, n);
+    return this;
+  }
+
+  /** Filters items where array length is less than n. */
+  arrayLengthLessThan<K extends keyof ByType<T, any[]>>(field: K, n: number): this {
+    this._items = arraySizeFilter(this._items, field, ArraySizeOperEnum.LENGTH_LESS_THAN, n);
+    return this;
+  }
+
+  /** Filters items where array length is less than or equals n. */
+  arrayLengthLessThanOrEquals<K extends keyof ByType<T, any[]>>(field: K, n: number): this {
+    this._items = arraySizeFilter(this._items, field, ArraySizeOperEnum.LENGTH_LESS_THAN_OR_EQUALS, n);
+    return this;
+  }
+
+  /** Filters items where array is empty. */
+  arrayIsEmpty<K extends keyof ByType<T, any[]>>(field: K): this {
+    this._items = arraySizeFilter(this._items, field, ArraySizeOperEnum.IS_EMPTY);
+    return this;
+  }
+
+  /** Filters items where array is not empty. */
+  arrayIsNotEmpty<K extends keyof ByType<T, any[]>>(field: K): this {
+    this._items = arraySizeFilter(this._items, field, ArraySizeOperEnum.IS_NOT_EMPTY);
+    return this;
   }
 
   // ===========================

@@ -14,6 +14,7 @@ export type Person = {
   country?: string;
   industry?: string;
   quote?: string;
+  hobbies?: string[];
 };
 
 export const people: Person[] = [
@@ -25,6 +26,7 @@ export const people: Person[] = [
     country: 'USA',
     industry: 'Film',
     quote: 'I believe in happy travels, not happy endings.',
+    hobbies: ['motorcycle riding', 'traveling', 'activism', 'basketball'],
   },
   {
     name: 'Audrey Tautou',
@@ -34,6 +36,7 @@ export const people: Person[] = [
     country: 'France',
     industry: 'Film',
     quote: 'Chance is the nickname of Providence.',
+    hobbies: ['photography', 'reading', 'traveling', 'fashion'],
   },
   {
     name: 'Wayne Gretzky',
@@ -43,6 +46,7 @@ export const people: Person[] = [
     country: 'Canada',
     industry: 'Sport',
     quote: 'You miss 100% of the shots you don’t take.',
+    hobbies: ['golf', 'baseball', 'coaching', 'charity work'],
   },
   {
     name: 'Greta Thunberg',
@@ -52,6 +56,7 @@ export const people: Person[] = [
     country: 'Sweden',
     industry: 'Activism',
     quote: 'No one is too small to make a difference.',
+    hobbies: ['sailing', 'reading', 'nature walks', 'public speaking'],
   },
   {
     name: 'David Beckham',
@@ -61,6 +66,7 @@ export const people: Person[] = [
     country: 'UK',
     industry: 'Sport',
     quote: 'I still look at myself and want to improve.',
+    hobbies: ['soccer', 'fashion', 'tattoos', 'cooking', 'photography'],
   },
   {
     name: 'Rihanna Fenty',
@@ -70,6 +76,7 @@ export const people: Person[] = [
     country: 'Barbados',
     industry: 'Music',
     quote: 'Let your beauty shine from within.',
+    hobbies: ['singing', 'fashion', 'makeup', 'philanthropy', 'dancing'],
   },
   {
     name: 'Bill Gates',
@@ -79,6 +86,7 @@ export const people: Person[] = [
     country: 'USA',
     industry: 'Tech',
     quote: 'Your most unhappy customers are your greatest source of learning.',
+    hobbies: ['reading', 'bridge', 'philanthropy', 'tennis'],
   },
   {
     name: 'Priyanka Chopra',
@@ -88,6 +96,7 @@ export const people: Person[] = [
     country: 'India',
     industry: 'Film',
     quote: 'Ambition is a word associated with women negatively.',
+    hobbies: ['singing', 'traveling', 'writing', 'philanthropy'],
   },
   {
     name: 'Jack Ma',
@@ -97,6 +106,7 @@ export const people: Person[] = [
     country: 'China',
     industry: 'Tech',
     quote: 'Never give up. Today is hard, tomorrow will be worse.',
+    hobbies: ['tai chi', 'reading', 'philanthropy', 'painting'],
   },
   {
     name: 'Simone Veil',
@@ -106,6 +116,7 @@ export const people: Person[] = [
     country: 'France',
     industry: 'Politics',
     quote: 'Hope is the most powerful weapon.',
+    hobbies: ['reading', 'history', 'advocacy'],
   },
   {
     name: 'Dwayne Johnson',
@@ -115,6 +126,7 @@ export const people: Person[] = [
     country: 'USA',
     industry: 'Film',
     quote: 'Success at anything will always come down to focus.',
+    hobbies: ['weightlifting', 'acting', 'fishing', 'football'],
   },
   {
     name: 'Angela Merkel',
@@ -124,6 +136,7 @@ export const people: Person[] = [
     country: 'Germany',
     industry: 'Politics',
     quote: 'Always be more than you appear and never appear to be more.',
+    hobbies: ['hiking', 'opera', 'science', 'cooking'],
   },
   {
     name: 'Yannick Noah',
@@ -133,6 +146,7 @@ export const people: Person[] = [
     country: 'France',
     industry: 'Sport',
     quote: 'Victory is in having done your best.',
+    hobbies: ['singing', 'tennis', 'philanthropy', 'gardening'],
   },
   {
     name: 'Roger Federer',
@@ -142,6 +156,7 @@ export const people: Person[] = [
     country: 'Switzerland',
     industry: 'Sport',
     quote: 'Believe in your plan, but set short term goals.',
+    hobbies: ['tennis', 'skiing', 'traveling', 'philanthropy'],
   },
   {
     name: 'Oprah Winfrey',
@@ -151,6 +166,7 @@ export const people: Person[] = [
     country: 'USA',
     industry: 'Media',
     quote: 'Turn your wounds into wisdom.',
+    hobbies: ['reading', 'philanthropy', 'cooking', 'gardening'],
   },
   {
     name: 'Katy Perry',
@@ -160,6 +176,7 @@ export const people: Person[] = [
     country: 'USA',
     industry: 'Music',
     quote: 'Confidence lets you pull off almost anything.',
+    hobbies: ['singing', 'yoga', 'collecting antiques', 'cooking'],
   },
   {
     name: 'Lionel Messi',
@@ -169,6 +186,7 @@ export const people: Person[] = [
     country: 'Argentina',
     industry: 'Sport',
     quote: 'You have to fight to reach your dream.',
+    hobbies: ['soccer', 'video games', 'family time', 'charity work'],
   },
   {
     name: 'Serena Williams',
@@ -178,6 +196,7 @@ export const people: Person[] = [
     country: 'USA',
     industry: 'Sport',
     quote: 'A champion is defined by how they recover from a fall.',
+    hobbies: ['tennis', 'fashion', 'reading', 'business'],
   },
   {
     name: 'Beyoncé Knowles',
@@ -187,6 +206,7 @@ export const people: Person[] = [
     country: 'USA',
     industry: 'Music',
     quote: 'Power is not given to you. You have to take it.',
+    hobbies: ['singing', 'dancing', 'fashion', 'philanthropy'],
   },
   {
     name: 'Elon Musk',
@@ -196,6 +216,7 @@ export const people: Person[] = [
     country: 'South Africa',
     industry: 'Tech',
     quote: 'If it matters enough, do it even if the odds are low.',
+    hobbies: ['reading', 'video games', 'innovation', 'space exploration'],
   },
   {
     name: 'Emma Watson',
@@ -205,6 +226,7 @@ export const people: Person[] = [
     country: 'France',
     industry: 'Film',
     quote: 'If not me, who? If not now, when?',
+    hobbies: ['reading', 'yoga', 'activism', 'traveling'],
   },
   {
     name: 'Usain Bolt',
@@ -214,6 +236,7 @@ export const people: Person[] = [
     country: 'Jamaica',
     industry: 'Sport',
     quote: 'Don’t think about the start of the race, think about the ending.',
+    hobbies: ['cricket', 'soccer', 'music', 'dancing'],
   },
   {
     name: 'Malala Yousafzai',
@@ -223,6 +246,7 @@ export const people: Person[] = [
     country: 'Pakistan',
     industry: 'Activism',
     quote: 'One child, one teacher, one book, one pen can change the world.',
+    hobbies: ['reading', 'writing', 'education advocacy'],
   },
   {
     name: 'Barack Obama',
@@ -232,6 +256,7 @@ export const people: Person[] = [
     country: 'USA',
     industry: 'Politics',
     quote: 'The best way to not feel hopeless is to get up and do something.',
+    hobbies: ['basketball', 'reading', 'golf', 'music'],
   },
   {
     name: 'Adele Adkins',
@@ -241,6 +266,7 @@ export const people: Person[] = [
     country: 'UK',
     industry: 'Music',
     quote: 'I have insecurities, but not with those who point them out.',
+    hobbies: ['singing', 'cooking', 'collecting records'],
   },
   {
     name: 'Cristiano Ronaldo',
@@ -250,6 +276,7 @@ export const people: Person[] = [
     country: 'Portugal',
     industry: 'Sport',
     quote: 'Your love makes me strong, your hate makes me unstoppable.',
+    hobbies: ['soccer', 'fitness', 'fashion', 'cars'],
   },
   {
     name: 'Taylor Swift',
@@ -259,6 +286,7 @@ export const people: Person[] = [
     country: 'USA',
     industry: 'Music',
     quote: 'No matter what happens in life, be good to people.',
+    hobbies: ['songwriting', 'baking', 'reading', 'cats'],
   },
   {
     name: 'Keanu Reeves',
@@ -268,6 +296,7 @@ export const people: Person[] = [
     country: 'Lebanon',
     industry: 'Film',
     quote: 'Paying attention can take you a long way.',
+    hobbies: ['motorcycles', 'music', 'philanthropy', 'martial arts'],
   },
   {
     name: 'Simone Biles',
@@ -277,6 +306,7 @@ export const people: Person[] = [
     country: 'USA',
     industry: 'Sport',
     quote: 'Regret risks that failed, not chances you never took.',
+    hobbies: ['gymnastics', 'dogs', 'traveling', 'shopping'],
   },
   {
     name: 'Shakira Mebarak',
@@ -286,5 +316,6 @@ export const people: Person[] = [
     country: 'Colombia',
     industry: 'Music',
     quote: 'In this life, to earn your place you have to fight for it.',
+    hobbies: ['singing', 'dancing', 'philanthropy', 'surfing'],
   },
 ];

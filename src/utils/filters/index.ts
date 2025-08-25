@@ -1,3 +1,6 @@
+export * from './arrayFilter';
+export * from './arrayIndexFilter';
+export * from './arraySizeFilter';
 export * from './booleanFilter';
 export * from './calendarFilter';
 export * from './dateFilter';

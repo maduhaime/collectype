@@ -36,7 +36,7 @@ import { Collection, BaseFunctions } from 'collectype';
 const collection = new Collection(items, BaseFunctions);
 ```
 
-Or use **38 prebuilt filtering methods** by injecting FullFunctions —
+Or use **61 prebuilt filtering methods** by injecting FullFunctions —
 this is a simple form of inversion of control: you pass the functions class
 as a dependency to the Collection constructor, making the collection's
 behavior fully configurable and extensible. This approach allows you to
@@ -98,6 +98,7 @@ export type Person = {
   country?: string;
   industry?: string;
   quote?: string;
+  hobbies?: string[];
 };
 
 // src/collections/Person.ts
@@ -170,9 +171,9 @@ const collection2 = new Collection(people, BaseFunctions);
   export type Constructor<T> = new (items: any[]) => T;
   ```
 
-- For built-in filtering, sorting, and piping to work out of the box, your items should be plain objects with primitive fields: `string`, `number`, `boolean`, or `Date`.
-- Arrays and nested objects are not fully supported by default. If your data includes arrays or nested objects, you can still use CollecType, but you will need to write custom filters or predicates to manipulate those fields.
-- The design is optimized for flat data models, but is flexible enough to support more complex cases with custom logic.
+- For built-in filtering, sorting, and piping to work out of the box, your items should be plain objects with primitive fields: `string`, `number`, `boolean`, `Date`, or **`array`** (arrays are now fully supported, with all advanced operations documented below).
+- Nested objects are not yet natively supported. If your data includes nested objects, you can still use CollecType, but you will need to write custom filters or predicates to manipulate those fields.
+- The design is optimized for flat data models and arrays, but is flexible enough to support more complex cases with custom logic.
 
 This design allows you to compose, extend, and reuse collection logic in a type-safe and expressive way.
 
@@ -195,47 +196,119 @@ Core methods in detail:
 - `items`: Returns the current array of items in the instance, reflecting any applied filters or sorts (not chainable).
 - `count`: Returns the number of items in the current filtered/sorted instance (not chainable).
 
+**Note:**
+The `items` and `count` properties also exist on the `Collection` itself, but those always reflect the original, unfiltered data passed to the constructor. In contrast, `items` and `count` on the functions instance (`fn`) reflect the current filtered and/or sorted state after all chained operations. This distinction lets you always access both the raw data and the current query result.
+
 ## Advanced methods provided by FullFunctions
 
-`FullFunctions` inherits all the core capabilities of `BaseFunctions`, and adds 38 prebuilt, type-safe filters for booleans, numbers, strings, and dates. All filters are fully typed and support TypeScript inference, so you get autocompletion and compile-time safety for every field and method.
+`FullFunctions` inherits all the core capabilities of `BaseFunctions`, and adds **comprehensive, type-safe filters** for booleans, numbers, strings, dates, and arrays—including advanced array index and size operations. All filters are fully typed and support TypeScript inference, so you get autocompletion and compile-time safety for every field and method.
 
-Each method takes the field name as its first argument. Type safety is enforced automatically: for example, only fields of type `number` in your item can be used with `numberEquals` or `numberStrictInRange`, and only boolean, string, or date fields can be used with their respective filters. This ensures you get autocompletion and type checking for all filter methods, making your code safer and more productive.
-
-#### Boolean methods
-
-`booleanEquals`, `booleanNotEquals`
-
-#### Number methods
-
-`numberEquals`, `numberNotEquals`, `numberGreaterThan`, `numberGreaterThanOrEquals`, `numberLessThan`, `numberLessThanOrEquals`
-
-#### Number range methods
-
-`numberInRange`, `numberOutRange`, `numberStrictInRange`, `numberStrictOutRange`
-
-#### String methods
-
-`stringEquals`, `stringNotEquals`, `stringIncludes`, `stringExcludes`, `stringStartsWith`, `stringEndsWith`, `stringMatches`
-
-#### String boolean methods
-
-`stringIsEmpty`, `stringIsNotEmpty`
-
-#### Date methods
-
-`dateEquals`, `dateNotEquals`, `dateOccursBefore`, `dateOccursAfter`, `dateOccursOnOrBefore`, `dateOccursOnOrAfter`
-
-#### Date calendar methods
-
-`dateIsToday`, `dateIsYesterday`, `dateIsBeforeToday`, `dateIsAfterToday`, `dateIsFuture`, `dateIsWeekend`, `dateIsWeekday`
-
-#### Date range methods
-
-`dateInRange`, `dateOutRange`, `dateStrictInRange`, `dateStrictOutRange`
+Each method takes the field name as its first argument. Type safety is enforced automatically: for example, only fields of type `number` in your item can be used with `numberEquals` or `numberStrictInRange`, only boolean, string, date or array fields can be used with their respective filters. This ensures you get autocompletion and type checking for all filter methods, making your code safer and more productive.
 
 #### Array methods
 
-coming soon
+- `arrayIndexEquals(field, index, value)` — Value at index equals value
+- `arrayIndexNotEquals(field, index, value)` — Value at index not equals value
+- `arrayIndexIn(field, index, values[])` — Value at index is in values
+- `arrayIndexNotIn(field, index, values[])` — Value at index is not in values
+- `arrayIndexGreaterThan(field, index, value)` — Value at index is greater than value
+- `arrayIndexGreaterThanOrEquals(field, index, value)` — Value at index is greater than or equals value
+- `arrayIndexLessThan(field, index, value)` — Value at index is less than value
+- `arrayIndexLessThanOrEquals(field, index, value)` — Value at index is less than or equals value
+
+**Array membership and quantifier methods**
+
+- `arrayIncludes(field, value)` — Array includes value
+- `arrayExcludes(field, value)` — Array excludes value
+- `arraySomeEquals(field, value)` — At least one element equals value
+- `arrayEveryEquals(field, value)` — Every element equals value
+
+**Array relationship and sequence methods**
+
+- `arrayEquals(field, array)` — Array strictly equals target array (same order)
+- `arraySetEquals(field, array)` — Array equals target as a set (any order)
+- `arrayIsSubsetOf(field, array)` — Array is a subset of target
+- `arrayIsSupersetOf(field, array)` — Array is a superset of target
+- `arrayStartsWith(field, prefix[])` — Array starts with prefix
+- `arrayEndsWith(field, suffix[])` — Array ends with suffix
+- `arrayContainsSubsequence(field, subsequence[])` — Array contains subsequence
+
+**Array size methods**
+
+- `arrayLengthEquals(field, n)` — Array length equals n
+- `arrayLengthGreaterThan(field, n)` — Array length > n
+- `arrayLengthGreaterThanOrEquals(field, n)` — Array length >= n
+- `arrayLengthLessThan(field, n)` — Array length < n
+- `arrayLengthLessThanOrEquals(field, n)` — Array length <= n
+- `arrayIsEmpty(field)` — Array is empty
+- `arrayIsNotEmpty(field)` — Array is not empty
+
+**Array comparison methods**
+
+- `arrayIntersects(field, array)` — Array has at least one value in common with target
+- `arrayDisjoint(field, array)` — Array has no values in common with target
+
+#### Boolean methods
+
+- `booleanEquals(field, value)` — Field equals boolean value
+- `booleanNotEquals(field, value)` — Field does not equal boolean value
+
+#### Date methods
+
+- `dateEquals(field, value)` — Field equals date value
+- `dateNotEquals(field, value)` — Field does not equal date value
+- `dateOccursBefore(field, value)` — Field occurs before date
+- `dateOccursAfter(field, value)` — Field occurs after date
+- `dateOccursOnOrBefore(field, value)` — Field occurs on or before date
+- `dateOccursOnOrAfter(field, value)` — Field occurs on or after date
+
+**Date calendar methods**
+
+- `dateIsToday(field, [today])` — Field is today (optionally pass reference date)
+- `dateIsYesterday(field, [today])` — Field is yesterday
+- `dateIsBeforeToday(field, [today])` — Field is before today
+- `dateIsAfterToday(field, [today])` — Field is after today
+- `dateIsFuture(field, [today])` — Field is in the future
+- `dateIsWeekend(field, [today])` — Field is a weekend
+- `dateIsWeekday(field, [today])` — Field is a weekday
+
+**Date range methods**
+
+- `dateInRange(field, min, max)` — Field is within inclusive date range [min, max]
+- `dateOutRange(field, min, max)` — Field is outside inclusive date range [min, max]
+- `dateStrictInRange(field, min, max)` — Field is strictly within date range (min, max)
+- `dateStrictOutRange(field, min, max)` — Field is strictly outside date range (min, max)
+
+#### Number methods
+
+- `numberEquals(field, value)` — Field equals number value
+- `numberNotEquals(field, value)` — Field does not equal number value
+- `numberGreaterThan(field, value)` — Field is greater than value
+- `numberGreaterThanOrEquals(field, value)` — Field is greater than or equals value
+- `numberLessThan(field, value)` — Field is less than value
+- `numberLessThanOrEquals(field, value)` — Field is less than or equals value
+
+**Number range methods**
+
+- `numberInRange(field, min, max)` — Field is within inclusive range [min, max]
+- `numberOutRange(field, min, max)` — Field is outside inclusive range [min, max]
+- `numberStrictInRange(field, min, max)` — Field is strictly within range (min, max)
+- `numberStrictOutRange(field, min, max)` — Field is strictly outside range (min, max)
+
+#### String methods
+
+- `stringEquals(field, value)` — Field equals string value
+- `stringNotEquals(field, value)` — Field does not equal string value
+- `stringIncludes(field, value)` — Field includes substring
+- `stringExcludes(field, value)` — Field does not include substring
+- `stringStartsWith(field, value)` — Field starts with substring
+- `stringEndsWith(field, value)` — Field ends with substring
+- `stringMatches(field, regex)` — Field matches regular expression
+
+**String boolean methods**
+
+- `stringIsEmpty(field)` — Field is an empty string
+- `stringIsNotEmpty(field)` — Field is not an empty string
 
 ---
 
@@ -263,6 +336,7 @@ export type Person = {
   country?: string;
   industry?: string;
   quote?: string;
+  hobbies?: string[];
 };
 
 // src/collections/Person.ts
@@ -284,6 +358,11 @@ export class PersonFunctions extends FullFunctions<Person> {
   // Filter adults (age >= target)
   adult(target: number = 18): this {
     return this.numberGreaterThanOrEquals('age', target);
+  }
+
+  // Filter people who have 'fishing' as a hobby
+  isFisherman(): this {
+    return this.arrayIncludes('hobbies', 'fishing');
   }
 
   // Filter females who are adults, then sort by age ascending

@@ -1,3 +1,4 @@
+import { ArrayOperEnum, ArrayIndexOperEnum, ArraySizeOperEnum } from '../enums/arrayOperation';
 import { BooleanOperEnum } from '../enums/booleanOperation';
 import { CalendarOperEnum } from '../enums/calendarOperation';
 import { DateOperEnum } from '../enums/dateOperation';
@@ -6,6 +7,42 @@ import { RangeOperEnum } from '../enums/rangeOperation';
 import { StringBooleanOperEnum } from '../enums/stringBooleanOperation';
 import { StringOperEnum } from '../enums/stringOperation';
 import { ValueOf } from './utility';
+
+/**
+ * Generic predicate for array operations.
+ * @template T
+ * @param arr - The array to check.
+ * @param oper - The array operation to perform (see ArrayOperType).
+ * @param target - The value or values to check, depending on the operation.
+ * @returns {boolean} Result of the operation.
+ */
+export type ArrayPredicate = <T>(arr: T[], oper: ValueOf<ArrayOperEnum>, target?: T | T[]) => boolean;
+
+/**
+ * Predicate for array index-based operations.
+ * @template T
+ * @param arr - The array to check.
+ * @param oper - The index operation to perform (see ArrayIndexOperType).
+ * @param index - The index to check.
+ * @param target - The value or values to compare.
+ * @returns {boolean} Result of the index operation.
+ */
+export type ArrayIndexPredicate = <T>(
+  arr: T[],
+  oper: ValueOf<ArrayIndexOperEnum>,
+  index: number,
+  target?: T | T[]
+) => boolean;
+
+/**
+ * Predicate for array size-based operations.
+ * @template T
+ * @param arr - The array to check.
+ * @param oper - The size operation to perform (see ArraySizeOperType).
+ * @param num - The length to compare (if applicable).
+ * @returns {boolean} Result of the size operation.
+ */
+export type ArraySizePredicate = <T>(arr: T[], oper: ValueOf<ArraySizeOperEnum>, num?: number) => boolean;
 
 /**
  * Predicate for boolean values.
