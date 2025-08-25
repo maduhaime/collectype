@@ -13,19 +13,10 @@ import {
   arrayIntersectsFilter,
   arrayDisjointFilter,
 } from './utils/filters/arrayFilter';
-import {
-  arrayIndexEqualsFilter,
-  arrayIndexNotEqualsFilter,
-  arrayIndexInFilter,
-  arrayIndexNotInFilter,
-} from './utils/filters/arrayIndexFilter';
-import {
-  arrayLengthEqualsFilter,
-  arrayLengthGreaterThanFilter,
-  arrayLengthLessThanFilter,
-  arrayIsEmptyFilter,
-  arrayIsNotEmptyFilter,
-} from './utils/filters/arraySizeFilter';
+import { arrayIndexFilter } from './utils/filters/arrayIndexFilter';
+import { arraySizeFilter } from './utils/filters/arraySizeFilter';
+import { ArrayIndexOperEnum } from './enums/arrayOperation';
+import { ArraySizeOperEnum } from './enums/arrayOperation';
 import { BaseFunctions } from './BaseFunctions';
 import { booleanFilter } from './utils/filters/booleanFilter';
 import { BooleanOperEnum } from './enums/booleanOperation';
@@ -119,55 +110,40 @@ export class FullFunctions<T> extends BaseFunctions<T> {
   }
 
   // ===========================
-  // Array index filters
+  // Array index filter (unified)
   // ===========================
 
-  arrayIndexEquals<K extends keyof ByType<T, any[]>>(field: K, index: number, target: any): this {
-    this._items = arrayIndexEqualsFilter(this._items, field, index, target);
-    return this;
-  }
-
-  arrayIndexNotEquals<K extends keyof ByType<T, any[]>>(field: K, index: number, target: any): this {
-    this._items = arrayIndexNotEqualsFilter(this._items, field, index, target);
-    return this;
-  }
-
-  arrayIndexIn<K extends keyof ByType<T, any[]>>(field: K, index: number, targets: any[]): this {
-    this._items = arrayIndexInFilter(this._items, field, index, targets);
-    return this;
-  }
-
-  arrayIndexNotIn<K extends keyof ByType<T, any[]>>(field: K, index: number, targets: any[]): this {
-    this._items = arrayIndexNotInFilter(this._items, field, index, targets);
+  /**
+   * Filters items by array index operation (equals, not equals, in, not in).
+   * @param field - The array field to filter on.
+   * @param oper - The index operation to perform (ArrayIndexOperEnum).
+   * @param index - The index to check in the array.
+   * @param target - The value or array to compare at the index.
+   * @returns This instance for chaining.
+   */
+  arrayIndexFilter<K extends keyof ByType<T, any[]>>(
+    field: K,
+    oper: ArrayIndexOperEnum,
+    index: number,
+    target: any | any[]
+  ): this {
+    this._items = arrayIndexFilter(this._items, field, oper, index, target);
     return this;
   }
 
   // ===========================
-  // Array size filters
+  // Array size filter (unified)
   // ===========================
 
-  arrayLengthEquals<K extends keyof ByType<T, any[]>>(field: K, n: number): this {
-    this._items = arrayLengthEqualsFilter(this._items, field, n);
-    return this;
-  }
-
-  arrayLengthGreaterThan<K extends keyof ByType<T, any[]>>(field: K, n: number): this {
-    this._items = arrayLengthGreaterThanFilter(this._items, field, n);
-    return this;
-  }
-
-  arrayLengthLessThan<K extends keyof ByType<T, any[]>>(field: K, n: number): this {
-    this._items = arrayLengthLessThanFilter(this._items, field, n);
-    return this;
-  }
-
-  arrayIsEmpty<K extends keyof ByType<T, any[]>>(field: K): this {
-    this._items = arrayIsEmptyFilter(this._items, field);
-    return this;
-  }
-
-  arrayIsNotEmpty<K extends keyof ByType<T, any[]>>(field: K): this {
-    this._items = arrayIsNotEmptyFilter(this._items, field);
+  /**
+   * Filters items by array size operation (equals, greater than, less than, is empty, is not empty).
+   * @param field - The array field to filter on.
+   * @param oper - The size operation to perform (ArraySizeOperEnum).
+   * @param n - The length to compare (required for some operations).
+   * @returns This instance for chaining.
+   */
+  arraySizeFilter<K extends keyof ByType<T, any[]>>(field: K, oper: ArraySizeOperEnum, n?: number): this {
+    this._items = arraySizeFilter(this._items, field, oper, n);
     return this;
   }
 

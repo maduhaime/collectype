@@ -1,10 +1,6 @@
 import { describe, it, expect } from 'vitest';
-import {
-  arrayIndexEqualsFilter,
-  arrayIndexNotEqualsFilter,
-  arrayIndexInFilter,
-  arrayIndexNotInFilter,
-} from './arrayIndexFilter';
+import { arrayIndexFilter } from './arrayIndexFilter';
+import { ArrayIndexOperEnum } from '../../enums/arrayOperation';
 
 type DummyType = { arr: string[] };
 
@@ -17,22 +13,22 @@ describe('arrayIndexFilter', () => {
   ];
 
   it('should filter arrays where value at index equals target', () => {
-    expect(arrayIndexEqualsFilter(collection, 'arr', 0, 'A').length).toBe(2);
-    expect(arrayIndexEqualsFilter(collection, 'arr', 2, 'C').length).toBe(1);
+    expect(arrayIndexFilter(collection, 'arr', ArrayIndexOperEnum.VALUE_AT_INDEX_EQUALS, 0, 'A').length).toBe(2);
+    expect(arrayIndexFilter(collection, 'arr', ArrayIndexOperEnum.VALUE_AT_INDEX_EQUALS, 2, 'C').length).toBe(1);
   });
 
   it('should filter arrays where value at index does not equal target', () => {
-    expect(arrayIndexNotEqualsFilter(collection, 'arr', 0, 'A').length).toBe(2);
-    expect(arrayIndexNotEqualsFilter(collection, 'arr', 1, 'B').length).toBe(3);
+    expect(arrayIndexFilter(collection, 'arr', ArrayIndexOperEnum.VALUE_AT_INDEX_NOT_EQUALS, 0, 'A').length).toBe(2);
+    expect(arrayIndexFilter(collection, 'arr', ArrayIndexOperEnum.VALUE_AT_INDEX_NOT_EQUALS, 1, 'B').length).toBe(3);
   });
 
   it('should filter arrays where value at index is in target array', () => {
-    expect(arrayIndexInFilter(collection, 'arr', 1, ['A', 'B']).length).toBe(2);
-    expect(arrayIndexInFilter(collection, 'arr', 2, ['C', 'D']).length).toBe(2);
+    expect(arrayIndexFilter(collection, 'arr', ArrayIndexOperEnum.VALUE_AT_INDEX_IN, 1, ['A', 'B']).length).toBe(2);
+    expect(arrayIndexFilter(collection, 'arr', ArrayIndexOperEnum.VALUE_AT_INDEX_IN, 2, ['C', 'D']).length).toBe(2);
   });
 
   it('should filter arrays where value at index is not in target array', () => {
-    expect(arrayIndexNotInFilter(collection, 'arr', 1, ['A', 'B']).length).toBe(2);
-    expect(arrayIndexNotInFilter(collection, 'arr', 2, ['C', 'D']).length).toBe(2);
+    expect(arrayIndexFilter(collection, 'arr', ArrayIndexOperEnum.VALUE_AT_INDEX_NOT_IN, 1, ['A', 'B']).length).toBe(2);
+    expect(arrayIndexFilter(collection, 'arr', ArrayIndexOperEnum.VALUE_AT_INDEX_NOT_IN, 2, ['C', 'D']).length).toBe(2);
   });
 });
