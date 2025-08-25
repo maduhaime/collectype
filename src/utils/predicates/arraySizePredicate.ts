@@ -16,8 +16,12 @@ export const arraySizePredicate: ArraySizePredicate = (arr, oper, num) => {
       return arr.length === num;
     case ArraySizeOperEnum.LENGTH_GREATER_THAN:
       return arr.length > (num ?? 0);
+    case ArraySizeOperEnum.LENGTH_GREATER_THAN_OR_EQUALS:
+      return arr.length >= (num ?? 0);
     case ArraySizeOperEnum.LENGTH_LESS_THAN:
       return arr.length < (num ?? 0);
+    case ArraySizeOperEnum.LENGTH_LESS_THAN_OR_EQUALS:
+      return arr.length <= (num ?? 0);
     case ArraySizeOperEnum.IS_EMPTY:
       return arr.length === 0;
     case ArraySizeOperEnum.IS_NOT_EMPTY:

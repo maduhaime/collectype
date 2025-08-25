@@ -24,12 +24,18 @@ export enum ArrayIndexOperEnum {
   VALUE_AT_INDEX_NOT_EQUALS = 'valueAtIndexNotEquals',
   VALUE_AT_INDEX_IN = 'valueAtIndexIn',
   VALUE_AT_INDEX_NOT_IN = 'valueAtIndexNotIn',
+  VALUE_AT_INDEX_GREATER_THAN = 'valueAtIndexGreaterThan',
+  VALUE_AT_INDEX_GREATER_THAN_OR_EQUALS = 'valueAtIndexGreaterThanOrEquals',
+  VALUE_AT_INDEX_LESS_THAN = 'valueAtIndexLessThan',
+  VALUE_AT_INDEX_LESS_THAN_OR_EQUALS = 'valueAtIndexLessThanOrEquals',
 }
 
 export enum ArraySizeOperEnum {
   LENGTH_EQUALS = 'lengthEquals',
   LENGTH_GREATER_THAN = 'lengthGreaterThan',
+  LENGTH_GREATER_THAN_OR_EQUALS = 'lengthGreaterThanOrEquals',
   LENGTH_LESS_THAN = 'lengthLessThan',
+  LENGTH_LESS_THAN_OR_EQUALS = 'lengthLessThanOrEquals',
   IS_EMPTY = 'isEmpty',
   IS_NOT_EMPTY = 'isNotEmpty',
 }

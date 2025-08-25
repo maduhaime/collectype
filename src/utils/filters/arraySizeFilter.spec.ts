@@ -5,6 +5,15 @@ import { ArraySizeOperEnum } from '../../enums/arrayOperation';
 type DummyType = { arr: string[] };
 
 describe('arraySizeFilter', () => {
+  it('should filter arrays with length greater than or equals n', () => {
+    expect(arraySizeFilter(collection, 'arr', ArraySizeOperEnum.LENGTH_GREATER_THAN_OR_EQUALS, 2).length).toBe(2); // [3], [2]
+    expect(arraySizeFilter(collection, 'arr', ArraySizeOperEnum.LENGTH_GREATER_THAN_OR_EQUALS, 3).length).toBe(1); // [3]
+  });
+
+  it('should filter arrays with length less than or equals n', () => {
+    expect(arraySizeFilter(collection, 'arr', ArraySizeOperEnum.LENGTH_LESS_THAN_OR_EQUALS, 2).length).toBe(2); // [2], []
+    expect(arraySizeFilter(collection, 'arr', ArraySizeOperEnum.LENGTH_LESS_THAN_OR_EQUALS, 3).length).toBe(3); // [3], [2], []
+  });
   const collection: DummyType[] = [{ arr: ['A', 'B', 'C'] }, { arr: ['B', 'C'] }, { arr: [] }];
 
   it('should filter arrays with length equal to n', () => {

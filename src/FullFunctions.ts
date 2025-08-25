@@ -31,6 +31,16 @@ export class FullFunctions<T> extends BaseFunctions<T> {
   // Array filters
   // ===========================
 
+  arrayEquals<K extends keyof ByType<T, any[]>>(field: K, target: any[]): this {
+    this._items = arrayFilter(this._items, field, ArrayOperEnum.EQUALS, target);
+    return this;
+  }
+
+  arraySetEquals<K extends keyof ByType<T, any[]>>(field: K, target: any[]): this {
+    this._items = arrayFilter(this._items, field, ArrayOperEnum.SET_EQUALS, target);
+    return this;
+  }
+
   arrayIncludes<K extends keyof ByType<T, any[]>>(field: K, target: any): this {
     this._items = arrayFilter(this._items, field, ArrayOperEnum.INCLUDES, target);
     return this;
@@ -48,16 +58,6 @@ export class FullFunctions<T> extends BaseFunctions<T> {
 
   arrayEveryEquals<K extends keyof ByType<T, any[]>>(field: K, target: any): this {
     this._items = arrayFilter(this._items, field, ArrayOperEnum.EVERY_EQUALS, target);
-    return this;
-  }
-
-  arrayEquals<K extends keyof ByType<T, any[]>>(field: K, target: any[]): this {
-    this._items = arrayFilter(this._items, field, ArrayOperEnum.EQUALS, target);
-    return this;
-  }
-
-  arraySetEquals<K extends keyof ByType<T, any[]>>(field: K, target: any[]): this {
-    this._items = arrayFilter(this._items, field, ArrayOperEnum.SET_EQUALS, target);
     return this;
   }
 
@@ -124,6 +124,42 @@ export class FullFunctions<T> extends BaseFunctions<T> {
     return this;
   }
 
+  /** Filters items where value at index is greater than target. */
+  arrayIndexGreaterThan<K extends keyof ByType<T, any[]>>(field: K, index: number, target: any): this {
+    this._items = arrayIndexFilter(this._items, field, ArrayIndexOperEnum.VALUE_AT_INDEX_GREATER_THAN, index, target);
+    return this;
+  }
+
+  /** Filters items where value at index is greater than or equals target. */
+  arrayIndexGreaterThanOrEquals<K extends keyof ByType<T, any[]>>(field: K, index: number, target: any): this {
+    this._items = arrayIndexFilter(
+      this._items,
+      field,
+      ArrayIndexOperEnum.VALUE_AT_INDEX_GREATER_THAN_OR_EQUALS,
+      index,
+      target
+    );
+    return this;
+  }
+
+  /** Filters items where value at index is less than target. */
+  arrayIndexLessThan<K extends keyof ByType<T, any[]>>(field: K, index: number, target: any): this {
+    this._items = arrayIndexFilter(this._items, field, ArrayIndexOperEnum.VALUE_AT_INDEX_LESS_THAN, index, target);
+    return this;
+  }
+
+  /** Filters items where value at index is less than or equals target. */
+  arrayIndexLessThanOrEquals<K extends keyof ByType<T, any[]>>(field: K, index: number, target: any): this {
+    this._items = arrayIndexFilter(
+      this._items,
+      field,
+      ArrayIndexOperEnum.VALUE_AT_INDEX_LESS_THAN_OR_EQUALS,
+      index,
+      target
+    );
+    return this;
+  }
+
   // ===========================
   // Array size filters (all operations)
   // ===========================
@@ -140,9 +176,21 @@ export class FullFunctions<T> extends BaseFunctions<T> {
     return this;
   }
 
+  /** Filters items where array length is greater than or equals n. */
+  arrayLengthGreaterThanOrEquals<K extends keyof ByType<T, any[]>>(field: K, n: number): this {
+    this._items = arraySizeFilter(this._items, field, ArraySizeOperEnum.LENGTH_GREATER_THAN_OR_EQUALS, n);
+    return this;
+  }
+
   /** Filters items where array length is less than n. */
   arrayLengthLessThan<K extends keyof ByType<T, any[]>>(field: K, n: number): this {
     this._items = arraySizeFilter(this._items, field, ArraySizeOperEnum.LENGTH_LESS_THAN, n);
+    return this;
+  }
+
+  /** Filters items where array length is less than or equals n. */
+  arrayLengthLessThanOrEquals<K extends keyof ByType<T, any[]>>(field: K, n: number): this {
+    this._items = arraySizeFilter(this._items, field, ArraySizeOperEnum.LENGTH_LESS_THAN_OR_EQUALS, n);
     return this;
   }
 

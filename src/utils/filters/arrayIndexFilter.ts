@@ -25,6 +25,10 @@ export function arrayIndexFilter<T, K extends keyof ByType<T, any[]>>(
     if (!Array.isArray(arr)) return false;
     switch (oper) {
       case ArrayIndexOperEnum.VALUE_AT_INDEX_EQUALS:
+      case ArrayIndexOperEnum.VALUE_AT_INDEX_GREATER_THAN:
+      case ArrayIndexOperEnum.VALUE_AT_INDEX_GREATER_THAN_OR_EQUALS:
+      case ArrayIndexOperEnum.VALUE_AT_INDEX_LESS_THAN:
+      case ArrayIndexOperEnum.VALUE_AT_INDEX_LESS_THAN_OR_EQUALS:
         if (index < 0 || index >= arr.length) return false;
         return arrayIndexPredicate(arr, oper, index, target);
       case ArrayIndexOperEnum.VALUE_AT_INDEX_NOT_EQUALS:

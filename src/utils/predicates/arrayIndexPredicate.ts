@@ -27,6 +27,14 @@ export const arrayIndexPredicate: ArrayIndexPredicate = <T>(
       return Array.isArray(target) ? (target as T[]).includes(arr[index]) : false;
     case ArrayIndexOperEnum.VALUE_AT_INDEX_NOT_IN:
       return Array.isArray(target) ? !(target as T[]).includes(arr[index]) : false;
+    case ArrayIndexOperEnum.VALUE_AT_INDEX_GREATER_THAN:
+      return target !== undefined && target !== null && arr[index] > target;
+    case ArrayIndexOperEnum.VALUE_AT_INDEX_GREATER_THAN_OR_EQUALS:
+      return target !== undefined && target !== null && arr[index] >= target;
+    case ArrayIndexOperEnum.VALUE_AT_INDEX_LESS_THAN:
+      return target !== undefined && target !== null && arr[index] < target;
+    case ArrayIndexOperEnum.VALUE_AT_INDEX_LESS_THAN_OR_EQUALS:
+      return target !== undefined && target !== null && arr[index] <= target;
     default:
       throw new Error(`Unsupported array index predicate operator: ${oper}`);
   }
