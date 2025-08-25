@@ -1,18 +1,5 @@
-import {
-  arrayIncludesFilter,
-  arrayExcludesFilter,
-  arraySomeEqualsFilter,
-  arrayEveryEqualsFilter,
-  arrayEqualsFilter,
-  arraySetEqualsFilter,
-  arrayIsSubsetOfFilter,
-  arrayIsSupersetOfFilter,
-  arrayStartsWithFilter,
-  arrayEndsWithFilter,
-  arrayContainsSubsequenceFilter,
-  arrayIntersectsFilter,
-  arrayDisjointFilter,
-} from './utils/filters/arrayFilter';
+import { arrayFilter } from './utils/filters/arrayFilter';
+import { ArrayOperEnum } from './enums/arrayOperation';
 import { arrayIndexFilter } from './utils/filters/arrayIndexFilter';
 import { arraySizeFilter } from './utils/filters/arraySizeFilter';
 import { ArrayIndexOperEnum } from './enums/arrayOperation';
@@ -45,105 +32,129 @@ export class FullFunctions<T> extends BaseFunctions<T> {
   // ===========================
 
   arrayIncludes<K extends keyof ByType<T, any[]>>(field: K, target: any): this {
-    this._items = arrayIncludesFilter(this._items, field, target);
+    this._items = arrayFilter(this._items, field, ArrayOperEnum.INCLUDES, target);
     return this;
   }
 
   arrayExcludes<K extends keyof ByType<T, any[]>>(field: K, target: any): this {
-    this._items = arrayExcludesFilter(this._items, field, target);
+    this._items = arrayFilter(this._items, field, ArrayOperEnum.EXCLUDES, target);
     return this;
   }
 
   arraySomeEquals<K extends keyof ByType<T, any[]>>(field: K, target: any): this {
-    this._items = arraySomeEqualsFilter(this._items, field, target);
+    this._items = arrayFilter(this._items, field, ArrayOperEnum.SOME_EQUALS, target);
     return this;
   }
 
   arrayEveryEquals<K extends keyof ByType<T, any[]>>(field: K, target: any): this {
-    this._items = arrayEveryEqualsFilter(this._items, field, target);
+    this._items = arrayFilter(this._items, field, ArrayOperEnum.EVERY_EQUALS, target);
     return this;
   }
 
   arrayEquals<K extends keyof ByType<T, any[]>>(field: K, target: any[]): this {
-    this._items = arrayEqualsFilter(this._items, field, target);
+    this._items = arrayFilter(this._items, field, ArrayOperEnum.EQUALS, target);
     return this;
   }
 
   arraySetEquals<K extends keyof ByType<T, any[]>>(field: K, target: any[]): this {
-    this._items = arraySetEqualsFilter(this._items, field, target);
+    this._items = arrayFilter(this._items, field, ArrayOperEnum.SET_EQUALS, target);
     return this;
   }
 
   arrayIsSubsetOf<K extends keyof ByType<T, any[]>>(field: K, target: any[]): this {
-    this._items = arrayIsSubsetOfFilter(this._items, field, target);
+    this._items = arrayFilter(this._items, field, ArrayOperEnum.IS_SUBSET_OF, target);
     return this;
   }
 
   arrayIsSupersetOf<K extends keyof ByType<T, any[]>>(field: K, target: any[]): this {
-    this._items = arrayIsSupersetOfFilter(this._items, field, target);
+    this._items = arrayFilter(this._items, field, ArrayOperEnum.IS_SUPERSET_OF, target);
     return this;
   }
 
   arrayStartsWith<K extends keyof ByType<T, any[]>>(field: K, target: any[]): this {
-    this._items = arrayStartsWithFilter(this._items, field, target);
+    this._items = arrayFilter(this._items, field, ArrayOperEnum.STARTS_WITH, target);
     return this;
   }
 
   arrayEndsWith<K extends keyof ByType<T, any[]>>(field: K, target: any[]): this {
-    this._items = arrayEndsWithFilter(this._items, field, target);
+    this._items = arrayFilter(this._items, field, ArrayOperEnum.ENDS_WITH, target);
     return this;
   }
 
   arrayContainsSubsequence<K extends keyof ByType<T, any[]>>(field: K, target: any[]): this {
-    this._items = arrayContainsSubsequenceFilter(this._items, field, target);
+    this._items = arrayFilter(this._items, field, ArrayOperEnum.CONTAINS_SUBSEQUENCE, target);
     return this;
   }
 
   arrayIntersects<K extends keyof ByType<T, any[]>>(field: K, target: any[]): this {
-    this._items = arrayIntersectsFilter(this._items, field, target);
+    this._items = arrayFilter(this._items, field, ArrayOperEnum.INTERSECTS, target);
     return this;
   }
 
   arrayDisjoint<K extends keyof ByType<T, any[]>>(field: K, target: any[]): this {
-    this._items = arrayDisjointFilter(this._items, field, target);
+    this._items = arrayFilter(this._items, field, ArrayOperEnum.DISJOINT, target);
     return this;
   }
 
   // ===========================
-  // Array index filter (unified)
+  // Array index filters (all operations)
   // ===========================
 
-  /**
-   * Filters items by array index operation (equals, not equals, in, not in).
-   * @param field - The array field to filter on.
-   * @param oper - The index operation to perform (ArrayIndexOperEnum).
-   * @param index - The index to check in the array.
-   * @param target - The value or array to compare at the index.
-   * @returns This instance for chaining.
-   */
-  arrayIndexFilter<K extends keyof ByType<T, any[]>>(
-    field: K,
-    oper: ArrayIndexOperEnum,
-    index: number,
-    target: any | any[]
-  ): this {
-    this._items = arrayIndexFilter(this._items, field, oper, index, target);
+  /** Filters items where value at index equals target. */
+  arrayIndexEquals<K extends keyof ByType<T, any[]>>(field: K, index: number, target: any): this {
+    this._items = arrayIndexFilter(this._items, field, ArrayIndexOperEnum.VALUE_AT_INDEX_EQUALS, index, target);
+    return this;
+  }
+
+  /** Filters items where value at index does not equal target. */
+  arrayIndexNotEquals<K extends keyof ByType<T, any[]>>(field: K, index: number, target: any): this {
+    this._items = arrayIndexFilter(this._items, field, ArrayIndexOperEnum.VALUE_AT_INDEX_NOT_EQUALS, index, target);
+    return this;
+  }
+
+  /** Filters items where value at index is in target array. */
+  arrayIndexIn<K extends keyof ByType<T, any[]>>(field: K, index: number, targets: any[]): this {
+    this._items = arrayIndexFilter(this._items, field, ArrayIndexOperEnum.VALUE_AT_INDEX_IN, index, targets);
+    return this;
+  }
+
+  /** Filters items where value at index is not in target array. */
+  arrayIndexNotIn<K extends keyof ByType<T, any[]>>(field: K, index: number, targets: any[]): this {
+    this._items = arrayIndexFilter(this._items, field, ArrayIndexOperEnum.VALUE_AT_INDEX_NOT_IN, index, targets);
     return this;
   }
 
   // ===========================
-  // Array size filter (unified)
+  // Array size filters (all operations)
   // ===========================
 
-  /**
-   * Filters items by array size operation (equals, greater than, less than, is empty, is not empty).
-   * @param field - The array field to filter on.
-   * @param oper - The size operation to perform (ArraySizeOperEnum).
-   * @param n - The length to compare (required for some operations).
-   * @returns This instance for chaining.
-   */
-  arraySizeFilter<K extends keyof ByType<T, any[]>>(field: K, oper: ArraySizeOperEnum, n?: number): this {
-    this._items = arraySizeFilter(this._items, field, oper, n);
+  /** Filters items where array length equals n. */
+  arrayLengthEquals<K extends keyof ByType<T, any[]>>(field: K, n: number): this {
+    this._items = arraySizeFilter(this._items, field, ArraySizeOperEnum.LENGTH_EQUALS, n);
+    return this;
+  }
+
+  /** Filters items where array length is greater than n. */
+  arrayLengthGreaterThan<K extends keyof ByType<T, any[]>>(field: K, n: number): this {
+    this._items = arraySizeFilter(this._items, field, ArraySizeOperEnum.LENGTH_GREATER_THAN, n);
+    return this;
+  }
+
+  /** Filters items where array length is less than n. */
+  arrayLengthLessThan<K extends keyof ByType<T, any[]>>(field: K, n: number): this {
+    this._items = arraySizeFilter(this._items, field, ArraySizeOperEnum.LENGTH_LESS_THAN, n);
+    return this;
+  }
+
+  /** Filters items where array is empty. */
+  arrayIsEmpty<K extends keyof ByType<T, any[]>>(field: K): this {
+    this._items = arraySizeFilter(this._items, field, ArraySizeOperEnum.IS_EMPTY);
+    return this;
+  }
+
+  /** Filters items where array is not empty. */
+  arrayIsNotEmpty<K extends keyof ByType<T, any[]>>(field: K): this {
+    this._items = arraySizeFilter(this._items, field, ArraySizeOperEnum.IS_NOT_EMPTY);
     return this;
   }
 

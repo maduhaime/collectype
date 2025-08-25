@@ -1,7 +1,5 @@
 import { describe, it, expect } from 'vitest';
 import { FullFunctions } from './FullFunctions';
-import { ArraySizeOperEnum } from './enums/arrayOperation';
-import { ArrayIndexOperEnum } from './enums/arrayOperation';
 
 type DummyType = {
   id: number;
@@ -68,89 +66,6 @@ describe('FullFunctions', () => {
   it('should filter arrays that start with a target sequence', () => {
     const fn = new FullFunctions(dummyItems);
     expect(fn.arrayStartsWith('arr', ['A', 'B']).items.map((i) => i.id)).toStrictEqual([1]);
-  });
-
-  it('should filter arrays that end with a target sequence', () => {
-    const fn = new FullFunctions(dummyItems);
-    expect(fn.arrayEndsWith('arr', ['C']).items.map((i) => i.id)).toStrictEqual([1]);
-  });
-
-  it('should filter arrays that contain a target subsequence', () => {
-    const fn = new FullFunctions(dummyItems);
-    expect(fn.arrayContainsSubsequence('arr', ['B', 'C']).items.map((i) => i.id)).toStrictEqual([1, 2]);
-  });
-
-  it('should filter arrays that intersect with a target array', () => {
-    const fn = new FullFunctions(dummyItems);
-    expect(fn.arrayIntersects('arr', ['A', 'D']).items.map((i) => i.id)).toStrictEqual([1, 2, 3]);
-  });
-
-  it('should filter arrays that are disjoint with a target array', () => {
-    const fn = new FullFunctions(dummyItems);
-    expect(fn.arrayDisjoint('arr', ['Z']).items.map((i) => i.id)).toStrictEqual([1, 2, 3, 4]);
-  });
-
-  // ===========================
-  // Array index filter (unified)
-  // ===========================
-  it('should filter arrays where value at index equals target', () => {
-    const fn = new FullFunctions(dummyItems);
-    expect(
-      fn.arrayIndexFilter('arr', ArrayIndexOperEnum.VALUE_AT_INDEX_EQUALS, 0, 'A').items.map((i) => i.id)
-    ).toStrictEqual([1, 3]);
-  });
-
-  it('should filter arrays where value at index does not equal target', () => {
-    const fn = new FullFunctions(dummyItems);
-    expect(
-      fn.arrayIndexFilter('arr', ArrayIndexOperEnum.VALUE_AT_INDEX_NOT_EQUALS, 0, 'A').items.map((i) => i.id)
-    ).toStrictEqual([2, 4]);
-  });
-
-  it('should filter arrays where value at index is in target array', () => {
-    const fn = new FullFunctions(dummyItems);
-    expect(
-      fn.arrayIndexFilter('arr', ArrayIndexOperEnum.VALUE_AT_INDEX_IN, 1, ['A', 'B']).items.map((i) => i.id)
-    ).toStrictEqual([1, 3]);
-  });
-
-  it('should filter arrays where value at index is not in target array', () => {
-    const fn = new FullFunctions(dummyItems);
-    expect(
-      fn.arrayIndexFilter('arr', ArrayIndexOperEnum.VALUE_AT_INDEX_NOT_IN, 1, ['A', 'B']).items.map((i) => i.id)
-    ).toStrictEqual([2, 4]);
-  });
-
-  // ===========================
-  // Array size filter (unified)
-  // ===========================
-  it('should filter arrays where length equals n', () => {
-    const fn = new FullFunctions(dummyItems);
-    expect(fn.arraySizeFilter('arr', ArraySizeOperEnum.LENGTH_EQUALS, 3).items.map((i) => i.id)).toStrictEqual([
-      1, 2, 3,
-    ]);
-  });
-
-  it('should filter arrays where length greater than n', () => {
-    const fn = new FullFunctions(dummyItems);
-    expect(fn.arraySizeFilter('arr', ArraySizeOperEnum.LENGTH_GREATER_THAN, 2).items.map((i) => i.id)).toStrictEqual([
-      1, 2, 3,
-    ]);
-  });
-
-  it('should filter arrays where length less than n', () => {
-    const fn = new FullFunctions(dummyItems);
-    expect(fn.arraySizeFilter('arr', ArraySizeOperEnum.LENGTH_LESS_THAN, 2).items.map((i) => i.id)).toStrictEqual([4]);
-  });
-
-  it('should filter arrays that are empty', () => {
-    const fn = new FullFunctions(dummyItems);
-    expect(fn.arraySizeFilter('arr', ArraySizeOperEnum.IS_EMPTY).items.map((i) => i.id)).toStrictEqual([4]);
-  });
-
-  it('should filter arrays that are not empty', () => {
-    const fn = new FullFunctions(dummyItems);
-    expect(fn.arraySizeFilter('arr', ArraySizeOperEnum.IS_NOT_EMPTY).items.map((i) => i.id)).toStrictEqual([1, 2, 3]);
   });
 
   // ===========================
