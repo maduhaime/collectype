@@ -13,27 +13,24 @@ import { StringPredicate } from '../../types/predicate';
  * @throws Error if an unsupported operator is provided.
  */
 export const stringPredicate: StringPredicate = (source, oper, target) => {
-  // Returns true if source equals target
-  if (oper === StringOperEnum.EQUALS) return source === target;
-
-  // Returns true if source does not equal target
-  if (oper === StringOperEnum.NOT_EQUALS) return source !== target;
-
-  // Returns true if source includes target substring
-  if (oper === StringOperEnum.INCLUDES) return source.includes(target);
-
-  // Returns true if source does not include target substring
-  if (oper === StringOperEnum.EXCLUDES) return !source.includes(target);
-
-  // Returns true if source starts with target substring
-  if (oper === StringOperEnum.STARTS_WITH) return source.startsWith(target);
-
-  // Returns true if source ends with target substring
-  if (oper === StringOperEnum.ENDS_WITH) return source.endsWith(target);
-
-  // Returns true if source matches target regex pattern
-  if (oper === StringOperEnum.MATCHES) return new RegExp(target).test(source);
-
-  // Throws error for unsupported operators
-  throw new Error(`Unsupported string predicate operator: ${oper}`);
+  switch (oper) {
+    case StringOperEnum.EQUALS:
+      return source === target;
+    case StringOperEnum.NOT_EQUALS:
+      return source !== target;
+    case StringOperEnum.INCLUDES:
+      return typeof target === 'string' ? source.includes(target) : false;
+    case StringOperEnum.EXCLUDES:
+      return typeof target === 'string' ? !source.includes(target) : false;
+    case StringOperEnum.STARTS_WITH:
+      return typeof target === 'string' ? source.startsWith(target) : false;
+    case StringOperEnum.ENDS_WITH:
+      return typeof target === 'string' ? source.endsWith(target) : false;
+    case StringOperEnum.MATCHES:
+      if (typeof target === 'string') return new RegExp(target).test(source);
+      if (target instanceof RegExp) return target.test(source);
+      return false;
+    default:
+      throw new Error(`Unsupported string predicate operator: ${oper}`);
+  }
 };

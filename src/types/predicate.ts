@@ -99,7 +99,7 @@ export type NumberRangePredicate = (source: number, oper: ValueOf<RangeOperEnum>
  * @param target - The target string value.
  * @returns {boolean} Result of the predicate.
  */
-export type StringPredicate = (source: string, oper: ValueOf<StringOperEnum>, target: string) => boolean;
+export type StringPredicate = (source: string, oper: ValueOf<StringOperEnum>, target: string | RegExp) => boolean;
 
 /**
  * Predicate for string values.
