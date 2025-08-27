@@ -1,3 +1,9 @@
+import {
+  objectComparisonOperEnum,
+  objectInclusionOperEnum,
+  objectKeysOperEnum,
+  objectStringPatternOperEnum,
+} from '@/enums/objectOperation';
 import { ArrayOperEnum, ArrayIndexOperEnum, ArraySizeOperEnum } from '../enums/arrayOperation';
 import { BooleanOperEnum } from '../enums/booleanOperation';
 import { CalendarOperEnum } from '../enums/calendarOperation';
@@ -124,3 +130,30 @@ export type DatePredicate = (source: Date, oper: ValueOf<DateOperEnum>, target: 
  * @returns {boolean} Result of the predicate.
  */
 export type DateRangePredicate = (source: Date, oper: ValueOf<RangeOperEnum>, min: Date, max: Date) => boolean;
+
+export type ObjectComparisonPredicate = (
+  obj: Record<string, any>,
+  key: string,
+  oper: ValueOf<objectComparisonOperEnum>,
+  target?: any
+) => boolean;
+
+export type ObjectKeysPredicate = (
+  obj: Record<string, any>,
+  oper: ValueOf<objectKeysOperEnum>,
+  target: string | string[]
+) => boolean;
+
+export type ObjectInclusionPredicate = (
+  obj: Record<string, any>,
+  key: string,
+  oper: ValueOf<objectInclusionOperEnum>,
+  target: any[]
+) => boolean;
+
+export type ObjectStringPatternPredicate = (
+  obj: Record<string, any>,
+  key: string,
+  oper: ValueOf<objectStringPatternOperEnum>,
+  target: string | RegExp
+) => boolean;
