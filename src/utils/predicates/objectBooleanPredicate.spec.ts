@@ -1,8 +1,7 @@
 import { describe, it, expect, vi } from 'vitest';
-
+import { BooleanOperEnum } from '../../enums/booleanOperation';
 import { objectBooleanPredicate } from './objectBooleanPredicate';
 import * as booleanPredicateModule from './booleanPredicate';
-import { BooleanOperEnum } from '../../enums/booleanOperation';
 
 describe('objectBooleanPredicate', () => {
   it('returns false if property is not a boolean', () => {

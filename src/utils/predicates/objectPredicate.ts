@@ -1,6 +1,22 @@
 import { ObjectOperEnum } from '../../enums/objectOperation';
-import { ObjectPredicate } from '../../types/predicate';
+import { ObjectOper } from '../../types/objectOperation';
+import { ValueOf } from '../../types/utility';
 
+// Type for object predicate function
+export type ObjectPredicate = (
+  obj: Record<string, any>,
+  oper: ObjectOper | ValueOf<ObjectOperEnum>,
+  target: string | string[]
+) => boolean;
+
+/**
+ * Evaluates generic object operations (e.g. key presence, value inclusion, etc.).
+ * @param obj - The object to check.
+ * @param oper - The object operation to perform (from ObjectOperEnum).
+ * @param target - The value or values to check, depending on the operation.
+ * @returns {boolean} Result of the operation.
+ * @throws Error if an unsupported operator is provided.
+ */
 export const objectPredicate: ObjectPredicate = (obj, oper, target) => {
   if (oper === ObjectOperEnum.HAS_KEY) {
     const key = target as string;

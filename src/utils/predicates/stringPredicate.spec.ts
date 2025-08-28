@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
-import { stringPredicate } from '../../utils/predicates/stringPredicate';
 import { StringOperEnum } from '../../enums/stringOperation';
+import { stringPredicate } from '../../utils/predicates/stringPredicate';
 
 describe('stringPredicate', () => {
   it('should check EQUALS', () => {

@@ -1,6 +1,9 @@
+import { ArrayOper } from '../../types/arrayOperation';
 import { ArrayOperEnum } from '../../enums/arrayOperation';
-import { ArrayPredicate } from '../../types/predicate';
 import { ValueOf } from '../../types/utility';
+
+// Type for array predicate function
+export type ArrayPredicate = <T>(arr: T[], oper: ArrayOper | ValueOf<ArrayOperEnum>, target?: T | T[]) => boolean;
 
 /**
  * Evaluates an operation on an array according to the provided operator.

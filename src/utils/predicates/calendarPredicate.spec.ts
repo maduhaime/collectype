@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
-import { calendarPredicate } from './calendarPredicate';
 import { CalendarOperEnum } from '../../enums/calendarOperation';
+import { calendarPredicate } from './calendarPredicate';
 
 describe('calendarPredicate', () => {
   const today = new Date(Date.UTC(2023, 11, 28)); // 2023-12-28 UTC

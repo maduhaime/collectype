@@ -1,14 +1,17 @@
 import { CalendarOperEnum } from '../../enums/calendarOperation';
-import { CalendarPredicate } from '../../types/predicate';
+import { CalendarOper } from '../../types/calendarOperation';
+
+import { ValueOf } from '../../types/utility';
+
+// Type for calendar predicate function
+export type CalendarPredicate = (source: Date, oper: CalendarOper | ValueOf<CalendarOperEnum>, today?: Date) => boolean;
 
 /**
- * Predicate function for calendar-based date values.
- * Used to evaluate a date value against calendar operations such as today, yesterday, weekday, weekend, future, and past.
- *
- * @param source - The source date value to test.
- * @param oper - The calendar operation to apply. Must be a value from CalendarOperEnum.
- * @param today - The reference date for operations like IS_TODAY, IS_YESTERDAY, IS_BEFORE_TODAY, IS_AFTER_TODAY. Defaults to current date.
- * @returns {boolean} The result of the predicate evaluation.
+ * Evaluates a date value against calendar operations (weekday, weekend, today, etc.).
+ * @param source - The source date value.
+ * @param oper - The calendar operator to apply. Must be a value from CalendarOperEnum.
+ * @param today - The reference date for operations like IS_TODAY, IS_YESTERDAY, etc. Optional, defaults to current date.
+ * @returns {boolean} Result of the predicate.
  * @throws Error if an unsupported operator is provided.
  */
 export const calendarPredicate: CalendarPredicate = (source, oper, today = new Date()) => {

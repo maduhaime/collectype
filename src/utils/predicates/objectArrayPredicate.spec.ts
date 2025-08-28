@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
-import { objectArrayPredicate } from './objectArrayPredicate';
 import { ArrayOperEnum } from '../../enums/arrayOperation';
+import { objectArrayPredicate } from './objectArrayPredicate';
 
 describe('objectArrayPredicate', () => {
   it('should return false if property is not an array', () => {

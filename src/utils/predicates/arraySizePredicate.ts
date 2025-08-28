@@ -1,13 +1,21 @@
+import { ArraySizeOper } from '../../types/arrayOperation';
 import { ArraySizeOperEnum } from '../../enums/arrayOperation';
-import { ArraySizePredicate } from '../../types';
+import { ValueOf } from '../../types/utility';
+
+// Type for array size predicate function
+export type ArraySizePredicate = <T>(
+  arr: T[],
+  oper: ArraySizeOper | ValueOf<ArraySizeOperEnum>,
+  num?: number
+) => boolean;
 
 /**
  * Evaluates an operation on the size of an array.
  * Supports equality, comparison, emptiness, etc.
  * @template T
- * @param {T[]} arr - The array to test
- * @param {ValueOf<ArraySizeOperEnum>} oper - The operation to perform (see ArraySizeOperEnum)
- * @param {number} [num] - The size value to compare (if applicable)
+ * @param arr - The array to test
+ * @param oper - The operation to perform (see ArraySizeOperEnum)
+ * @param num - The size value to compare (if applicable)
  * @returns {boolean} Result of the operation
  */
 export const arraySizePredicate: ArraySizePredicate = (arr, oper, num) => {

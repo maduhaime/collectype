@@ -1,7 +1,6 @@
 import { describe, expect, it } from 'vitest';
-
-import { booleanPredicate } from '../../utils/predicates/booleanPredicate';
 import { BooleanOperEnum } from '../../enums/booleanOperation';
+import { booleanPredicate } from '../../utils/predicates/booleanPredicate';
 
 describe('booleanPredicate', () => {
   it('should check EQUALS', () => {

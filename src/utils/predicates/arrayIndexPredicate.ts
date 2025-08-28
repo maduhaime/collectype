@@ -1,5 +1,21 @@
+import { ArrayIndexOper } from '../../types/arrayOperation';
 import { ArrayIndexOperEnum } from '../../enums/arrayOperation';
-import { ArrayIndexPredicate } from '../../types/predicate';
+
+/**
+ * Predicate for array index-based operations.
+ * @template T
+ * @param arr - The array to check.
+ * @param oper - The index operation to perform (see ArrayIndexOperType).
+ * @param index - The index to check.
+ * @param target - The value or values to compare.
+ * @returns {boolean} Result of the index operation.
+ */
+export type ArrayIndexPredicate = <T>(
+  arr: T[],
+  oper: ArrayIndexOper | ValueOf<ArrayIndexOperEnum>,
+  index: number,
+  target?: T | T[]
+) => boolean;
 import { ValueOf } from '../../types/utility';
 
 /**

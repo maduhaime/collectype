@@ -1,8 +1,7 @@
 import { describe, it, expect, vi } from 'vitest';
-
 import { objectStringPredicate } from './objectStringPredicate';
-import * as stringPredicateModule from './stringPredicate';
 import { StringOperEnum } from '../../enums/stringOperation';
+import * as stringPredicateModule from './stringPredicate';
 
 describe('objectStringPredicate', () => {
   it('returns false if property is not a string', () => {

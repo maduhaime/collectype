@@ -1,8 +1,18 @@
 import { numberPredicate } from './numberPredicate';
-import { ObjectNumberPredicate } from '@/types/predicate';
+import { NumberOper } from '../../types/numberOperation';
+import { NumberOperEnum } from '../../enums/numberOperation';
+import { ValueOf } from '../../types/utility';
+
+// Type for object number predicate function
+export type ObjectNumberPredicate = (
+  obj: Record<string, any>,
+  key: string,
+  oper: NumberOper | ValueOf<NumberOperEnum>,
+  target: number
+) => boolean;
 
 /**
- * Object number predicate: delegates number operations on an object property to numberPredicate.
+ * Delegates number operations on an object property to numberPredicate.
  * @param obj - The object containing the number property.
  * @param key - The key of the property to test.
  * @param oper - The number operation to apply.

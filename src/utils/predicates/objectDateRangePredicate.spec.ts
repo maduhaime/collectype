@@ -1,8 +1,7 @@
 import { describe, it, expect, vi } from 'vitest';
-
 import { objectDateRangePredicate } from './objectDateRangePredicate';
-import * as dateRangePredicateModule from './dateRangePredicate';
 import { RangeOperEnum } from '../../enums/rangeOperation';
+import * as dateRangePredicateModule from './dateRangePredicate';
 
 describe('objectDateRangePredicate', () => {
   it('returns false if property is not a Date', () => {

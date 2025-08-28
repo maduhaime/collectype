@@ -1,8 +1,19 @@
 import { arrayIndexPredicate } from './arrayIndexPredicate';
-import { ObjectArrayIndexPredicate } from '@/types/predicate';
+import { ArrayIndexOper } from '../../types/arrayOperation';
+import { ArrayIndexOperEnum } from '../../enums/arrayOperation';
+import { ValueOf } from '../../types/utility';
+
+// Type for object array index predicate function
+export type ObjectArrayIndexPredicate = (
+  obj: Record<string, any>,
+  key: string,
+  oper: ArrayIndexOper | ValueOf<ArrayIndexOperEnum>,
+  index: number,
+  target?: any | any[]
+) => boolean;
 
 /**
- * Object array index predicate: delegates array index operations on an object property to arrayIndexPredicate.
+ * Delegates array index operations on an object property to arrayIndexPredicate.
  * @param obj - The object containing the array property.
  * @param key - The key of the property to test.
  * @param oper - The array index operation to apply.

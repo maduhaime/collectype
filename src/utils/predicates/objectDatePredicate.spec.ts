@@ -1,8 +1,7 @@
 import { describe, it, expect, vi } from 'vitest';
-
+import { DateOperEnum } from '../../enums/dateOperation';
 import { objectDatePredicate } from './objectDatePredicate';
 import * as datePredicateModule from './datePredicate';
-import { DateOperEnum } from '../../enums/dateOperation';
 
 describe('objectDatePredicate', () => {
   it('returns false if property is not a Date', () => {

@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
-import { numberPredicate } from '../../utils/predicates/numberPredicate';
 import { NumberOperEnum } from '../../enums/numberOperation';
+import { numberPredicate } from '../../utils/predicates/numberPredicate';
 
 describe('numberPredicate', () => {
   it('should check equality', () => {

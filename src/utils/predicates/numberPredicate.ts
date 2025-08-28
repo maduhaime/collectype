@@ -1,15 +1,17 @@
+import { NumberOper } from '../../types/numberOperation';
 import { NumberOperEnum } from '../../enums/numberOperation';
-import { NumberPredicate } from '../../types/predicate';
+import { ValueOf } from '../../types/utility';
+
+// Type for number predicate function
+export type NumberPredicate = (source: number, oper: NumberOper | ValueOf<NumberOperEnum>, target: number) => boolean;
 
 /**
- * Predicate function for number values.
- * Used to evaluate a number value against a target using the specified operator from NumberOperEnum.
+ * Evaluates a number value against a target using the specified operator.
  * Supports equality, comparison, integer/float checks, and zero/positive/negative checks.
- *
- * @param source - The source number value to test.
- * @param oper - The number operation to apply. Must be a value from NumberOperEnum.
- * @param target - The target number value for comparison.
- * @returns {boolean} The result of the predicate evaluation.
+ * @param source - The source number value.
+ * @param oper - The operator to apply. Must be a value from NumberOperEnum.
+ * @param target - The target number value.
+ * @returns {boolean} Result of the predicate.
  * @throws Error if an unsupported operator is provided.
  */
 export const numberPredicate: NumberPredicate = (source, oper, target) => {

@@ -1,8 +1,7 @@
 import { describe, it, expect, vi } from 'vitest';
-
 import { objectNumberRangePredicate } from './objectNumberRangePredicate';
-import * as numberRangePredicateModule from './numberRangePredicate';
 import { RangeOperEnum } from '../../enums/rangeOperation';
+import * as numberRangePredicateModule from './numberRangePredicate';
 
 describe('objectNumberRangePredicate', () => {
   it('returns false if property is not a number', () => {

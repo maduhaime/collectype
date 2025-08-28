@@ -1,8 +1,18 @@
 import { arrayPredicate } from './arrayPredicate';
-import { ObjectArrayPredicate } from '@/types/predicate';
+import { ArrayOper } from '../../types/arrayOperation';
+import { ArrayOperEnum } from '../../enums/arrayOperation';
+import { ValueOf } from '../../types/utility';
+
+// Type for object array predicate function
+export type ObjectArrayPredicate = (
+  obj: Record<string, any>,
+  key: string,
+  oper: ArrayOper | ValueOf<ArrayOperEnum>,
+  target?: any | any[]
+) => boolean;
 
 /**
- * Object array predicate: delegates array operations on an object property to arrayPredicate.
+ * Delegates array operations on an object property to arrayPredicate.
  * @param obj - The object containing the array property.
  * @param key - The key of the property to test.
  * @param oper - The array operation to apply.

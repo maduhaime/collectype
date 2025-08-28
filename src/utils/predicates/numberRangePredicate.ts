@@ -1,12 +1,19 @@
+import { RangeOper } from '../../types/rangeOperation';
 import { RangeOperEnum } from '../../enums/rangeOperation';
-import { NumberRangePredicate } from '../../types/predicate';
+import { ValueOf } from '../../types/utility';
+
+// Type for number range predicate function
+export type NumberRangePredicate = (
+  source: number,
+  oper: RangeOper | ValueOf<RangeOperEnum>,
+  min: number,
+  max: number
+) => boolean;
 
 /**
- * Predicate function for number ranges.
- * Used to evaluate a number value against a range using the specified operator from RangeOperEnum.
+ * Evaluates a number value against a range using the specified operator.
  * Supports inclusive and strict range checks.
- *
- * @param source - The source number value to test.
+ * @param source - The source number value.
  * @param oper - The range operation to apply. Must be a value from RangeOperEnum.
  * @param min - The minimum bound.
  * @param max - The maximum bound.

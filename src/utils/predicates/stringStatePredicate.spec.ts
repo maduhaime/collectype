@@ -1,7 +1,6 @@
 import { describe, it, expect } from 'vitest';
-
-import { stringStatePredicate } from '@/utils/predicates/stringStatePredicate';
-import { StringStateOperEnum } from '@/enums/stringOperation';
+import { StringStateOperEnum } from '../../enums/stringOperation';
+import { stringStatePredicate } from '../../utils/predicates/stringStatePredicate';
 
 describe('stringStatePredicate', () => {
   it('should check IS_EMPTY', () => {

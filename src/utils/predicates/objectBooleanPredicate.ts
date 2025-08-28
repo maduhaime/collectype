@@ -1,8 +1,18 @@
 import { booleanPredicate } from './booleanPredicate';
-import { ObjectBooleanPredicate } from '@/types/predicate';
+import { BooleanOper } from '../../types/booleanOperation';
+import { BooleanOperEnum } from '../../enums/booleanOperation';
+import { ValueOf } from '../../types/utility';
+
+// Type for object boolean predicate function
+export type ObjectBooleanPredicate = (
+  obj: Record<string, any>,
+  key: string,
+  oper: BooleanOper | ValueOf<BooleanOperEnum>,
+  target: boolean
+) => boolean;
 
 /**
- * Object boolean predicate: delegates boolean operations on an object property to booleanPredicate.
+ * Delegates boolean operations on an object property to booleanPredicate.
  * @param obj - The object containing the boolean property.
  * @param key - The key of the property to test.
  * @param oper - The boolean operation to apply.

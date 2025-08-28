@@ -1,14 +1,20 @@
+import { BooleanOper } from '../../types/booleanOperation';
 import { BooleanOperEnum } from '../../enums/booleanOperation';
-import { BooleanPredicate } from '../../types/predicate';
+import { ValueOf } from '../../types/utility';
+
+// Type for boolean predicate function
+export type BooleanPredicate = (
+  source: boolean,
+  oper: BooleanOper | ValueOf<BooleanOperEnum>,
+  target: boolean
+) => boolean;
 
 /**
- * Predicate function for boolean values.
- * Evaluates a boolean value against a target using the specified operator from BooleanOperEnum.
- *
- * @param source - The source boolean value to test.
- * @param oper - The boolean operation to apply. Must be a value from BooleanOperEnum.
- * @param target - The target boolean value for comparison.
- * @returns {boolean} The result of the predicate evaluation.
+ * Evaluates a boolean value against a target using the specified operator.
+ * @param source - The source boolean value.
+ * @param oper - The operator to apply. Must be a value from BooleanOperEnum.
+ * @param target - The target boolean value.
+ * @returns {boolean} Result of the predicate.
  * @throws Error if an unsupported operator is provided.
  */
 export const booleanPredicate: BooleanPredicate = (source, oper, target) => {

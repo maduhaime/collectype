@@ -1,9 +1,18 @@
 import { stringPredicate } from './stringPredicate';
-import { ObjectStringPredicate } from '@/types/predicate';
+import { StringOper } from '../../types/stringOperation';
+import { StringOperEnum } from '../../enums/stringOperation';
+import { ValueOf } from '../../types/utility';
+
+// Type for object string predicate function
+export type ObjectStringPredicate = (
+  obj: Record<string, any>,
+  key: string,
+  oper: StringOper | ValueOf<StringOperEnum>,
+  target: string | RegExp
+) => boolean;
 
 /**
- * Object string predicate: delegates string operations on an object property to stringPredicate.
- *
+ * Delegates string operations on an object property to stringPredicate.
  * @param obj - The object containing the string property.
  * @param key - The key of the property to test.
  * @param oper - The string operation to apply (from StringOperEnum).

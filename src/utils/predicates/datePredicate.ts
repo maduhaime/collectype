@@ -1,15 +1,17 @@
+import { DateOper } from '../../types/dateOperation';
 import { DateOperEnum } from '../../enums/dateOperation';
-import { DatePredicate } from '../../types/predicate';
+import { ValueOf } from '../../types/utility';
+
+// Type for date predicate function
+export type DatePredicate = (source: Date, oper: DateOper | ValueOf<DateOperEnum>, target: Date) => boolean;
 
 /**
- * Predicate function for date values.
- * Used to evaluate a date value against a target using the specified operator from DateOperEnum.
+ * Evaluates a date value against a target using the specified operator.
  * Supports equality, comparison, relative date checks, and calendar-based checks.
- *
- * @param source - The source date value to test.
- * @param oper - The date operation to apply. Must be a value from DateOperEnum.
- * @param target - The target date value for comparison.
- * @returns {boolean} The result of the predicate evaluation.
+ * @param source - The source date value.
+ * @param oper - The operator to apply. Must be a value from DateOperEnum.
+ * @param target - The target date value.
+ * @returns {boolean} Result of the predicate.
  * @throws Error if an unsupported operator is provided.
  */
 export const datePredicate: DatePredicate = (source, oper, target) => {

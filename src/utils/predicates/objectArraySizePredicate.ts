@@ -1,8 +1,18 @@
 import { arraySizePredicate } from './arraySizePredicate';
-import { ObjectArraySizePredicate } from '@/types/predicate';
+import { ArraySizeOper } from '../../types/arrayOperation';
+import { ArraySizeOperEnum } from '../../enums/arrayOperation';
+import { ValueOf } from '../../types/utility';
+
+// Type for object array size predicate function
+export type ObjectArraySizePredicate = (
+  obj: Record<string, any>,
+  key: string,
+  oper: ArraySizeOper | ValueOf<ArraySizeOperEnum>,
+  num?: number
+) => boolean;
 
 /**
- * Object array size predicate: delegates array size operations on an object property to arraySizePredicate.
+ * Delegates array size operations on an object property to arraySizePredicate.
  * @param obj - The object containing the array property.
  * @param key - The key of the property to test.
  * @param oper - The array size operation to apply.

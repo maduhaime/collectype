@@ -1,8 +1,19 @@
 import { numberRangePredicate } from './numberRangePredicate';
-import { ObjectNumberRangePredicate } from '@/types/predicate';
+import { RangeOper } from '../../types/rangeOperation';
+import { RangeOperEnum } from '../../enums/rangeOperation';
+import { ValueOf } from '../../types/utility';
+
+// Type for object number range predicate function
+export type ObjectNumberRangePredicate = (
+  obj: Record<string, any>,
+  key: string,
+  oper: RangeOper | ValueOf<RangeOperEnum>,
+  min: number,
+  max: number
+) => boolean;
 
 /**
- * Object number range predicate: delegates number range operations on an object property to numberRangePredicate.
+ * Delegates number range operations on an object property to numberRangePredicate.
  * @param obj - The object containing the number property.
  * @param key - The key of the property to test.
  * @param oper - The range operation to apply.

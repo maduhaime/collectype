@@ -1,8 +1,18 @@
 import { calendarPredicate } from './calendarPredicate';
-import { ObjectCalendarPredicate } from '@/types/predicate';
+import { CalendarOper } from '../../types/calendarOperation';
+import { CalendarOperEnum } from '../../enums/calendarOperation';
+import { ValueOf } from '../../types/utility';
+
+// Type for object calendar predicate function
+export type ObjectCalendarPredicate = (
+  obj: Record<string, any>,
+  key: string,
+  oper: CalendarOper | ValueOf<CalendarOperEnum>,
+  today?: Date
+) => boolean;
 
 /**
- * Object calendar predicate: delegates calendar operations on an object property to calendarPredicate.
+ * Delegates calendar operations on an object property to calendarPredicate.
  * @param obj - The object containing the date property.
  * @param key - The key of the property to test.
  * @param oper - The calendar operation to apply.

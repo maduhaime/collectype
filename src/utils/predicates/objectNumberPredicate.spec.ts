@@ -1,8 +1,7 @@
 import { describe, it, expect, vi } from 'vitest';
-
+import { NumberOperEnum } from '../../enums/numberOperation';
 import { objectNumberPredicate } from './objectNumberPredicate';
 import * as numberPredicateModule from './numberPredicate';
-import { NumberOperEnum } from '../../enums/numberOperation';
 
 describe('objectNumberPredicate', () => {
   it('returns false if property is not a number', () => {

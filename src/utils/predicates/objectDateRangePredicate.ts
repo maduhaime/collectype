@@ -1,8 +1,19 @@
 import { dateRangePredicate } from './dateRangePredicate';
-import { ObjectDateRangePredicate } from '@/types/predicate';
+import { RangeOper } from '../../types/rangeOperation';
+import { RangeOperEnum } from '../../enums/rangeOperation';
+import { ValueOf } from '../../types/utility';
+
+// Type for object date range predicate function
+export type ObjectDateRangePredicate = (
+  obj: Record<string, any>,
+  key: string,
+  oper: RangeOper | ValueOf<RangeOperEnum>,
+  min: Date,
+  max: Date
+) => boolean;
 
 /**
- * Object date range predicate: delegates date range operations on an object property to dateRangePredicate.
+ * Delegates date range operations on an object property to dateRangePredicate.
  * @param obj - The object containing the date property.
  * @param key - The key of the property to test.
  * @param oper - The range operation to apply.

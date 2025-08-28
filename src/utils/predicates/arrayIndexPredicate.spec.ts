@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
-import { arrayIndexPredicate } from './arrayIndexPredicate';
 import { ArrayIndexOperEnum } from '../../enums/arrayOperation';
+import { arrayIndexPredicate } from './arrayIndexPredicate';
 
 describe('arrayIndexPredicate', () => {
   type DummyType = string;

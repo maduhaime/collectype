@@ -1,15 +1,21 @@
+import { StringOper } from '../../types/stringOperation';
 import { StringOperEnum } from '../../enums/stringOperation';
-import { StringPredicate } from '../../types/predicate';
+import { ValueOf } from '../../types/utility';
+
+// Type for string predicate function
+export type StringPredicate = (
+  source: string,
+  oper: StringOper | ValueOf<StringOperEnum>,
+  target: string | RegExp
+) => boolean;
 
 /**
- * Predicate function for string values.
- * Used to evaluate a string value against a target using the specified operator from StringOperEnum.
+ * Evaluates a string value against a target using the specified operator.
  * Supports equality, inclusion, exclusion, pattern matching, and position checks.
- *
- * @param source - The source string value to test.
- * @param oper - The string operation to apply. Must be a value from StringOperEnum.
- * @param target - The target string value for comparison.
- * @returns {boolean} The result of the predicate evaluation.
+ * @param source - The source string value.
+ * @param oper - The operator to apply. Must be a value from StringOperEnum.
+ * @param target - The target string value.
+ * @returns {boolean} Result of the predicate.
  * @throws Error if an unsupported operator is provided.
  */
 export const stringPredicate: StringPredicate = (source, oper, target) => {

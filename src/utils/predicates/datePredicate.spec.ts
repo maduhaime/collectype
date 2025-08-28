@@ -1,7 +1,6 @@
 import { describe, expect, it } from 'vitest';
-
-import { datePredicate } from '../../utils/predicates/datePredicate';
 import { DateOperEnum } from '../../enums/dateOperation';
+import { datePredicate } from '../../utils/predicates/datePredicate';
 
 describe('datePredicate', () => {
   const date1 = new Date('2020-01-01');
