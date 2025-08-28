@@ -19,8 +19,8 @@ import { rangeFilter } from './utils/filters/numberRangeFilter';
 import { RangeOperEnum } from './enums/rangeOperation';
 import { stringFilter } from './utils/filters/stringFilter';
 import { StringOperEnum } from './enums/stringOperation';
-import { stringBooleanFilter } from './utils/filters/stringBooleanFilter';
-import { StringBooleanOperEnum } from './enums/stringBooleanOperation';
+import { stringStateFilter } from './utils/filters/stringStateFilter';
+import { StringStateOperEnum } from './enums/stringOperation';
 
 /**
  * Implementation of BaseFunctions, adding extra chainable utilities.
@@ -554,7 +554,7 @@ export class FullFunctions<T> extends BaseFunctions<T> {
    * Filters items where the given string field is empty.
    */
   stringIsEmpty<K extends keyof ByType<T, string>>(field: K): this {
-    this._items = stringBooleanFilter(this._items, field, StringBooleanOperEnum.IS_EMPTY);
+    this._items = stringStateFilter(this._items, field, StringStateOperEnum.IS_EMPTY);
     return this;
   }
 
@@ -562,7 +562,7 @@ export class FullFunctions<T> extends BaseFunctions<T> {
    * Filters items where the given string field is not empty.
    */
   stringIsNotEmpty<K extends keyof ByType<T, string>>(field: K): this {
-    this._items = stringBooleanFilter(this._items, field, StringBooleanOperEnum.IS_NOT_EMPTY);
+    this._items = stringStateFilter(this._items, field, StringStateOperEnum.IS_NOT_EMPTY);
     return this;
   }
 }

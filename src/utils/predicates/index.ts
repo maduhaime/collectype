@@ -7,5 +7,5 @@ export * from './datePredicate';
 export * from './dateRangePredicate';
 export * from './numberPredicate';
 export * from './numberRangePredicate';
-export * from './stringBooleanPredicate';
+export * from './stringStatePredicate';
 export * from './stringPredicate';

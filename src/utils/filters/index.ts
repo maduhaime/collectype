@@ -7,5 +7,5 @@ export * from './dateFilter';
 export * from './dateRangeFilter';
 export * from './numberFilter';
 export * from './numberRangeFilter';
-export * from './stringBooleanFilter';
+export * from './stringStateFilter';
 export * from './stringFilter';
