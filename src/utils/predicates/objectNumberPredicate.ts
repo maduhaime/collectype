@@ -20,6 +20,8 @@ export type ObjectNumberPredicate = (
  * @returns {boolean} The result of the predicate evaluation.
  */
 export const objectNumberPredicate: ObjectNumberPredicate = (obj, key, oper, target) => {
+  // Guard clause: return false if the property is not a number
   if (typeof obj[key] !== 'number') return false;
+
   return numberPredicate(obj[key] as number, oper, target);
 };

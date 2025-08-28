@@ -22,6 +22,8 @@ export type ObjectDateRangePredicate = (
  * @returns {boolean} The result of the predicate evaluation.
  */
 export const objectDateRangePredicate: ObjectDateRangePredicate = (obj, key, oper, min, max) => {
+  // Guard clause: return false if the property is not a Date
   if (!(obj[key] instanceof Date)) return false;
+
   return dateRangePredicate(obj[key] as Date, oper, min, max);
 };

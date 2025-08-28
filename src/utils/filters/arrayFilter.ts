@@ -27,9 +27,11 @@ export function arrayFilter<T, K extends keyof ByType<T, any[]>>(
 ): T[] {
   return collection.filter((item: T) => {
     const arr = item[field] as any[] | undefined;
+
+    // Guard clause: return false if the field is not an array
     if (!Array.isArray(arr)) return false;
 
-    // Exclude empty arrays for certain operations (to match legacy behavior)
+    // Guard clause: exclude empty arrays for certain operations (to match legacy behavior)
     if (
       [ArrayOperEnum.EVERY_EQUALS, ArrayOperEnum.IS_SUBSET_OF, ArrayOperEnum.IS_SUPERSET_OF].includes(oper) &&
       arr.length === 0

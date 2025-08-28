@@ -21,7 +21,10 @@ export function dateFilter<T, K extends keyof ByType<T, Date>>(
 ): T[] {
   return collection.filter((item: T) => {
     const source = item[field] as Date | undefined;
+
+    // Guard clause: return false if the field is undefined
     if (typeof source === 'undefined') return false;
+
     return datePredicate(source, oper, target);
   });
 }

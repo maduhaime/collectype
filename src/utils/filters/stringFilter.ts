@@ -21,7 +21,10 @@ export function stringFilter<T, K extends keyof ByType<T, string>>(
 ): T[] {
   return collection.filter((item: T) => {
     const source = item[field] as string | undefined;
+
+    // Guard clause: return false if the field is undefined
     if (typeof source === 'undefined') return false;
+
     return stringPredicate(source, oper, target);
   });
 }

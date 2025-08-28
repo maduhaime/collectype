@@ -20,6 +20,8 @@ export type ObjectArraySizePredicate = (
  * @returns {boolean} The result of the predicate evaluation.
  */
 export const objectArraySizePredicate: ObjectArraySizePredicate = (obj, key, oper, num) => {
+  // Guard clause: return false if the property is not an array
   if (!Array.isArray(obj[key])) return false;
+
   return arraySizePredicate(obj[key], oper, num);
 };

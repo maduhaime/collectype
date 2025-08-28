@@ -20,7 +20,10 @@ export function arraySizeFilter<T, K extends keyof ByType<T, any[]>>(
 ): T[] {
   return collection.filter((item: T) => {
     const arr = item[field] as any[] | undefined;
+
+    // Guard clause: return false if the field is not an array
     if (!Array.isArray(arr)) return false;
+
     return arraySizePredicate(arr, oper, n);
   });
 }

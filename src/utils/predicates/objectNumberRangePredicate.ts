@@ -22,6 +22,8 @@ export type ObjectNumberRangePredicate = (
  * @returns {boolean} The result of the predicate evaluation.
  */
 export const objectNumberRangePredicate: ObjectNumberRangePredicate = (obj, key, oper, min, max) => {
+  // Guard clause: return false if the property is not a number
   if (typeof obj[key] !== 'number') return false;
+
   return numberRangePredicate(obj[key] as number, oper, min, max);
 };

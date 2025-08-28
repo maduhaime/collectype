@@ -22,6 +22,8 @@ export type ObjectArrayIndexPredicate = (
  * @returns {boolean} The result of the predicate evaluation.
  */
 export const objectArrayIndexPredicate: ObjectArrayIndexPredicate = (obj, key, oper, index, target) => {
+  // Guard clause: return false if the property is not an array
   if (!Array.isArray(obj[key])) return false;
+
   return arrayIndexPredicate(obj[key], oper, index, target);
 };

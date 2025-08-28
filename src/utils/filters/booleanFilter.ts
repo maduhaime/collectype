@@ -22,7 +22,10 @@ export function booleanFilter<T, K extends keyof ByType<T, boolean>>(
 ): T[] {
   return collection.filter((item: T) => {
     const source = item[field] as boolean | undefined;
+
+    // Guard clause: return false if the field is undefined
     if (typeof source === 'undefined') return false;
+
     return booleanPredicate(source, oper, target);
   });
 }

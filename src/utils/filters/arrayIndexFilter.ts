@@ -22,26 +22,53 @@ export function arrayIndexFilter<T, K extends keyof ByType<T, any[]>>(
 ): T[] {
   return collection.filter((item: T) => {
     const arr = item[field] as any[] | undefined;
+
+    // Guard clause: return false if the field is not an array
     if (!Array.isArray(arr)) return false;
-    switch (oper) {
-      case ArrayIndexOperEnum.VALUE_AT_INDEX_EQUALS:
-      case ArrayIndexOperEnum.VALUE_AT_INDEX_GREATER_THAN:
-      case ArrayIndexOperEnum.VALUE_AT_INDEX_GREATER_THAN_OR_EQUALS:
-      case ArrayIndexOperEnum.VALUE_AT_INDEX_LESS_THAN:
-      case ArrayIndexOperEnum.VALUE_AT_INDEX_LESS_THAN_OR_EQUALS:
-        if (index < 0 || index >= arr.length) return false;
-        return arrayIndexPredicate(arr, oper, index, target);
-      case ArrayIndexOperEnum.VALUE_AT_INDEX_NOT_EQUALS:
-        if (index < 0 || index >= arr.length) return true;
-        return arrayIndexPredicate(arr, oper, index, target);
-      case ArrayIndexOperEnum.VALUE_AT_INDEX_IN:
-        if (index < 0 || index >= arr.length) return false;
-        return arrayIndexPredicate(arr, oper, index, target);
-      case ArrayIndexOperEnum.VALUE_AT_INDEX_NOT_IN:
-        if (index < 0 || index >= arr.length) return true;
-        return arrayIndexPredicate(arr, oper, index, target);
-      default:
-        return false;
+
+    // Check for VALUE_AT_INDEX_EQUALS, GREATER_THAN, GREATER_THAN_OR_EQUALS, LESS_THAN, LESS_THAN_OR_EQUALS
+    if (
+      oper === ArrayIndexOperEnum.VALUE_AT_INDEX_EQUALS ||
+      oper === ArrayIndexOperEnum.VALUE_AT_INDEX_GREATER_THAN ||
+      oper === ArrayIndexOperEnum.VALUE_AT_INDEX_GREATER_THAN_OR_EQUALS ||
+      oper === ArrayIndexOperEnum.VALUE_AT_INDEX_LESS_THAN ||
+      oper === ArrayIndexOperEnum.VALUE_AT_INDEX_LESS_THAN_OR_EQUALS
+    ) {
+      // If index is out of bounds, return false
+      if (index < 0 || index >= arr.length) return false;
+
+      // Delegate to arrayIndexPredicate
+      return arrayIndexPredicate(arr, oper, index, target);
     }
+
+    // Check for VALUE_AT_INDEX_NOT_EQUALS
+    if (oper === ArrayIndexOperEnum.VALUE_AT_INDEX_NOT_EQUALS) {
+      // If index is out of bounds, return true
+      if (index < 0 || index >= arr.length) return true;
+
+      // Delegate to arrayIndexPredicate
+      return arrayIndexPredicate(arr, oper, index, target);
+    }
+
+    // Check for VALUE_AT_INDEX_IN
+    if (oper === ArrayIndexOperEnum.VALUE_AT_INDEX_IN) {
+      // If index is out of bounds, return false
+      if (index < 0 || index >= arr.length) return false;
+
+      // Delegate to arrayIndexPredicate
+      return arrayIndexPredicate(arr, oper, index, target);
+    }
+
+    // Check for VALUE_AT_INDEX_NOT_IN
+    if (oper === ArrayIndexOperEnum.VALUE_AT_INDEX_NOT_IN) {
+      // If index is out of bounds, return true
+      if (index < 0 || index >= arr.length) return true;
+
+      // Delegate to arrayIndexPredicate
+      return arrayIndexPredicate(arr, oper, index, target);
+    }
+
+    // Unsupported operator
+    return false;
   });
 }

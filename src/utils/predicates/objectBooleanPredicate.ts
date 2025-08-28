@@ -20,6 +20,8 @@ export type ObjectBooleanPredicate = (
  * @returns {boolean} The result of the predicate evaluation.
  */
 export const objectBooleanPredicate: ObjectBooleanPredicate = (obj, key, oper, target) => {
+  // Guard clause: return false if the property is not a boolean
   if (typeof obj[key] !== 'boolean') return false;
+
   return booleanPredicate(obj[key] as boolean, oper, target);
 };

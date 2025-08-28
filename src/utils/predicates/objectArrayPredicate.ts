@@ -20,6 +20,8 @@ export type ObjectArrayPredicate = (
  * @returns {boolean} The result of the predicate evaluation.
  */
 export const objectArrayPredicate: ObjectArrayPredicate = (obj, key, oper, target) => {
+  // Guard clause: return false if the property is not an array
   if (!Array.isArray(obj[key])) return false;
+
   return arrayPredicate(obj[key], oper, target);
 };

@@ -20,6 +20,8 @@ export type ObjectDatePredicate = (
  * @returns {boolean} The result of the predicate evaluation.
  */
 export const objectDatePredicate: ObjectDatePredicate = (obj, key, oper, target) => {
+  // Guard clause: return false if the property is not a Date
   if (!(obj[key] instanceof Date)) return false;
+
   return datePredicate(obj[key] as Date, oper, target);
 };

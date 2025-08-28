@@ -23,7 +23,10 @@ export function rangeFilter<T, K extends keyof ByType<T, number>>(
 ): T[] {
   return collection.filter((item: T) => {
     const source = item[field] as number | undefined;
+
+    // Guard clause: return false if the field is undefined
     if (typeof source === 'undefined') return false;
+
     return numberRangePredicate(source, oper, min, max);
   });
 }
