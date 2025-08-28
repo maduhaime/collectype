@@ -13,12 +13,12 @@ export type StringStatePredicate = (source: string, oper: StringStateOper | Valu
  * @throws Error if an unsupported operator is provided.
  */
 export const stringStatePredicate: StringStatePredicate = (source, oper) => {
-  switch (oper) {
-    case StringStateOperEnum.IS_EMPTY:
-      return source === '';
-    case StringStateOperEnum.IS_NOT_EMPTY:
-      return source.length > 0;
-    default:
-      throw new Error(`Unsupported string state predicate operator: ${oper}`);
-  }
+  // Check if the string is empty
+  if (oper === StringStateOperEnum.IS_EMPTY) return source === '';
+
+  // Check if the string is not empty
+  if (oper === StringStateOperEnum.IS_NOT_EMPTY) return source.length > 0;
+
+  // Unsupported operator
+  throw new Error(`Unsupported string state predicate operator: ${oper}`);
 };

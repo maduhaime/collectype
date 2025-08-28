@@ -18,23 +18,27 @@ export type ObjectPredicate = (
  * @throws Error if an unsupported operator is provided.
  */
 export const objectPredicate: ObjectPredicate = (obj, oper, target) => {
-  if (oper === ObjectOperEnum.HAS_KEY) {
-    const key = target as string;
-    return Object.prototype.hasOwnProperty.call(obj, key);
-  }
+  // Check if object has a specific key
+  if (oper === ObjectOperEnum.HAS_KEY) return Object.prototype.hasOwnProperty.call(obj, target as string);
+
   const keys = target as string[];
-  switch (oper) {
-    case ObjectOperEnum.HAS_ANY_KEY:
-      return keys.some((k) => Object.prototype.hasOwnProperty.call(obj, k));
-    case ObjectOperEnum.HAS_ALL_KEYS:
-      return keys.every((k) => Object.prototype.hasOwnProperty.call(obj, k));
-    case ObjectOperEnum.HAS_EXACT_KEYS:
-      const objKeys = Object.keys(obj).sort();
-      const targetKeys = [...keys].sort();
-      return objKeys.length === targetKeys.length && objKeys.every((k, i) => k === targetKeys[i]);
-    case ObjectOperEnum.HAS_NO_KEYS:
-      return keys.every((k) => !Object.prototype.hasOwnProperty.call(obj, k));
-    default:
-      throw new Error(`Unknown object keys operation: ${oper}`);
+
+  // Check if object has any of the specified keys
+  if (oper === ObjectOperEnum.HAS_ANY_KEY) return keys.some((k) => Object.prototype.hasOwnProperty.call(obj, k));
+
+  // Check if object has all of the specified keys
+  if (oper === ObjectOperEnum.HAS_ALL_KEYS) return keys.every((k) => Object.prototype.hasOwnProperty.call(obj, k));
+
+  // Check if object has exactly the specified keys
+  if (oper === ObjectOperEnum.HAS_EXACT_KEYS) {
+    const objKeys = Object.keys(obj).sort();
+    const targetKeys = [...keys].sort();
+    return objKeys.length === targetKeys.length && objKeys.every((k, i) => k === targetKeys[i]);
   }
+
+  // Check if object has none of the specified keys
+  if (oper === ObjectOperEnum.HAS_NO_KEYS) return keys.every((k) => !Object.prototype.hasOwnProperty.call(obj, k));
+
+  // Unsupported operator
+  throw new Error(`Unknown object keys operation: ${oper}`);
 };

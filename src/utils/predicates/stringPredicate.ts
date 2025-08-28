@@ -19,24 +19,31 @@ export type StringPredicate = (
  * @throws Error if an unsupported operator is provided.
  */
 export const stringPredicate: StringPredicate = (source, oper, target) => {
-  switch (oper) {
-    case StringOperEnum.EQUALS:
-      return source === target;
-    case StringOperEnum.NOT_EQUALS:
-      return source !== target;
-    case StringOperEnum.INCLUDES:
-      return typeof target === 'string' ? source.includes(target) : false;
-    case StringOperEnum.EXCLUDES:
-      return typeof target === 'string' ? !source.includes(target) : false;
-    case StringOperEnum.STARTS_WITH:
-      return typeof target === 'string' ? source.startsWith(target) : false;
-    case StringOperEnum.ENDS_WITH:
-      return typeof target === 'string' ? source.endsWith(target) : false;
-    case StringOperEnum.MATCHES:
-      if (typeof target === 'string') return new RegExp(target).test(source);
-      if (target instanceof RegExp) return target.test(source);
-      return false;
-    default:
-      throw new Error(`Unsupported string predicate operator: ${oper}`);
+  // Check for strict equality
+  if (oper === StringOperEnum.EQUALS) return source === target;
+
+  // Check for strict inequality
+  if (oper === StringOperEnum.NOT_EQUALS) return source !== target;
+
+  // Check if source includes target
+  if (oper === StringOperEnum.INCLUDES) return typeof target === 'string' ? source.includes(target) : false;
+
+  // Check if source excludes target
+  if (oper === StringOperEnum.EXCLUDES) return typeof target === 'string' ? !source.includes(target) : false;
+
+  // Check if source starts with target
+  if (oper === StringOperEnum.STARTS_WITH) return typeof target === 'string' ? source.startsWith(target) : false;
+
+  // Check if source ends with target
+  if (oper === StringOperEnum.ENDS_WITH) return typeof target === 'string' ? source.endsWith(target) : false;
+
+  // Check if source matches target (regex or string)
+  if (oper === StringOperEnum.MATCHES) {
+    if (typeof target === 'string') return new RegExp(target).test(source);
+    if (target instanceof RegExp) return target.test(source);
+    return false;
   }
+
+  // Unsupported operator
+  throw new Error(`Unsupported string predicate operator: ${oper}`);
 };

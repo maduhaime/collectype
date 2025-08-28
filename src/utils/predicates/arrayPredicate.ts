@@ -23,47 +23,51 @@ export const arrayPredicate: ArrayPredicate = <T>(arr: T[], oper: ValueOf<ArrayO
   if (oper === ArrayOperEnum.EVERY_EQUALS) return arr.every((v) => v === value);
 
   const targetArr = target as T[];
-  switch (oper) {
-    case ArrayOperEnum.EQUALS: {
-      return arr.length === targetArr.length && arr.every((v, i) => v === targetArr[i]);
-    }
-    case ArrayOperEnum.SET_EQUALS: {
-      const setA = new Set(arr);
-      const setB = new Set(targetArr);
-      // Must have same unique elements and same array length (to avoid duplicates matching)
-      return setA.size === setB.size && [...setA].every((v) => setB.has(v)) && arr.length === targetArr.length;
-    }
-    case ArrayOperEnum.IS_SUBSET_OF: {
-      return arr.every((v) => targetArr.includes(v));
-    }
-    case ArrayOperEnum.IS_SUPERSET_OF: {
-      // All elements of targetArr (including duplicates) must be present in arr
-      const arrCopy = [...arr];
-      for (const v of targetArr) {
-        const idx = arrCopy.indexOf(v);
-        if (idx === -1) return false;
-        arrCopy.splice(idx, 1);
-      }
-      return true;
-    }
-    case ArrayOperEnum.STARTS_WITH: {
-      return targetArr.every((v, i) => arr[i] === v);
-    }
-    case ArrayOperEnum.ENDS_WITH: {
-      return targetArr.every((v, i) => arr[arr.length - targetArr.length + i] === v);
-    }
-    case ArrayOperEnum.CONTAINS_SUBSEQUENCE: {
-      for (let i = 0; i <= arr.length - targetArr.length; i++) {
-        if (targetArr.every((v, j) => arr[i + j] === v)) return true;
-      }
-      return false;
-    }
-    case ArrayOperEnum.INTERSECTS: {
-      return arr.some((v) => targetArr.includes(v));
-    }
-    case ArrayOperEnum.DISJOINT: {
-      return arr.every((v) => !targetArr.includes(v));
-    }
+
+  // Check if arrays are strictly equal
+  if (oper === ArrayOperEnum.EQUALS) return arr.length === targetArr.length && arr.every((v, i) => v === targetArr[i]);
+
+  // Check if arrays are set-equal (same unique elements, same length)
+  if (oper === ArrayOperEnum.SET_EQUALS) {
+    const setA = new Set(arr);
+    const setB = new Set(targetArr);
+    return setA.size === setB.size && [...setA].every((v) => setB.has(v)) && arr.length === targetArr.length;
   }
+
+  // Check if arr is a subset of targetArr
+  if (oper === ArrayOperEnum.IS_SUBSET_OF) return arr.every((v) => targetArr.includes(v));
+
+  // Check if arr is a superset of targetArr (all elements of targetArr in arr, including duplicates)
+  if (oper === ArrayOperEnum.IS_SUPERSET_OF) {
+    const arrCopy = [...arr];
+    for (const v of targetArr) {
+      const idx = arrCopy.indexOf(v);
+      if (idx === -1) return false;
+      arrCopy.splice(idx, 1);
+    }
+    return true;
+  }
+
+  // Check if arr starts with targetArr
+  if (oper === ArrayOperEnum.STARTS_WITH) return targetArr.every((v, i) => arr[i] === v);
+
+  // Check if arr ends with targetArr
+  if (oper === ArrayOperEnum.ENDS_WITH) return targetArr.every((v, i) => arr[arr.length - targetArr.length + i] === v);
+
+  // Check if arr contains targetArr as a contiguous subsequence
+  if (oper === ArrayOperEnum.CONTAINS_SUBSEQUENCE) {
+    for (let i = 0; i <= arr.length - targetArr.length; i++) {
+      if (targetArr.every((v, j) => arr[i + j] === v)) return true;
+    }
+    return false;
+  }
+
+  // Check if arr and targetArr have any elements in common
+  if (oper === ArrayOperEnum.INTERSECTS) return arr.some((v) => targetArr.includes(v));
+
+  // Check if arr and targetArr are disjoint
+  if (oper === ArrayOperEnum.DISJOINT) return arr.every((v) => !targetArr.includes(v));
+
+  // Unsupported operator
   throw new Error(`Unsupported array predicate operator: ${oper}`);
 };

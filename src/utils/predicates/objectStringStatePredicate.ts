@@ -18,6 +18,7 @@ export type ObjectStringStatePredicate = (
  * @returns {boolean} True if the string matches the state, false otherwise.
  */
 export const objectStringStatePredicate: ObjectStringStatePredicate = (obj, key, oper): boolean => {
+  // Check if the property is a string
   if (typeof obj[key] !== 'string') return false;
   return stringStatePredicate(obj[key] as string, oper);
 };

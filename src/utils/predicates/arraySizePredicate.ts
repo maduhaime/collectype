@@ -19,22 +19,27 @@ export type ArraySizePredicate = <T>(
  * @returns {boolean} Result of the operation
  */
 export const arraySizePredicate: ArraySizePredicate = (arr, oper, num) => {
-  switch (oper) {
-    case ArraySizeOperEnum.LENGTH_EQUALS:
-      return arr.length === num;
-    case ArraySizeOperEnum.LENGTH_GREATER_THAN:
-      return arr.length > (num ?? 0);
-    case ArraySizeOperEnum.LENGTH_GREATER_THAN_OR_EQUALS:
-      return arr.length >= (num ?? 0);
-    case ArraySizeOperEnum.LENGTH_LESS_THAN:
-      return arr.length < (num ?? 0);
-    case ArraySizeOperEnum.LENGTH_LESS_THAN_OR_EQUALS:
-      return arr.length <= (num ?? 0);
-    case ArraySizeOperEnum.IS_EMPTY:
-      return arr.length === 0;
-    case ArraySizeOperEnum.IS_NOT_EMPTY:
-      return arr.length > 0;
-    default:
-      throw new Error(`Unsupported array size predicate operator: ${oper}`);
-  }
+  // Check if array length equals num
+  if (oper === ArraySizeOperEnum.LENGTH_EQUALS) return arr.length === num;
+
+  // Check if array length is greater than num
+  if (oper === ArraySizeOperEnum.LENGTH_GREATER_THAN) return arr.length > (num ?? 0);
+
+  // Check if array length is greater than or equal to num
+  if (oper === ArraySizeOperEnum.LENGTH_GREATER_THAN_OR_EQUALS) return arr.length >= (num ?? 0);
+
+  // Check if array length is less than num
+  if (oper === ArraySizeOperEnum.LENGTH_LESS_THAN) return arr.length < (num ?? 0);
+
+  // Check if array length is less than or equal to num
+  if (oper === ArraySizeOperEnum.LENGTH_LESS_THAN_OR_EQUALS) return arr.length <= (num ?? 0);
+
+  // Check if array is empty
+  if (oper === ArraySizeOperEnum.IS_EMPTY) return arr.length === 0;
+
+  // Check if array is not empty
+  if (oper === ArraySizeOperEnum.IS_NOT_EMPTY) return arr.length > 0;
+
+  // Unsupported operator
+  throw new Error(`Unsupported array size predicate operator: ${oper}`);
 };

@@ -34,24 +34,36 @@ export const arrayIndexPredicate: ArrayIndexPredicate = <T>(
   index: number,
   target?: T | T[]
 ): boolean => {
-  switch (oper) {
-    case ArrayIndexOperEnum.VALUE_AT_INDEX_EQUALS:
-      return arr[index] === target;
-    case ArrayIndexOperEnum.VALUE_AT_INDEX_NOT_EQUALS:
-      return arr[index] !== target;
-    case ArrayIndexOperEnum.VALUE_AT_INDEX_IN:
-      return Array.isArray(target) ? (target as T[]).includes(arr[index]) : false;
-    case ArrayIndexOperEnum.VALUE_AT_INDEX_NOT_IN:
-      return Array.isArray(target) ? !(target as T[]).includes(arr[index]) : false;
-    case ArrayIndexOperEnum.VALUE_AT_INDEX_GREATER_THAN:
-      return target !== undefined && target !== null && arr[index] > target;
-    case ArrayIndexOperEnum.VALUE_AT_INDEX_GREATER_THAN_OR_EQUALS:
-      return target !== undefined && target !== null && arr[index] >= target;
-    case ArrayIndexOperEnum.VALUE_AT_INDEX_LESS_THAN:
-      return target !== undefined && target !== null && arr[index] < target;
-    case ArrayIndexOperEnum.VALUE_AT_INDEX_LESS_THAN_OR_EQUALS:
-      return target !== undefined && target !== null && arr[index] <= target;
-    default:
-      throw new Error(`Unsupported array index predicate operator: ${oper}`);
-  }
+  // Check if value at index equals target
+  if (oper === ArrayIndexOperEnum.VALUE_AT_INDEX_EQUALS) return arr[index] === target;
+
+  // Check if value at index does not equal target
+  if (oper === ArrayIndexOperEnum.VALUE_AT_INDEX_NOT_EQUALS) return arr[index] !== target;
+
+  // Check if value at index is in target array
+  if (oper === ArrayIndexOperEnum.VALUE_AT_INDEX_IN)
+    return Array.isArray(target) ? (target as T[]).includes(arr[index]) : false;
+
+  // Check if value at index is not in target array
+  if (oper === ArrayIndexOperEnum.VALUE_AT_INDEX_NOT_IN)
+    return Array.isArray(target) ? !(target as T[]).includes(arr[index]) : false;
+
+  // Check if value at index is greater than target
+  if (oper === ArrayIndexOperEnum.VALUE_AT_INDEX_GREATER_THAN)
+    return target !== undefined && target !== null && arr[index] > target;
+
+  // Check if value at index is greater than or equal to target
+  if (oper === ArrayIndexOperEnum.VALUE_AT_INDEX_GREATER_THAN_OR_EQUALS)
+    return target !== undefined && target !== null && arr[index] >= target;
+
+  // Check if value at index is less than target
+  if (oper === ArrayIndexOperEnum.VALUE_AT_INDEX_LESS_THAN)
+    return target !== undefined && target !== null && arr[index] < target;
+
+  // Check if value at index is less than or equal to target
+  if (oper === ArrayIndexOperEnum.VALUE_AT_INDEX_LESS_THAN_OR_EQUALS)
+    return target !== undefined && target !== null && arr[index] <= target;
+
+  // Unsupported operator
+  throw new Error(`Unsupported array index predicate operator: ${oper}`);
 };
