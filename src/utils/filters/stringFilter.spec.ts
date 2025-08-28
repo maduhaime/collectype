@@ -1,7 +1,6 @@
 import { describe, expect, it } from 'vitest';
-
-import { stringFilter } from './stringFilter';
 import { StringOperEnum } from '../../enums/stringOperation';
+import { stringFilter } from './stringFilter';
 
 type DummyType = { id: number; name?: string };
 

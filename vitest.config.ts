@@ -16,6 +16,7 @@ export default defineConfig({
         '**/*.config.ts', // Configuration files
         '**/*.d.ts', // Type definitions
         'dist/**', // Distribution files
+        'sample/**', // Sample files
         'src/enums/**', // Enumerations
         'src/interfaces/**', // Interfaces
         'src/types/**', // Types

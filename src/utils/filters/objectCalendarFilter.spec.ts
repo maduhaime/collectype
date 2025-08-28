@@ -1,6 +1,6 @@
-import { describe, it, expect } from 'vitest';
-import { objectCalendarFilter } from './objectCalendarFilter';
+import { describe, expect, it } from 'vitest';
 import { CalendarOperEnum } from '../../enums/calendarOperation';
+import { objectCalendarFilter } from './objectCalendarFilter';
 
 type DummyType = { date: Date };
 

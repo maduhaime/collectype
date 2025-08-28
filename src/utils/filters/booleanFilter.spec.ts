@@ -1,7 +1,6 @@
 import { describe, expect, it } from 'vitest';
-
-import { booleanFilter } from './booleanFilter';
 import { BooleanOperEnum } from '../../enums/booleanOperation';
+import { booleanFilter } from './booleanFilter';
 
 type DummyType = { id: number; active?: boolean };
 

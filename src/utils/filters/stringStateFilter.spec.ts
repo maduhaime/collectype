@@ -1,7 +1,6 @@
-import { describe, it, expect } from 'vitest';
-
-import { stringStateFilter } from './stringStateFilter';
+import { describe, expect, it } from 'vitest';
 import { StringStateOperEnum } from '../../enums/stringOperation';
+import { stringStateFilter } from './stringStateFilter';
 
 type DummyType = { id: number; status: string };
 

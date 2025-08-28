@@ -1,6 +1,6 @@
-import { describe, it, expect } from 'vitest';
-import { objectBooleanFilter } from './objectBooleanFilter';
+import { describe, expect, it } from 'vitest';
 import { BooleanOperEnum } from '../../enums/booleanOperation';
+import { objectBooleanFilter } from './objectBooleanFilter';
 
 type DummyType = { flag: boolean };
 

@@ -1,6 +1,6 @@
-import { describe, it, expect } from 'vitest';
-import { objectStringFilter } from './objectStringFilter';
+import { describe, expect, it } from 'vitest';
 import { StringOperEnum } from '../../enums/stringOperation';
+import { objectStringFilter } from './objectStringFilter';
 
 type DummyType = { str: string };
 

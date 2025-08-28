@@ -1,5 +1,4 @@
 import { describe, expect, it } from 'vitest';
-
 import { dateFilter } from '../../utils/filters/dateFilter';
 import { DateOperEnum } from '../../enums/dateOperation';
 

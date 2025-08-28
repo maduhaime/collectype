@@ -1,6 +1,6 @@
-import { describe, it, expect } from 'vitest';
-import { objectNumberFilter } from './objectNumberFilter';
+import { describe, expect, it } from 'vitest';
 import { NumberOperEnum } from '../../enums/numberOperation';
+import { objectNumberFilter } from './objectNumberFilter';
 
 type DummyType = { num: number };
 

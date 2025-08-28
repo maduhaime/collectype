@@ -1,7 +1,6 @@
 import { describe, expect, it } from 'vitest';
-
-import { numberFilter } from '../../utils/filters/numberFilter';
 import { NumberOperEnum } from '../../enums/numberOperation';
+import { numberFilter } from '../../utils/filters/numberFilter';
 
 type DummyType = { id: number; value?: number };
 

@@ -1,6 +1,6 @@
-import { describe, it, expect } from 'vitest';
-import { objectArrayFilter } from './objectArrayFilter';
+import { describe, expect, it } from 'vitest';
 import { ArrayOperEnum } from '../../enums/arrayOperation';
+import { objectArrayFilter } from './objectArrayFilter';
 
 type DummyType = { arr: number[] };
 
