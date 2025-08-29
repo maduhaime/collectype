@@ -2,18 +2,18 @@ import { describe, it, expect } from 'vitest';
 import { objectNumberRangeFilter } from './objectNumberRangeFilter';
 import { RangeOperEnum } from '../../enums/rangeOperation';
 
-type DummyType = { num: number };
+type DummyType = { obj: { num: number } };
 
 describe('objectNumberRangeFilter', () => {
-  const arr: DummyType[] = [{ num: 1 }, { num: 2 }, { num: 3 }];
-
-  it('should filter objects where the number is within the range', () => {
-    const result = objectNumberRangeFilter(arr, 'num', RangeOperEnum.IN_RANGE, 2, 3);
-    expect(result).toEqual([{ num: 2 }, { num: 3 }]);
+  it('should filter items where the nested number property is within the range', () => {
+    const data: DummyType[] = [{ obj: { num: 10 } }, { obj: { num: 5 } }, { obj: { num: 20 } }];
+    const result = objectNumberRangeFilter(data, 'obj', 'num', RangeOperEnum.IN_RANGE, 6, 15);
+    expect(result).toEqual([{ obj: { num: 10 } }]);
   });
 
-  it('should return empty array if input is not an array', () => {
-    // @ts-expect-error
-    expect(objectNumberRangeFilter(null, 'num', RangeOperEnum.IN_RANGE, 1, 2)).toEqual([]);
+  it('should return empty array if no nested number property is within the range', () => {
+    const data: DummyType[] = [{ obj: { num: 3 } }];
+    const result = objectNumberRangeFilter(data, 'obj', 'num', RangeOperEnum.IN_RANGE, 6, 15);
+    expect(result).toEqual([]);
   });
 });

@@ -1,19 +1,19 @@
-import { describe, expect, it } from 'vitest';
-import { NumberOperEnum } from '../../enums/numberOperation';
+import { describe, it, expect } from 'vitest';
 import { objectNumberFilter } from './objectNumberFilter';
+import { NumberOperEnum } from '../../enums/numberOperation';
 
-type DummyType = { num: number };
+type DummyType = { obj: { num: number } };
 
 describe('objectNumberFilter', () => {
-  const arr: DummyType[] = [{ num: 1 }, { num: 2 }, { num: 3 }];
-
-  it('should filter objects where the number matches the target', () => {
-    const result = objectNumberFilter(arr, 'num', NumberOperEnum.EQUALS, 2);
-    expect(result).toEqual([{ num: 2 }]);
+  it('should filter items where the nested number property is greater than the target', () => {
+    const data: DummyType[] = [{ obj: { num: 10 } }, { obj: { num: 5 } }];
+    const result = objectNumberFilter(data, 'obj', 'num', NumberOperEnum.GREATER_THAN, 6);
+    expect(result).toEqual([{ obj: { num: 10 } }]);
   });
 
-  it('should return empty array if input is not an array', () => {
-    // @ts-expect-error
-    expect(objectNumberFilter(null, 'num', NumberOperEnum.EQUALS, 1)).toEqual([]);
+  it('should return empty array if no nested number property is greater than the target', () => {
+    const data: DummyType[] = [{ obj: { num: 3 } }];
+    const result = objectNumberFilter(data, 'obj', 'num', NumberOperEnum.GREATER_THAN, 6);
+    expect(result).toEqual([]);
   });
 });

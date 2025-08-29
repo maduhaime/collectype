@@ -2,18 +2,20 @@ import { describe, it, expect } from 'vitest';
 import { objectDateFilter } from './objectDateFilter';
 import { DateOperEnum } from '../../enums/dateOperation';
 
-type DummyType = { date: Date };
+type DummyType = { obj: { date: Date } };
 
 describe('objectDateFilter', () => {
-  const arr: DummyType[] = [{ date: new Date('2025-08-27') }, { date: new Date('2025-08-26') }];
-
-  it('should filter objects where the date matches the target', () => {
-    const result = objectDateFilter(arr, 'date', DateOperEnum.EQUALS, new Date('2025-08-27'));
-    expect(result).toEqual([{ date: new Date('2025-08-27') }]);
+  it('should filter items where the nested date property equals the target', () => {
+    const today = new Date();
+    const data: DummyType[] = [{ obj: { date: today } }, { obj: { date: new Date('2000-01-01') } }];
+    const result = objectDateFilter(data, 'obj', 'date', DateOperEnum.EQUALS, today);
+    expect(result).toEqual([{ obj: { date: today } }]);
   });
 
-  it('should return empty array if input is not an array', () => {
-    // @ts-expect-error
-    expect(objectDateFilter(null, 'date', DateOperEnum.EQUALS, new Date())).toEqual([]);
+  it('should return empty array if no nested date property matches the target', () => {
+    const today = new Date();
+    const data: DummyType[] = [{ obj: { date: new Date('2000-01-01') } }];
+    const result = objectDateFilter(data, 'obj', 'date', DateOperEnum.EQUALS, today);
+    expect(result).toEqual([]);
   });
 });

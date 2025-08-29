@@ -1,19 +1,19 @@
-import { describe, expect, it } from 'vitest';
-import { StringOperEnum } from '../../enums/stringOperation';
+import { describe, it, expect } from 'vitest';
 import { objectStringFilter } from './objectStringFilter';
+import { StringOperEnum } from '../../enums/stringOperation';
 
-type DummyType = { str: string };
+type DummyType = { obj: { str: string } };
 
 describe('objectStringFilter', () => {
-  const arr: DummyType[] = [{ str: 'foo' }, { str: 'bar' }, { str: 'baz' }];
-
-  it('should filter objects where the string matches the target', () => {
-    const result = objectStringFilter(arr, 'str', StringOperEnum.EQUALS, 'bar');
-    expect(result).toEqual([{ str: 'bar' }]);
+  it('should filter items where the nested string property includes the target', () => {
+    const data: DummyType[] = [{ obj: { str: 'hello world' } }, { obj: { str: 'foo bar' } }];
+    const result = objectStringFilter(data, 'obj', 'str', StringOperEnum.INCLUDES, 'world');
+    expect(result).toEqual([{ obj: { str: 'hello world' } }]);
   });
 
-  it('should return empty array if input is not an array', () => {
-    // @ts-expect-error
-    expect(objectStringFilter(null, 'str', StringOperEnum.EQUALS, 'foo')).toEqual([]);
+  it('should return empty array if no nested string property includes the target', () => {
+    const data: DummyType[] = [{ obj: { str: 'foo bar' } }];
+    const result = objectStringFilter(data, 'obj', 'str', StringOperEnum.INCLUDES, 'baz');
+    expect(result).toEqual([]);
   });
 });

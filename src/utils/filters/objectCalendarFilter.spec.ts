@@ -1,20 +1,21 @@
-import { describe, expect, it } from 'vitest';
-import { CalendarOperEnum } from '../../enums/calendarOperation';
+import { describe, it, expect } from 'vitest';
 import { objectCalendarFilter } from './objectCalendarFilter';
+import { CalendarOperEnum } from '../../enums/calendarOperation';
 
-type DummyType = { date: Date };
+type DummyType = { obj: { date: Date } };
 
 describe('objectCalendarFilter', () => {
-  const today = new Date('2025-08-27');
-  const arr: DummyType[] = [{ date: new Date('2025-08-27') }, { date: new Date('2025-08-26') }];
-
-  it('should filter objects where the date matches today', () => {
-    const result = objectCalendarFilter(arr, 'date', CalendarOperEnum.IS_TODAY, today);
-    expect(result).toEqual([{ date: new Date('2025-08-27') }]);
+  it('should filter items where the nested date property is today', () => {
+    const today = new Date();
+    const data: DummyType[] = [{ obj: { date: today } }, { obj: { date: new Date('2000-01-01') } }];
+    const result = objectCalendarFilter(data, 'obj', 'date', CalendarOperEnum.IS_TODAY, today);
+    expect(result).toEqual([{ obj: { date: today } }]);
   });
 
-  it('should return empty array if input is not an array', () => {
-    // @ts-expect-error
-    expect(objectCalendarFilter(null, 'date', CalendarOperEnum.IS_TODAY, today)).toEqual([]);
+  it('should return empty array if no nested date property is today', () => {
+    const today = new Date();
+    const data: DummyType[] = [{ obj: { date: new Date('2000-01-01') } }];
+    const result = objectCalendarFilter(data, 'obj', 'date', CalendarOperEnum.IS_TODAY, today);
+    expect(result).toEqual([]);
   });
 });

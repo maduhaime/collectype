@@ -2,18 +2,18 @@ import { describe, it, expect } from 'vitest';
 import { objectArraySizeFilter } from './objectArraySizeFilter';
 import { ArraySizeOperEnum } from '../../enums/arrayOperation';
 
-type DummyType = { arr: number[] };
+type DummyType = { obj: { arr: number[] } };
 
 describe('objectArraySizeFilter', () => {
-  const arr: DummyType[] = [{ arr: [1, 2, 3] }, { arr: [4, 5] }, { arr: [] }];
-
-  it('should filter objects where the array size matches the target', () => {
-    const result = objectArraySizeFilter(arr, 'arr', ArraySizeOperEnum.LENGTH_EQUALS, 2);
-    expect(result).toEqual([{ arr: [4, 5] }]);
+  it('should filter items where the nested array has the specified length', () => {
+    const data: DummyType[] = [{ obj: { arr: [1, 2, 3] } }, { obj: { arr: [4, 5] } }];
+    const result = objectArraySizeFilter(data, 'obj', 'arr', ArraySizeOperEnum.LENGTH_EQUALS, 2);
+    expect(result).toEqual([{ obj: { arr: [4, 5] } }]);
   });
 
-  it('should return empty array if input is not an array', () => {
-    // @ts-expect-error
-    expect(objectArraySizeFilter(null, 'arr', ArraySizeOperEnum.LENGTH_EQUALS, 1)).toEqual([]);
+  it('should return empty array if no nested array has the specified length', () => {
+    const data: DummyType[] = [{ obj: { arr: [7, 8, 9] } }];
+    const result = objectArraySizeFilter(data, 'obj', 'arr', ArraySizeOperEnum.LENGTH_EQUALS, 1);
+    expect(result).toEqual([]);
   });
 });

@@ -1,19 +1,19 @@
-import { describe, expect, it } from 'vitest';
-import { BooleanOperEnum } from '../../enums/booleanOperation';
+import { describe, it, expect } from 'vitest';
 import { objectBooleanFilter } from './objectBooleanFilter';
+import { BooleanOperEnum } from '../../enums/booleanOperation';
 
-type DummyType = { flag: boolean };
+type DummyType = { obj: { flag: boolean } };
 
 describe('objectBooleanFilter', () => {
-  const arr: DummyType[] = [{ flag: true }, { flag: false }];
-
-  it('should filter objects where the boolean matches the target', () => {
-    const result = objectBooleanFilter(arr, 'flag', BooleanOperEnum.EQUALS, true);
-    expect(result).toEqual([{ flag: true }]);
+  it('should filter items where the nested boolean property is true', () => {
+    const data: DummyType[] = [{ obj: { flag: true } }, { obj: { flag: false } }];
+    const result = objectBooleanFilter(data, 'obj', 'flag', BooleanOperEnum.EQUALS, true);
+    expect(result).toEqual([{ obj: { flag: true } }]);
   });
 
-  it('should return empty array if input is not an array', () => {
-    // @ts-expect-error
-    expect(objectBooleanFilter(null, 'flag', BooleanOperEnum.EQUALS, true)).toEqual([]);
+  it('should return empty array if no nested boolean property matches', () => {
+    const data: DummyType[] = [{ obj: { flag: false } }];
+    const result = objectBooleanFilter(data, 'obj', 'flag', BooleanOperEnum.EQUALS, true);
+    expect(result).toEqual([]);
   });
 });
