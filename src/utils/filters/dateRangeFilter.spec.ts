@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
-import { dateRangeFilter } from '@/utils/filters/dateRangeFilter';
-import { RangeOperEnum } from '@/enums/rangeOperation';
+import { dateRangeFilter } from '../../utils/filters/dateRangeFilter';
+import { RangeOperEnum } from '../../enums/rangeOperation';
 
 type DummyType = { id: number; date?: Date };
 

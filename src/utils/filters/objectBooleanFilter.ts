@@ -1,5 +1,6 @@
-import { ByType } from '@/types/utility';
-import { objectBooleanPredicate, ObjectBooleanPredicate } from '../predicates/objectBooleanPredicate';
+import { ByType } from '../../types/utility';
+import { booleanPredicate } from '../predicates/booleanPredicate';
+import { BooleanOperEnum } from '../../enums/booleanOperation';
 
 /**
  * Filters a collection of objects based on a boolean property within a nested object.
@@ -9,22 +10,23 @@ import { objectBooleanPredicate, ObjectBooleanPredicate } from '../predicates/ob
  * @param {T[]} collection - The array of objects to filter.
  * @param {K} field - The key of the nested object property to inspect on each item.
  * @param {string} key - The key of the boolean property within the nested object to test.
- * @param {ObjectBooleanPredicate[2]} oper - The boolean operation to apply.
- * @param {ObjectBooleanPredicate[3]} target - The target boolean value for comparison.
+ * @param {BooleanOperEnum} oper - The boolean operation to apply.
+ * @param {boolean} target - The target boolean value for comparison.
  * @returns {T[]} The filtered array of objects where the boolean property matches the operation.
  *
  * Example: Filter users where user.profile.active is true:
  *   objectBooleanFilter(users, 'profile', 'active', BooleanOperEnum.EQUALS, true)
  */
-export const objectBooleanFilter: <T, K extends keyof ByType<T, Object>>(
+export function objectBooleanFilter<T, K extends keyof ByType<T, Object>>(
   collection: T[],
   field: K,
-  key: Parameters<ObjectBooleanPredicate>[1],
-  oper: Parameters<ObjectBooleanPredicate>[2],
-  target: Parameters<ObjectBooleanPredicate>[3]
-) => T[] = (collection, field, key, oper, target) => {
+  key: string,
+  oper: BooleanOperEnum,
+  target: boolean
+): T[] {
+  if (!Array.isArray(collection)) return [];
   return collection.filter((item) => {
-    const source = item[field] as Record<string, any>;
-    return objectBooleanPredicate(source, key, oper, target);
+    const obj = item[field] as Record<string, any>;
+    return obj && booleanPredicate(obj[key], oper, target);
   });
-};
+}
