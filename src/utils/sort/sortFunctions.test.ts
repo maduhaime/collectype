@@ -10,7 +10,7 @@ import {
   sortByStringField,
   sortNull,
   sortUndefined,
-} from '@/utils/sort/sortFunctions';
+} from '../../utils/sort/sortFunctions';
 
 /**
  * Tests for sortFunctions utilities.
