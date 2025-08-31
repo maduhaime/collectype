@@ -1,6 +1,5 @@
 import { ByType } from '../../types/utility';
-import { numberPredicate } from '../predicates/numberPredicate';
-import { NumberOperEnum } from '../../enums/numberOperation';
+import { numberPredicate, NumberPredicate } from '../predicates/numberPredicate';
 
 /**
  * Filters a collection of objects based on a number property within a nested object.
@@ -10,7 +9,7 @@ import { NumberOperEnum } from '../../enums/numberOperation';
  * @param {T[]} collection - The array of objects to filter.
  * @param {K} field - The key of the nested object property to inspect on each item.
  * @param {string} key - The key of the number property within the nested object to test.
- * @param {NumberOperEnum} oper - The number operation to apply.
+ * @param {NumberOper | ValueOf<NumberOperEnum>} oper - The number operation to apply.
  * @param {number} target - The target number value for comparison.
  * @returns {T[]} The filtered array of objects where the number property matches the operation.
  *
@@ -21,8 +20,8 @@ export function objectNumberFilter<T, K extends keyof ByType<T, Object>>(
   collection: T[],
   field: K,
   key: string,
-  oper: NumberOperEnum,
-  target: number
+  oper: Parameters<NumberPredicate>[1],
+  target: Parameters<NumberPredicate>[2]
 ): T[] {
   if (!Array.isArray(collection)) return [];
   return collection.filter((item) => {

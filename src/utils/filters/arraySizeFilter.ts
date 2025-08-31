@@ -1,5 +1,4 @@
-import { arraySizePredicate } from '../predicates/arraySizePredicate';
-import { ArraySizeOperEnum } from '../../enums/arrayOperation';
+import { arraySizePredicate, ArraySizePredicate } from '../predicates/arraySizePredicate';
 import { ByType } from '../../types/utility';
 
 /**
@@ -8,15 +7,15 @@ import { ByType } from '../../types/utility';
  * @template K - The key of the array field to filter by.
  * @param {T[]} collection - The array of objects to filter.
  * @param {K} field - The key of the array field to filter on.
- * @param {ArraySizeOperEnum} oper - The size operation to perform.
+ * @param {ArraySizeOper | ValueOf<ArraySizeOperEnum>} oper - The size operation to perform.
  * @param {number} [n] - The length to compare (required for some operations).
  * @returns {T[]} The filtered array of objects.
  */
 export function arraySizeFilter<T, K extends keyof ByType<T, any[]>>(
   collection: T[],
   field: K,
-  oper: ArraySizeOperEnum,
-  n?: number
+  oper: Parameters<ArraySizePredicate>[1],
+  n: Parameters<ArraySizePredicate>[2] = undefined
 ): T[] {
   return collection.filter((item: T) => {
     const arr = item[field] as any[] | undefined;

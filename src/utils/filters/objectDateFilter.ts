@@ -10,7 +10,7 @@ import { DateOperEnum } from '../../enums/dateOperation';
  * @param {T[]} collection - The array of objects to filter.
  * @param {K} field - The key of the nested object property to inspect on each item.
  * @param {string} key - The key of the date property within the nested object to test.
- * @param {DateOperEnum} oper - The date operation to apply.
+ * @param {DateOper | ValueOf<DateOperEnum>} oper - The date operation to apply.
  * @param {Date} target - The target date value for comparison.
  * @returns {T[]} The filtered array of objects where the date property matches the operation.
  *

@@ -1,6 +1,5 @@
-import { ByType, ValueOf } from '../../types/utility';
-import { NumberOperEnum } from '../../enums/numberOperation';
-import { numberPredicate } from '../predicates/numberPredicate';
+import { ByType } from '../../types/utility';
+import { numberPredicate, NumberPredicate } from '../predicates/numberPredicate';
 
 /**
  * Filters a collection of objects by a number field using the specified number operation.
@@ -9,15 +8,15 @@ import { numberPredicate } from '../predicates/numberPredicate';
  * @template K - The key of the number field to filter by.
  * @param {T[]} collection - The array of objects to filter.
  * @param {K} field - The key of the number field to filter on.
- * @param {ValueOf<NumberOperEnum>} oper - The number operation to apply.
+ * @param {NumberEnum | ValueOf<NumberOperEnum>} oper - The number operation to apply.
  * @param {number} target - The target number value for comparison.
  * @returns {T[]} The filtered array of objects.
  */
 export function numberFilter<T, K extends keyof ByType<T, number>>(
   collection: T[],
   field: K,
-  oper: ValueOf<NumberOperEnum>,
-  target: number
+  oper: Parameters<NumberPredicate>[1],
+  target: Parameters<NumberPredicate>[2]
 ): T[] {
   return collection.filter((item: T) => {
     const source = item[field] as number | undefined;

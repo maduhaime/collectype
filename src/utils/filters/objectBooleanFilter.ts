@@ -10,7 +10,7 @@ import { BooleanOperEnum } from '../../enums/booleanOperation';
  * @param {T[]} collection - The array of objects to filter.
  * @param {K} field - The key of the nested object property to inspect on each item.
  * @param {string} key - The key of the boolean property within the nested object to test.
- * @param {BooleanOperEnum} oper - The boolean operation to apply.
+ * @param {BooleanOper | ValueOf<BooleanOperEnum>} oper - The boolean operation to apply.
  * @param {boolean} target - The target boolean value for comparison.
  * @returns {T[]} The filtered array of objects where the boolean property matches the operation.
  *

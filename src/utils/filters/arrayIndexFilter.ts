@@ -1,4 +1,4 @@
-import { arrayIndexPredicate } from '../predicates/arrayIndexPredicate';
+import { arrayIndexPredicate, ArrayIndexPredicate } from '../predicates/arrayIndexPredicate';
 import { ArrayIndexOperEnum } from '../../enums/arrayOperation';
 import { ByType } from '../../types/utility';
 
@@ -8,7 +8,7 @@ import { ByType } from '../../types/utility';
  * @template K - The key of the array field to filter by.
  * @param {T[]} collection - The array of objects to filter.
  * @param {K} field - The key of the array field to filter on.
- * @param {ArrayIndexOperEnum} oper - The index operation to perform.
+ * @param {ArrayIndexOper | ValueOf<ArrayIndexOperEnum>} oper - The index operation to perform.
  * @param {number} index - The index to check in the array.
  * @param {any|any[]} target - The value or array to compare at the index.
  * @returns {T[]} The filtered array of objects.
@@ -16,9 +16,9 @@ import { ByType } from '../../types/utility';
 export function arrayIndexFilter<T, K extends keyof ByType<T, any[]>>(
   collection: T[],
   field: K,
-  oper: ArrayIndexOperEnum,
-  index: number,
-  target: any | any[]
+  oper: Parameters<ArrayIndexPredicate>[1],
+  index: Parameters<ArrayIndexPredicate>[2],
+  target: Parameters<ArrayIndexPredicate>[3]
 ): T[] {
   return collection.filter((item: T) => {
     const arr = item[field] as any[] | undefined;

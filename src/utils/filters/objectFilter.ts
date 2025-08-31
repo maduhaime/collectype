@@ -1,4 +1,4 @@
-import { ByType } from '@/types/utility';
+import { ByType } from '../../types/utility';
 import { objectPredicate, ObjectPredicate } from '../predicates/objectPredicate';
 
 /**
@@ -8,8 +8,8 @@ import { objectPredicate, ObjectPredicate } from '../predicates/objectPredicate'
  * @template K - The key of the nested object property in T.
  * @param {T[]} collection - The array of objects to filter.
  * @param {K} field - The key of the nested object property to inspect on each item.
- * @param {ObjectPredicate[1]} oper - The object operation to perform.
- * @param {ObjectPredicate[2]} target - The value or values to check, depending on the operation.
+ * @param {ObjectOper | ValueOf<ObjectOperEnum>} oper - The object operation to perform.
+ * @param {any} target - The value or values to check, depending on the operation.
  * @returns {T[]} The filtered array of objects where the nested object property matches the operation.
  *
  * Example: Filter users where user.profile has all required keys:

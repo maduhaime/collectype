@@ -1,6 +1,5 @@
 import { ByType } from '../../types/utility';
-import { numberRangePredicate } from '../predicates/numberRangePredicate';
-import { RangeOperEnum } from '../../enums/rangeOperation';
+import { numberRangePredicate, NumberRangePredicate } from '../predicates/numberRangePredicate';
 
 /**
  * Filters a collection of objects based on a number property within a nested object, checking if it falls within a number range.
@@ -10,7 +9,7 @@ import { RangeOperEnum } from '../../enums/rangeOperation';
  * @param {T[]} collection - The array of objects to filter.
  * @param {K} field - The key of the nested object property to inspect on each item.
  * @param {string} key - The key of the number property within the nested object to test.
- * @param {RangeOperEnum} oper - The range operation to apply.
+ * @param {RangeOper | ValueOf<RangeOperEnum>} oper - The range operation to apply.
  * @param {number} min - The minimum number bound.
  * @param {number} max - The maximum number bound.
  * @returns {T[]} The filtered array of objects where the number property is within the range.
@@ -22,9 +21,9 @@ export function objectNumberRangeFilter<T, K extends keyof ByType<T, Object>>(
   collection: T[],
   field: K,
   key: string,
-  oper: RangeOperEnum,
-  min: number,
-  max: number
+  oper: Parameters<NumberRangePredicate>[1],
+  min: Parameters<NumberRangePredicate>[2],
+  max: Parameters<NumberRangePredicate>[3]
 ): T[] {
   if (!Array.isArray(collection)) return [];
   return collection.filter((item) => {

@@ -10,7 +10,7 @@ import { CalendarOperEnum } from '../../enums/calendarOperation';
  * @param {T[]} collection - The array of objects to filter.
  * @param {K} field - The key of the nested object property to inspect on each item.
  * @param {string} key - The key of the date property within the nested object to test.
- * @param {CalendarOperEnum} oper - The calendar operation to apply.
+ * @param {CalendarOper | ValueOf<CalendarOperEnum>} oper - The calendar operation to apply.
  * @param {Date} [today] - The reference date for calendar operations (optional).
  * @returns {T[]} The filtered array of objects where the calendar property matches the operation.
  *

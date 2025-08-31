@@ -1,6 +1,5 @@
-import { ByType, ValueOf } from '../../types/utility';
-import { DateOperEnum } from '../../enums/dateOperation';
-import { datePredicate } from '../predicates/datePredicate';
+import { ByType } from '../../types/utility';
+import { datePredicate, DatePredicate } from '../predicates/datePredicate';
 
 /**
  * Filters a collection of objects by a date field using the specified date operation.
@@ -9,15 +8,15 @@ import { datePredicate } from '../predicates/datePredicate';
  * @template K - The key of the date field to filter by.
  * @param {T[]} collection - The array of objects to filter.
  * @param {K} field - The key of the date field to filter on.
- * @param {ValueOf<DateOperEnum>} oper - The date operation to apply.
+ * @param {DateOper | ValueOf<DateOperEnum>} oper - The date operation to apply.
  * @param {Date} target - The target date value for comparison.
  * @returns {T[]} The filtered array of objects.
  */
 export function dateFilter<T, K extends keyof ByType<T, Date>>(
   collection: T[],
   field: K,
-  oper: ValueOf<DateOperEnum>,
-  target: Date
+  oper: Parameters<DatePredicate>[1],
+  target: Parameters<DatePredicate>[2]
 ): T[] {
   return collection.filter((item: T) => {
     const source = item[field] as Date | undefined;

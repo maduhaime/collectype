@@ -1,6 +1,5 @@
 import { ByType } from '../../types/utility';
-import { stringStatePredicate } from '../predicates/stringStatePredicate';
-import { StringStateOperEnum } from '../../enums/stringOperation';
+import { stringStatePredicate, StringStatePredicate } from '../predicates/stringStatePredicate';
 
 /**
  * Filters a collection of objects based on the state of a string property within a nested object.
@@ -10,7 +9,7 @@ import { StringStateOperEnum } from '../../enums/stringOperation';
  * @param {T[]} collection - The array of objects to filter.
  * @param {K} field - The key of the nested object property to inspect on each item.
  * @param {string} key - The key of the string property within the nested object to test.
- * @param {StringStateOperEnum} oper - The string state operation to apply (e.g., IS_EMPTY, IS_NOT_EMPTY).
+ * @param {StringStateOper | ValueOf<StringStateOperEnum>} oper - The string state operation to apply (e.g., IS_EMPTY, IS_NOT_EMPTY).
  * @returns {T[]} The filtered array of objects where the string property matches the state operation.
  *
  * Example: Filter users where user.profile.bio is not empty:
@@ -20,7 +19,7 @@ export function objectStringStateFilter<T, K extends keyof ByType<T, Object>>(
   collection: T[],
   field: K,
   key: string,
-  oper: StringStateOperEnum
+  oper: Parameters<StringStatePredicate>[1]
 ): T[] {
   if (!Array.isArray(collection)) return [];
   return collection.filter((item) => {

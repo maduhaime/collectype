@@ -9,8 +9,8 @@ import { ArrayPredicate, arrayPredicate } from '../predicates/arrayPredicate';
  * @param {T[]} collection - The array of objects to filter.
  * @param {K} field - The key of the nested object property to inspect on each item.
  * @param {string} key - The key of the array property within the nested object to test.
- * @param {ArrayPredicate[1]} oper - The array operation to apply.
- * @param {ArrayPredicate[2]} [target] - The target value(s) for comparison (optional).
+ * @param {ArrayOper | ValueOf<ArrayOperEnum>} oper - The array operation to apply.
+ * @param {any} [target] - The target value(s) for comparison (optional).
  * @returns {T[]} The filtered array of objects where the array property matches the operation.
  *
  * Example: Filter users where user.profile.tags includes 'admin':

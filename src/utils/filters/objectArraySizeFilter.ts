@@ -10,7 +10,7 @@ import { ArraySizeOperEnum } from '../../enums/arrayOperation';
  * @param {T[]} collection - The array of objects to filter.
  * @param {K} field - The key of the nested object property to inspect on each item.
  * @param {string} key - The key of the array property within the nested object to test.
- * @param {ArraySizeOperEnum} oper - The array size operation to apply.
+ * @param {ArraySizeOper | ValueOf<ArraySizeOperEnum>} oper - The array size operation to apply.
  * @param {number} [num] - The size value to compare (optional).
  * @returns {T[]} The filtered array of objects where the array size property matches the operation.
  *

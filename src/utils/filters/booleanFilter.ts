@@ -1,6 +1,5 @@
-import { BooleanOperEnum } from '../../enums/booleanOperation';
-import { booleanPredicate } from '../predicates/booleanPredicate';
-import { ByType, ValueOf } from '../../types/utility';
+import { booleanPredicate, BooleanPredicate } from '../predicates/booleanPredicate';
+import { ByType } from '../../types/utility';
 
 /**
  * Filters a collection of objects by a boolean field using the specified boolean operation.
@@ -9,7 +8,7 @@ import { ByType, ValueOf } from '../../types/utility';
  * @template K - The key of the boolean field to filter by.
  * @param {T[]} collection - The array of objects to filter.
  * @param {K} field - The key of the boolean field to filter on.
- * @param {BooleanOper} oper - The boolean operation to apply ('equals', 'not_equals').
+ * @param {BooleanOper | ValueOf<BooleanOperEnum>} oper - The boolean operation to apply ('equals', 'not_equals').
  * @param {Boolean} target - The target boolean value for comparison.
  * @returns {T[]} The filtered array of objects.
  */
@@ -17,8 +16,8 @@ import { ByType, ValueOf } from '../../types/utility';
 export function booleanFilter<T, K extends keyof ByType<T, boolean>>(
   collection: T[],
   field: K,
-  oper: ValueOf<BooleanOperEnum>,
-  target: boolean
+  oper: Parameters<BooleanPredicate>[1],
+  target: Parameters<BooleanPredicate>[2]
 ): T[] {
   return collection.filter((item: T) => {
     const source = item[field] as boolean | undefined;

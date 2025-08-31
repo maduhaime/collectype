@@ -1,6 +1,5 @@
-import { ByType, ValueOf } from '../../types/utility';
-import { CalendarOperEnum } from '../../enums/calendarOperation';
-import { calendarPredicate } from '../predicates/calendarPredicate';
+import { ByType } from '../../types/utility';
+import { calendarPredicate, CalendarPredicate } from '../predicates/calendarPredicate';
 
 /**
  * Filters a collection of objects by a date field using the specified calendar operation.
@@ -9,15 +8,15 @@ import { calendarPredicate } from '../predicates/calendarPredicate';
  * @template K - The key of the date field to filter by.
  * @param collection - The array of objects to filter.
  * @param field - The key of the date field to filter on.
- * @param oper - The calendar operation to apply. Must be a value from CalendarOperEnum.
+ * @param {CalendarOper | ValueOf<CalendarOperEnum>} oper - The calendar operation to apply. Must be a value from CalendarOperEnum.
  * @param today - The reference date for calendar operations (e.g. IS_TODAY, IS_YESTERDAY, IS_BEFORE_TODAY, etc.).
  * @returns {T[]} The filtered array of objects.
  */
 export function calendarFilter<T, K extends keyof ByType<T, Date>>(
   collection: T[],
   field: K,
-  oper: ValueOf<CalendarOperEnum>,
-  today: Date
+  oper: Parameters<CalendarPredicate>[1],
+  today: Parameters<CalendarPredicate>[2]
 ): T[] {
   return collection.filter((item: T) => {
     const source = item[field] as Date | undefined;

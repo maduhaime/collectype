@@ -1,4 +1,4 @@
-import { arrayPredicate } from '../predicates/arrayPredicate';
+import { arrayPredicate, ArrayPredicate } from '../predicates/arrayPredicate';
 import { ArrayOperEnum } from '../../enums/arrayOperation';
 import { ByType } from '../../types/utility';
 
@@ -10,7 +10,7 @@ import { ByType } from '../../types/utility';
  * @template K - The key of the array field to filter by.
  * @param {T[]} collection - The array of objects to filter.
  * @param {K} field - The key of the array field to filter on.
- * @param {ArrayOperEnum} oper - The array operation to perform.
+ * @param {ArrayOper | ValueOf<ArrayOperEnum>} oper - The array operation to perform.
  * @param {any|any[]} target - The value or array to compare, depending on the operation.
  * @returns {T[]} The filtered array of objects.
  *
@@ -22,28 +22,26 @@ import { ByType } from '../../types/utility';
 export function arrayFilter<T, K extends keyof ByType<T, any[]>>(
   collection: T[],
   field: K,
-  oper: ArrayOperEnum,
-  target: any | any[]
+  oper: Parameters<ArrayPredicate>[1],
+  target: Parameters<ArrayPredicate>[2]
 ): T[] {
   return collection.filter((item: T) => {
     const arr = item[field] as any[] | undefined;
-
-    // Guard clause: return false if the field is not an array
     if (!Array.isArray(arr)) return false;
 
-    // Guard clause: exclude empty arrays for certain operations (to match legacy behavior)
-    if (
-      [ArrayOperEnum.EVERY_EQUALS, ArrayOperEnum.IS_SUBSET_OF, ArrayOperEnum.IS_SUPERSET_OF].includes(oper) &&
-      arr.length === 0
-    ) {
+    // Convert oper to string for comparison (ValueOf<ArrayOperEnum> is string)
+    const opStr = String(oper);
+    const everyEquals = String(ArrayOperEnum.EVERY_EQUALS);
+    const isSubsetOf = String(ArrayOperEnum.IS_SUBSET_OF);
+    const isSupersetOf = String(ArrayOperEnum.IS_SUPERSET_OF);
+    const setEquals = String(ArrayOperEnum.SET_EQUALS);
+
+    if ([everyEquals, isSubsetOf, isSupersetOf].includes(opStr) && arr.length === 0) {
       return false;
     }
-
-    // For SET_EQUALS, only include empty arrays if target is also empty
-    if (oper === ArrayOperEnum.SET_EQUALS && arr.length === 0) {
+    if (opStr === setEquals && arr.length === 0) {
       if (!Array.isArray(target) || target.length !== 0) return false;
     }
-
     return arrayPredicate(arr, oper, target);
   });
 }
