@@ -23,7 +23,7 @@ export const arrayPredicate: ArrayPredicate = <T>(arr: T[], oper: ValueOf<ArrayO
   if (oper === ArrayOperEnum.INCLUDES) return arr.includes(value);
   if (oper === ArrayOperEnum.EXCLUDES) return !arr.includes(value);
   if (oper === ArrayOperEnum.SOME_EQUALS) return arr.some((v) => v === value);
-  if (oper === ArrayOperEnum.EVERY_EQUALS) return arr.every((v) => v === value);
+  if (oper === ArrayOperEnum.EVERY_EQUALS) return arr.length > 0 && arr.every((v) => v === value);
 
   const targetArr = target as T[];
 
@@ -35,7 +35,7 @@ export const arrayPredicate: ArrayPredicate = <T>(arr: T[], oper: ValueOf<ArrayO
   if (oper === ArrayOperEnum.SET_EQUALS) return setEquals(arr, targetArr);
 
   // Check if arr is a subset of targetArr
-  if (oper === ArrayOperEnum.IS_SUBSET_OF) return arr.every((v) => targetArr.includes(v));
+  if (oper === ArrayOperEnum.IS_SUBSET_OF) return arr.length > 0 && arr.every((v) => targetArr.includes(v));
 
   // Check if arr is a superset of targetArr (all elements of targetArr in arr, including duplicates)
   // Check if arr is a superset of targetArr (all elements of targetArr in arr, including duplicates)
