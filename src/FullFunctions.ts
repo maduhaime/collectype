@@ -1,3 +1,5 @@
+import { ObjectOperEnum } from './enums/objectOperation';
+import { ObjectPredicate, objectPredicate } from './utils/predicates/objectPredicate';
 import { ArrayIndexOperEnum, ArrayOperEnum, ArraySizeOperEnum } from './enums/arrayOperation';
 import { arrayIndexPredicate } from './utils/predicates/arrayIndexPredicate';
 import { arrayPredicate } from './utils/predicates/arrayPredicate';
@@ -530,6 +532,47 @@ export class FullFunctions<T> extends BaseFunctions<T> {
     return this.where((item) => {
       const source = item[field] as string;
       return stringStatePredicate(source, StringStateOperEnum.IS_NOT_EMPTY);
+    });
+  }
+
+  // ===========================
+  // Object filters
+  // ===========================
+
+  objectHasKey<K extends keyof ByType<T, object>>(field: K, target: Parameters<ObjectPredicate>[2]): this {
+    return this.where((item) => {
+      const source = item[field] as object;
+      return objectPredicate(source, ObjectOperEnum.HAS_KEY, target);
+    });
+  }
+  /**
+   * Filter items where the object at item[field] has any of the specified keys.
+   */
+  objectHasAnyKey<K extends keyof ByType<T, object>>(field: K, target: Parameters<ObjectPredicate>[2]): this {
+    return this.where((item) => {
+      const source = item[field] as object;
+      return objectPredicate(source, ObjectOperEnum.HAS_ANY_KEY, target);
+    });
+  }
+
+  objectHasAllKeys<K extends keyof ByType<T, object>>(field: K, target: Parameters<ObjectPredicate>[2]): this {
+    return this.where((item) => {
+      const source = item[field] as object;
+      return objectPredicate(source, ObjectOperEnum.HAS_ALL_KEYS, target);
+    });
+  }
+
+  objectHasExactKeys<K extends keyof ByType<T, object>>(field: K, target: Parameters<ObjectPredicate>[2]): this {
+    return this.where((item) => {
+      const source = item[field] as object;
+      return objectPredicate(source, ObjectOperEnum.HAS_EXACT_KEYS, target);
+    });
+  }
+
+  objectHasNoKeys<K extends keyof ByType<T, object>>(field: K, target: Parameters<ObjectPredicate>[2]): this {
+    return this.where((item) => {
+      const source = item[field] as object;
+      return objectPredicate(source, ObjectOperEnum.HAS_NO_KEYS, target);
     });
   }
 }
