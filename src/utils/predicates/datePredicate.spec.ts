@@ -42,7 +42,10 @@ describe('datePredicate', () => {
     expect(datePredicate(date1, DateOperEnum.SAME_YEAR, date2)).toBe(true);
   });
 
-  it('should throw for unsupported operator', () => {
-    expect(() => datePredicate(date1, 'unsupported', date2)).toThrow();
+  it('should throw for unsupported operation', () => {
+    // @ts-expect-error: purposely passing an invalid enum value
+    expect(() => datePredicate(new Date(), 'invalid', new Date())).toThrow(
+      'Unsupported date predicate operation: invalid'
+    );
   });
 });

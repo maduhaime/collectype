@@ -1,6 +1,7 @@
 export * from './arrayIndexPredicate';
 export * from './arrayPredicate';
 export * from './arraySizePredicate';
+export * from './arrayStatePredicate';
 export * from './booleanPredicate';
 export * from './calendarPredicate';
 export * from './datePredicate';

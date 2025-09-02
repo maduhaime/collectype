@@ -120,8 +120,8 @@ describe('objectStatePredicate', () => {
     expect(objectStatePredicate({ a: 1, b: undefined }, ObjectStateEnum.HAS_NO_UNDEFINED)).toBe(false);
   });
 
-  it('should throw for unknown operation', () => {
+  it('should throw for unsupported operation', () => {
     // @ts-expect-error: purposely passing invalid operation
-    expect(() => objectStatePredicate({}, 'UNKNOWN')).toThrow();
+    expect(() => objectStatePredicate({}, 'invalid')).toThrow('Unsupported object state predicate operation: invalid');
   });
 });

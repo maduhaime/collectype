@@ -35,5 +35,5 @@ export const dateRangePredicate: DateRangePredicate = (source, oper, min, max) =
   if (oper === RangeOperEnum.STRICT_OUT_RANGE) return time <= min.getTime() || time >= max.getTime();
 
   // Throws error for unsupported operators
-  throw new Error(`Unsupported date range predicate operator: ${oper}`);
+  throw new Error(`Unsupported date range predicate operation: ${oper}`);
 };

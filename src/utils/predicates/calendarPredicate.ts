@@ -65,5 +65,5 @@ export const calendarPredicate: CalendarPredicate = (source, oper, today = new D
   }
 
   // Throws error for unsupported operators
-  throw new Error(`Unsupported date predicate operator: ${oper}`);
+  throw new Error(`Unsupported calendar predicate operation: ${oper}`);
 };

@@ -71,5 +71,5 @@ export const objectStatePredicate: ObjectStatePredicate = (obj, oper): boolean =
     return Object.values(obj).every((v) => v !== undefined);
   }
   // Throw an error if the operation is unknown
-  throw new Error(`Unknown ObjectStateEnum operation: ${String(oper)}`);
+  throw new Error(`Unsupported object state predicate operation: ${oper}`);
 };

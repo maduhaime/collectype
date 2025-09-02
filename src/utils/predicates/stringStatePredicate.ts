@@ -19,5 +19,5 @@ export const stringStatePredicate: StringStatePredicate = (source, oper) => {
   if (oper === StringStateOperEnum.IS_NOT_EMPTY) return source.length > 0;
 
   // Unsupported operator
-  throw new Error(`Unsupported string state predicate operator: ${oper}`);
+  throw new Error(`Unsupported string state predicate operation: ${oper}`);
 };

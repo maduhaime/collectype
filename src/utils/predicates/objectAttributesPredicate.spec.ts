@@ -57,8 +57,10 @@ describe('objectAttributesPredicate', () => {
     expect(objectAttributesPredicate(dummy, 'readonlyProp', ObjectAttributeEnum.IS_CONFIGURABLE)).toBe(false);
   });
 
-  it('should throw for unknown operation', () => {
-    // @ts-expect-error: purposely passing invalid operation
-    expect(() => objectAttributesPredicate(dummy, 'writableProp', 'UNKNOWN')).toThrow();
+  it('should throw for unsupported operation', () => {
+    // @ts-expect-error: purposely passing an invalid enum value
+    expect(() => objectAttributesPredicate(dummy, 'writableProp', 'invalid')).toThrow(
+      'Unsupported object attributes predicate operation: invalid'
+    );
   });
 });

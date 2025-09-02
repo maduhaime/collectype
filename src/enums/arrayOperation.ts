@@ -36,6 +36,9 @@ export enum ArraySizeOperEnum {
   LENGTH_GREATER_THAN_OR_EQUALS = 'lengthGreaterThanOrEquals',
   LENGTH_LESS_THAN = 'lengthLessThan',
   LENGTH_LESS_THAN_OR_EQUALS = 'lengthLessThanOrEquals',
+}
+
+export enum ArrayStateOperEnum {
   IS_EMPTY = 'isEmpty',
   IS_NOT_EMPTY = 'isNotEmpty',
 }

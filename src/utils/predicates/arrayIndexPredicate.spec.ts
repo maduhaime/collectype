@@ -25,4 +25,11 @@ describe('arrayIndexPredicate', () => {
     expect(arrayIndexPredicate(arr, ArrayIndexOperEnum.VALUE_AT_INDEX_NOT_IN, 1, ['C', 'D'])).toBe(true);
     expect(arrayIndexPredicate(arr, ArrayIndexOperEnum.VALUE_AT_INDEX_NOT_IN, 0, ['A', 'B'])).toBe(false);
   });
+
+  it('should throw for unsupported operation', () => {
+    // @ts-expect-error: purposely passing an invalid enum value
+    expect(() => arrayIndexPredicate(['A', 'B'], 'invalid', 0, 'A')).toThrow(
+      'Unsupported array index predicate operation: invalid'
+    );
+  });
 });

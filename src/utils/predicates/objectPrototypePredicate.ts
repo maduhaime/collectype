@@ -22,5 +22,5 @@ export const objectPrototypePredicate: ObjectPrototypePredicate = (proto, obj, o
     return proto.isPrototypeOf(obj);
   }
   // Throw for unknown operation
-  throw new Error(`Unknown object prototype operation: ${oper}`);
+  throw new Error(`Unsupported object prototype predicate operation: ${oper}`);
 };

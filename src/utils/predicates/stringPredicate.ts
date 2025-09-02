@@ -44,5 +44,5 @@ export const stringPredicate: StringPredicate = (source, oper, target) => {
   }
 
   // Unsupported operator
-  throw new Error(`Unsupported string predicate operator: ${oper}`);
+  throw new Error(`Unsupported string predicate operation: ${oper}`);
 };

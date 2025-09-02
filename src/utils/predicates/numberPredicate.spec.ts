@@ -65,7 +65,8 @@ describe('numberPredicate', () => {
     expect(numberPredicate(0, NumberOperEnum.IS_NOT_ZERO, 0)).toBe(false);
   });
 
-  it('should throw for unsupported operator', () => {
-    expect(() => numberPredicate(1, 'unsupported', 0)).toThrow();
+  it('should throw for unsupported operation', () => {
+    // @ts-expect-error: purposely passing an invalid enum value
+    expect(() => numberPredicate(1, 'invalid', 2)).toThrow('Unsupported number predicate operation: invalid');
   });
 });

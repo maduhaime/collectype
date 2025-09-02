@@ -65,5 +65,5 @@ export const arrayIndexPredicate: ArrayIndexPredicate = <T>(
     return target !== undefined && target !== null && arr[index] <= target;
 
   // Unsupported operator
-  throw new Error(`Unsupported array index predicate operator: ${oper}`);
+  throw new Error(`Unsupported array index predicate operation: ${oper}`);
 };

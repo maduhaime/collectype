@@ -56,20 +56,4 @@ describe('arraySizeFactory', () => {
     const predicate = ctx.where.mock.calls[0][0];
     expect(predicate(item)).toBe(arraySizePredicate(item.arr, ArraySizeOperEnum.LENGTH_LESS_THAN_OR_EQUALS, n));
   });
-
-  it('should call ctx.where with a predicate for isEmpty', () => {
-    const fn = arraySizeFactory.isEmpty<DummyType>(ctx);
-    fn(field);
-    expect(ctx.where).toHaveBeenCalled();
-    const predicate = ctx.where.mock.calls[0][0];
-    expect(predicate(item)).toBe(arraySizePredicate(item.arr, ArraySizeOperEnum.IS_EMPTY));
-  });
-
-  it('should call ctx.where with a predicate for isNotEmpty', () => {
-    const fn = arraySizeFactory.isNotEmpty<DummyType>(ctx);
-    fn(field);
-    expect(ctx.where).toHaveBeenCalled();
-    const predicate = ctx.where.mock.calls[0][0];
-    expect(predicate(item)).toBe(arraySizePredicate(item.arr, ArraySizeOperEnum.IS_NOT_EMPTY));
-  });
 });

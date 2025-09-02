@@ -13,7 +13,10 @@ describe('stringStatePredicate', () => {
     expect(stringStatePredicate('', StringStateOperEnum.IS_NOT_EMPTY)).toBe(false);
   });
 
-  it('should throw for unsupported operator', () => {
-    expect(() => stringStatePredicate('abc', 'unsupported')).toThrow();
+  it('should throw for unsupported operation', () => {
+    // @ts-expect-error: purposely passing an invalid enum value
+    expect(() => stringStatePredicate('abc', 'invalid')).toThrow(
+      'Unsupported string state predicate operation: invalid'
+    );
   });
 });

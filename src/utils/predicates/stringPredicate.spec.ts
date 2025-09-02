@@ -38,7 +38,8 @@ describe('stringPredicate', () => {
     expect(stringPredicate('abcdef', StringOperEnum.MATCHES, 'xyz')).toBe(false);
   });
 
-  it('should throw for unsupported operator', () => {
-    expect(() => stringPredicate('abc', 'unsupported', 'abc')).toThrow();
+  it('should throw for unsupported operation', () => {
+    // @ts-expect-error: purposely passing an invalid enum value
+    expect(() => stringPredicate('abc', 'invalid', 'def')).toThrow('Unsupported string predicate operation: invalid');
   });
 });

@@ -24,5 +24,5 @@ export const booleanPredicate: BooleanPredicate = (source, oper, target) => {
   if (oper === BooleanOperEnum.NOT_EQUALS) return source !== target;
 
   // Throws error for unsupported operators
-  throw new Error(`Unsupported boolean predicate operator: ${oper}`);
+  throw new Error(`Unsupported boolean predicate operation: ${oper}`);
 };

@@ -44,8 +44,10 @@ describe('objectKeysPredicate', () => {
     expect(objectKeysPredicate(dummy, ['baz', 'qux'], ObjectKeyEnum.HAS_ANY_KEY)).toBe(false);
   });
 
-  it('should throw for unknown operation', () => {
+  it('should throw for unsupported operation', () => {
     // @ts-expect-error: purposely passing invalid operation
-    expect(() => objectKeysPredicate(dummy, 'foo', 'UNKNOWN')).toThrow();
+    expect(() => objectKeysPredicate(dummy, 'foo', 'invalid')).toThrow(
+      'Unsupported object keys predicate operation: invalid'
+    );
   });
 });

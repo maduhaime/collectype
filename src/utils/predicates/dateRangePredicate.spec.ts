@@ -35,7 +35,10 @@ describe('dateRangePredicate', () => {
     expect(dateRangePredicate(inside, RangeOperEnum.STRICT_OUT_RANGE, min, max)).toBe(false);
   });
 
-  it('should throw for unsupported operator', () => {
-    expect(() => dateRangePredicate(inside, 'unsupported', min, max)).toThrow();
+  it('should throw for unsupported operation', () => {
+    // @ts-expect-error: purposely passing an invalid enum value
+    expect(() => dateRangePredicate(new Date(), 'invalid', new Date(), new Date())).toThrow(
+      'Unsupported date range predicate operation: invalid'
+    );
   });
 });

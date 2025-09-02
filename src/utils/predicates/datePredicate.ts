@@ -51,5 +51,5 @@ export const datePredicate: DatePredicate = (source, oper, target) => {
   }
 
   // Throws error for unsupported operators
-  throw new Error(`Unsupported date predicate operator: ${oper}`);
+  throw new Error(`Unsupported date predicate operation: ${oper}`);
 };

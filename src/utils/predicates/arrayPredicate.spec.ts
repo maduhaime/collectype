@@ -70,4 +70,9 @@ describe('arrayPredicate', () => {
     expect(arrayPredicate(['A', 'B'], ArrayOperEnum.DISJOINT, ['C', 'D'])).toBe(true);
     expect(arrayPredicate(['A', 'B'], ArrayOperEnum.DISJOINT, ['A', 'C'])).toBe(false);
   });
+
+  it('should throw for unsupported operation', () => {
+    // @ts-expect-error: purposely passing an invalid enum value
+    expect(() => arrayPredicate(['A', 'B'], 'invalid', 'A')).toThrow('Unsupported array predicate operation: invalid');
+  });
 });

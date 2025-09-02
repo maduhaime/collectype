@@ -15,7 +15,8 @@ describe('booleanPredicate', () => {
     expect(booleanPredicate(true, BooleanOperEnum.NOT_EQUALS, true)).toBe(false);
   });
 
-  it('should throw for unsupported operator', () => {
-    expect(() => booleanPredicate(true, 'unsupported', false)).toThrow();
+  it('should throw for unsupported operation', () => {
+    // @ts-expect-error: purposely passing an invalid enum value
+    expect(() => booleanPredicate(true, 'invalid', false)).toThrow('Unsupported boolean predicate operation: invalid');
   });
 });

@@ -16,9 +16,12 @@ describe('objectPrototypePredicate', () => {
     expect(objectPrototypePredicate(Object.prototype, dummy, ObjectPrototypeEnum.IS_PROTOTYPE_OF)).toBe(true);
   });
 
-  it('should throw for unknown operation', () => {
+  it('should throw for unsupported operation', () => {
     const dummy = new DummyType();
+
     // @ts-expect-error: purposely passing invalid operation
-    expect(() => objectPrototypePredicate(DummyType.prototype, dummy, 'UNKNOWN')).toThrow();
+    expect(() => objectPrototypePredicate(DummyType.prototype, dummy, 'invalid')).toThrow(
+      'Unsupported object prototype predicate operation: invalid'
+    );
   });
 });

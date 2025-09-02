@@ -34,5 +34,5 @@ export const objectKeysPredicate: ObjectKeysPredicate = (obj, keys, oper): boole
     return Array.isArray(keys) && keys.some((k) => k in obj);
   }
   // Throw for unknown operation
-  throw new Error(`Unknown object key operation: ${oper}`);
+  throw new Error(`Unsupported object keys predicate operation: ${oper}`);
 };

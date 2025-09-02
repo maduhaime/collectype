@@ -25,8 +25,10 @@ describe('objectInstancePredicate', () => {
     expect(objectInstancePredicate({}, DummyType, ObjectInstanceEnum.IS_CONSTRUCTOR)).toBe(false);
   });
 
-  it('should throw for unknown operation', () => {
+  it('should throw for unsupported operation', () => {
     // @ts-expect-error: purposely passing invalid operation
-    expect(() => objectInstancePredicate(dummy, DummyType, 'UNKNOWN')).toThrow();
+    expect(() => objectInstancePredicate(dummy, DummyType, 'invalid')).toThrow(
+      'Unsupported object instance predicate operation: invalid'
+    );
   });
 });

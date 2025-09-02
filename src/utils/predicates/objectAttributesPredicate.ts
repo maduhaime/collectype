@@ -31,5 +31,5 @@ export const objectAttributesPredicate: ObjectAttributesPredicate = (obj, key, o
     return descriptor?.configurable ?? false;
   }
   // Throw for unknown operation
-  throw new Error(`Unknown object attribute operation: ${oper}`);
+  throw new Error(`Unsupported object attributes predicate operation: ${oper}`);
 };

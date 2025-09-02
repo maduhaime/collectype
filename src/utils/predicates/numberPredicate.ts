@@ -51,5 +51,5 @@ export const numberPredicate: NumberPredicate = (source, oper, target) => {
   if (oper === NumberOperEnum.IS_NOT_ZERO) return source !== 0;
 
   // Throws error for unsupported operators
-  throw new Error(`Unsupported number predicate operator: ${oper}`);
+  throw new Error(`Unsupported number predicate operation: ${oper}`);
 };

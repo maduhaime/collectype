@@ -40,4 +40,11 @@ describe('calendarPredicate', () => {
   it('should return false for IS_WEEKDAY (Sunday)', () => {
     expect(calendarPredicate(sunday, CalendarOperEnum.IS_WEEKDAY, today)).toBe(false);
   });
+
+  it('should throw for unsupported operation', () => {
+    // @ts-expect-error: purposely passing an invalid enum value
+    expect(() => calendarPredicate(new Date(), 'invalid', new Date())).toThrow(
+      'Unsupported calendar predicate operation: invalid'
+    );
+  });
 });

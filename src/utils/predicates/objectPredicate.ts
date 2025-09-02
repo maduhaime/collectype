@@ -39,5 +39,5 @@ export const objectPredicate: ObjectPredicate = (obj, oper, target) => {
   if (oper === ObjectOperEnum.HAS_NO_KEYS) return keys.every((k) => !Object.prototype.hasOwnProperty.call(obj, k));
 
   // Unsupported operator
-  throw new Error(`Unknown object keys operation: ${oper}`);
+  throw new Error(`Unsupported object predicate operation: ${oper}`);
 };

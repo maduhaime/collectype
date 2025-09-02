@@ -33,5 +33,5 @@ export const numberRangePredicate: NumberRangePredicate = (source, oper, min, ma
   if (oper === RangeOperEnum.STRICT_OUT_RANGE) return source <= min || source >= max;
 
   // Throws error for unsupported operators
-  throw new Error(`Unsupported number range predicate operator: ${oper}`);
+  throw new Error(`Unsupported number range predicate operation: ${oper}`);
 };

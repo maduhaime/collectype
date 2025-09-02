@@ -31,5 +31,5 @@ export const objectInstancePredicate: ObjectInstancePredicate = (obj, constructo
     }
   }
   // Throw for unknown operation
-  throw new Error(`Unknown object instance operation: ${oper}`);
+  throw new Error(`Unsupported object instance predicate operation: ${oper}`);
 };

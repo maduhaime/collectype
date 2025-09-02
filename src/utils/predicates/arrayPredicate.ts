@@ -61,5 +61,5 @@ export const arrayPredicate: ArrayPredicate = <T>(
   if (oper === ArrayOperEnum.DISJOINT) return arr.every((v) => !targetArr.includes(v));
 
   // Unsupported operator
-  throw new Error(`Unsupported array predicate operator: ${oper}`);
+  throw new Error(`Unsupported array predicate operation: ${oper}`);
 };

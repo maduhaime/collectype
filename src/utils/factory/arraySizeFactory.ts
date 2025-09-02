@@ -47,30 +47,10 @@ function lengthLessThanOrEquals<T>(ctx: ContextWithWhere<T>) {
   };
 }
 
-function isEmpty<T>(ctx: ContextWithWhere<T>) {
-  return function <K extends keyof ByType<T, any[]>>(field: K) {
-    return ctx.where((item: T) => {
-      const arr = item[field] as any[];
-      return arraySizePredicate(arr, ArraySizeOperEnum.IS_EMPTY);
-    });
-  };
-}
-
-function isNotEmpty<T>(ctx: ContextWithWhere<T>) {
-  return function <K extends keyof ByType<T, any[]>>(field: K) {
-    return ctx.where((item: T) => {
-      const arr = item[field] as any[];
-      return arraySizePredicate(arr, ArraySizeOperEnum.IS_NOT_EMPTY);
-    });
-  };
-}
-
 export const arraySizeFactory = {
   lengthEquals,
   lengthGreaterThan,
   lengthGreaterThanOrEquals,
   lengthLessThan,
   lengthLessThanOrEquals,
-  isEmpty,
-  isNotEmpty,
 };

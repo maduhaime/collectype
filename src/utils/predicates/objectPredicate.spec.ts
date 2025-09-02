@@ -33,10 +33,6 @@ describe('objectPredicate', () => {
     expect(objectPredicate({}, ObjectOperEnum.HAS_NO_KEYS, ['foo'])).toBe(true);
   });
 
-  it('should throw for unknown operation', () => {
-    expect(() => objectPredicate(obj, 'UNKNOWN', 'foo')).toThrow();
-  });
-
   it('should handle empty object and empty keys array', () => {
     expect(objectPredicate({}, ObjectOperEnum.HAS_ANY_KEY, [])).toBe(false);
     expect(objectPredicate({}, ObjectOperEnum.HAS_ALL_KEYS, [])).toBe(true);
@@ -46,5 +42,12 @@ describe('objectPredicate', () => {
   it('should handle non-string keys in target array', () => {
     // @ts-expect-error
     expect(objectPredicate(obj, ObjectOperEnum.HAS_ANY_KEY, [123, null, undefined])).toBe(false);
+  });
+
+  it('should throw for unsupported operation', () => {
+    // @ts-expect-error: purposely passing an invalid enum value
+    expect(() => objectPredicate({ foo: 1 }, 'invalid', 'foo')).toThrow(
+      'Unsupported object predicate operation: invalid'
+    );
   });
 });

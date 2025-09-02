@@ -12,6 +12,7 @@ import { numberRangeFactory } from './utils/factory/numberRangeFactory';
 import { stringFactory } from './utils/factory/stringFactory';
 import { stringStateFactory } from './utils/factory/stringStateFactory';
 import { objectFactory } from './utils/factory/objectFactory';
+import { arrayStateFactory } from './utils/factory/arrayStateFactory';
 
 export class FullFunctions<T> extends BaseFunctions<T> {
   // ===========================
@@ -54,8 +55,13 @@ export class FullFunctions<T> extends BaseFunctions<T> {
   arrayLengthGreaterThanOrEquals = arraySizeFactory.lengthGreaterThanOrEquals(this);
   arrayLengthLessThan = arraySizeFactory.lengthLessThan(this);
   arrayLengthLessThanOrEquals = arraySizeFactory.lengthLessThanOrEquals(this);
-  arrayIsEmpty = arraySizeFactory.isEmpty(this);
-  arrayIsNotEmpty = arraySizeFactory.isNotEmpty(this);
+
+  // ===========================
+  // Array state methods
+  // ===========================
+
+  arrayIsEmpty = arrayStateFactory.isEmpty(this);
+  arrayIsNotEmpty = arrayStateFactory.isNotEmpty(this);
 
   // ===========================
   // Boolean methods

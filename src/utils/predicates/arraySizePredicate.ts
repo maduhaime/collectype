@@ -29,12 +29,6 @@ export const arraySizePredicate: ArraySizePredicate = (arr, oper, num) => {
   // Check if array length is less than or equal to num
   if (oper === ArraySizeOperEnum.LENGTH_LESS_THAN_OR_EQUALS) return arr.length <= (num ?? 0);
 
-  // Check if array is empty
-  if (oper === ArraySizeOperEnum.IS_EMPTY) return arr.length === 0;
-
-  // Check if array is not empty
-  if (oper === ArraySizeOperEnum.IS_NOT_EMPTY) return arr.length > 0;
-
   // Unsupported operator
-  throw new Error(`Unsupported array size predicate operator: ${oper}`);
+  throw new Error(`Unsupported array size predicate operation: ${oper}`);
 };
