@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { objectAttributesPredicate } from './objectAttributesPredicate';
-import { ObjectAttributeEnum } from '../../enums/objectOperation';
+import { ObjectAttributesEnum } from '../../enums/objectOperation';
 
 // DummyType for testing
 interface DummyType {
@@ -34,27 +34,27 @@ describe('objectAttributesPredicate', () => {
   });
 
   it('should return true for writable property', () => {
-    expect(objectAttributesPredicate(dummy, 'writableProp', ObjectAttributeEnum.IS_WRITABLE)).toBe(true);
+    expect(objectAttributesPredicate(dummy, 'writableProp', ObjectAttributesEnum.IS_WRITABLE)).toBe(true);
   });
 
   it('should return false for readonly property', () => {
-    expect(objectAttributesPredicate(dummy, 'readonlyProp', ObjectAttributeEnum.IS_WRITABLE)).toBe(false);
+    expect(objectAttributesPredicate(dummy, 'readonlyProp', ObjectAttributesEnum.IS_WRITABLE)).toBe(false);
   });
 
   it('should return true for enumerable property', () => {
-    expect(objectAttributesPredicate(dummy, 'writableProp', ObjectAttributeEnum.IS_ENUMERABLE)).toBe(true);
+    expect(objectAttributesPredicate(dummy, 'writableProp', ObjectAttributesEnum.IS_ENUMERABLE)).toBe(true);
   });
 
   it('should return false for non-enumerable property', () => {
-    expect(objectAttributesPredicate(dummy, 'hiddenProp', ObjectAttributeEnum.IS_ENUMERABLE)).toBe(false);
+    expect(objectAttributesPredicate(dummy, 'hiddenProp', ObjectAttributesEnum.IS_ENUMERABLE)).toBe(false);
   });
 
   it('should return true for configurable property', () => {
-    expect(objectAttributesPredicate(dummy, 'writableProp', ObjectAttributeEnum.IS_CONFIGURABLE)).toBe(true);
+    expect(objectAttributesPredicate(dummy, 'writableProp', ObjectAttributesEnum.IS_CONFIGURABLE)).toBe(true);
   });
 
   it('should return false for non-configurable property', () => {
-    expect(objectAttributesPredicate(dummy, 'readonlyProp', ObjectAttributeEnum.IS_CONFIGURABLE)).toBe(false);
+    expect(objectAttributesPredicate(dummy, 'readonlyProp', ObjectAttributesEnum.IS_CONFIGURABLE)).toBe(false);
   });
 
   it('should throw for unsupported operation', () => {

@@ -1,38 +1,61 @@
 import { EnumOrString } from '../../types/utility';
-import { ObjectKeyEnum } from '../../enums/objectOperation';
+import { ObjectKeysEnum } from '../../enums/objectOperation';
 
 export type ObjectKeysPredicate = (
-  obj: Record<string, any>,
+  target: Record<string, any> | any[],
   keys: string[] | string,
-  oper: EnumOrString<typeof ObjectKeyEnum>
+  oper: EnumOrString<typeof ObjectKeysEnum>
 ) => boolean;
 
 /**
- * Evaluates key-related operations on an object.
+ * Evaluates key/property operations on objects and arrays.
  *
- * @param obj - The object to inspect.
+ * @param target - The object or array to inspect.
  * @param keys - The key or keys to check (string or array of strings).
- * @param oper - The operation to perform (from ObjectKeyEnum or its string value).
+ * @param oper - The operation to perform (from ObjectKeysEnum or its string value).
  * @returns {boolean} True if the operation is satisfied, otherwise throws an error.
  * @throws {Error} If an unknown operation is provided.
+ * @example
+ * objectKeysPredicate([1,2,3], '0', ObjectKeysEnum.HAS_KEY) // true
+ * objectKeysPredicate({a:1}, ['a','b'], ObjectKeysEnum.HAS_ANY_KEY) // true
  */
-export const objectKeysPredicate: ObjectKeysPredicate = (obj, keys, oper): boolean => {
-  // Check if object has any property
-  if (oper === ObjectKeyEnum.HAS_ANY_PROPERTY) {
-    return Object.keys(obj).length > 0;
+export const objectKeysPredicate: ObjectKeysPredicate = (target, keys, oper): boolean => {
+  /**
+   * Design choice: empty objects/arrays are not considered 'usable' for inclusion/exclusion logic.
+   * They are ignored and always return false for HAS_KEY/HAS_ANY_KEY/HAS_ALL_KEYS/HAS_EXACT_KEYS/HAS_NO_KEYS.
+   */
+  const allKeys = Object.keys(target);
+  if (allKeys.length === 0) {
+    if (
+      oper === ObjectKeysEnum.HAS_KEY ||
+      oper === ObjectKeysEnum.HAS_ANY_KEY ||
+      oper === ObjectKeysEnum.HAS_ALL_KEYS ||
+      oper === ObjectKeysEnum.HAS_EXACT_KEYS ||
+      oper === ObjectKeysEnum.HAS_NO_KEYS
+    ) {
+      return false;
+    }
   }
-  // Check if object has a specific key
-  if (oper === ObjectKeyEnum.HAS_KEY) {
-    return typeof keys === 'string' ? Object.prototype.hasOwnProperty.call(obj, keys) : false;
+  if (oper === ObjectKeysEnum.HAS_ANY_PROPERTY) {
+    return allKeys.length > 0;
   }
-  // Check if object has all specified keys
-  if (oper === ObjectKeyEnum.HAS_ALL_KEYS) {
-    return Array.isArray(keys) && keys.every((k) => k in obj);
+  if (oper === ObjectKeysEnum.HAS_KEY) {
+    return typeof keys === 'string' ? allKeys.includes(keys) : false;
   }
-  // Check if object has any of the specified keys
-  if (oper === ObjectKeyEnum.HAS_ANY_KEY || oper === 'hasAnyKey') {
-    return Array.isArray(keys) && keys.some((k) => k in obj);
+  if (oper === ObjectKeysEnum.HAS_ALL_KEYS) {
+    return Array.isArray(keys) && keys.every((k) => allKeys.includes(k));
   }
-  // Throw for unknown operation
+  if (oper === ObjectKeysEnum.HAS_ANY_KEY) {
+    return Array.isArray(keys) && keys.some((k) => allKeys.includes(k));
+  }
+  if (oper === ObjectKeysEnum.HAS_EXACT_KEYS) {
+    if (!Array.isArray(keys)) return false;
+    const sortedObjKeys = [...allKeys].sort();
+    const sortedTargetKeys = [...keys].sort();
+    return sortedObjKeys.length === sortedTargetKeys.length && sortedObjKeys.every((k, i) => k === sortedTargetKeys[i]);
+  }
+  if (oper === ObjectKeysEnum.HAS_NO_KEYS) {
+    return Array.isArray(keys) && keys.every((k) => !allKeys.includes(k));
+  }
   throw new Error(`Unsupported object keys predicate operation: ${oper}`);
 };

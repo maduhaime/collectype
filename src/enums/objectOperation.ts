@@ -2,13 +2,7 @@
  * @enum {string}
  * Operations for key presence (single or multiple keys)
  */
-export enum ObjectOperEnum {
-  HAS_KEY = 'hasKey',
-  HAS_ANY_KEY = 'hasAnyKey',
-  HAS_ALL_KEYS = 'hasAllKeys',
-  HAS_EXACT_KEYS = 'hasExactKeys',
-  HAS_NO_KEYS = 'hasNoKeys',
-}
+export enum ObjectOperEnum {}
 
 export enum ObjectStateEnum {
   IS_EMPTY = 'is_empty',
@@ -27,17 +21,19 @@ export enum ObjectStateEnum {
   HAS_NO_UNDEFINED = 'has_no_undefined',
 }
 
-export enum ObjectAttributeEnum {
+export enum ObjectAttributesEnum {
   IS_WRITABLE = 'is_writable',
   IS_ENUMERABLE = 'is_enumerable',
   IS_CONFIGURABLE = 'is_configurable',
 }
 
-export enum ObjectKeyEnum {
+export enum ObjectKeysEnum {
   HAS_ANY_PROPERTY = 'has_any_property',
   HAS_KEY = 'has_key',
   HAS_ALL_KEYS = 'has_all_keys',
   HAS_ANY_KEY = 'has_any_key',
+  HAS_EXACT_KEYS = 'hasExactKeys',
+  HAS_NO_KEYS = 'hasNoKeys',
 }
 
 export enum ObjectInstanceEnum {

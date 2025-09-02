@@ -11,9 +11,13 @@ import { numberFactory } from './utils/factory/numberFactory';
 import { numberRangeFactory } from './utils/factory/numberRangeFactory';
 import { stringFactory } from './utils/factory/stringFactory';
 import { stringStateFactory } from './utils/factory/stringStateFactory';
-import { objectFactory } from './utils/factory/objectFactory';
 import { arrayStateFactory } from './utils/factory/arrayStateFactory';
 import { stringSizeFactory } from './utils/factory/stringSizeFactory';
+import { objectAttributesFactory } from './utils/factory/objectAttributesFactory';
+import { objectInstanceFactory } from './utils/factory/objectInstanceFactory';
+import { objectKeysFactory } from './utils/factory/objectKeysFactory';
+import { objectPrototypeFactory } from './utils/factory/objectPrototypeFactory';
+import { objectStateFactory } from './utils/factory/objectStateFactory';
 
 export class FullFunctions<T> extends BaseFunctions<T> {
   // ===========================
@@ -125,6 +129,50 @@ export class FullFunctions<T> extends BaseFunctions<T> {
   numberStrictOutRange = numberRangeFactory.strictOutRange(this);
 
   // ===========================
+  // Object attributes methods
+  // ===========================
+
+  objectIsWritable = objectAttributesFactory.isWritable(this);
+  objectIsEnumerable = objectAttributesFactory.isEnumerable(this);
+  objectIsConfigurable = objectAttributesFactory.isConfigurable(this);
+
+  // ===========================
+  // Object instance methods
+  // ===========================
+
+  objectIsInstanceOf = objectInstanceFactory.isInstanceOf(this);
+  objectIsConstructor = objectInstanceFactory.isConstructor(this);
+
+  // ===========================
+  // Object keys methods
+  // ===========================
+
+  objectHasAnyProperty = objectKeysFactory.hasAnyProperty(this);
+  objectHasKey = objectKeysFactory.hasKey(this);
+  objectHasAnyKey = objectKeysFactory.hasAnyKey(this);
+  objectHasAllKeys = objectKeysFactory.hasAllKeys(this);
+  objectHasExactKeys = objectKeysFactory.hasExactKeys(this);
+  objectHasNoKeys = objectKeysFactory.hasNoKeys(this);
+
+  // ===========================
+  // Object prototype methods
+  // ===========================
+
+  objectIsPrototypeOf = objectPrototypeFactory.isPrototypeOf(this);
+
+  // ===========================
+  // Object state methods
+  // ===========================
+
+  objectIsEmpty = objectStateFactory.isEmpty(this);
+  objectIsPlain = objectStateFactory.isPlain(this);
+  objectHasNumericKeys = objectStateFactory.hasNumericKeys(this);
+  objectHasCamelcaseKeys = objectStateFactory.hasCamelcaseKeys(this);
+  objectHasNestedObject = objectStateFactory.hasNestedObject(this);
+  objectIsFrozen = objectStateFactory.isFrozen(this);
+  objectIsSealed = objectStateFactory.isSealed(this);
+
+  // ===========================
   // String methods
   // ===========================
 
@@ -152,14 +200,4 @@ export class FullFunctions<T> extends BaseFunctions<T> {
   stringLengthGreaterThanOrEquals = stringSizeFactory.lengthGreaterThanOrEquals(this);
   stringLengthLessThan = stringSizeFactory.lengthLessThan(this);
   stringLengthLessThanOrEquals = stringSizeFactory.lengthLessThanOrEquals(this);
-
-  // ===========================
-  // Object methods
-  // ===========================
-
-  objectHasKey = objectFactory.hasKey(this);
-  objectHasAnyKey = objectFactory.hasAnyKey(this);
-  objectHasAllKeys = objectFactory.hasAllKeys(this);
-  objectHasExactKeys = objectFactory.hasExactKeys(this);
-  objectHasNoKeys = objectFactory.hasNoKeys(this);
 }

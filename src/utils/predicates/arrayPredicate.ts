@@ -21,7 +21,25 @@ export const arrayPredicate: ArrayPredicate = <T>(
   oper: EnumOrString<typeof ArrayOperEnum>,
   target?: T | T[]
 ) => {
+  /**
+   *
+   * Design choice: empty objects/arrays are not considered 'usable' for inclusion/exclusion logic.
+   * They are ignored and always return false for INCLUDES/EXCLUDES/SOME_EQUALS/EVERY_EQUALS/SUBSET.
+   */
   const value = target as T;
+
+  if (arr.length === 0) {
+    // For inclusion/exclusion logic, empty arrays are ignored
+    if (
+      oper === ArrayOperEnum.INCLUDES ||
+      oper === ArrayOperEnum.EXCLUDES ||
+      oper === ArrayOperEnum.SOME_EQUALS ||
+      oper === ArrayOperEnum.EVERY_EQUALS ||
+      oper === ArrayOperEnum.IS_SUBSET_OF
+    ) {
+      return false;
+    }
+  }
 
   if (oper === ArrayOperEnum.INCLUDES) return arr.includes(value);
   if (oper === ArrayOperEnum.EXCLUDES) return !arr.includes(value);

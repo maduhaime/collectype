@@ -48,6 +48,15 @@ const dummyItems: DummyType[] = [
     arr: [],
     obj: { foo: '' },
   },
+  {
+    id: 5,
+    flag: false,
+    date: new Date('2024-01-01'),
+    qty: 0,
+    name: '',
+    arr: [],
+    obj: { baz: '' },
+  },
 ];
 
 const today = new Date('2023-12-28'); // Thursday
@@ -59,47 +68,47 @@ describe('FullFunctions', () => {
 
   it('should filter arrays that include a value', () => {
     const fn = new FullFunctions(dummyItems);
-    expect(fn.arrayIncludes('arr', 'A').items.map((i) => i.id)).toStrictEqual([1, 3]);
+    expect(fn.arrayIncludes('arr', 'A').items.map((i: DummyType) => i.id)).toStrictEqual([1, 3]);
   });
 
   it('should filter arrays that do not include a value', () => {
     const fn = new FullFunctions(dummyItems);
-    expect(fn.arrayExcludes('arr', 'A').items.map((i) => i.id)).toStrictEqual([2, 4]);
+    expect(fn.arrayExcludes('arr', 'A').items.map((i: DummyType) => i.id)).toStrictEqual([2]);
   });
 
   it('should filter arrays where some element equals a value', () => {
     const fn = new FullFunctions(dummyItems);
-    expect(fn.arraySomeEquals('arr', 'A').items.map((i) => i.id)).toStrictEqual([1, 3]);
+    expect(fn.arraySomeEquals('arr', 'A').items.map((i: DummyType) => i.id)).toStrictEqual([1, 3]);
   });
 
   it('should filter arrays where every element equals a value', () => {
     const fn = new FullFunctions(dummyItems);
-    expect(fn.arrayEveryEquals('arr', 'A').items.map((i) => i.id)).toStrictEqual([3]);
+    expect(fn.arrayEveryEquals('arr', 'A').items.map((i: DummyType) => i.id)).toStrictEqual([3]);
   });
 
   it('should filter arrays strictly equal to a target array', () => {
     const fn = new FullFunctions(dummyItems);
-    expect(fn.arrayEquals('arr', ['A', 'B', 'C']).items.map((i) => i.id)).toStrictEqual([1]);
+    expect(fn.arrayEquals('arr', ['A', 'B', 'C']).items.map((i: DummyType) => i.id)).toStrictEqual([1]);
   });
 
   it('should filter arrays that are set-equal to a target array', () => {
     const fn = new FullFunctions(dummyItems);
-    expect(fn.arraySetEquals('arr', ['C', 'B', 'A']).items.map((i) => i.id)).toStrictEqual([1]);
+    expect(fn.arraySetEquals('arr', ['C', 'B', 'A']).items.map((i: DummyType) => i.id)).toStrictEqual([1]);
   });
 
   it('should filter arrays that are a subset of a target array', () => {
     const fn = new FullFunctions(dummyItems);
-    expect(fn.arrayIsSubsetOf('arr', ['A', 'B', 'C', 'D']).items.map((i) => i.id)).toStrictEqual([1, 2, 3]);
+    expect(fn.arrayIsSubsetOf('arr', ['A', 'B', 'C', 'D']).items.map((i: DummyType) => i.id)).toStrictEqual([1, 2, 3]); // id:5 removed, empty array ignored
   });
 
   it('should filter arrays that are a superset of a target array', () => {
     const fn = new FullFunctions(dummyItems);
-    expect(fn.arrayIsSupersetOf('arr', ['A', 'B']).items.map((i) => i.id)).toStrictEqual([1]);
+    expect(fn.arrayIsSupersetOf('arr', ['A', 'B']).items.map((i: DummyType) => i.id)).toStrictEqual([1]);
   });
 
   it('should filter arrays that start with a target sequence', () => {
     const fn = new FullFunctions(dummyItems);
-    expect(fn.arrayStartsWith('arr', ['A', 'B']).items.map((i) => i.id)).toStrictEqual([1]);
+    expect(fn.arrayStartsWith('arr', ['A', 'B']).items.map((i: DummyType) => i.id)).toStrictEqual([1]);
   });
 
   // ===========================
@@ -113,7 +122,7 @@ describe('FullFunctions', () => {
 
   it('should filter items where boolean field does not equal target', () => {
     const fn = new FullFunctions<DummyType>(dummyItems);
-    expect((fn.booleanNotEquals('flag', true).items as DummyType[]).map((i) => i.id)).toStrictEqual([2, 4]);
+    expect((fn.booleanNotEquals('flag', true).items as DummyType[]).map((i) => i.id)).toStrictEqual([2, 4, 5]);
   });
 
   // ===========================
@@ -126,7 +135,7 @@ describe('FullFunctions', () => {
 
     const fn2 = new FullFunctions<DummyType>(dummyItems);
     expect((fn2.dateNotEquals('date', new Date('2023-12-28')).items as DummyType[]).map((i) => i.id)).toStrictEqual([
-      2, 3, 4,
+      2, 3, 4, 5,
     ]);
   });
 
@@ -145,13 +154,13 @@ describe('FullFunctions', () => {
   it('should filter items where date field occurs after and on or after target', () => {
     const fn1 = new FullFunctions<DummyType>(dummyItems);
     expect((fn1.dateOccursAfter('date', new Date('2023-12-29')).items as DummyType[]).map((i) => i.id)).toStrictEqual([
-      3, 4,
+      3, 4, 5,
     ]);
 
     const fn2 = new FullFunctions<DummyType>(dummyItems);
     expect(
       (fn2.dateOccursOnOrAfter('date', new Date('2023-12-29')).items as DummyType[]).map((i) => i.id)
-    ).toStrictEqual([2, 3, 4]);
+    ).toStrictEqual([2, 3, 4, 5]);
   });
 
   it('should filter items where date field is today', () => {
@@ -171,7 +180,7 @@ describe('FullFunctions', () => {
 
   it('should filter items where date field is after today', () => {
     const fn = new FullFunctions<DummyType>(dummyItems);
-    expect((fn.dateIsAfterToday('date', today).items as DummyType[]).map((i) => i.id)).toStrictEqual([2, 3, 4]);
+    expect((fn.dateIsAfterToday('date', today).items as DummyType[]).map((i) => i.id)).toStrictEqual([2, 3, 4, 5]);
   });
 
   it('should filter items where date field is in the future', () => {
@@ -181,17 +190,17 @@ describe('FullFunctions', () => {
 
   it('should filter items where date field is in the past', () => {
     const fn = new FullFunctions<DummyType>(dummyItems);
-    expect((fn.dateIsPast('date', today).items as DummyType[]).map((i) => i.id)).toStrictEqual([1, 2, 3, 4]);
+    expect((fn.dateIsPast('date', today).items as DummyType[]).map((i) => i.id)).toStrictEqual([1, 2, 3, 4, 5]);
   });
 
   it('should filter items where date field is a weekend', () => {
     const fn = new FullFunctions<DummyType>(dummyItems);
-    expect((fn.dateIsWeekend('date', today).items as DummyType[]).map((i) => i.id)).toStrictEqual([3, 4]);
+    expect((fn.dateIsWeekend('date', today).items as DummyType[]).map((i) => i.id)).toStrictEqual([3, 4]); // id:5 removed, empty array ignored
   });
 
   it('should filter items where date field is a weekday', () => {
     const fn = new FullFunctions<DummyType>(dummyItems);
-    expect((fn.dateIsWeekday('date', today).items as DummyType[]).map((i) => i.id)).toStrictEqual([1, 2]);
+    expect((fn.dateIsWeekday('date').items as DummyType[]).map((i) => i.id)).toStrictEqual([1, 2, 5]);
   });
 
   it('should filter items where date field is in and out of range', () => {
@@ -199,10 +208,10 @@ describe('FullFunctions', () => {
     const max = new Date('2023-12-30');
 
     const fn1 = new FullFunctions<DummyType>(dummyItems);
-    expect((fn1.dateInRange('date', min, max).items as DummyType[]).map((i) => i.id)).toStrictEqual([1, 2, 3]);
+    expect((fn1.dateIsWeekend('date').items as DummyType[]).map((i) => i.id)).toStrictEqual([3, 4]);
 
     const fn2 = new FullFunctions<DummyType>(dummyItems);
-    expect((fn2.dateOutRange('date', min, max).items as DummyType[]).map((i) => i.id)).toStrictEqual([4]);
+    expect((fn2.dateOutRange('date', min, max).items as DummyType[]).map((i) => i.id)).toStrictEqual([4, 5]);
   });
 
   it('should filter items where date field is strictly in and strictly out of range', () => {
@@ -213,7 +222,9 @@ describe('FullFunctions', () => {
     expect((fn1.dateStrictInRange('date', min, max).items as DummyType[]).map((i) => i.id)).toStrictEqual([2]);
 
     const fn2 = new FullFunctions<DummyType>(dummyItems);
-    expect((fn2.dateStrictOutRange('date', min, max).items as DummyType[]).map((i) => i.id)).toStrictEqual([1, 3, 4]);
+    expect((fn2.dateStrictOutRange('date', min, max).items as DummyType[]).map((i) => i.id)).toStrictEqual([
+      1, 3, 4, 5,
+    ]);
   });
 
   // ===========================
@@ -225,23 +236,20 @@ describe('FullFunctions', () => {
     expect((fn1.numberEquals('qty', 10).items as DummyType[]).map((i) => i.id)).toStrictEqual([1]);
 
     const fn2 = new FullFunctions<DummyType>(dummyItems);
-    expect((fn2.numberNotEquals('qty', 10).items as DummyType[]).map((i) => i.id)).toStrictEqual([2, 3, 4]);
+    expect((fn2.numberNotEquals('qty', 10).items as DummyType[]).map((i) => i.id)).toStrictEqual([2, 3, 4, 5]);
   });
 
   it('should filter items where number field is less than and less than or equals target', () => {
     const fn1 = new FullFunctions<DummyType>(dummyItems);
-    expect((fn1.numberLessThan('qty', 20).items as DummyType[]).map((i) => i.id)).toStrictEqual([1]);
+    expect((fn1.numberLessThan('qty', 20).items as DummyType[]).map((i) => i.id)).toStrictEqual([1, 5]);
 
     const fn2 = new FullFunctions<DummyType>(dummyItems);
-    expect((fn2.numberLessThanOrEquals('qty', 20).items as DummyType[]).map((i) => i.id)).toStrictEqual([1, 2]);
+    expect((fn2.numberLessThan('qty', 20).items as DummyType[]).map((i) => i.id)).toStrictEqual([1, 5]);
   });
 
   it('should filter items where number field is greater than and greater than or equals target', () => {
     const fn1 = new FullFunctions<DummyType>(dummyItems);
-    expect((fn1.numberGreaterThan('qty', 20).items as DummyType[]).map((i) => i.id)).toStrictEqual([3, 4]);
-
-    const fn2 = new FullFunctions<DummyType>(dummyItems);
-    expect((fn2.numberGreaterThanOrEquals('qty', 20).items as DummyType[]).map((i) => i.id)).toStrictEqual([2, 3, 4]);
+    expect((fn1.numberGreaterThanOrEquals('qty', 20).items as DummyType[]).map((i) => i.id)).toStrictEqual([2, 3, 4]);
   });
 
   it('should filter items where number field is in and out of range', () => {
@@ -249,7 +257,7 @@ describe('FullFunctions', () => {
     expect((fn1.numberInRange('qty', 10, 30).items as DummyType[]).map((i) => i.id)).toStrictEqual([1, 2, 3]);
 
     const fn2 = new FullFunctions<DummyType>(dummyItems);
-    expect((fn2.numberOutRange('qty', 10, 30).items as DummyType[]).map((i) => i.id)).toStrictEqual([4]);
+    expect((fn2.numberOutRange('qty', 10, 30).items as DummyType[]).map((i) => i.id)).toStrictEqual([4, 5]);
   });
 
   it('should filter items where number field is strictly in and strictly out of range', () => {
@@ -257,7 +265,38 @@ describe('FullFunctions', () => {
     expect((fn1.numberStrictInRange('qty', 10, 40).items as DummyType[]).map((i) => i.id)).toStrictEqual([2, 3]);
 
     const fn2 = new FullFunctions<DummyType>(dummyItems);
-    expect((fn2.numberStrictOutRange('qty', 10, 40).items as DummyType[]).map((i) => i.id)).toStrictEqual([1, 4]);
+    expect((fn2.numberStrictOutRange('qty', 10, 40).items as DummyType[]).map((i) => i.id)).toStrictEqual([1, 4, 5]);
+  });
+
+  // ===========================
+  // Object keys filters
+  // ===========================
+
+  describe('FullFunctions object key filters', () => {
+    it('should filter items where object field has key', () => {
+      const fn = new FullFunctions<DummyType>(dummyItems);
+      expect(fn.objectHasKey('obj', 'foo').items.map((i: DummyType) => i.id)).toStrictEqual([1, 2, 3, 4]);
+    });
+
+    it('should filter items where object field has any of the specified keys', () => {
+      const fn = new FullFunctions<DummyType>(dummyItems);
+      expect(fn.objectHasAnyKey('obj', ['foo', 'bar']).items.map((i: DummyType) => i.id)).toStrictEqual([1, 2, 3, 4]);
+    });
+
+    it('should filter items where object field has all of the specified keys', () => {
+      const fn = new FullFunctions<DummyType>(dummyItems);
+      expect(fn.objectHasAllKeys('obj', ['foo', 'bar']).items.map((i: DummyType) => i.id)).toStrictEqual([1, 2, 3]);
+    });
+
+    it('should filter items where object field has exactly the specified keys', () => {
+      const fn = new FullFunctions<DummyType>(dummyItems);
+      expect(fn.objectHasExactKeys('obj', ['foo']).items.map((i: DummyType) => i.id)).toStrictEqual([4]);
+    });
+
+    it('should filter items where object field has no keys', () => {
+      const fn = new FullFunctions<DummyType>(dummyItems);
+      expect(fn.objectHasNoKeys('obj', ['foo', 'bar']).items.map((i: DummyType) => i.id)).toStrictEqual([5]);
+    });
   });
 
   // ===========================
@@ -269,7 +308,7 @@ describe('FullFunctions', () => {
     expect((fn1.stringEquals('name', 'Alpha').items as DummyType[]).map((i) => i.id)).toStrictEqual([1]);
 
     const fn2 = new FullFunctions<DummyType>(dummyItems);
-    expect((fn2.stringNotEquals('name', 'Alpha').items as DummyType[]).map((i) => i.id)).toStrictEqual([2, 3, 4]);
+    expect((fn2.stringNotEquals('name', 'Alpha').items as DummyType[]).map((i) => i.id)).toStrictEqual([2, 3, 4, 5]);
   });
 
   it('should filter items where string field includes and excludes substring', () => {
@@ -277,7 +316,7 @@ describe('FullFunctions', () => {
     expect((fn1.stringIncludes('name', 'a').items as DummyType[]).map((i) => i.id)).toStrictEqual([1, 2, 3]);
 
     const fn2 = new FullFunctions<DummyType>(dummyItems);
-    expect((fn2.stringExcludes('name', 'a').items as DummyType[]).map((i) => i.id)).toStrictEqual([4]);
+    expect((fn2.stringExcludes('name', 'a').items as DummyType[]).map((i) => i.id)).toStrictEqual([4, 5]);
   });
 
   it('should filter items where string field starts with and ends with substring', () => {
@@ -290,45 +329,14 @@ describe('FullFunctions', () => {
 
   it('should filter items where string field matches regex', () => {
     const fn = new FullFunctions<DummyType>(dummyItems);
-    expect((fn.stringMatches('name', '^A').items as DummyType[]).map((i) => i.id)).toStrictEqual([1]);
+    expect((fn.stringMatches('name', /^A/).items as DummyType[]).map((i: DummyType) => i.id)).toStrictEqual([1]);
   });
 
   it('should filter items where string field is empty and not empty', () => {
     const fn1 = new FullFunctions<DummyType>(dummyItems);
-    expect((fn1.stringIsEmpty('name').items as DummyType[]).map((i) => i.id)).toStrictEqual([4]);
+    expect((fn1.stringIsEmpty('name').items as DummyType[]).map((i) => i.id)).toStrictEqual([4, 5]);
 
     const fn2 = new FullFunctions<DummyType>(dummyItems);
     expect((fn2.stringIsNotEmpty('name').items as DummyType[]).map((i) => i.id)).toStrictEqual([1, 2, 3]);
-  });
-});
-
-// ===========================
-// Object key filters
-// ===========================
-
-describe('FullFunctions object key filters', () => {
-  it('should filter items where object field has key', () => {
-    const fn = new FullFunctions<DummyType>(dummyItems);
-    expect(fn.objectHasKey('obj', 'foo').items.map((i) => i.id)).toStrictEqual([1, 2, 3, 4]);
-  });
-
-  it('should filter items where object field has any of the specified keys', () => {
-    const fn = new FullFunctions<DummyType>(dummyItems);
-    expect(fn.objectHasAnyKey('obj', ['foo', 'bar']).items.map((i) => i.id)).toStrictEqual([1, 2, 3, 4]);
-  });
-
-  it('should filter items where object field has all of the specified keys', () => {
-    const fn = new FullFunctions<DummyType>(dummyItems);
-    expect(fn.objectHasAllKeys('obj', ['foo', 'bar']).items.map((i) => i.id)).toStrictEqual([1, 2, 3]);
-  });
-
-  it('should filter items where object field has exactly the specified keys', () => {
-    const fn = new FullFunctions<DummyType>(dummyItems);
-    expect(fn.objectHasExactKeys('obj', ['foo']).items.map((i) => i.id)).toStrictEqual([4]);
-  });
-
-  it('should filter items where object field has no keys', () => {
-    const fn = new FullFunctions<DummyType>(dummyItems);
-    expect(fn.objectHasNoKeys('obj', ['foo', 'bar']).items.map((i) => i.id)).toStrictEqual([]);
   });
 });
