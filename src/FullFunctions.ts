@@ -13,6 +13,7 @@ import { stringFactory } from './utils/factory/stringFactory';
 import { stringStateFactory } from './utils/factory/stringStateFactory';
 import { objectFactory } from './utils/factory/objectFactory';
 import { arrayStateFactory } from './utils/factory/arrayStateFactory';
+import { stringSizeFactory } from './utils/factory/stringSizeFactory';
 
 export class FullFunctions<T> extends BaseFunctions<T> {
   // ===========================
@@ -141,6 +142,16 @@ export class FullFunctions<T> extends BaseFunctions<T> {
 
   stringIsEmpty = stringStateFactory.isEmpty(this);
   stringIsNotEmpty = stringStateFactory.isNotEmpty(this);
+
+  // ===========================
+  // String size methods
+  // ===========================
+
+  stringLengthEquals = stringSizeFactory.lengthEquals(this);
+  stringLengthGreaterThan = stringSizeFactory.lengthGreaterThan(this);
+  stringLengthGreaterThanOrEquals = stringSizeFactory.lengthGreaterThanOrEquals(this);
+  stringLengthLessThan = stringSizeFactory.lengthLessThan(this);
+  stringLengthLessThanOrEquals = stringSizeFactory.lengthLessThanOrEquals(this);
 
   // ===========================
   // Object methods

@@ -1,4 +1,14 @@
 /**
+ * Enum for string size operations (length comparisons).
+ */
+export enum StringSizeOperEnum {
+  LENGTH_EQUALS = 'lengthEquals',
+  LENGTH_GREATER_THAN = 'lengthGreaterThan',
+  LENGTH_GREATER_THAN_OR_EQUALS = 'lengthGreaterThanOrEquals',
+  LENGTH_LESS_THAN = 'lengthLessThan',
+  LENGTH_LESS_THAN_OR_EQUALS = 'lengthLessThanOrEquals',
+}
+/**
  * Enum for string operations.
  * Used to specify comparison and pattern operations for strings.
  * @enum {'equals' | 'not_equals' | 'includes' | 'excludes' | 'starts_with' | 'ends_with' | 'matches'}
