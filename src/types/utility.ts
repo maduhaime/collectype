@@ -44,3 +44,8 @@ export type Optional<T> = {
  * @template T - The enum or object type.
  */
 export type ValueOf<T> = T[keyof T];
+
+/**
+ * Generic helper type to allow either enum member or its string value
+ */
+export type EnumOrString<E extends Record<string, string>> = E[keyof E] | E[keyof E];
