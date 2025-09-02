@@ -1,116 +1,116 @@
 import { ObjectOperEnum } from './enums/objectOperation';
 import { ObjectPredicate, objectPredicate } from './utils/predicates/objectPredicate';
 import { ArrayIndexOperEnum, ArrayOperEnum, ArraySizeOperEnum } from './enums/arrayOperation';
-import { arrayIndexPredicate } from './utils/predicates/arrayIndexPredicate';
-import { arrayPredicate } from './utils/predicates/arrayPredicate';
-import { arraySizePredicate } from './utils/predicates/arraySizePredicate';
+import { ArrayIndexPredicate, arrayIndexPredicate } from './utils/predicates/arrayIndexPredicate';
+import { ArrayPredicate, arrayPredicate } from './utils/predicates/arrayPredicate';
+import { ArraySizePredicate, arraySizePredicate } from './utils/predicates/arraySizePredicate';
 import { BaseFunctions } from './BaseFunctions';
 import { BooleanOperEnum } from './enums/booleanOperation';
-import { booleanPredicate } from './utils/predicates/booleanPredicate';
+import { BooleanPredicate, booleanPredicate } from './utils/predicates/booleanPredicate';
 import { ByType } from './types/utility';
 import { CalendarOperEnum } from './enums/calendarOperation';
-import { calendarPredicate } from './utils/predicates/calendarPredicate';
+import { CalendarPredicate, calendarPredicate } from './utils/predicates/calendarPredicate';
 import { DateOperEnum } from './enums/dateOperation';
-import { datePredicate } from './utils/predicates/datePredicate';
-import { dateRangePredicate } from './utils/predicates/dateRangePredicate';
+import { DatePredicate, datePredicate } from './utils/predicates/datePredicate';
+import { DateRangePredicate, dateRangePredicate } from './utils/predicates/dateRangePredicate';
 import { NumberOperEnum } from './enums/numberOperation';
-import { numberPredicate } from './utils/predicates/numberPredicate';
-import { numberRangePredicate } from './utils/predicates/numberRangePredicate';
+import { NumberPredicate, numberPredicate } from './utils/predicates/numberPredicate';
+import { NumberRangePredicate, numberRangePredicate } from './utils/predicates/numberRangePredicate';
 import { RangeOperEnum } from './enums/rangeOperation';
-import { stringPredicate } from './utils/predicates/stringPredicate';
+import { StringPredicate, stringPredicate } from './utils/predicates/stringPredicate';
 import { StringOperEnum, StringStateOperEnum } from './enums/stringOperation';
 import { stringStatePredicate } from './utils/predicates/stringStatePredicate';
 
 export class FullFunctions<T> extends BaseFunctions<T> {
   // ===========================
-  // Array filters
+  // Array methods
   // ===========================
 
-  arrayEquals<K extends keyof ByType<T, any[]>>(field: K, target: any[]): this {
+  arrayEquals<K extends keyof ByType<T, any[]>>(field: K, target: Parameters<ArrayPredicate>[1]): this {
     return this.where((item: T) => {
       const arr = item[field] as any[];
       return arrayPredicate(arr, ArrayOperEnum.EQUALS, target);
     });
   }
 
-  arraySetEquals<K extends keyof ByType<T, any[]>>(field: K, target: any[]): this {
+  arraySetEquals<K extends keyof ByType<T, any[]>>(field: K, target: Parameters<ArrayPredicate>[1]): this {
     return this.where((item: T) => {
       const arr = item[field] as any[];
       return arrayPredicate(arr, ArrayOperEnum.SET_EQUALS, target);
     });
   }
 
-  arrayIncludes<K extends keyof ByType<T, any[]>>(field: K, target: any): this {
+  arrayIncludes<K extends keyof ByType<T, any[]>>(field: K, target: Parameters<ArrayPredicate>[1]): this {
     return this.where((item: T) => {
       const arr = item[field] as any[];
       return arrayPredicate(arr, ArrayOperEnum.INCLUDES, target);
     });
   }
 
-  arrayExcludes<K extends keyof ByType<T, any[]>>(field: K, target: any): this {
+  arrayExcludes<K extends keyof ByType<T, any[]>>(field: K, target: Parameters<ArrayPredicate>[1]): this {
     return this.where((item: T) => {
       const arr = item[field] as any[];
       return arrayPredicate(arr, ArrayOperEnum.EXCLUDES, target);
     });
   }
 
-  arraySomeEquals<K extends keyof ByType<T, any[]>>(field: K, target: any): this {
+  arraySomeEquals<K extends keyof ByType<T, any[]>>(field: K, target: Parameters<ArrayPredicate>[1]): this {
     return this.where((item: T) => {
       const arr = item[field] as any[];
       return arrayPredicate(arr, ArrayOperEnum.SOME_EQUALS, target);
     });
   }
 
-  arrayEveryEquals<K extends keyof ByType<T, any[]>>(field: K, target: any): this {
+  arrayEveryEquals<K extends keyof ByType<T, any[]>>(field: K, target: Parameters<ArrayPredicate>[1]): this {
     return this.where((item: T) => {
       const arr = item[field] as any[];
       return arrayPredicate(arr, ArrayOperEnum.EVERY_EQUALS, target);
     });
   }
 
-  arrayIsSubsetOf<K extends keyof ByType<T, any[]>>(field: K, target: any[]): this {
+  arrayIsSubsetOf<K extends keyof ByType<T, any[]>>(field: K, target: Parameters<ArrayPredicate>[1]): this {
     return this.where((item: T) => {
       const arr = item[field] as any[];
       return arrayPredicate(arr, ArrayOperEnum.IS_SUBSET_OF, target);
     });
   }
 
-  arrayIsSupersetOf<K extends keyof ByType<T, any[]>>(field: K, target: any[]): this {
+  arrayIsSupersetOf<K extends keyof ByType<T, any[]>>(field: K, target: Parameters<ArrayPredicate>[1]): this {
     return this.where((item: T) => {
       const arr = item[field] as any[];
       return arrayPredicate(arr, ArrayOperEnum.IS_SUPERSET_OF, target);
     });
   }
 
-  arrayStartsWith<K extends keyof ByType<T, any[]>>(field: K, target: any[]): this {
+  arrayStartsWith<K extends keyof ByType<T, any[]>>(field: K, target: Parameters<ArrayPredicate>[1]): this {
     return this.where((item: T) => {
       const arr = item[field] as any[];
       return arrayPredicate(arr, ArrayOperEnum.STARTS_WITH, target);
     });
   }
 
-  arrayEndsWith<K extends keyof ByType<T, any[]>>(field: K, target: any[]): this {
+  arrayEndsWith<K extends keyof ByType<T, any[]>>(field: K, target: Parameters<ArrayPredicate>[1]): this {
     return this.where((item: T) => {
       const arr = item[field] as any[];
       return arrayPredicate(arr, ArrayOperEnum.ENDS_WITH, target);
     });
   }
 
-  arrayContainsSubsequence<K extends keyof ByType<T, any[]>>(field: K, target: any[]): this {
+  arrayContainsSubsequence<K extends keyof ByType<T, any[]>>(field: K, target: Parameters<ArrayPredicate>[1]): this {
     return this.where((item: T) => {
       const arr = item[field] as any[];
       return arrayPredicate(arr, ArrayOperEnum.CONTAINS_SUBSEQUENCE, target);
     });
   }
 
-  arrayIntersects<K extends keyof ByType<T, any[]>>(field: K, target: any[]): this {
+  arrayIntersects<K extends keyof ByType<T, any[]>>(field: K, target: Parameters<ArrayPredicate>[1]): this {
     return this.where((item: T) => {
       const arr = item[field] as any[];
       return arrayPredicate(arr, ArrayOperEnum.INTERSECTS, target);
     });
   }
 
-  arrayDisjoint<K extends keyof ByType<T, any[]>>(field: K, target: any[]): this {
+  arrayDisjoint<K extends keyof ByType<T, any[]>>(field: K, target: Parameters<ArrayPredicate>[1]): this {
     return this.where((item: T) => {
       const arr = item[field] as any[];
       return arrayPredicate(arr, ArrayOperEnum.DISJOINT, target);
@@ -118,59 +118,91 @@ export class FullFunctions<T> extends BaseFunctions<T> {
   }
 
   // ===========================
-  // Array index filters
+  // Array index methods
   // ===========================
 
-  arrayIndexEquals<K extends keyof ByType<T, any[]>>(field: K, index: number, target: any): this {
+  arrayIndexEquals<K extends keyof ByType<T, any[]>>(
+    field: K,
+    index: Parameters<ArrayIndexPredicate>[2],
+    target: Parameters<ArrayIndexPredicate>[3]
+  ): this {
     return this.where((item: T) => {
       const arr = item[field] as any[];
       return arrayIndexPredicate(arr, ArrayIndexOperEnum.VALUE_AT_INDEX_EQUALS, index, target);
     });
   }
 
-  arrayIndexNotEquals<K extends keyof ByType<T, any[]>>(field: K, index: number, target: any): this {
+  arrayIndexNotEquals<K extends keyof ByType<T, any[]>>(
+    field: K,
+    index: Parameters<ArrayIndexPredicate>[2],
+    target: Parameters<ArrayIndexPredicate>[3]
+  ): this {
     return this.where((item: T) => {
       const arr = item[field] as any[];
       return arrayIndexPredicate(arr, ArrayIndexOperEnum.VALUE_AT_INDEX_NOT_EQUALS, index, target);
     });
   }
 
-  arrayIndexIn<K extends keyof ByType<T, any[]>>(field: K, index: number, targets: any[]): this {
+  arrayIndexIn<K extends keyof ByType<T, any[]>>(
+    field: K,
+    index: Parameters<ArrayIndexPredicate>[2],
+    target: Parameters<ArrayIndexPredicate>[3]
+  ): this {
     return this.where((item: T) => {
       const arr = item[field] as any[];
-      return arrayIndexPredicate(arr, ArrayIndexOperEnum.VALUE_AT_INDEX_IN, index, targets);
+      return arrayIndexPredicate(arr, ArrayIndexOperEnum.VALUE_AT_INDEX_IN, index, target);
     });
   }
 
-  arrayIndexNotIn<K extends keyof ByType<T, any[]>>(field: K, index: number, targets: any[]): this {
+  arrayIndexNotIn<K extends keyof ByType<T, any[]>>(
+    field: K,
+    index: Parameters<ArrayIndexPredicate>[2],
+    target: Parameters<ArrayIndexPredicate>[3]
+  ): this {
     return this.where((item: T) => {
       const arr = item[field] as any[];
-      return arrayIndexPredicate(arr, ArrayIndexOperEnum.VALUE_AT_INDEX_NOT_IN, index, targets);
+      return arrayIndexPredicate(arr, ArrayIndexOperEnum.VALUE_AT_INDEX_NOT_IN, index, target);
     });
   }
 
-  arrayIndexGreaterThan<K extends keyof ByType<T, any[]>>(field: K, index: number, target: any): this {
+  arrayIndexGreaterThan<K extends keyof ByType<T, any[]>>(
+    field: K,
+    index: Parameters<ArrayIndexPredicate>[2],
+    target: Parameters<ArrayIndexPredicate>[3]
+  ): this {
     return this.where((item: T) => {
       const arr = item[field] as any[];
       return arrayIndexPredicate(arr, ArrayIndexOperEnum.VALUE_AT_INDEX_GREATER_THAN, index, target);
     });
   }
 
-  arrayIndexGreaterThanOrEquals<K extends keyof ByType<T, any[]>>(field: K, index: number, target: any): this {
+  arrayIndexGreaterThanOrEquals<K extends keyof ByType<T, any[]>>(
+    field: K,
+    index: Parameters<ArrayIndexPredicate>[2],
+    target: Parameters<ArrayIndexPredicate>[3]
+  ): this {
     return this.where((item: T) => {
       const arr = item[field] as any[];
       return arrayIndexPredicate(arr, ArrayIndexOperEnum.VALUE_AT_INDEX_GREATER_THAN_OR_EQUALS, index, target);
     });
   }
 
-  arrayIndexLessThan<K extends keyof ByType<T, any[]>>(field: K, index: number, target: any): this {
+  arrayIndexLessThan<K extends keyof ByType<T, any[]>>(
+    field: K,
+    index: Parameters<ArrayIndexPredicate>[2],
+    target: Parameters<ArrayIndexPredicate>[3]
+  ): this {
     return this.where((item: T) => {
       const arr = item[field] as any[];
       return arrayIndexPredicate(arr, ArrayIndexOperEnum.VALUE_AT_INDEX_LESS_THAN, index, target);
     });
   }
 
-  arrayIndexLessThanOrEquals<K extends keyof ByType<T, any[]>>(field: K, index: number, target: any): this {
+  arrayIndexLessThanOrEquals<K extends keyof ByType<T, any[]>>(
+    field: K,
+    index: Parameters<ArrayIndexPredicate>[2],
+    target: Parameters<ArrayIndexPredicate>[3]
+  ): this {
     return this.where((item: T) => {
       const arr = item[field] as any[];
       return arrayIndexPredicate(arr, ArrayIndexOperEnum.VALUE_AT_INDEX_LESS_THAN_OR_EQUALS, index, target);
@@ -178,38 +210,41 @@ export class FullFunctions<T> extends BaseFunctions<T> {
   }
 
   // ===========================
-  // Array size filters
+  // Array size methods
   // ===========================
 
-  arrayLengthEquals<K extends keyof ByType<T, any[]>>(field: K, n: number): this {
+  arrayLengthEquals<K extends keyof ByType<T, any[]>>(field: K, n: Parameters<ArraySizePredicate>[2]): this {
     return this.where((item) => {
       const arr = item[field] as any[];
       return arraySizePredicate(arr, ArraySizeOperEnum.LENGTH_EQUALS, n);
     });
   }
 
-  arrayLengthGreaterThan<K extends keyof ByType<T, any[]>>(field: K, n: number): this {
+  arrayLengthGreaterThan<K extends keyof ByType<T, any[]>>(field: K, n: Parameters<ArraySizePredicate>[2]): this {
     return this.where((item) => {
       const arr = item[field] as any[];
       return arraySizePredicate(arr, ArraySizeOperEnum.LENGTH_GREATER_THAN, n);
     });
   }
 
-  arrayLengthGreaterThanOrEquals<K extends keyof ByType<T, any[]>>(field: K, n: number): this {
+  arrayLengthGreaterThanOrEquals<K extends keyof ByType<T, any[]>>(
+    field: K,
+    n: Parameters<ArraySizePredicate>[2]
+  ): this {
     return this.where((item) => {
       const arr = item[field] as any[];
       return arraySizePredicate(arr, ArraySizeOperEnum.LENGTH_GREATER_THAN_OR_EQUALS, n);
     });
   }
 
-  arrayLengthLessThan<K extends keyof ByType<T, any[]>>(field: K, n: number): this {
+  arrayLengthLessThan<K extends keyof ByType<T, any[]>>(field: K, n: Parameters<ArraySizePredicate>[2]): this {
     return this.where((item) => {
       const arr = item[field] as any[];
       return arraySizePredicate(arr, ArraySizeOperEnum.LENGTH_LESS_THAN, n);
     });
   }
 
-  arrayLengthLessThanOrEquals<K extends keyof ByType<T, any[]>>(field: K, n: number): this {
+  arrayLengthLessThanOrEquals<K extends keyof ByType<T, any[]>>(field: K, n: Parameters<ArraySizePredicate>[2]): this {
     return this.where((item) => {
       const arr = item[field] as any[];
       return arraySizePredicate(arr, ArraySizeOperEnum.LENGTH_LESS_THAN_OR_EQUALS, n);
@@ -231,17 +266,17 @@ export class FullFunctions<T> extends BaseFunctions<T> {
   }
 
   // ===========================
-  // Boolean filters
+  // Boolean methods
   // ===========================
 
-  booleanEquals<K extends keyof ByType<T, boolean>>(field: K, target: boolean): this {
+  booleanEquals<K extends keyof ByType<T, boolean>>(field: K, target: Parameters<BooleanPredicate>[2]): this {
     return this.where((item) => {
       const source = item[field] as boolean;
       return booleanPredicate(source, BooleanOperEnum.EQUALS, target);
     });
   }
 
-  booleanNotEquals<K extends keyof ByType<T, boolean>>(field: K, target: boolean): this {
+  booleanNotEquals<K extends keyof ByType<T, boolean>>(field: K, target: Parameters<BooleanPredicate>[2]): this {
     return this.where((item) => {
       const source = item[field] as boolean;
       return booleanPredicate(source, BooleanOperEnum.NOT_EQUALS, target);
@@ -249,45 +284,45 @@ export class FullFunctions<T> extends BaseFunctions<T> {
   }
 
   // ===========================
-  // Date filters
+  // Date methods
   // ===========================
 
-  dateEquals<K extends keyof ByType<T, Date>>(field: K, target: Date): this {
+  dateEquals<K extends keyof ByType<T, Date>>(field: K, target: Parameters<DatePredicate>[2]): this {
     return this.where((item) => {
       const source = item[field] as Date;
       return datePredicate(source, DateOperEnum.EQUALS, target);
     });
   }
 
-  dateNotEquals<K extends keyof ByType<T, Date>>(field: K, target: Date): this {
+  dateNotEquals<K extends keyof ByType<T, Date>>(field: K, target: Parameters<DatePredicate>[2]): this {
     return this.where((item) => {
       const source = item[field] as Date;
       return datePredicate(source, DateOperEnum.NOT_EQUALS, target);
     });
   }
 
-  dateOccursBefore<K extends keyof ByType<T, Date>>(field: K, target: Date): this {
+  dateOccursBefore<K extends keyof ByType<T, Date>>(field: K, target: Parameters<DatePredicate>[2]): this {
     return this.where((item) => {
       const source = item[field] as Date;
       return datePredicate(source, DateOperEnum.OCCURS_BEFORE, target);
     });
   }
 
-  dateOccursOnOrBefore<K extends keyof ByType<T, Date>>(field: K, target: Date): this {
+  dateOccursOnOrBefore<K extends keyof ByType<T, Date>>(field: K, target: Parameters<DatePredicate>[2]): this {
     return this.where((item) => {
       const source = item[field] as Date;
       return datePredicate(source, DateOperEnum.OCCURS_ON_OR_BEFORE, target);
     });
   }
 
-  dateOccursAfter<K extends keyof ByType<T, Date>>(field: K, target: Date): this {
+  dateOccursAfter<K extends keyof ByType<T, Date>>(field: K, target: Parameters<DatePredicate>[2]): this {
     return this.where((item) => {
       const source = item[field] as Date;
       return datePredicate(source, DateOperEnum.OCCURS_AFTER, target);
     });
   }
 
-  dateOccursOnOrAfter<K extends keyof ByType<T, Date>>(field: K, target: Date): this {
+  dateOccursOnOrAfter<K extends keyof ByType<T, Date>>(field: K, target: Parameters<DatePredicate>[2]): this {
     return this.where((item) => {
       const source = item[field] as Date;
       return datePredicate(source, DateOperEnum.OCCURS_ON_OR_AFTER, target);
@@ -295,59 +330,68 @@ export class FullFunctions<T> extends BaseFunctions<T> {
   }
 
   // ===========================
-  // Calendar filters
+  // Calendar methods
   // ===========================
 
-  dateIsToday<K extends keyof ByType<T, Date>>(field: K, today: Date = new Date()): this {
+  dateIsToday<K extends keyof ByType<T, Date>>(field: K, today: Parameters<CalendarPredicate>[2] = new Date()): this {
     return this.where((item) => {
       const source = item[field] as Date;
       return calendarPredicate(source, CalendarOperEnum.IS_TODAY, today);
     });
   }
 
-  dateIsYesterday<K extends keyof ByType<T, Date>>(field: K, today: Date = new Date()): this {
+  dateIsYesterday<K extends keyof ByType<T, Date>>(
+    field: K,
+    today: Parameters<CalendarPredicate>[2] = new Date()
+  ): this {
     return this.where((item) => {
       const source = item[field] as Date;
       return calendarPredicate(source, CalendarOperEnum.IS_YESTERDAY, today);
     });
   }
 
-  dateIsBeforeToday<K extends keyof ByType<T, Date>>(field: K, today: Date = new Date()): this {
+  dateIsBeforeToday<K extends keyof ByType<T, Date>>(
+    field: K,
+    today: Parameters<CalendarPredicate>[2] = new Date()
+  ): this {
     return this.where((item) => {
       const source = item[field] as Date;
       return calendarPredicate(source, CalendarOperEnum.IS_BEFORE_TODAY, today);
     });
   }
 
-  dateIsAfterToday<K extends keyof ByType<T, Date>>(field: K, today: Date = new Date()): this {
+  dateIsAfterToday<K extends keyof ByType<T, Date>>(
+    field: K,
+    today: Parameters<CalendarPredicate>[2] = new Date()
+  ): this {
     return this.where((item) => {
       const source = item[field] as Date;
       return calendarPredicate(source, CalendarOperEnum.IS_AFTER_TODAY, today);
     });
   }
 
-  dateIsFuture<K extends keyof ByType<T, Date>>(field: K, today: Date = new Date()): this {
+  dateIsFuture<K extends keyof ByType<T, Date>>(field: K, today: Parameters<CalendarPredicate>[2] = new Date()): this {
     return this.where((item) => {
       const source = item[field] as Date;
       return calendarPredicate(source, CalendarOperEnum.IS_FUTURE, today);
     });
   }
 
-  dateIsPast<K extends keyof ByType<T, Date>>(field: K, today: Date = new Date()): this {
+  dateIsPast<K extends keyof ByType<T, Date>>(field: K, today: Parameters<CalendarPredicate>[2] = new Date()): this {
     return this.where((item) => {
       const source = item[field] as Date;
       return calendarPredicate(source, CalendarOperEnum.IS_PAST, today);
     });
   }
 
-  dateIsWeekend<K extends keyof ByType<T, Date>>(field: K, today: Date = new Date()): this {
+  dateIsWeekend<K extends keyof ByType<T, Date>>(field: K, today: Parameters<CalendarPredicate>[2] = new Date()): this {
     return this.where((item) => {
       const source = item[field] as Date;
       return calendarPredicate(source, CalendarOperEnum.IS_WEEKEND, today);
     });
   }
 
-  dateIsWeekday<K extends keyof ByType<T, Date>>(field: K, today: Date = new Date()): this {
+  dateIsWeekday<K extends keyof ByType<T, Date>>(field: K, today: Parameters<CalendarPredicate>[2] = new Date()): this {
     return this.where((item) => {
       const source = item[field] as Date;
       return calendarPredicate(source, CalendarOperEnum.IS_WEEKDAY, today);
@@ -355,31 +399,47 @@ export class FullFunctions<T> extends BaseFunctions<T> {
   }
 
   // ===========================
-  // Date range filters
+  // Date range methods
   // ===========================
 
-  dateInRange<K extends keyof ByType<T, Date>>(field: K, min: Date, max: Date): this {
+  dateInRange<K extends keyof ByType<T, Date>>(
+    field: K,
+    min: Parameters<DateRangePredicate>[2],
+    max: Parameters<DateRangePredicate>[3]
+  ): this {
     return this.where((item) => {
       const source = item[field as keyof T] as Date;
       return dateRangePredicate(source, RangeOperEnum.IN_RANGE, min, max);
     });
   }
 
-  dateOutRange<K extends keyof ByType<T, Date>>(field: K, min: Date, max: Date): this {
+  dateOutRange<K extends keyof ByType<T, Date>>(
+    field: K,
+    min: Parameters<DateRangePredicate>[2],
+    max: Parameters<DateRangePredicate>[3]
+  ): this {
     return this.where((item) => {
       const source = item[field] as Date;
       return dateRangePredicate(source, RangeOperEnum.OUT_RANGE, min, max);
     });
   }
 
-  dateStrictInRange<K extends keyof ByType<T, Date>>(field: K, min: Date, max: Date): this {
+  dateStrictInRange<K extends keyof ByType<T, Date>>(
+    field: K,
+    min: Parameters<DateRangePredicate>[2],
+    max: Parameters<DateRangePredicate>[3]
+  ): this {
     return this.where((item) => {
       const source = item[field] as Date;
       return dateRangePredicate(source, RangeOperEnum.STRICT_IN_RANGE, min, max);
     });
   }
 
-  dateStrictOutRange<K extends keyof ByType<T, Date>>(field: K, min: Date, max: Date): this {
+  dateStrictOutRange<K extends keyof ByType<T, Date>>(
+    field: K,
+    min: Parameters<DateRangePredicate>[2],
+    max: Parameters<DateRangePredicate>[3]
+  ): this {
     return this.where((item) => {
       const source = item[field] as Date;
       return dateRangePredicate(source, RangeOperEnum.STRICT_OUT_RANGE, min, max);
@@ -387,45 +447,45 @@ export class FullFunctions<T> extends BaseFunctions<T> {
   }
 
   // ===========================
-  // Number filters
+  // Number methods
   // ===========================
 
-  numberEquals<K extends keyof ByType<T, number>>(field: K, target: number): this {
+  numberEquals<K extends keyof ByType<T, number>>(field: K, target: Parameters<NumberPredicate>[2]): this {
     return this.where((item) => {
       const source = item[field] as number;
       return numberPredicate(source, NumberOperEnum.EQUALS, target);
     });
   }
 
-  numberNotEquals<K extends keyof ByType<T, number>>(field: K, target: number): this {
+  numberNotEquals<K extends keyof ByType<T, number>>(field: K, target: Parameters<NumberPredicate>[2]): this {
     return this.where((item) => {
       const source = item[field] as number;
       return numberPredicate(source, NumberOperEnum.NOT_EQUALS, target);
     });
   }
 
-  numberLessThan<K extends keyof ByType<T, number>>(field: K, target: number): this {
+  numberLessThan<K extends keyof ByType<T, number>>(field: K, target: Parameters<NumberPredicate>[2]): this {
     return this.where((item) => {
       const source = item[field] as number;
       return numberPredicate(source, NumberOperEnum.LESS_THAN, target);
     });
   }
 
-  numberLessThanOrEquals<K extends keyof ByType<T, number>>(field: K, target: number): this {
+  numberLessThanOrEquals<K extends keyof ByType<T, number>>(field: K, target: Parameters<NumberPredicate>[2]): this {
     return this.where((item) => {
       const source = item[field] as number;
       return numberPredicate(source, NumberOperEnum.LESS_THAN_OR_EQUALS, target);
     });
   }
 
-  numberGreaterThan<K extends keyof ByType<T, number>>(field: K, target: number): this {
+  numberGreaterThan<K extends keyof ByType<T, number>>(field: K, target: Parameters<NumberPredicate>[2]): this {
     return this.where((item) => {
       const source = item[field] as number;
       return numberPredicate(source, NumberOperEnum.GREATER_THAN, target);
     });
   }
 
-  numberGreaterThanOrEquals<K extends keyof ByType<T, number>>(field: K, target: number): this {
+  numberGreaterThanOrEquals<K extends keyof ByType<T, number>>(field: K, target: Parameters<NumberPredicate>[2]): this {
     return this.where((item) => {
       const source = item[field] as number;
       return numberPredicate(source, NumberOperEnum.GREATER_THAN_OR_EQUALS, target);
@@ -433,31 +493,47 @@ export class FullFunctions<T> extends BaseFunctions<T> {
   }
 
   // ===========================
-  // Number range filters
+  // Number range methods
   // ===========================
 
-  numberInRange<K extends keyof ByType<T, number>>(field: K, min: number, max: number): this {
+  numberInRange<K extends keyof ByType<T, number>>(
+    field: K,
+    min: Parameters<NumberRangePredicate>[2],
+    max: Parameters<NumberRangePredicate>[3]
+  ): this {
     return this.where((item) => {
       const source = item[field] as number;
       return numberRangePredicate(source, RangeOperEnum.IN_RANGE, min, max);
     });
   }
 
-  numberOutRange<K extends keyof ByType<T, number>>(field: K, min: number, max: number): this {
+  numberOutRange<K extends keyof ByType<T, number>>(
+    field: K,
+    min: Parameters<NumberRangePredicate>[2],
+    max: Parameters<NumberRangePredicate>[3]
+  ): this {
     return this.where((item) => {
       const source = item[field] as number;
       return numberRangePredicate(source, RangeOperEnum.OUT_RANGE, min, max);
     });
   }
 
-  numberStrictInRange<K extends keyof ByType<T, number>>(field: K, min: number, max: number): this {
+  numberStrictInRange<K extends keyof ByType<T, number>>(
+    field: K,
+    min: Parameters<NumberRangePredicate>[2],
+    max: Parameters<NumberRangePredicate>[3]
+  ): this {
     return this.where((item) => {
       const source = item[field] as number;
       return numberRangePredicate(source, RangeOperEnum.STRICT_IN_RANGE, min, max);
     });
   }
 
-  numberStrictOutRange<K extends keyof ByType<T, number>>(field: K, min: number, max: number): this {
+  numberStrictOutRange<K extends keyof ByType<T, number>>(
+    field: K,
+    min: Parameters<NumberRangePredicate>[2],
+    max: Parameters<NumberRangePredicate>[3]
+  ): this {
     return this.where((item) => {
       const source = item[field] as number;
       return numberRangePredicate(source, RangeOperEnum.STRICT_OUT_RANGE, min, max);
@@ -465,52 +541,52 @@ export class FullFunctions<T> extends BaseFunctions<T> {
   }
 
   // ===========================
-  // String filters
+  // String methods
   // ===========================
 
-  stringEquals<K extends keyof ByType<T, string>>(field: K, target: string): this {
+  stringEquals<K extends keyof ByType<T, string>>(field: K, target: Parameters<StringPredicate>[2]): this {
     return this.where((item) => {
       const source = item[field] as string;
       return stringPredicate(source, StringOperEnum.EQUALS, target);
     });
   }
 
-  stringNotEquals<K extends keyof ByType<T, string>>(field: K, target: string): this {
+  stringNotEquals<K extends keyof ByType<T, string>>(field: K, target: Parameters<StringPredicate>[2]): this {
     return this.where((item) => {
       const source = item[field] as string;
       return stringPredicate(source, StringOperEnum.NOT_EQUALS, target);
     });
   }
 
-  stringIncludes<K extends keyof ByType<T, string>>(field: K, target: string): this {
+  stringIncludes<K extends keyof ByType<T, string>>(field: K, target: Parameters<StringPredicate>[2]): this {
     return this.where((item) => {
       const source = item[field] as string;
       return stringPredicate(source, StringOperEnum.INCLUDES, target);
     });
   }
 
-  stringExcludes<K extends keyof ByType<T, string>>(field: K, target: string): this {
+  stringExcludes<K extends keyof ByType<T, string>>(field: K, target: Parameters<StringPredicate>[2]): this {
     return this.where((item) => {
       const source = item[field] as string;
       return stringPredicate(source, StringOperEnum.EXCLUDES, target);
     });
   }
 
-  stringStartsWith<K extends keyof ByType<T, string>>(field: K, target: string): this {
+  stringStartsWith<K extends keyof ByType<T, string>>(field: K, target: Parameters<StringPredicate>[2]): this {
     return this.where((item) => {
       const source = item[field] as string;
       return stringPredicate(source, StringOperEnum.STARTS_WITH, target);
     });
   }
 
-  stringEndsWith<K extends keyof ByType<T, string>>(field: K, target: string): this {
+  stringEndsWith<K extends keyof ByType<T, string>>(field: K, target: Parameters<StringPredicate>[2]): this {
     return this.where((item) => {
       const source = item[field] as string;
       return stringPredicate(source, StringOperEnum.ENDS_WITH, target);
     });
   }
 
-  stringMatches<K extends keyof ByType<T, string>>(field: K, pattern: string): this {
+  stringMatches<K extends keyof ByType<T, string>>(field: K, pattern: RegExp): this {
     return this.where((item) => {
       const source = item[field] as string;
       return stringPredicate(source, StringOperEnum.MATCHES, pattern);
@@ -518,7 +594,7 @@ export class FullFunctions<T> extends BaseFunctions<T> {
   }
 
   // ===========================
-  // String state filters
+  // String state methods
   // ===========================
 
   stringIsEmpty<K extends keyof ByType<T, string>>(field: K): this {
@@ -536,7 +612,7 @@ export class FullFunctions<T> extends BaseFunctions<T> {
   }
 
   // ===========================
-  // Object filters
+  // Object methods
   // ===========================
 
   objectHasKey<K extends keyof ByType<T, object>>(field: K, target: Parameters<ObjectPredicate>[2]): this {
