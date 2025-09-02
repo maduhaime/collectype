@@ -1,9 +1,8 @@
-import { DateOper } from '../../types/dateOperation';
 import { DateOperEnum } from '../../enums/dateOperation';
-import { ValueOf } from '../../types/utility';
+import { EnumOrString } from '../../types';
 
 // Type for date predicate function
-export type DatePredicate = (source: Date, oper: DateOper | ValueOf<DateOperEnum>, target: Date) => boolean;
+export type DatePredicate = (source: Date, oper: EnumOrString<typeof DateOperEnum>, target: Date) => boolean;
 
 /**
  * Evaluates a date value against a target using the specified operator.

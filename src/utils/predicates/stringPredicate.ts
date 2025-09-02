@@ -1,11 +1,10 @@
-import { StringOper } from '../../types/stringOperation';
 import { StringOperEnum } from '../../enums/stringOperation';
-import { ValueOf } from '../../types/utility';
+import { EnumOrString } from '../../types';
 
 // Type for string predicate function
 export type StringPredicate = (
   source: string,
-  oper: StringOper | ValueOf<StringOperEnum>,
+  oper: EnumOrString<typeof StringOperEnum>,
   target: string | RegExp
 ) => boolean;
 

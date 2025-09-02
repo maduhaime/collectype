@@ -8,7 +8,7 @@ import { ByType } from '../../types/utility';
  * @template K - The key of the boolean field to filter by.
  * @param {T[]} collection - The array of objects to filter.
  * @param {K} field - The key of the boolean field to filter on.
- * @param {BooleanOper | ValueOf<BooleanOperEnum>} oper - The boolean operation to apply ('equals', 'not_equals').
+ * @param {BooleanOperEnum} oper - The boolean operation to apply ('equals', 'not_equals').
  * @param {Boolean} target - The target boolean value for comparison.
  * @returns {T[]} The filtered array of objects.
  */

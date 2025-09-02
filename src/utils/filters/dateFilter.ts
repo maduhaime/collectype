@@ -8,7 +8,7 @@ import { datePredicate, DatePredicate } from '../predicates/datePredicate';
  * @template K - The key of the date field to filter by.
  * @param {T[]} collection - The array of objects to filter.
  * @param {K} field - The key of the date field to filter on.
- * @param {DateOper | ValueOf<DateOperEnum>} oper - The date operation to apply.
+ * @param {DateOperEnum} oper - The date operation to apply.
  * @param {Date} target - The target date value for comparison.
  * @returns {T[]} The filtered array of objects.
  */

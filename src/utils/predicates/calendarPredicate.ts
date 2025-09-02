@@ -1,10 +1,8 @@
 import { CalendarOperEnum } from '../../enums/calendarOperation';
-import { CalendarOper } from '../../types/calendarOperation';
-
-import { ValueOf } from '../../types/utility';
+import { EnumOrString } from '../../types';
 
 // Type for calendar predicate function
-export type CalendarPredicate = (source: Date, oper: CalendarOper | ValueOf<CalendarOperEnum>, today?: Date) => boolean;
+export type CalendarPredicate = (source: Date, oper: EnumOrString<typeof CalendarOperEnum>, today?: Date) => boolean;
 
 /**
  * Evaluates a date value against calendar operations (weekday, weekend, today, etc.).

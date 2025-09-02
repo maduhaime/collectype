@@ -1,9 +1,8 @@
 import { StringStateOperEnum } from '../../enums/stringOperation';
-import { StringStateOper } from '../../types/stringOperation';
-import { ValueOf } from '../../types/utility';
+import { EnumOrString } from '../../types';
 
 // Type for string state predicate function
-export type StringStatePredicate = (source: string, oper: StringStateOper | ValueOf<StringStateOperEnum>) => boolean;
+export type StringStatePredicate = (source: string, oper: EnumOrString<typeof StringStateOperEnum>) => boolean;
 
 /**
  * Evaluates a string value according to a state operation from StringStateOperEnum.

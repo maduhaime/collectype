@@ -8,7 +8,7 @@ import { numberRangePredicate, NumberRangePredicate } from '../predicates/number
  * @template K - The key of the number field to filter by.
  * @param {T[]} collection - The array of objects to filter.
  * @param {K} field - The key of the number field to filter on.
- * @param {RangeOper | ValueOf<RangeOperEnum>} oper - The range operation to apply.
+ * @param {NumberRangeOperEnum} oper - The range operation to apply.
  * @param {number} min - The minimum bound.
  * @param {number} max - The maximum bound.
  * @returns {T[]} The filtered array of objects.

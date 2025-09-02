@@ -10,7 +10,7 @@ import { ByType } from '../../types/utility';
  * @template K - The key of the array field to filter by.
  * @param {T[]} collection - The array of objects to filter.
  * @param {K} field - The key of the array field to filter on.
- * @param {ArrayOper | ValueOf<ArrayOperEnum>} oper - The array operation to perform.
+ * @param {ArrayOperEnum} oper - The array operation to perform.
  * @param {any|any[]} target - The value or array to compare, depending on the operation.
  * @returns {T[]} The filtered array of objects.
  *

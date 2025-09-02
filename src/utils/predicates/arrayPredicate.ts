@@ -1,12 +1,11 @@
-import { ArrayOper } from '../../types/arrayOperation';
 import { ArrayOperEnum } from '../../enums/arrayOperation';
-import { ValueOf } from '../../types/utility';
+import { EnumOrString } from '../../types';
 import { isSupersetWithDuplicates } from '../helpers/isSupersetWithDuplicates';
 import { containsSubsequence } from '../helpers/containsSubsequence';
 import { setEquals } from '../helpers/setEquals';
 
 // Type for array predicate function
-export type ArrayPredicate = <T>(arr: T[], oper: ArrayOper | ValueOf<ArrayOperEnum>, target?: T | T[]) => boolean;
+export type ArrayPredicate = <T>(arr: T[], oper: EnumOrString<typeof ArrayOperEnum>, target?: T | T[]) => boolean;
 
 /**
  * Evaluates an operation on an array according to the provided operator.
@@ -17,7 +16,11 @@ export type ArrayPredicate = <T>(arr: T[], oper: ArrayOper | ValueOf<ArrayOperEn
  * @param {T|T[]} [target] - The value or array to compare, depending on the operation
  * @returns {boolean} Result of the operation
  */
-export const arrayPredicate: ArrayPredicate = <T>(arr: T[], oper: ValueOf<ArrayOperEnum>, target?: T | T[]) => {
+export const arrayPredicate: ArrayPredicate = <T>(
+  arr: T[],
+  oper: EnumOrString<typeof ArrayOperEnum>,
+  target?: T | T[]
+) => {
   const value = target as T;
 
   if (oper === ArrayOperEnum.INCLUDES) return arr.includes(value);

@@ -1,11 +1,10 @@
-import { RangeOper } from '../../types/rangeOperation';
 import { RangeOperEnum } from '../../enums/rangeOperation';
-import { ValueOf } from '../../types/utility';
+import { EnumOrString } from '../../types';
 
 // Type for date range predicate function
 export type DateRangePredicate = (
   source: Date,
-  oper: RangeOper | ValueOf<RangeOperEnum>,
+  oper: EnumOrString<typeof RangeOperEnum>,
   min: Date,
   max: Date
 ) => boolean;

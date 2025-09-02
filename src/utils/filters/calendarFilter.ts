@@ -8,7 +8,7 @@ import { calendarPredicate, CalendarPredicate } from '../predicates/calendarPred
  * @template K - The key of the date field to filter by.
  * @param collection - The array of objects to filter.
  * @param field - The key of the date field to filter on.
- * @param {CalendarOper | ValueOf<CalendarOperEnum>} oper - The calendar operation to apply. Must be a value from CalendarOperEnum.
+ * @param {CalendarOperEnum} oper - The calendar operation to apply.
  * @param today - The reference date for calendar operations (e.g. IS_TODAY, IS_YESTERDAY, IS_BEFORE_TODAY, etc.).
  * @returns {T[]} The filtered array of objects.
  */

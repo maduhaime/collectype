@@ -1,13 +1,8 @@
-import { ArraySizeOper } from '../../types/arrayOperation';
 import { ArraySizeOperEnum } from '../../enums/arrayOperation';
-import { ValueOf } from '../../types/utility';
+import { EnumOrString } from '../../types';
 
 // Type for array size predicate function
-export type ArraySizePredicate = <T>(
-  arr: T[],
-  oper: ArraySizeOper | ValueOf<ArraySizeOperEnum>,
-  num?: number
-) => boolean;
+export type ArraySizePredicate = <T>(arr: T[], oper: EnumOrString<typeof ArraySizeOperEnum>, num?: number) => boolean;
 
 /**
  * Evaluates an operation on the size of an array.

@@ -1,11 +1,10 @@
-import { BooleanOper } from '../../types/booleanOperation';
 import { BooleanOperEnum } from '../../enums/booleanOperation';
-import { ValueOf } from '../../types/utility';
+import { EnumOrString } from '../../types';
 
 // Type for boolean predicate function
 export type BooleanPredicate = (
   source: boolean,
-  oper: BooleanOper | ValueOf<BooleanOperEnum>,
+  oper: EnumOrString<typeof BooleanOperEnum>,
   target: boolean
 ) => boolean;
 

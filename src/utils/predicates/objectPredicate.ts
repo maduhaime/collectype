@@ -1,11 +1,10 @@
 import { ObjectOperEnum } from '../../enums/objectOperation';
-import { ObjectOper } from '../../types/objectOperation';
-import { ValueOf } from '../../types/utility';
+import { EnumOrString } from '../../types';
 
 // Type for object predicate function
 export type ObjectPredicate = (
   obj: Record<string, any>,
-  oper: ObjectOper | ValueOf<ObjectOperEnum>,
+  oper: EnumOrString<typeof ObjectOperEnum>,
   target: string | string[]
 ) => boolean;
 

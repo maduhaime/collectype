@@ -1,11 +1,10 @@
-import { RangeOper } from '../../types/rangeOperation';
 import { RangeOperEnum } from '../../enums/rangeOperation';
-import { ValueOf } from '../../types/utility';
+import { EnumOrString } from '../../types';
 
 // Type for number range predicate function
 export type NumberRangePredicate = (
   source: number,
-  oper: RangeOper | ValueOf<RangeOperEnum>,
+  oper: EnumOrString<typeof RangeOperEnum>,
   min: number,
   max: number
 ) => boolean;

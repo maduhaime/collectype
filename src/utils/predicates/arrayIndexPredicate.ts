@@ -1,5 +1,5 @@
-import { ArrayIndexOper } from '../../types/arrayOperation';
 import { ArrayIndexOperEnum } from '../../enums/arrayOperation';
+import { EnumOrString } from '../../types';
 
 /**
  * Predicate for array index-based operations.
@@ -12,7 +12,7 @@ import { ArrayIndexOperEnum } from '../../enums/arrayOperation';
  */
 export type ArrayIndexPredicate = <T>(
   arr: T[],
-  oper: ArrayIndexOper | ValueOf<ArrayIndexOperEnum>,
+  oper: EnumOrString<typeof ArrayIndexOperEnum>,
   index: number,
   target?: T | T[]
 ) => boolean;

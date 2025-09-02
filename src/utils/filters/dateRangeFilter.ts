@@ -7,7 +7,7 @@ import { dateRangePredicate, DateRangePredicate } from '../predicates/dateRangeP
  * @template K - The key of the date field to filter by.
  * @param {T[]} collection - The array of objects to filter.
  * @param {K} field - The key of the date field to filter on.
- * @param {RangeOper | ValueOf<RangeOperEnum>} oper - The range operation to apply.
+ * @param {DateRangeOperEnum} oper - The range operation to apply.
  * @param {Date} min - The minimum date bound.
  * @param {Date} max - The maximum date bound.
  * @returns {T[]} The filtered array of objects.

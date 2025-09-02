@@ -8,7 +8,7 @@ import { numberPredicate, NumberPredicate } from '../predicates/numberPredicate'
  * @template K - The key of the number field to filter by.
  * @param {T[]} collection - The array of objects to filter.
  * @param {K} field - The key of the number field to filter on.
- * @param {NumberEnum | ValueOf<NumberOperEnum>} oper - The number operation to apply.
+ * @param {NumberOperEnum} oper - The number operation to apply.
  * @param {number} target - The target number value for comparison.
  * @returns {T[]} The filtered array of objects.
  */

@@ -1,9 +1,8 @@
-import { NumberOper } from '../../types/numberOperation';
 import { NumberOperEnum } from '../../enums/numberOperation';
-import { ValueOf } from '../../types/utility';
+import { EnumOrString } from '../../types';
 
 // Type for number predicate function
-export type NumberPredicate = (source: number, oper: NumberOper | ValueOf<NumberOperEnum>, target: number) => boolean;
+export type NumberPredicate = (source: number, oper: EnumOrString<typeof NumberOperEnum>, target: number) => boolean;
 
 /**
  * Evaluates a number value against a target using the specified operator.
