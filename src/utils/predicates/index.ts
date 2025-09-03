@@ -8,7 +8,6 @@ export * from './datePredicate';
 export * from './dateRangePredicate';
 export * from './numberPredicate';
 export * from './numberRangePredicate';
-export * from './objectPredicate';
 export * from './objectAttributesPredicate';
 export * from './objectInstancePredicate';
 export * from './objectKeysPredicate';
