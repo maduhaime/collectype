@@ -11,6 +11,21 @@ function isToday<T>(ctx: Wherable<T>) {
   };
 }
 
+/**
+ * Factory function that creates a reusable filter for calendar fields (isToday), designed for composition within the provided context.
+ * The returned filter can be used to declaratively build complex queries.
+ *
+ * @paramType T - The item type (inferred)
+ * @param ctx - The context providing a `where` method
+ * @returns A function that takes a field and an optional reference date, and applies the filter
+ *
+ * @example
+ * import { calendarFactory } from 'collectype/utils/factory';
+ *
+ * class DummyFunctions extends BaseFunctions<DummyType> {
+ *   isToday = calendarFactory.isToday(this);
+ * }
+ */
 function isYesterday<T>(ctx: Wherable<T>) {
   return function <K extends keyof ByType<T, Date>>(field: K, today: Parameters<CalendarPredicate>[2] = new Date()) {
     return ctx.where((item: T) => {

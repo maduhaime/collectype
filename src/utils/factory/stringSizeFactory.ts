@@ -2,11 +2,21 @@ import { StringSizeOperEnum } from '../../enums/stringOperation';
 import { StringSizePredicate, stringSizePredicate } from '../predicates/stringSizePredicate';
 import { ByType, Wherable } from '../../types/utility';
 
-/**
- * Factory for string size predicates (length comparisons).
- * Provides methods to compose predicates for string length operations.
- */
 export const stringSizeFactory = {
+  /**
+   * Factory function that creates a reusable filter for string length equality, designed for composition within the provided context.
+   *
+   * @paramType T - The item type (inferred)
+   * @param ctx - The context providing a `where` method
+   * @returns A function that takes a field and a target length, and applies the filter
+   *
+   * @example
+   * import { stringSizeFactory } from 'collectype/utils/factory';
+   *
+   * class DummyFunctions extends BaseFunctions<DummyType> {
+   *   stringLengthEquals = stringSizeFactory.lengthEquals(this);
+   * }
+   */
   lengthEquals<T>(ctx: Wherable<T>) {
     return function <K extends keyof ByType<T, string>>(field: K, target: Parameters<StringSizePredicate>[2]) {
       return ctx.where((item: T) => {
@@ -15,6 +25,20 @@ export const stringSizeFactory = {
       });
     };
   },
+  /**
+   * Factory function that creates a reusable filter for string length greater than, designed for composition within the provided context.
+   *
+   * @paramType T - The item type (inferred)
+   * @param ctx - The context providing a `where` method
+   * @returns A function that takes a field and a target length, and applies the filter
+   *
+   * @example
+   * import { stringSizeFactory } from 'collectype/utils/factory';
+   *
+   * class DummyFunctions extends BaseFunctions<DummyType> {
+   *   stringLengthGreaterThan = stringSizeFactory.lengthGreaterThan(this);
+   * }
+   */
   lengthGreaterThan<T>(ctx: Wherable<T>) {
     return function <K extends keyof ByType<T, string>>(field: K, target: Parameters<StringSizePredicate>[2]) {
       return ctx.where((item: T) => {
@@ -23,6 +47,20 @@ export const stringSizeFactory = {
       });
     };
   },
+  /**
+   * Factory function that creates a reusable filter for string length greater than or equals, designed for composition within the provided context.
+   *
+   * @paramType T - The item type (inferred)
+   * @param ctx - The context providing a `where` method
+   * @returns A function that takes a field and a target length, and applies the filter
+   *
+   * @example
+   * import { stringSizeFactory } from 'collectype/utils/factory';
+   *
+   * class DummyFunctions extends BaseFunctions<DummyType> {
+   *   stringLengthGreaterThanOrEquals = stringSizeFactory.lengthGreaterThanOrEquals(this);
+   * }
+   */
   lengthGreaterThanOrEquals<T>(ctx: Wherable<T>) {
     return function <K extends keyof ByType<T, string>>(field: K, target: Parameters<StringSizePredicate>[2]) {
       return ctx.where((item: T) => {
@@ -31,6 +69,20 @@ export const stringSizeFactory = {
       });
     };
   },
+  /**
+   * Factory function that creates a reusable filter for string length less than, designed for composition within the provided context.
+   *
+   * @paramType T - The item type (inferred)
+   * @param ctx - The context providing a `where` method
+   * @returns A function that takes a field and a target length, and applies the filter
+   *
+   * @example
+   * import { stringSizeFactory } from 'collectype/utils/factory';
+   *
+   * class DummyFunctions extends BaseFunctions<DummyType> {
+   *   stringLengthLessThan = stringSizeFactory.lengthLessThan(this);
+   * }
+   */
   lengthLessThan<T>(ctx: Wherable<T>) {
     return function <K extends keyof ByType<T, string>>(field: K, target: Parameters<StringSizePredicate>[2]) {
       return ctx.where((item: T) => {
@@ -39,6 +91,20 @@ export const stringSizeFactory = {
       });
     };
   },
+  /**
+   * Factory function that creates a reusable filter for string length less than or equals, designed for composition within the provided context.
+   *
+   * @paramType T - The item type (inferred)
+   * @param ctx - The context providing a `where` method
+   * @returns A function that takes a field and a target length, and applies the filter
+   *
+   * @example
+   * import { stringSizeFactory } from 'collectype/utils/factory';
+   *
+   * class DummyFunctions extends BaseFunctions<DummyType> {
+   *   stringLengthLessThanOrEquals = stringSizeFactory.lengthLessThanOrEquals(this);
+   * }
+   */
   lengthLessThanOrEquals<T>(ctx: Wherable<T>) {
     return function <K extends keyof ByType<T, string>>(field: K, target: Parameters<StringSizePredicate>[2]) {
       return ctx.where((item: T) => {

@@ -2,6 +2,21 @@ import { RangeOperEnum } from '../../enums/rangeOperation';
 import { DateRangePredicate, dateRangePredicate } from '../../utils/predicates/dateRangePredicate';
 import { ByType, Wherable } from '../../types/utility';
 
+/**
+ * Factory function that creates a reusable filter for date ranges (inRange), designed for composition within the provided context.
+ * The returned filter can be used to declaratively build complex queries.
+ *
+ * @paramType T - The item type (inferred)
+ * @param ctx - The context providing a `where` method
+ * @returns A function that takes a field, min, and max date, and applies the filter
+ *
+ * @example
+ * import { dateRangeFactory } from 'collectype/utils/factory';
+ *
+ * class DummyFunctions extends BaseFunctions<DummyType> {
+ *   dateInRange = dateRangeFactory.inRange(this);
+ * }
+ */
 function inRange<T>(ctx: Wherable<T>) {
   return function <K extends keyof ByType<T, Date>>(
     field: K,
@@ -15,6 +30,21 @@ function inRange<T>(ctx: Wherable<T>) {
   };
 }
 
+/**
+ * Factory function that creates a reusable filter for date ranges (outRange), designed for composition within the provided context.
+ * The returned filter can be used to declaratively build complex queries.
+ *
+ * @paramType T - The item type (inferred)
+ * @param ctx - The context providing a `where` method
+ * @returns A function that takes a field, min, and max date, and applies the filter
+ *
+ * @example
+ * import { dateRangeFactory } from 'collectype/utils/factory';
+ *
+ * class DummyFunctions extends BaseFunctions<DummyType> {
+ *   dateOutRange = dateRangeFactory.outRange(this);
+ * }
+ */
 function outRange<T>(ctx: Wherable<T>) {
   return function <K extends keyof ByType<T, Date>>(
     field: K,
@@ -28,6 +58,21 @@ function outRange<T>(ctx: Wherable<T>) {
   };
 }
 
+/**
+ * Factory function that creates a reusable filter for date ranges (strictInRange), designed for composition within the provided context.
+ * The returned filter can be used to declaratively build complex queries.
+ *
+ * @paramType T - The item type (inferred)
+ * @param ctx - The context providing a `where` method
+ * @returns A function that takes a field, min, and max date, and applies the filter
+ *
+ * @example
+ * import { dateRangeFactory } from 'collectype/utils/factory';
+ *
+ * class DummyFunctions extends BaseFunctions<DummyType> {
+ *   dateStrictInRange = dateRangeFactory.strictInRange(this);
+ * }
+ */
 function strictInRange<T>(ctx: Wherable<T>) {
   return function <K extends keyof ByType<T, Date>>(
     field: K,
@@ -41,6 +86,21 @@ function strictInRange<T>(ctx: Wherable<T>) {
   };
 }
 
+/**
+ * Factory function that creates a reusable filter for date ranges (strictOutRange), designed for composition within the provided context.
+ * The returned filter can be used to declaratively build complex queries.
+ *
+ * @paramType T - The item type (inferred)
+ * @param ctx - The context providing a `where` method
+ * @returns A function that takes a field, min, and max date, and applies the filter
+ *
+ * @example
+ * import { dateRangeFactory } from 'collectype/utils/factory';
+ *
+ * class DummyFunctions extends BaseFunctions<DummyType> {
+ *   dateStrictOutRange = dateRangeFactory.strictOutRange(this);
+ * }
+ */
 function strictOutRange<T>(ctx: Wherable<T>) {
   return function <K extends keyof ByType<T, Date>>(
     field: K,
