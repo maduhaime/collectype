@@ -1,9 +1,16 @@
 /**
- * Checks if arr contains targetArr as a contiguous subsequence.
- * @template T
- * @param {T[]} arr - The array to search in
- * @param {T[]} targetArr - The subsequence to search for
- * @returns {boolean} True if arr contains targetArr as a contiguous subsequence, false otherwise
+ * Returns true if the array contains the target array as a contiguous subsequence.
+ * Useful for checking if a sequence of values appears in order within another array.
+ *
+ * @paramType T - The array element type
+ * @param arr - The array to search in
+ * @param targetArr - The subsequence to search for
+ * @returns True if arr contains targetArr as a contiguous subsequence, false otherwise
+ *
+ * @example
+ * containsSubsequence([1, 2, 3, 4, 5], [2, 3, 4]); // true
+ * containsSubsequence(['a', 'b', 'c'], ['b', 'c']); // true
+ * containsSubsequence([1, 2, 3], [3, 2]); // false
  */
 export function containsSubsequence<T>(arr: T[], targetArr: T[]): boolean {
   for (let i = 0; i <= arr.length - targetArr.length; i++) {
