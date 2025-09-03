@@ -11,7 +11,7 @@ describe('Collection', () => {
     { id: 2, value: 20 },
     { id: 3, value: 30 },
   ];
-  const collection = new Collection<DummyType, typeof BaseFunctions>(items, BaseFunctions);
+  const collection = new Collection<DummyType, BaseFunctions<DummyType>>(items, BaseFunctions);
 
   it('should expose items', () => {
     expect(collection.items).toEqual(items);

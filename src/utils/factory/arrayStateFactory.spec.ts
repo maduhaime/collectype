@@ -9,7 +9,6 @@ interface DummyType {
 
 const ctx = { where: vi.fn() } as { where: ReturnType<typeof vi.fn> };
 const field: keyof DummyType = 'arr';
-const n = 3;
 const item: DummyType = { arr: [1, 2, 3] };
 
 describe('arrayStateFactory', () => {
