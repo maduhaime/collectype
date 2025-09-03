@@ -13,12 +13,14 @@ import { ArrayStateOperEnum } from '../../enums/arrayOperation';
  * arrayStatePredicate([1], ArrayStateOperEnum.IS_NOT_EMPTY); // true
  */
 export function arrayStatePredicate<T>(arr: T[], oper: ArrayStateOperEnum): boolean {
-  switch (oper) {
-    case ArrayStateOperEnum.IS_EMPTY:
-      return arr.length === 0;
-    case ArrayStateOperEnum.IS_NOT_EMPTY:
-      return arr.length > 0;
-    default:
-      throw new Error(`Unsupported array state predicate operation: ${oper}`);
+  // If the operation is IS_EMPTY, check if array is empty
+  if (oper === ArrayStateOperEnum.IS_EMPTY) {
+    return arr.length === 0;
   }
+  // If the operation is IS_NOT_EMPTY, check if array is not empty
+  if (oper === ArrayStateOperEnum.IS_NOT_EMPTY) {
+    return arr.length > 0;
+  }
+  // If the operation is unsupported, throw an error
+  throw new Error(`Unsupported array state predicate operation: ${oper}`);
 }
