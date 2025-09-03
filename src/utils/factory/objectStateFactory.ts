@@ -1,13 +1,13 @@
 import { ObjectStateEnum } from '../../enums/objectOperation';
 import { objectStatePredicate } from '../predicates/objectStatePredicate';
-import { ByType, ContextWithWhere } from '../../types/utility';
+import { ByType, Wherable } from '../../types/utility';
 
 /**
  * Factory for object state predicates.
  * Provides methods to compose predicates for state-related operations.
  */
 export const objectStateFactory = {
-  isEmpty<T>(ctx: ContextWithWhere<T>) {
+  isEmpty<T>(ctx: Wherable<T>) {
     return function <K extends keyof ByType<T, object>>(field: K) {
       return ctx.where((item: T) => {
         const obj = item[field] as object;
@@ -15,7 +15,7 @@ export const objectStateFactory = {
       });
     };
   },
-  isPlain<T>(ctx: ContextWithWhere<T>) {
+  isPlain<T>(ctx: Wherable<T>) {
     return function <K extends keyof ByType<T, object>>(field: K) {
       return ctx.where((item: T) => {
         const obj = item[field] as object;
@@ -23,7 +23,7 @@ export const objectStateFactory = {
       });
     };
   },
-  hasNumericKeys<T>(ctx: ContextWithWhere<T>) {
+  hasNumericKeys<T>(ctx: Wherable<T>) {
     return function <K extends keyof ByType<T, object>>(field: K) {
       return ctx.where((item: T) => {
         const obj = item[field] as object;
@@ -31,7 +31,7 @@ export const objectStateFactory = {
       });
     };
   },
-  hasCamelcaseKeys<T>(ctx: ContextWithWhere<T>) {
+  hasCamelcaseKeys<T>(ctx: Wherable<T>) {
     return function <K extends keyof ByType<T, object>>(field: K) {
       return ctx.where((item: T) => {
         const obj = item[field] as object;
@@ -39,7 +39,7 @@ export const objectStateFactory = {
       });
     };
   },
-  hasNestedObject<T>(ctx: ContextWithWhere<T>) {
+  hasNestedObject<T>(ctx: Wherable<T>) {
     return function <K extends keyof ByType<T, object>>(field: K) {
       return ctx.where((item: T) => {
         const obj = item[field] as object;
@@ -47,7 +47,7 @@ export const objectStateFactory = {
       });
     };
   },
-  isFrozen<T>(ctx: ContextWithWhere<T>) {
+  isFrozen<T>(ctx: Wherable<T>) {
     return function <K extends keyof ByType<T, object>>(field: K) {
       return ctx.where((item: T) => {
         const obj = item[field] as object;
@@ -55,7 +55,7 @@ export const objectStateFactory = {
       });
     };
   },
-  isSealed<T>(ctx: ContextWithWhere<T>) {
+  isSealed<T>(ctx: Wherable<T>) {
     return function <K extends keyof ByType<T, object>>(field: K) {
       return ctx.where((item: T) => {
         const obj = item[field] as object;

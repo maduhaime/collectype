@@ -1,8 +1,8 @@
 import { RangeOperEnum } from '../../enums/rangeOperation';
 import { DateRangePredicate, dateRangePredicate } from '../../utils/predicates/dateRangePredicate';
-import { ByType, ContextWithWhere } from '../../types/utility';
+import { ByType, Wherable } from '../../types/utility';
 
-function inRange<T>(ctx: ContextWithWhere<T>) {
+function inRange<T>(ctx: Wherable<T>) {
   return function <K extends keyof ByType<T, Date>>(
     field: K,
     min: Parameters<DateRangePredicate>[2],
@@ -15,7 +15,7 @@ function inRange<T>(ctx: ContextWithWhere<T>) {
   };
 }
 
-function outRange<T>(ctx: ContextWithWhere<T>) {
+function outRange<T>(ctx: Wherable<T>) {
   return function <K extends keyof ByType<T, Date>>(
     field: K,
     min: Parameters<DateRangePredicate>[2],
@@ -28,7 +28,7 @@ function outRange<T>(ctx: ContextWithWhere<T>) {
   };
 }
 
-function strictInRange<T>(ctx: ContextWithWhere<T>) {
+function strictInRange<T>(ctx: Wherable<T>) {
   return function <K extends keyof ByType<T, Date>>(
     field: K,
     min: Parameters<DateRangePredicate>[2],
@@ -41,7 +41,7 @@ function strictInRange<T>(ctx: ContextWithWhere<T>) {
   };
 }
 
-function strictOutRange<T>(ctx: ContextWithWhere<T>) {
+function strictOutRange<T>(ctx: Wherable<T>) {
   return function <K extends keyof ByType<T, Date>>(
     field: K,
     min: Parameters<DateRangePredicate>[2],

@@ -1,8 +1,8 @@
 import { ArrayIndexOperEnum } from '../../enums/arrayOperation';
 import { ArrayIndexPredicate, arrayIndexPredicate } from '../../utils/predicates/arrayIndexPredicate';
-import { ByType, ContextWithWhere } from '../../types/utility';
+import { ByType, Wherable } from '../../types/utility';
 
-function indexEquals<T>(ctx: ContextWithWhere<T>) {
+function indexEquals<T>(ctx: Wherable<T>) {
   return function <K extends keyof ByType<T, any[]>>(
     field: K,
     index: Parameters<ArrayIndexPredicate>[2],
@@ -15,7 +15,7 @@ function indexEquals<T>(ctx: ContextWithWhere<T>) {
   };
 }
 
-function indexNotEquals<T>(ctx: ContextWithWhere<T>) {
+function indexNotEquals<T>(ctx: Wherable<T>) {
   return function <K extends keyof ByType<T, any[]>>(
     field: K,
     index: Parameters<ArrayIndexPredicate>[2],
@@ -28,7 +28,7 @@ function indexNotEquals<T>(ctx: ContextWithWhere<T>) {
   };
 }
 
-function indexIn<T>(ctx: ContextWithWhere<T>) {
+function indexIn<T>(ctx: Wherable<T>) {
   return function <K extends keyof ByType<T, any[]>>(
     field: K,
     index: Parameters<ArrayIndexPredicate>[2],
@@ -41,7 +41,7 @@ function indexIn<T>(ctx: ContextWithWhere<T>) {
   };
 }
 
-function indexNotIn<T>(ctx: ContextWithWhere<T>) {
+function indexNotIn<T>(ctx: Wherable<T>) {
   return function <K extends keyof ByType<T, any[]>>(
     field: K,
     index: Parameters<ArrayIndexPredicate>[2],
@@ -54,7 +54,7 @@ function indexNotIn<T>(ctx: ContextWithWhere<T>) {
   };
 }
 
-function indexGreaterThan<T>(ctx: ContextWithWhere<T>) {
+function indexGreaterThan<T>(ctx: Wherable<T>) {
   return function <K extends keyof ByType<T, any[]>>(
     field: K,
     index: Parameters<ArrayIndexPredicate>[2],
@@ -67,7 +67,7 @@ function indexGreaterThan<T>(ctx: ContextWithWhere<T>) {
   };
 }
 
-function indexGreaterThanOrEquals<T>(ctx: ContextWithWhere<T>) {
+function indexGreaterThanOrEquals<T>(ctx: Wherable<T>) {
   return function <K extends keyof ByType<T, any[]>>(
     field: K,
     index: Parameters<ArrayIndexPredicate>[2],
@@ -80,7 +80,7 @@ function indexGreaterThanOrEquals<T>(ctx: ContextWithWhere<T>) {
   };
 }
 
-function indexLessThan<T>(ctx: ContextWithWhere<T>) {
+function indexLessThan<T>(ctx: Wherable<T>) {
   return function <K extends keyof ByType<T, any[]>>(
     field: K,
     index: Parameters<ArrayIndexPredicate>[2],
@@ -93,7 +93,7 @@ function indexLessThan<T>(ctx: ContextWithWhere<T>) {
   };
 }
 
-function indexLessThanOrEquals<T>(ctx: ContextWithWhere<T>) {
+function indexLessThanOrEquals<T>(ctx: Wherable<T>) {
   return function <K extends keyof ByType<T, any[]>>(
     field: K,
     index: Parameters<ArrayIndexPredicate>[2],

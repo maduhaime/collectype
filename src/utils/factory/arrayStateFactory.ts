@@ -1,8 +1,8 @@
 import { ArrayStateOperEnum } from '../../enums/arrayOperation';
 import { arrayStatePredicate } from '../predicates/arrayStatePredicate';
-import { ByType, ContextWithWhere } from '../../types/utility';
+import { ByType, Wherable } from '../../types/utility';
 
-function isEmpty<T>(ctx: ContextWithWhere<T>) {
+function isEmpty<T>(ctx: Wherable<T>) {
   return function <K extends keyof ByType<T, any[]>>(field: K) {
     return ctx.where((item: T) => {
       const arr = item[field] as any[];
@@ -11,7 +11,7 @@ function isEmpty<T>(ctx: ContextWithWhere<T>) {
   };
 }
 
-function isNotEmpty<T>(ctx: ContextWithWhere<T>) {
+function isNotEmpty<T>(ctx: Wherable<T>) {
   return function <K extends keyof ByType<T, any[]>>(field: K) {
     return ctx.where((item: T) => {
       const arr = item[field] as any[];

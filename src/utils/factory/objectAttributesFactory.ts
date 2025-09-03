@@ -1,13 +1,13 @@
 import { ObjectAttributesEnum } from '../../enums/objectOperation';
 import { ObjectAttributesPredicate, objectAttributesPredicate } from '../predicates/objectAttributesPredicate';
-import { ByType, ContextWithWhere } from '../../types/utility';
+import { ByType, Wherable } from '../../types/utility';
 
 /**
  * Factory for object attributes predicates.
  * Provides methods to compose predicates for object attribute operations.
  */
 export const objectAttributesFactory = {
-  isWritable<T>(ctx: ContextWithWhere<T>) {
+  isWritable<T>(ctx: Wherable<T>) {
     return function <K extends keyof ByType<T, object>>(field: K, target: Parameters<ObjectAttributesPredicate>[2]) {
       return ctx.where((item: T) => {
         const obj = item[field] as object;
@@ -15,7 +15,7 @@ export const objectAttributesFactory = {
       });
     };
   },
-  isEnumerable<T>(ctx: ContextWithWhere<T>) {
+  isEnumerable<T>(ctx: Wherable<T>) {
     return function <K extends keyof ByType<T, object>>(field: K, target: Parameters<ObjectAttributesPredicate>[2]) {
       return ctx.where((item: T) => {
         const obj = item[field] as object;
@@ -23,7 +23,7 @@ export const objectAttributesFactory = {
       });
     };
   },
-  isConfigurable<T>(ctx: ContextWithWhere<T>) {
+  isConfigurable<T>(ctx: Wherable<T>) {
     return function <K extends keyof ByType<T, object>>(field: K, target: Parameters<ObjectAttributesPredicate>[2]) {
       return ctx.where((item: T) => {
         const obj = item[field] as object;

@@ -1,8 +1,8 @@
 import { ArraySizeOperEnum } from '../../enums/arrayOperation';
 import { ArraySizePredicate, arraySizePredicate } from '../../utils/predicates/arraySizePredicate';
-import { ByType, ContextWithWhere } from '../../types/utility';
+import { ByType, Wherable } from '../../types/utility';
 
-function lengthEquals<T>(ctx: ContextWithWhere<T>) {
+function lengthEquals<T>(ctx: Wherable<T>) {
   return function <K extends keyof ByType<T, any[]>>(field: K, n: Parameters<ArraySizePredicate>[2]) {
     return ctx.where((item: T) => {
       const arr = item[field] as any[];
@@ -11,7 +11,7 @@ function lengthEquals<T>(ctx: ContextWithWhere<T>) {
   };
 }
 
-function lengthGreaterThan<T>(ctx: ContextWithWhere<T>) {
+function lengthGreaterThan<T>(ctx: Wherable<T>) {
   return function <K extends keyof ByType<T, any[]>>(field: K, n: Parameters<ArraySizePredicate>[2]) {
     return ctx.where((item: T) => {
       const arr = item[field] as any[];
@@ -20,7 +20,7 @@ function lengthGreaterThan<T>(ctx: ContextWithWhere<T>) {
   };
 }
 
-function lengthGreaterThanOrEquals<T>(ctx: ContextWithWhere<T>) {
+function lengthGreaterThanOrEquals<T>(ctx: Wherable<T>) {
   return function <K extends keyof ByType<T, any[]>>(field: K, n: Parameters<ArraySizePredicate>[2]) {
     return ctx.where((item: T) => {
       const arr = item[field] as any[];
@@ -29,7 +29,7 @@ function lengthGreaterThanOrEquals<T>(ctx: ContextWithWhere<T>) {
   };
 }
 
-function lengthLessThan<T>(ctx: ContextWithWhere<T>) {
+function lengthLessThan<T>(ctx: Wherable<T>) {
   return function <K extends keyof ByType<T, any[]>>(field: K, n: Parameters<ArraySizePredicate>[2]) {
     return ctx.where((item: T) => {
       const arr = item[field] as any[];
@@ -38,7 +38,7 @@ function lengthLessThan<T>(ctx: ContextWithWhere<T>) {
   };
 }
 
-function lengthLessThanOrEquals<T>(ctx: ContextWithWhere<T>) {
+function lengthLessThanOrEquals<T>(ctx: Wherable<T>) {
   return function <K extends keyof ByType<T, any[]>>(field: K, n: Parameters<ArraySizePredicate>[2]) {
     return ctx.where((item: T) => {
       const arr = item[field] as any[];

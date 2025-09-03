@@ -1,8 +1,8 @@
 import { NumberOperEnum } from '../../enums/numberOperation';
 import { NumberPredicate, numberPredicate } from '../../utils/predicates/numberPredicate';
-import { ByType, ContextWithWhere } from '../../types/utility';
+import { ByType, Wherable } from '../../types/utility';
 
-function equals<T>(ctx: ContextWithWhere<T>) {
+function equals<T>(ctx: Wherable<T>) {
   return function <K extends keyof ByType<T, number>>(field: K, target: Parameters<NumberPredicate>[2]) {
     return ctx.where((item: T) => {
       const source = item[field] as number;
@@ -11,7 +11,7 @@ function equals<T>(ctx: ContextWithWhere<T>) {
   };
 }
 
-function notEquals<T>(ctx: ContextWithWhere<T>) {
+function notEquals<T>(ctx: Wherable<T>) {
   return function <K extends keyof ByType<T, number>>(field: K, target: Parameters<NumberPredicate>[2]) {
     return ctx.where((item: T) => {
       const source = item[field] as number;
@@ -20,7 +20,7 @@ function notEquals<T>(ctx: ContextWithWhere<T>) {
   };
 }
 
-function lessThan<T>(ctx: ContextWithWhere<T>) {
+function lessThan<T>(ctx: Wherable<T>) {
   return function <K extends keyof ByType<T, number>>(field: K, target: Parameters<NumberPredicate>[2]) {
     return ctx.where((item: T) => {
       const source = item[field] as number;
@@ -29,7 +29,7 @@ function lessThan<T>(ctx: ContextWithWhere<T>) {
   };
 }
 
-function lessThanOrEquals<T>(ctx: ContextWithWhere<T>) {
+function lessThanOrEquals<T>(ctx: Wherable<T>) {
   return function <K extends keyof ByType<T, number>>(field: K, target: Parameters<NumberPredicate>[2]) {
     return ctx.where((item: T) => {
       const source = item[field] as number;
@@ -38,7 +38,7 @@ function lessThanOrEquals<T>(ctx: ContextWithWhere<T>) {
   };
 }
 
-function greaterThan<T>(ctx: ContextWithWhere<T>) {
+function greaterThan<T>(ctx: Wherable<T>) {
   return function <K extends keyof ByType<T, number>>(field: K, target: Parameters<NumberPredicate>[2]) {
     return ctx.where((item: T) => {
       const source = item[field] as number;
@@ -47,7 +47,7 @@ function greaterThan<T>(ctx: ContextWithWhere<T>) {
   };
 }
 
-function greaterThanOrEquals<T>(ctx: ContextWithWhere<T>) {
+function greaterThanOrEquals<T>(ctx: Wherable<T>) {
   return function <K extends keyof ByType<T, number>>(field: K, target: Parameters<NumberPredicate>[2]) {
     return ctx.where((item: T) => {
       const source = item[field] as number;

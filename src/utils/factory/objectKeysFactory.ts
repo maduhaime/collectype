@@ -1,6 +1,6 @@
 import { ObjectKeysEnum } from '../../enums/objectOperation';
 import { ObjectKeysPredicate, objectKeysPredicate } from '../predicates/objectKeysPredicate';
-import { ByType, ContextWithWhere } from '../../types/utility';
+import { ByType, Wherable } from '../../types/utility';
 
 /**
  * Factory for object keys predicates.
@@ -8,7 +8,7 @@ import { ByType, ContextWithWhere } from '../../types/utility';
  */
 
 export const objectKeysFactory = {
-  hasKey<T>(ctx: ContextWithWhere<T>) {
+  hasKey<T>(ctx: Wherable<T>) {
     return function <K extends keyof ByType<T, object>>(field: K, target: Parameters<ObjectKeysPredicate>[2]) {
       return ctx.where((item: T) => {
         const obj = item[field] as object;
@@ -16,7 +16,7 @@ export const objectKeysFactory = {
       });
     };
   },
-  hasAllKeys<T>(ctx: ContextWithWhere<T>) {
+  hasAllKeys<T>(ctx: Wherable<T>) {
     return function <K extends keyof ByType<T, object>>(field: K, target: Parameters<ObjectKeysPredicate>[2]) {
       return ctx.where((item: T) => {
         const obj = item[field] as object;
@@ -24,7 +24,7 @@ export const objectKeysFactory = {
       });
     };
   },
-  hasAnyKey<T>(ctx: ContextWithWhere<T>) {
+  hasAnyKey<T>(ctx: Wherable<T>) {
     return function <K extends keyof ByType<T, object>>(field: K, target: Parameters<ObjectKeysPredicate>[2]) {
       return ctx.where((item: T) => {
         const obj = item[field] as object;
@@ -32,7 +32,7 @@ export const objectKeysFactory = {
       });
     };
   },
-  hasExactKeys<T>(ctx: ContextWithWhere<T>) {
+  hasExactKeys<T>(ctx: Wherable<T>) {
     return function <K extends keyof ByType<T, object>>(field: K, target: Parameters<ObjectKeysPredicate>[2]) {
       return ctx.where((item: T) => {
         const obj = item[field] as object;
@@ -40,7 +40,7 @@ export const objectKeysFactory = {
       });
     };
   },
-  hasNoKeys<T>(ctx: ContextWithWhere<T>) {
+  hasNoKeys<T>(ctx: Wherable<T>) {
     return function <K extends keyof ByType<T, object>>(field: K, target: Parameters<ObjectKeysPredicate>[2]) {
       return ctx.where((item: T) => {
         const obj = item[field] as object;

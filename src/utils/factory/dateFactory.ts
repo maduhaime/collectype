@@ -1,8 +1,8 @@
 import { DateOperEnum } from '../../enums/dateOperation';
 import { DatePredicate, datePredicate } from '../../utils/predicates/datePredicate';
-import { ByType, ContextWithWhere } from '../../types/utility';
+import { ByType, Wherable } from '../../types/utility';
 
-function equals<T>(ctx: ContextWithWhere<T>) {
+function equals<T>(ctx: Wherable<T>) {
   return function <K extends keyof ByType<T, Date>>(field: K, target: Parameters<DatePredicate>[2]) {
     return ctx.where((item: T) => {
       const source = item[field] as Date;
@@ -11,7 +11,7 @@ function equals<T>(ctx: ContextWithWhere<T>) {
   };
 }
 
-function notEquals<T>(ctx: ContextWithWhere<T>) {
+function notEquals<T>(ctx: Wherable<T>) {
   return function <K extends keyof ByType<T, Date>>(field: K, target: Parameters<DatePredicate>[2]) {
     return ctx.where((item: T) => {
       const source = item[field] as Date;
@@ -20,7 +20,7 @@ function notEquals<T>(ctx: ContextWithWhere<T>) {
   };
 }
 
-function occursBefore<T>(ctx: ContextWithWhere<T>) {
+function occursBefore<T>(ctx: Wherable<T>) {
   return function <K extends keyof ByType<T, Date>>(field: K, target: Parameters<DatePredicate>[2]) {
     return ctx.where((item: T) => {
       const source = item[field] as Date;
@@ -29,7 +29,7 @@ function occursBefore<T>(ctx: ContextWithWhere<T>) {
   };
 }
 
-function occursOnOrBefore<T>(ctx: ContextWithWhere<T>) {
+function occursOnOrBefore<T>(ctx: Wherable<T>) {
   return function <K extends keyof ByType<T, Date>>(field: K, target: Parameters<DatePredicate>[2]) {
     return ctx.where((item: T) => {
       const source = item[field] as Date;
@@ -38,7 +38,7 @@ function occursOnOrBefore<T>(ctx: ContextWithWhere<T>) {
   };
 }
 
-function occursAfter<T>(ctx: ContextWithWhere<T>) {
+function occursAfter<T>(ctx: Wherable<T>) {
   return function <K extends keyof ByType<T, Date>>(field: K, target: Parameters<DatePredicate>[2]) {
     return ctx.where((item: T) => {
       const source = item[field] as Date;
@@ -47,7 +47,7 @@ function occursAfter<T>(ctx: ContextWithWhere<T>) {
   };
 }
 
-function occursOnOrAfter<T>(ctx: ContextWithWhere<T>) {
+function occursOnOrAfter<T>(ctx: Wherable<T>) {
   return function <K extends keyof ByType<T, Date>>(field: K, target: Parameters<DatePredicate>[2]) {
     return ctx.where((item: T) => {
       const source = item[field] as Date;

@@ -1,13 +1,13 @@
 import { StringSizeOperEnum } from '../../enums/stringOperation';
 import { StringSizePredicate, stringSizePredicate } from '../predicates/stringSizePredicate';
-import { ByType, ContextWithWhere } from '../../types/utility';
+import { ByType, Wherable } from '../../types/utility';
 
 /**
  * Factory for string size predicates (length comparisons).
  * Provides methods to compose predicates for string length operations.
  */
 export const stringSizeFactory = {
-  lengthEquals<T>(ctx: ContextWithWhere<T>) {
+  lengthEquals<T>(ctx: Wherable<T>) {
     return function <K extends keyof ByType<T, string>>(field: K, target: Parameters<StringSizePredicate>[2]) {
       return ctx.where((item: T) => {
         const str = item[field] as string;
@@ -15,7 +15,7 @@ export const stringSizeFactory = {
       });
     };
   },
-  lengthGreaterThan<T>(ctx: ContextWithWhere<T>) {
+  lengthGreaterThan<T>(ctx: Wherable<T>) {
     return function <K extends keyof ByType<T, string>>(field: K, target: Parameters<StringSizePredicate>[2]) {
       return ctx.where((item: T) => {
         const str = item[field] as string;
@@ -23,7 +23,7 @@ export const stringSizeFactory = {
       });
     };
   },
-  lengthGreaterThanOrEquals<T>(ctx: ContextWithWhere<T>) {
+  lengthGreaterThanOrEquals<T>(ctx: Wherable<T>) {
     return function <K extends keyof ByType<T, string>>(field: K, target: Parameters<StringSizePredicate>[2]) {
       return ctx.where((item: T) => {
         const str = item[field] as string;
@@ -31,7 +31,7 @@ export const stringSizeFactory = {
       });
     };
   },
-  lengthLessThan<T>(ctx: ContextWithWhere<T>) {
+  lengthLessThan<T>(ctx: Wherable<T>) {
     return function <K extends keyof ByType<T, string>>(field: K, target: Parameters<StringSizePredicate>[2]) {
       return ctx.where((item: T) => {
         const str = item[field] as string;
@@ -39,7 +39,7 @@ export const stringSizeFactory = {
       });
     };
   },
-  lengthLessThanOrEquals<T>(ctx: ContextWithWhere<T>) {
+  lengthLessThanOrEquals<T>(ctx: Wherable<T>) {
     return function <K extends keyof ByType<T, string>>(field: K, target: Parameters<StringSizePredicate>[2]) {
       return ctx.where((item: T) => {
         const str = item[field] as string;

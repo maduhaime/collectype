@@ -1,8 +1,8 @@
 import { ArrayOperEnum } from '../../enums/arrayOperation';
 import { ArrayPredicate, arrayPredicate } from '../../utils/predicates/arrayPredicate';
-import { ByType, ContextWithWhere } from '../../types/utility';
+import { ByType, Wherable } from '../../types/utility';
 
-function equals<T>(ctx: ContextWithWhere<T>) {
+function equals<T>(ctx: Wherable<T>) {
   return function <K extends keyof ByType<T, any[]>>(field: K, target: Parameters<ArrayPredicate>[2]) {
     return ctx.where((item: T) => {
       const arr = item[field] as any[];
@@ -11,7 +11,7 @@ function equals<T>(ctx: ContextWithWhere<T>) {
   };
 }
 
-function setEquals<T>(ctx: ContextWithWhere<T>) {
+function setEquals<T>(ctx: Wherable<T>) {
   return function <K extends keyof ByType<T, any[]>>(field: K, target: Parameters<ArrayPredicate>[2]) {
     return ctx.where((item: T) => {
       const arr = item[field] as any[];
@@ -20,7 +20,7 @@ function setEquals<T>(ctx: ContextWithWhere<T>) {
   };
 }
 
-function includes<T>(ctx: ContextWithWhere<T>) {
+function includes<T>(ctx: Wherable<T>) {
   return function <K extends keyof ByType<T, any[]>>(field: K, target: Parameters<ArrayPredicate>[2]) {
     return ctx.where((item: T) => {
       const arr = item[field] as any[];
@@ -29,7 +29,7 @@ function includes<T>(ctx: ContextWithWhere<T>) {
   };
 }
 
-function excludes<T>(ctx: ContextWithWhere<T>) {
+function excludes<T>(ctx: Wherable<T>) {
   return function <K extends keyof ByType<T, any[]>>(field: K, target: Parameters<ArrayPredicate>[2]) {
     return ctx.where((item: T) => {
       const arr = item[field] as any[];
@@ -38,7 +38,7 @@ function excludes<T>(ctx: ContextWithWhere<T>) {
   };
 }
 
-function someEquals<T>(ctx: ContextWithWhere<T>) {
+function someEquals<T>(ctx: Wherable<T>) {
   return function <K extends keyof ByType<T, any[]>>(field: K, target: Parameters<ArrayPredicate>[2]) {
     return ctx.where((item: T) => {
       const arr = item[field] as any[];
@@ -47,7 +47,7 @@ function someEquals<T>(ctx: ContextWithWhere<T>) {
   };
 }
 
-function everyEquals<T>(ctx: ContextWithWhere<T>) {
+function everyEquals<T>(ctx: Wherable<T>) {
   return function <K extends keyof ByType<T, any[]>>(field: K, target: Parameters<ArrayPredicate>[2]) {
     return ctx.where((item: T) => {
       const arr = item[field] as any[];
@@ -56,7 +56,7 @@ function everyEquals<T>(ctx: ContextWithWhere<T>) {
   };
 }
 
-function isSubsetOf<T>(ctx: ContextWithWhere<T>) {
+function isSubsetOf<T>(ctx: Wherable<T>) {
   return function <K extends keyof ByType<T, any[]>>(field: K, target: Parameters<ArrayPredicate>[2]) {
     return ctx.where((item: T) => {
       const arr = item[field] as any[];
@@ -65,7 +65,7 @@ function isSubsetOf<T>(ctx: ContextWithWhere<T>) {
   };
 }
 
-function isSupersetOf<T>(ctx: ContextWithWhere<T>) {
+function isSupersetOf<T>(ctx: Wherable<T>) {
   return function <K extends keyof ByType<T, any[]>>(field: K, target: Parameters<ArrayPredicate>[2]) {
     return ctx.where((item: T) => {
       const arr = item[field] as any[];
@@ -74,7 +74,7 @@ function isSupersetOf<T>(ctx: ContextWithWhere<T>) {
   };
 }
 
-function startsWith<T>(ctx: ContextWithWhere<T>) {
+function startsWith<T>(ctx: Wherable<T>) {
   return function <K extends keyof ByType<T, any[]>>(field: K, target: Parameters<ArrayPredicate>[2]) {
     return ctx.where((item: T) => {
       const arr = item[field] as any[];
@@ -83,7 +83,7 @@ function startsWith<T>(ctx: ContextWithWhere<T>) {
   };
 }
 
-function endsWith<T>(ctx: ContextWithWhere<T>) {
+function endsWith<T>(ctx: Wherable<T>) {
   return function <K extends keyof ByType<T, any[]>>(field: K, target: Parameters<ArrayPredicate>[2]) {
     return ctx.where((item: T) => {
       const arr = item[field] as any[];
@@ -92,7 +92,7 @@ function endsWith<T>(ctx: ContextWithWhere<T>) {
   };
 }
 
-function containsSubsequence<T>(ctx: ContextWithWhere<T>) {
+function containsSubsequence<T>(ctx: Wherable<T>) {
   return function <K extends keyof ByType<T, any[]>>(field: K, target: Parameters<ArrayPredicate>[2]) {
     return ctx.where((item: T) => {
       const arr = item[field] as any[];
@@ -101,7 +101,7 @@ function containsSubsequence<T>(ctx: ContextWithWhere<T>) {
   };
 }
 
-function intersects<T>(ctx: ContextWithWhere<T>) {
+function intersects<T>(ctx: Wherable<T>) {
   return function <K extends keyof ByType<T, any[]>>(field: K, target: Parameters<ArrayPredicate>[2]) {
     return ctx.where((item: T) => {
       const arr = item[field] as any[];
@@ -110,7 +110,7 @@ function intersects<T>(ctx: ContextWithWhere<T>) {
   };
 }
 
-function disjoint<T>(ctx: ContextWithWhere<T>) {
+function disjoint<T>(ctx: Wherable<T>) {
   return function <K extends keyof ByType<T, any[]>>(field: K, target: Parameters<ArrayPredicate>[2]) {
     return ctx.where((item: T) => {
       const arr = item[field] as any[];

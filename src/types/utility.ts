@@ -84,10 +84,10 @@ export type EnumOrString<E extends Record<string, string>> = E[keyof E] | E[keyo
  * @property where - A function that takes a predicate and returns any value (typically used for filtering).
  *
  * @example
- * const ctx: ContextWithWhere<{ x: number }> = {
+ * const ctx: Wherable<{ x: number }> = {
  *   where: (predicate) => [1, 2, 3].filter(item => predicate({ x: item }))
  * };
  */
-export type ContextWithWhere<T> = {
+export type Wherable<T> = {
   where: (predicate: (item: T) => boolean) => any;
 };

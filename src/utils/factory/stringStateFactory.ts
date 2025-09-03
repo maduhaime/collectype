@@ -1,8 +1,8 @@
 import { StringStateOperEnum } from '../../enums/stringOperation';
 import { stringStatePredicate } from '../../utils/predicates/stringStatePredicate';
-import { ByType, ContextWithWhere } from '../../types/utility';
+import { ByType, Wherable } from '../../types/utility';
 
-function isEmpty<T>(ctx: ContextWithWhere<T>) {
+function isEmpty<T>(ctx: Wherable<T>) {
   return function <K extends keyof ByType<T, string>>(field: K) {
     return ctx.where((item: T) => {
       const source = item[field] as string;
@@ -11,7 +11,7 @@ function isEmpty<T>(ctx: ContextWithWhere<T>) {
   };
 }
 
-function isNotEmpty<T>(ctx: ContextWithWhere<T>) {
+function isNotEmpty<T>(ctx: Wherable<T>) {
   return function <K extends keyof ByType<T, string>>(field: K) {
     return ctx.where((item: T) => {
       const source = item[field] as string;

@@ -1,8 +1,8 @@
 import { StringOperEnum } from '../../enums/stringOperation';
 import { StringPredicate, stringPredicate } from '../../utils/predicates/stringPredicate';
-import { ByType, ContextWithWhere } from '../../types/utility';
+import { ByType, Wherable } from '../../types/utility';
 
-function equals<T>(ctx: ContextWithWhere<T>) {
+function equals<T>(ctx: Wherable<T>) {
   return function <K extends keyof ByType<T, string>>(field: K, target: Parameters<StringPredicate>[2]) {
     return ctx.where((item: T) => {
       const source = item[field] as string;
@@ -11,7 +11,7 @@ function equals<T>(ctx: ContextWithWhere<T>) {
   };
 }
 
-function notEquals<T>(ctx: ContextWithWhere<T>) {
+function notEquals<T>(ctx: Wherable<T>) {
   return function <K extends keyof ByType<T, string>>(field: K, target: Parameters<StringPredicate>[2]) {
     return ctx.where((item: T) => {
       const source = item[field] as string;
@@ -20,7 +20,7 @@ function notEquals<T>(ctx: ContextWithWhere<T>) {
   };
 }
 
-function includes<T>(ctx: ContextWithWhere<T>) {
+function includes<T>(ctx: Wherable<T>) {
   return function <K extends keyof ByType<T, string>>(field: K, target: Parameters<StringPredicate>[2]) {
     return ctx.where((item: T) => {
       const source = item[field] as string;
@@ -29,7 +29,7 @@ function includes<T>(ctx: ContextWithWhere<T>) {
   };
 }
 
-function excludes<T>(ctx: ContextWithWhere<T>) {
+function excludes<T>(ctx: Wherable<T>) {
   return function <K extends keyof ByType<T, string>>(field: K, target: Parameters<StringPredicate>[2]) {
     return ctx.where((item: T) => {
       const source = item[field] as string;
@@ -38,7 +38,7 @@ function excludes<T>(ctx: ContextWithWhere<T>) {
   };
 }
 
-function startsWith<T>(ctx: ContextWithWhere<T>) {
+function startsWith<T>(ctx: Wherable<T>) {
   return function <K extends keyof ByType<T, string>>(field: K, target: Parameters<StringPredicate>[2]) {
     return ctx.where((item: T) => {
       const source = item[field] as string;
@@ -47,7 +47,7 @@ function startsWith<T>(ctx: ContextWithWhere<T>) {
   };
 }
 
-function endsWith<T>(ctx: ContextWithWhere<T>) {
+function endsWith<T>(ctx: Wherable<T>) {
   return function <K extends keyof ByType<T, string>>(field: K, target: Parameters<StringPredicate>[2]) {
     return ctx.where((item: T) => {
       const source = item[field] as string;
@@ -56,7 +56,7 @@ function endsWith<T>(ctx: ContextWithWhere<T>) {
   };
 }
 
-function matches<T>(ctx: ContextWithWhere<T>) {
+function matches<T>(ctx: Wherable<T>) {
   return function <K extends keyof ByType<T, string>>(field: K, pattern: RegExp) {
     return ctx.where((item: T) => {
       const source = item[field] as string;
