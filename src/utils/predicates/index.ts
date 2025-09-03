@@ -1,3 +1,4 @@
+// Re-export all types for convenient import
 export * from './arrayIndexPredicate';
 export * from './arrayPredicate';
 export * from './arraySizePredicate';

@@ -1,3 +1,4 @@
+// Re-export all types for convenient import
 export * from './arrayFactory';
 export * from './arrayIndexFactory';
 export * from './arraySizeFactory';
