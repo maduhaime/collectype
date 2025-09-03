@@ -1,16 +1,16 @@
 /**
  * Generic constructor type for a class that takes an array of items as its only argument.
- *
  * Used to type the constructor parameter for function classes in CollecType collections.
  *
  * @typeParam T - The instance type returned by the constructor.
  *
  * @example
+ * // Suppose you have a class:
  * class MyFunctions {
- *   constructor(items: MyType[]) { ... }
+ *   constructor(items: string[]) {}
  * }
- * // Usage:
- * const collection = new Collection<MyType, Constructor<MyFunctions>>(items, MyFunctions);
+ * // You can use Constructor<MyFunctions> to type a constructor:
+ * const fnClass: Constructor<MyFunctions> = MyFunctions;
  */
 export type Constructor<T> = new (items: any[]) => T;
 

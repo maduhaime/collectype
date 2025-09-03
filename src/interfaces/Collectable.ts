@@ -1,24 +1,27 @@
 /**
- * Represents a generic structure that contains items and allows access to them.
+ * Generic interface for a collection-like structure that exposes its items and count.
  *
- * @template T The type of items contained in the collection.
+ * @typeParam T - The type of items contained in the collection.
  *
  * @example
  * class MyCollection implements Collectable<string> {
  *   get items() { return ['a', 'b', 'c']; }
  *   get count() { return this.items.length; }
  * }
+ *
+ * // Compositional usage:
+ * function printCount<T>(c: Collectable<T>) {
+ *   console.log(c.count);
+ * }
  */
 export interface Collectable<T> {
   /**
-   * Gets the array of items contained in the collection.
-   * @returns {T[]} The items in the collection.
+   * The array of items contained in the collection.
    */
   get items(): T[];
 
   /**
-   * Gets the number of items in the collection.
-   * @returns {number} The count of items.
+   * The number of items in the collection.
    */
   get count(): number;
 }
