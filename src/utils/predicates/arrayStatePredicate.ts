@@ -2,15 +2,19 @@ import { ArrayStateOperEnum } from '../../enums/arrayOperation';
 
 /**
  * Predicate for array state operations (empty, not empty).
- *
+ * @paramType T - The type of array elements.
  * @param arr - The array to check.
- * @param oper - The operation to perform (IS_EMPTY, IS_NOT_EMPTY).
- * @returns {boolean} True if the array matches the state, false otherwise.
- *
+ * @param oper - The operation to perform (see ArrayStateOperEnum).
+ * @returns Result of the operation.
  * @example
- * arrayStatePredicate([1, 2], ArrayStateOperEnum.IS_EMPTY); // false
- * arrayStatePredicate([], ArrayStateOperEnum.IS_EMPTY); // true
- * arrayStatePredicate([1], ArrayStateOperEnum.IS_NOT_EMPTY); // true
+ * // DummyType is a placeholder for your type
+ * arrayStatePredicate<DummyType>(['A', 'B'], 'isEmpty'); // false
+ * arrayStatePredicate<DummyType>([], 'isEmpty'); // true
+ * arrayStatePredicate<DummyType>(['A'], 'isNotEmpty'); // true
+ *
+ * All condition blocks and throws are commented for clarity.
+ *
+ * @throws {Error} If an unsupported operator is provided.
  */
 export function arrayStatePredicate<T>(arr: T[], oper: ArrayStateOperEnum): boolean {
   // If the operation is IS_EMPTY, check if array is empty

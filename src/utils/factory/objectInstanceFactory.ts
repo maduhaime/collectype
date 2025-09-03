@@ -1,5 +1,5 @@
 import { ObjectInstanceEnum } from '../../enums/objectOperation';
-import { objectInstancePredicate } from '../predicates/objectInstancePredicate';
+import { ObjectInstancePredicate, objectInstancePredicate } from '../predicates/objectInstancePredicate';
 import { ByType, ContextWithWhere } from '../../types/utility';
 
 /**
@@ -8,18 +8,18 @@ import { ByType, ContextWithWhere } from '../../types/utility';
  */
 export const objectInstanceFactory = {
   isInstanceOf<T>(ctx: ContextWithWhere<T>) {
-    return function <K extends keyof ByType<T, object>>(field: K, constructor: Function) {
+    return function <K extends keyof ByType<T, object>>(field: K, target: Parameters<ObjectInstancePredicate>[2]) {
       return ctx.where((item: T) => {
         const obj = item[field] as object;
-        return objectInstancePredicate(obj, constructor, ObjectInstanceEnum.IS_INSTANCE_OF);
+        return objectInstancePredicate(obj, ObjectInstanceEnum.IS_INSTANCE_OF, target);
       });
     };
   },
   isConstructor<T>(ctx: ContextWithWhere<T>) {
-    return function <K extends keyof ByType<T, object>>(field: K) {
+    return function <K extends keyof ByType<T, object>>(field: K, target: Parameters<ObjectInstancePredicate>[2]) {
       return ctx.where((item: T) => {
         const obj = item[field] as object;
-        return objectInstancePredicate(obj, Function, ObjectInstanceEnum.IS_CONSTRUCTOR);
+        return objectInstancePredicate(obj, ObjectInstanceEnum.IS_CONSTRUCTOR, target);
       });
     };
   },

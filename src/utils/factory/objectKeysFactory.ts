@@ -1,5 +1,5 @@
 import { ObjectKeysEnum } from '../../enums/objectOperation';
-import { objectKeysPredicate } from '../predicates/objectKeysPredicate';
+import { ObjectKeysPredicate, objectKeysPredicate } from '../predicates/objectKeysPredicate';
 import { ByType, ContextWithWhere } from '../../types/utility';
 
 /**
@@ -8,51 +8,43 @@ import { ByType, ContextWithWhere } from '../../types/utility';
  */
 
 export const objectKeysFactory = {
-  hasAnyProperty<T>(ctx: ContextWithWhere<T>) {
-    return function <K extends keyof ByType<T, object>>(field: K) {
-      return ctx.where((item: T) => {
-        const obj = item[field] as object;
-        return objectKeysPredicate(obj, [], ObjectKeysEnum.HAS_ANY_PROPERTY);
-      });
-    };
-  },
   hasKey<T>(ctx: ContextWithWhere<T>) {
-    return function <K extends keyof ByType<T, object>>(field: K, key: string) {
+    return function <K extends keyof ByType<T, object>>(field: K, target: Parameters<ObjectKeysPredicate>[2]) {
       return ctx.where((item: T) => {
         const obj = item[field] as object;
-        return objectKeysPredicate(obj, key, ObjectKeysEnum.HAS_KEY);
+        return objectKeysPredicate(obj, ObjectKeysEnum.HAS_KEY, target);
       });
     };
   },
   hasAllKeys<T>(ctx: ContextWithWhere<T>) {
-    return function <K extends keyof ByType<T, object>>(field: K, keys: string[]) {
+    return function <K extends keyof ByType<T, object>>(field: K, target: Parameters<ObjectKeysPredicate>[2]) {
       return ctx.where((item: T) => {
         const obj = item[field] as object;
-        return objectKeysPredicate(obj, keys, ObjectKeysEnum.HAS_ALL_KEYS);
+        return objectKeysPredicate(obj, ObjectKeysEnum.HAS_ALL_KEYS, target);
       });
     };
   },
   hasAnyKey<T>(ctx: ContextWithWhere<T>) {
-    return function <K extends keyof ByType<T, object>>(field: K, keys: string[]) {
+    return function <K extends keyof ByType<T, object>>(field: K, target: Parameters<ObjectKeysPredicate>[2]) {
       return ctx.where((item: T) => {
         const obj = item[field] as object;
-        return objectKeysPredicate(obj, keys, ObjectKeysEnum.HAS_ANY_KEY);
+        return objectKeysPredicate(obj, ObjectKeysEnum.HAS_ANY_KEY, target);
       });
     };
   },
   hasExactKeys<T>(ctx: ContextWithWhere<T>) {
-    return function <K extends keyof ByType<T, object>>(field: K, keys: string[]) {
+    return function <K extends keyof ByType<T, object>>(field: K, target: Parameters<ObjectKeysPredicate>[2]) {
       return ctx.where((item: T) => {
         const obj = item[field] as object;
-        return objectKeysPredicate(obj, keys, ObjectKeysEnum.HAS_EXACT_KEYS);
+        return objectKeysPredicate(obj, ObjectKeysEnum.HAS_EXACT_KEYS, target);
       });
     };
   },
   hasNoKeys<T>(ctx: ContextWithWhere<T>) {
-    return function <K extends keyof ByType<T, object>>(field: K, keys: string[] = []) {
+    return function <K extends keyof ByType<T, object>>(field: K, target: Parameters<ObjectKeysPredicate>[2]) {
       return ctx.where((item: T) => {
         const obj = item[field] as object;
-        return objectKeysPredicate(obj, keys, ObjectKeysEnum.HAS_NO_KEYS);
+        return objectKeysPredicate(obj, ObjectKeysEnum.HAS_NO_KEYS, target);
       });
     };
   },

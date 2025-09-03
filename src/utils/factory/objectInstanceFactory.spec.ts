@@ -23,14 +23,14 @@ describe('objectInstanceFactory', () => {
     fn(field, MyClass);
     expect(ctx.where).toHaveBeenCalled();
     const predicate = ctx.where.mock.calls[0][0];
-    expect(predicate(item)).toBe(objectInstancePredicate(item.obj, MyClass, ObjectInstanceEnum.IS_INSTANCE_OF));
+    expect(predicate(item)).toBe(objectInstancePredicate(item.obj, ObjectInstanceEnum.IS_INSTANCE_OF, MyClass));
   });
 
   it('should call ctx.where with a predicate for isConstructor', () => {
     const fn = objectInstanceFactory.isConstructor<DummyType>(ctx);
-    fn(field);
+    fn(field, Function);
     expect(ctx.where).toHaveBeenCalled();
     const predicate = ctx.where.mock.calls[0][0];
-    expect(predicate(item)).toBe(objectInstancePredicate(item.obj, Function, ObjectInstanceEnum.IS_CONSTRUCTOR));
+    expect(predicate(item)).toBe(objectInstancePredicate(item.obj, ObjectInstanceEnum.IS_CONSTRUCTOR, Function));
   });
 });

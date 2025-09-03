@@ -24,7 +24,7 @@ describe('objectAttributesFactory', () => {
     fn(field, key);
     expect(ctx.where).toHaveBeenCalled();
     const predicate = ctx.where.mock.calls[0][0];
-    expect(predicate(item)).toBe(objectAttributesPredicate(item.obj, key, ObjectAttributesEnum.IS_WRITABLE));
+    expect(predicate(item)).toBe(objectAttributesPredicate(item.obj, ObjectAttributesEnum.IS_WRITABLE, key));
   });
 
   it('should call ctx.where with a predicate for isEnumerable', () => {
@@ -32,7 +32,7 @@ describe('objectAttributesFactory', () => {
     fn(field, key);
     expect(ctx.where).toHaveBeenCalled();
     const predicate = ctx.where.mock.calls[0][0];
-    expect(predicate(item)).toBe(objectAttributesPredicate(item.obj, key, ObjectAttributesEnum.IS_ENUMERABLE));
+    expect(predicate(item)).toBe(objectAttributesPredicate(item.obj, ObjectAttributesEnum.IS_ENUMERABLE, key));
   });
 
   it('should call ctx.where with a predicate for isConfigurable', () => {
@@ -40,6 +40,6 @@ describe('objectAttributesFactory', () => {
     fn(field, key);
     expect(ctx.where).toHaveBeenCalled();
     const predicate = ctx.where.mock.calls[0][0];
-    expect(predicate(item)).toBe(objectAttributesPredicate(item.obj, key, ObjectAttributesEnum.IS_CONFIGURABLE));
+    expect(predicate(item)).toBe(objectAttributesPredicate(item.obj, ObjectAttributesEnum.IS_CONFIGURABLE, key));
   });
 });

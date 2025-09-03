@@ -34,32 +34,32 @@ describe('objectAttributesPredicate', () => {
   });
 
   it('should return true for writable property', () => {
-    expect(objectAttributesPredicate(dummy, 'writableProp', ObjectAttributesEnum.IS_WRITABLE)).toBe(true);
+    expect(objectAttributesPredicate(dummy, ObjectAttributesEnum.IS_WRITABLE, 'writableProp')).toBe(true);
   });
 
   it('should return false for readonly property', () => {
-    expect(objectAttributesPredicate(dummy, 'readonlyProp', ObjectAttributesEnum.IS_WRITABLE)).toBe(false);
+    expect(objectAttributesPredicate(dummy, ObjectAttributesEnum.IS_WRITABLE, 'readonlyProp')).toBe(false);
   });
 
   it('should return true for enumerable property', () => {
-    expect(objectAttributesPredicate(dummy, 'writableProp', ObjectAttributesEnum.IS_ENUMERABLE)).toBe(true);
+    expect(objectAttributesPredicate(dummy, ObjectAttributesEnum.IS_ENUMERABLE, 'writableProp')).toBe(true);
   });
 
   it('should return false for non-enumerable property', () => {
-    expect(objectAttributesPredicate(dummy, 'hiddenProp', ObjectAttributesEnum.IS_ENUMERABLE)).toBe(false);
+    expect(objectAttributesPredicate(dummy, ObjectAttributesEnum.IS_ENUMERABLE, 'hiddenProp')).toBe(false);
   });
 
   it('should return true for configurable property', () => {
-    expect(objectAttributesPredicate(dummy, 'writableProp', ObjectAttributesEnum.IS_CONFIGURABLE)).toBe(true);
+    expect(objectAttributesPredicate(dummy, ObjectAttributesEnum.IS_CONFIGURABLE, 'writableProp')).toBe(true);
   });
 
   it('should return false for non-configurable property', () => {
-    expect(objectAttributesPredicate(dummy, 'readonlyProp', ObjectAttributesEnum.IS_CONFIGURABLE)).toBe(false);
+    expect(objectAttributesPredicate(dummy, ObjectAttributesEnum.IS_CONFIGURABLE, 'readonlyProp')).toBe(false);
   });
 
   it('should throw for unsupported operation', () => {
     // @ts-expect-error: purposely passing an invalid enum value
-    expect(() => objectAttributesPredicate(dummy, 'writableProp', 'invalid')).toThrow(
+    expect(() => objectAttributesPredicate(dummy, 'invalid', 'writableProp')).toThrow(
       'Unsupported object attributes predicate operation: invalid'
     );
   });

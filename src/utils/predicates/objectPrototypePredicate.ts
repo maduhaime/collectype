@@ -1,26 +1,38 @@
 import { EnumOrString } from '../../types';
 import { ObjectPrototypeEnum } from '../../enums/objectOperation';
 
+// Type definition for the object prototype predicate function
 export type ObjectPrototypePredicate = (
-  proto: object,
   obj: object,
-  oper: EnumOrString<typeof ObjectPrototypeEnum>
+  oper: EnumOrString<typeof ObjectPrototypeEnum>,
+  target: object
 ) => boolean;
 
 /**
  * Evaluates prototype-related operations on objects.
  *
- * @param proto - The prototype object to check against.
- * @param obj - The object to test.
- * @param oper - The operation to perform (from ObjectPrototypeEnum or its string value).
+ * @paramType {object} obj - The prototype object to check against.
+ * @paramType {string} oper - The operation to perform (should be a string value matching ObjectPrototypeEnum).
+ * @paramType {object} target - The object to test.
  * @returns {boolean} True if the operation is satisfied, otherwise throws an error.
+ *
+ * @example
+ * class DummyClass {}
+ * const dummyInstance = new DummyClass();
+ * objectPrototypePredicate(dummyInstance, 'isPrototypeOf', DummyClass.prototype); // true
+ * objectPrototypePredicate(dummyInstance, 'isPrototypeOf', {}); // false
+ *
+ * All condition blocks and throws are commented for clarity.
+ *
  * @throws {Error} If an unknown operation is provided.
  */
-export const objectPrototypePredicate: ObjectPrototypePredicate = (proto, obj, oper): boolean => {
-  // Check if proto is prototype of obj
-  if (oper === ObjectPrototypeEnum.IS_PROTOTYPE_OF || oper === 'isPrototypeOf') {
-    return proto.isPrototypeOf(obj);
+export const objectPrototypePredicate: ObjectPrototypePredicate = (obj, oper, target): boolean => {
+  // Condition: Check if obj is prototype of target
+  if (oper === ObjectPrototypeEnum.IS_PROTOTYPE_OF) {
+    // Returns true if obj is prototype of target, false otherwise
+    return obj.isPrototypeOf(target);
   }
-  // Throw for unknown operation
+
+  // Throw: Unsupported operation provided
   throw new Error(`Unsupported object prototype predicate operation: ${oper}`);
 };

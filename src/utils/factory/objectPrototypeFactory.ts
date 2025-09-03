@@ -1,5 +1,5 @@
 import { ObjectPrototypeEnum } from '../../enums/objectOperation';
-import { objectPrototypePredicate } from '../predicates/objectPrototypePredicate';
+import { ObjectPrototypePredicate, objectPrototypePredicate } from '../predicates/objectPrototypePredicate';
 import { ByType, ContextWithWhere } from '../../types/utility';
 
 /**
@@ -8,10 +8,10 @@ import { ByType, ContextWithWhere } from '../../types/utility';
  */
 export const objectPrototypeFactory = {
   isPrototypeOf<T>(ctx: ContextWithWhere<T>) {
-    return function <K extends keyof ByType<T, object>>(field: K, proto: object) {
+    return function <K extends keyof ByType<T, object>>(field: K, target: Parameters<ObjectPrototypePredicate>[2]) {
       return ctx.where((item: T) => {
-        const obj = item[field] as object;
-        return objectPrototypePredicate(proto, obj, ObjectPrototypeEnum.IS_PROTOTYPE_OF);
+        const proto = item[field] as object;
+        return objectPrototypePredicate(proto, ObjectPrototypeEnum.IS_PROTOTYPE_OF, target);
       });
     };
   },

@@ -8,19 +8,19 @@ class DummyType {}
 describe('objectPrototypePredicate', () => {
   it('should return true if DummyType.prototype is prototype of instance', () => {
     const dummy = new DummyType();
-    expect(objectPrototypePredicate(DummyType.prototype, dummy, ObjectPrototypeEnum.IS_PROTOTYPE_OF)).toBe(true);
+    expect(objectPrototypePredicate(DummyType.prototype, ObjectPrototypeEnum.IS_PROTOTYPE_OF, dummy)).toBe(true);
   });
 
   it('should return true if Object.prototype is prototype of instance', () => {
     const dummy = new DummyType();
-    expect(objectPrototypePredicate(Object.prototype, dummy, ObjectPrototypeEnum.IS_PROTOTYPE_OF)).toBe(true);
+    expect(objectPrototypePredicate(Object.prototype, ObjectPrototypeEnum.IS_PROTOTYPE_OF, dummy)).toBe(true);
   });
 
   it('should throw for unsupported operation', () => {
     const dummy = new DummyType();
 
     // @ts-expect-error: purposely passing invalid operation
-    expect(() => objectPrototypePredicate(DummyType.prototype, dummy, 'invalid')).toThrow(
+    expect(() => objectPrototypePredicate(DummyType.prototype, 'invalid', dummy)).toThrow(
       'Unsupported object prototype predicate operation: invalid'
     );
   });

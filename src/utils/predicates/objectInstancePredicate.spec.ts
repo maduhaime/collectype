@@ -10,24 +10,24 @@ describe('objectInstancePredicate', () => {
   const plainObj = {};
 
   it('should return true if object is instance of DummyType', () => {
-    expect(objectInstancePredicate(dummy, DummyType, ObjectInstanceEnum.IS_INSTANCE_OF)).toBe(true);
+    expect(objectInstancePredicate(dummy, ObjectInstanceEnum.IS_INSTANCE_OF, DummyType)).toBe(true);
   });
 
   it('should return false if object is not instance of DummyType', () => {
-    expect(objectInstancePredicate(plainObj, DummyType, ObjectInstanceEnum.IS_INSTANCE_OF)).toBe(false);
+    expect(objectInstancePredicate(plainObj, ObjectInstanceEnum.IS_INSTANCE_OF, DummyType)).toBe(false);
   });
 
   it('should return true if object is a constructor', () => {
-    expect(objectInstancePredicate(DummyType, DummyType, ObjectInstanceEnum.IS_CONSTRUCTOR)).toBe(true);
+    expect(objectInstancePredicate(DummyType, ObjectInstanceEnum.IS_CONSTRUCTOR, DummyType)).toBe(true);
   });
 
   it('should return false if object is not a constructor', () => {
-    expect(objectInstancePredicate({}, DummyType, ObjectInstanceEnum.IS_CONSTRUCTOR)).toBe(false);
+    expect(objectInstancePredicate({}, ObjectInstanceEnum.IS_CONSTRUCTOR, DummyType)).toBe(false);
   });
 
   it('should throw for unsupported operation', () => {
     // @ts-expect-error: purposely passing invalid operation
-    expect(() => objectInstancePredicate(dummy, DummyType, 'invalid')).toThrow(
+    expect(() => objectInstancePredicate(dummy, 'invalid', DummyType)).toThrow(
       'Unsupported object instance predicate operation: invalid'
     );
   });

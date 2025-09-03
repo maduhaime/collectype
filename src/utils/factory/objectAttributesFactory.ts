@@ -1,5 +1,5 @@
 import { ObjectAttributesEnum } from '../../enums/objectOperation';
-import { objectAttributesPredicate } from '../predicates/objectAttributesPredicate';
+import { ObjectAttributesPredicate, objectAttributesPredicate } from '../predicates/objectAttributesPredicate';
 import { ByType, ContextWithWhere } from '../../types/utility';
 
 /**
@@ -8,26 +8,26 @@ import { ByType, ContextWithWhere } from '../../types/utility';
  */
 export const objectAttributesFactory = {
   isWritable<T>(ctx: ContextWithWhere<T>) {
-    return function <K extends keyof ByType<T, object>>(field: K, key: string) {
+    return function <K extends keyof ByType<T, object>>(field: K, target: Parameters<ObjectAttributesPredicate>[2]) {
       return ctx.where((item: T) => {
         const obj = item[field] as object;
-        return objectAttributesPredicate(obj, key, ObjectAttributesEnum.IS_WRITABLE);
+        return objectAttributesPredicate(obj, ObjectAttributesEnum.IS_WRITABLE, target);
       });
     };
   },
   isEnumerable<T>(ctx: ContextWithWhere<T>) {
-    return function <K extends keyof ByType<T, object>>(field: K, key: string) {
+    return function <K extends keyof ByType<T, object>>(field: K, target: Parameters<ObjectAttributesPredicate>[2]) {
       return ctx.where((item: T) => {
         const obj = item[field] as object;
-        return objectAttributesPredicate(obj, key, ObjectAttributesEnum.IS_ENUMERABLE);
+        return objectAttributesPredicate(obj, ObjectAttributesEnum.IS_ENUMERABLE, target);
       });
     };
   },
   isConfigurable<T>(ctx: ContextWithWhere<T>) {
-    return function <K extends keyof ByType<T, object>>(field: K, key: string) {
+    return function <K extends keyof ByType<T, object>>(field: K, target: Parameters<ObjectAttributesPredicate>[2]) {
       return ctx.where((item: T) => {
         const obj = item[field] as object;
-        return objectAttributesPredicate(obj, key, ObjectAttributesEnum.IS_CONFIGURABLE);
+        return objectAttributesPredicate(obj, ObjectAttributesEnum.IS_CONFIGURABLE, target);
       });
     };
   },

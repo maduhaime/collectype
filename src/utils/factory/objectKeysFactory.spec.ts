@@ -16,20 +16,12 @@ describe('objectKeysFactory', () => {
     ctx.where.mockReset();
   });
 
-  it('should call ctx.where with a predicate for hasAnyProperty', () => {
-    const fn = objectKeysFactory.hasAnyProperty<DummyType>(ctx);
-    fn(field);
-    expect(ctx.where).toHaveBeenCalled();
-    const predicate = ctx.where.mock.calls[0][0];
-    expect(predicate(item)).toBe(objectKeysPredicate(item.obj, [], ObjectKeysEnum.HAS_ANY_PROPERTY));
-  });
-
   it('should call ctx.where with a predicate for hasKey', () => {
     const fn = objectKeysFactory.hasKey<DummyType>(ctx);
     fn(field, 'foo');
     expect(ctx.where).toHaveBeenCalled();
     const predicate = ctx.where.mock.calls[0][0];
-    expect(predicate(item)).toBe(objectKeysPredicate(item.obj, 'foo', ObjectKeysEnum.HAS_KEY));
+    expect(predicate(item)).toBe(objectKeysPredicate(item.obj, ObjectKeysEnum.HAS_KEY, 'foo'));
   });
 
   it('should call ctx.where with a predicate for hasAllKeys', () => {
@@ -37,7 +29,7 @@ describe('objectKeysFactory', () => {
     fn(field, ['foo', 'bar']);
     expect(ctx.where).toHaveBeenCalled();
     const predicate = ctx.where.mock.calls[0][0];
-    expect(predicate(item)).toBe(objectKeysPredicate(item.obj, ['foo', 'bar'], ObjectKeysEnum.HAS_ALL_KEYS));
+    expect(predicate(item)).toBe(objectKeysPredicate(item.obj, ObjectKeysEnum.HAS_ALL_KEYS, ['foo', 'bar']));
   });
 
   it('should call ctx.where with a predicate for hasAnyKey', () => {
@@ -45,7 +37,7 @@ describe('objectKeysFactory', () => {
     fn(field, ['foo', 'baz']);
     expect(ctx.where).toHaveBeenCalled();
     const predicate = ctx.where.mock.calls[0][0];
-    expect(predicate(item)).toBe(objectKeysPredicate(item.obj, ['foo', 'baz'], ObjectKeysEnum.HAS_ANY_KEY));
+    expect(predicate(item)).toBe(objectKeysPredicate(item.obj, ObjectKeysEnum.HAS_ANY_KEY, ['foo', 'baz']));
   });
 
   it('should call ctx.where with a predicate for hasExactKeys', () => {
@@ -53,15 +45,15 @@ describe('objectKeysFactory', () => {
     fn(field, ['foo', 'bar']);
     expect(ctx.where).toHaveBeenCalled();
     const predicate = ctx.where.mock.calls[0][0];
-    expect(predicate(item)).toBe(objectKeysPredicate(item.obj, ['foo', 'bar'], ObjectKeysEnum.HAS_EXACT_KEYS));
+    expect(predicate(item)).toBe(objectKeysPredicate(item.obj, ObjectKeysEnum.HAS_EXACT_KEYS, ['foo', 'bar']));
   });
 
   it('should call ctx.where with a predicate for hasNoKeys (no keys passed)', () => {
     const fn = objectKeysFactory.hasNoKeys<DummyType>(ctx);
-    fn(field);
+    fn(field, []);
     expect(ctx.where).toHaveBeenCalled();
     const predicate = ctx.where.mock.calls[0][0];
-    expect(predicate(item)).toBe(objectKeysPredicate(item.obj, [], ObjectKeysEnum.HAS_NO_KEYS));
+    expect(predicate(item)).toBe(objectKeysPredicate(item.obj, ObjectKeysEnum.HAS_NO_KEYS, []));
   });
 
   it('should call ctx.where with a predicate for hasNoKeys (keys passed)', () => {
@@ -69,7 +61,7 @@ describe('objectKeysFactory', () => {
     fn(field, ['baz']);
     expect(ctx.where).toHaveBeenCalled();
     const predicate = ctx.where.mock.calls[0][0];
-    expect(predicate(item)).toBe(objectKeysPredicate(item.obj, ['baz'], ObjectKeysEnum.HAS_NO_KEYS));
+    expect(predicate(item)).toBe(objectKeysPredicate(item.obj, ObjectKeysEnum.HAS_NO_KEYS, ['baz']));
   });
 
   it('should work with array targets for hasKey', () => {
@@ -78,7 +70,7 @@ describe('objectKeysFactory', () => {
     fn(field, '0');
     expect(ctx.where).toHaveBeenCalled();
     const predicate = ctx.where.mock.calls[0][0];
-    expect(predicate(arrItem)).toBe(objectKeysPredicate(arrItem.obj, '0', ObjectKeysEnum.HAS_KEY));
+    expect(predicate(arrItem)).toBe(objectKeysPredicate(arrItem.obj, ObjectKeysEnum.HAS_KEY, '0'));
   });
 
   it('should work with array targets for hasAllKeys', () => {
@@ -87,7 +79,7 @@ describe('objectKeysFactory', () => {
     fn(field, ['0', '1', '2']);
     expect(ctx.where).toHaveBeenCalled();
     const predicate = ctx.where.mock.calls[0][0];
-    expect(predicate(arrItem)).toBe(objectKeysPredicate(arrItem.obj, ['0', '1', '2'], ObjectKeysEnum.HAS_ALL_KEYS));
+    expect(predicate(arrItem)).toBe(objectKeysPredicate(arrItem.obj, ObjectKeysEnum.HAS_ALL_KEYS, ['0', '1', '2']));
   });
 
   it('should work with array targets for hasAnyKey', () => {
@@ -96,7 +88,7 @@ describe('objectKeysFactory', () => {
     fn(field, ['0', '5']);
     expect(ctx.where).toHaveBeenCalled();
     const predicate = ctx.where.mock.calls[0][0];
-    expect(predicate(arrItem)).toBe(objectKeysPredicate(arrItem.obj, ['0', '5'], ObjectKeysEnum.HAS_ANY_KEY));
+    expect(predicate(arrItem)).toBe(objectKeysPredicate(arrItem.obj, ObjectKeysEnum.HAS_ANY_KEY, ['0', '5']));
   });
 
   it('should work with array targets for hasExactKeys', () => {
@@ -105,16 +97,16 @@ describe('objectKeysFactory', () => {
     fn(field, ['0', '1', '2']);
     expect(ctx.where).toHaveBeenCalled();
     const predicate = ctx.where.mock.calls[0][0];
-    expect(predicate(arrItem)).toBe(objectKeysPredicate(arrItem.obj, ['0', '1', '2'], ObjectKeysEnum.HAS_EXACT_KEYS));
+    expect(predicate(arrItem)).toBe(objectKeysPredicate(arrItem.obj, ObjectKeysEnum.HAS_EXACT_KEYS, ['0', '1', '2']));
   });
 
   it('should work with array targets for hasNoKeys (no keys passed)', () => {
     const arrItem = { obj: [1, 2, 3] };
     const fn = objectKeysFactory.hasNoKeys<typeof arrItem>(ctx);
-    fn(field);
+    fn(field, []);
     expect(ctx.where).toHaveBeenCalled();
     const predicate = ctx.where.mock.calls[0][0];
-    expect(predicate(arrItem)).toBe(objectKeysPredicate(arrItem.obj, [], ObjectKeysEnum.HAS_NO_KEYS));
+    expect(predicate(arrItem)).toBe(objectKeysPredicate(arrItem.obj, ObjectKeysEnum.HAS_NO_KEYS, []));
   });
 
   it('should work with array targets for hasNoKeys (keys passed)', () => {
@@ -123,6 +115,6 @@ describe('objectKeysFactory', () => {
     fn(field, ['5']);
     expect(ctx.where).toHaveBeenCalled();
     const predicate = ctx.where.mock.calls[0][0];
-    expect(predicate(arrItem)).toBe(objectKeysPredicate(arrItem.obj, ['5'], ObjectKeysEnum.HAS_NO_KEYS));
+    expect(predicate(arrItem)).toBe(objectKeysPredicate(arrItem.obj, ObjectKeysEnum.HAS_NO_KEYS, ['5']));
   });
 });

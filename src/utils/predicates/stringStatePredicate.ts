@@ -6,10 +6,18 @@ export type StringStatePredicate = (source: string, oper: EnumOrString<typeof St
 
 /**
  * Evaluates a string value according to a state operation from StringStateOperEnum.
- * @param source - The string value to check.
- * @param oper - The state operation to apply (IS_EMPTY, IS_NOT_EMPTY).
+ *
+ * @paramType {string} source - The string value to check.
+ * @paramType {string} oper - The state operation to apply (should be a string value matching StringStateOperEnum).
  * @returns {boolean} True if the string matches the state, false otherwise.
- * @throws Error if an unsupported operator is provided.
+ *
+ * @example
+ * stringStatePredicate('', 'isEmpty'); // true
+ * stringStatePredicate('hello', 'isNotEmpty'); // true
+ *
+ * All condition blocks and throws are commented for clarity.
+ *
+ * @throws {Error} If an unsupported operator is provided.
  */
 export const stringStatePredicate: StringStatePredicate = (source, oper) => {
   // Check if the string is empty

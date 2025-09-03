@@ -25,6 +25,6 @@ describe('objectPrototypeFactory', () => {
     fn(field, proto);
     expect(ctx.where).toHaveBeenCalled();
     const predicate = ctx.where.mock.calls[0][0];
-    expect(predicate(item)).toBe(objectPrototypePredicate(proto, item.obj, ObjectPrototypeEnum.IS_PROTOTYPE_OF));
+    expect(predicate(item)).toBe(objectPrototypePredicate(item.obj, ObjectPrototypeEnum.IS_PROTOTYPE_OF, proto));
   });
 });

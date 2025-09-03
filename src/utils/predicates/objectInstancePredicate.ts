@@ -1,28 +1,42 @@
 import { EnumOrString } from '../../types';
 import { ObjectInstanceEnum } from '../../enums/objectOperation';
 
+// Type definition for the object instance predicate function
 export type ObjectInstancePredicate = (
   obj: any,
-  constructor: Function,
-  oper: EnumOrString<typeof ObjectInstanceEnum>
+  oper: EnumOrString<typeof ObjectInstanceEnum>,
+  target: Function
 ) => boolean;
 
 /**
- * Evaluates instance-related operations on objects and constructors.
+ * Evaluates instance-related operations on objects and targets.
  *
- * @param obj - The object to test.
- * @param constructor - The constructor function to check against.
- * @param oper - The operation to perform (from ObjectInstanceEnum or its string value).
+ * @paramType {any} obj - The object to test.
+ * @paramType {string} oper - The operation to perform (should be a string value matching ObjectInstanceEnum).
+ * @paramType {Function} target - The constructor function to check against.
  * @returns {boolean} True if the operation is satisfied, otherwise throws an error.
+ *
+ * @example
+ * class DummyClass {}
+ * const dummyInstance = new DummyClass();
+ * objectInstancePredicate(dummyInstance, 'isInstanceOf', DummyClass); // true
+ * objectInstancePredicate(DummyClass, 'isConstructor', DummyClass); // true
+ * objectInstancePredicate({}, 'isInstanceOf', DummyClass); // false
+ *
+ * All condition blocks and throws are commented for clarity.
+ *
  * @throws {Error} If an unknown operation is provided.
  */
-export const objectInstancePredicate: ObjectInstancePredicate = (obj, constructor, oper): boolean => {
-  // Check if obj is an instance of constructor
+export const objectInstancePredicate: ObjectInstancePredicate = (obj, oper, target): boolean => {
+  // Condition: Check if obj is an instance of target
   if (oper === ObjectInstanceEnum.IS_INSTANCE_OF) {
-    return obj instanceof (constructor as any);
+    // Returns true if obj is an instance of target, false otherwise
+    return obj instanceof (target as any);
   }
-  // Check if obj is a constructor (can be instantiated)
+
+  // Condition: Check if obj is a target (can be instantiated)
   if (oper === ObjectInstanceEnum.IS_CONSTRUCTOR) {
+    // Returns true if obj can be instantiated, false otherwise
     try {
       new (obj as any)();
       return true;
@@ -30,6 +44,7 @@ export const objectInstancePredicate: ObjectInstancePredicate = (obj, constructo
       return false;
     }
   }
-  // Throw for unknown operation
+
+  // Throw: Unsupported operation provided
   throw new Error(`Unsupported object instance predicate operation: ${oper}`);
 };

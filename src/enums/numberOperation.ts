@@ -9,6 +9,9 @@ export enum NumberOperEnum {
   LESS_THAN_OR_EQUALS = 'less_than_or_equals',
   GREATER_THAN = 'greater_than',
   GREATER_THAN_OR_EQUALS = 'greater_than_or_equals',
+}
+
+export enum NumberStateOperEnum {
   IS_INTEGER = 'is_integer',
   IS_FLOAT = 'is_float',
   IS_POSITIVE = 'is_positive',

@@ -1,5 +1,5 @@
 import { StringSizeOperEnum } from '../../enums/stringOperation';
-import { stringSizePredicate } from '../predicates/stringSizePredicate';
+import { StringSizePredicate, stringSizePredicate } from '../predicates/stringSizePredicate';
 import { ByType, ContextWithWhere } from '../../types/utility';
 
 /**
@@ -8,42 +8,42 @@ import { ByType, ContextWithWhere } from '../../types/utility';
  */
 export const stringSizeFactory = {
   lengthEquals<T>(ctx: ContextWithWhere<T>) {
-    return function <K extends keyof ByType<T, string>>(field: K, num: number) {
+    return function <K extends keyof ByType<T, string>>(field: K, target: Parameters<StringSizePredicate>[2]) {
       return ctx.where((item: T) => {
         const str = item[field] as string;
-        return stringSizePredicate(str, StringSizeOperEnum.LENGTH_EQUALS, num);
+        return stringSizePredicate(str, StringSizeOperEnum.LENGTH_EQUALS, target);
       });
     };
   },
   lengthGreaterThan<T>(ctx: ContextWithWhere<T>) {
-    return function <K extends keyof ByType<T, string>>(field: K, num: number) {
+    return function <K extends keyof ByType<T, string>>(field: K, target: Parameters<StringSizePredicate>[2]) {
       return ctx.where((item: T) => {
         const str = item[field] as string;
-        return stringSizePredicate(str, StringSizeOperEnum.LENGTH_GREATER_THAN, num);
+        return stringSizePredicate(str, StringSizeOperEnum.LENGTH_GREATER_THAN, target);
       });
     };
   },
   lengthGreaterThanOrEquals<T>(ctx: ContextWithWhere<T>) {
-    return function <K extends keyof ByType<T, string>>(field: K, num: number) {
+    return function <K extends keyof ByType<T, string>>(field: K, target: Parameters<StringSizePredicate>[2]) {
       return ctx.where((item: T) => {
         const str = item[field] as string;
-        return stringSizePredicate(str, StringSizeOperEnum.LENGTH_GREATER_THAN_OR_EQUALS, num);
+        return stringSizePredicate(str, StringSizeOperEnum.LENGTH_GREATER_THAN_OR_EQUALS, target);
       });
     };
   },
   lengthLessThan<T>(ctx: ContextWithWhere<T>) {
-    return function <K extends keyof ByType<T, string>>(field: K, num: number) {
+    return function <K extends keyof ByType<T, string>>(field: K, target: Parameters<StringSizePredicate>[2]) {
       return ctx.where((item: T) => {
         const str = item[field] as string;
-        return stringSizePredicate(str, StringSizeOperEnum.LENGTH_LESS_THAN, num);
+        return stringSizePredicate(str, StringSizeOperEnum.LENGTH_LESS_THAN, target);
       });
     };
   },
   lengthLessThanOrEquals<T>(ctx: ContextWithWhere<T>) {
-    return function <K extends keyof ByType<T, string>>(field: K, num: number) {
+    return function <K extends keyof ByType<T, string>>(field: K, target: Parameters<StringSizePredicate>[2]) {
       return ctx.where((item: T) => {
         const str = item[field] as string;
-        return stringSizePredicate(str, StringSizeOperEnum.LENGTH_LESS_THAN_OR_EQUALS, num);
+        return stringSizePredicate(str, StringSizeOperEnum.LENGTH_LESS_THAN_OR_EQUALS, target);
       });
     };
   },

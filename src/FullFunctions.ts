@@ -147,7 +147,6 @@ export class FullFunctions<T> extends BaseFunctions<T> {
   // Object keys methods
   // ===========================
 
-  objectHasAnyProperty = objectKeysFactory.hasAnyProperty(this);
   objectHasKey = objectKeysFactory.hasKey(this);
   objectHasAnyKey = objectKeysFactory.hasAnyKey(this);
   objectHasAllKeys = objectKeysFactory.hasAllKeys(this);

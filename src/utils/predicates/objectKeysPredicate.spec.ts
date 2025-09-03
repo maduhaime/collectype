@@ -12,41 +12,33 @@ interface DummyType {
 describe('objectKeysPredicate', () => {
   const dummy: DummyType = { foo: 'test', bar: 42 };
 
-  it('should return true if object has any property', () => {
-    expect(objectKeysPredicate(dummy, [], ObjectKeysEnum.HAS_ANY_PROPERTY)).toBe(true);
-  });
-
-  it('should return false if object has no property', () => {
-    expect(objectKeysPredicate({}, [], ObjectKeysEnum.HAS_ANY_PROPERTY)).toBe(false);
-  });
-
   it('should return true if object has a specific key', () => {
-    expect(objectKeysPredicate(dummy, 'foo', ObjectKeysEnum.HAS_KEY)).toBe(true);
+    expect(objectKeysPredicate(dummy, ObjectKeysEnum.HAS_KEY, 'foo')).toBe(true);
   });
 
   it('should return false if object does not have a specific key', () => {
-    expect(objectKeysPredicate(dummy, 'baz', ObjectKeysEnum.HAS_KEY)).toBe(false);
+    expect(objectKeysPredicate(dummy, ObjectKeysEnum.HAS_KEY, 'baz')).toBe(false);
   });
 
   it('should return true if object has all specified keys', () => {
-    expect(objectKeysPredicate(dummy, ['foo', 'bar'], ObjectKeysEnum.HAS_ALL_KEYS)).toBe(true);
+    expect(objectKeysPredicate(dummy, ObjectKeysEnum.HAS_ALL_KEYS, ['foo', 'bar'])).toBe(true);
   });
 
   it('should return false if object does not have all specified keys', () => {
-    expect(objectKeysPredicate(dummy, ['foo', 'baz'], ObjectKeysEnum.HAS_ALL_KEYS)).toBe(false);
+    expect(objectKeysPredicate(dummy, ObjectKeysEnum.HAS_ALL_KEYS, ['foo', 'baz'])).toBe(false);
   });
 
   it('should return true if object has any of the specified keys', () => {
-    expect(objectKeysPredicate(dummy, ['foo', 'baz'], ObjectKeysEnum.HAS_ANY_KEY)).toBe(true);
+    expect(objectKeysPredicate(dummy, ObjectKeysEnum.HAS_ANY_KEY, ['foo', 'baz'])).toBe(true);
   });
 
   it('should return false if object has none of the specified keys', () => {
-    expect(objectKeysPredicate(dummy, ['baz', 'qux'], ObjectKeysEnum.HAS_ANY_KEY)).toBe(false);
+    expect(objectKeysPredicate(dummy, ObjectKeysEnum.HAS_ANY_KEY, ['baz', 'qux'])).toBe(false);
   });
 
   it('should throw for unsupported operation', () => {
     // @ts-expect-error: purposely passing invalid operation
-    expect(() => objectKeysPredicate(dummy, 'foo', 'invalid')).toThrow(
+    expect(() => objectKeysPredicate(dummy, 'invalid', 'foo')).toThrow(
       'Unsupported object keys predicate operation: invalid'
     );
   });

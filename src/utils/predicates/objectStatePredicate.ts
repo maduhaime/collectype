@@ -1,17 +1,45 @@
 import { EnumOrString } from '../../types';
 import { ObjectStateEnum } from '../../enums/objectOperation';
 
+// Type definition for the object state predicate function
+export type ObjectStatePredicate = (obj: Record<string, any>, oper: EnumOrString<typeof ObjectStateEnum>) => boolean;
+
 /**
  * Evaluates the state of an object based on the provided operation.
  * Each operation checks a specific property or characteristic of the object.
  * Throws an error if an unknown operation is passed.
  *
- * @param obj - The object to evaluate.
- * @param oper - The operation to perform, from ObjectStateEnum.
- * @returns True if the object matches the operation, false otherwise.
+ * @paramType {Record<string, any>} obj - The object to evaluate.
+ * @paramType {string} oper - The operation to perform (should be a string value matching ObjectStateEnum).
+ * @returns {boolean} True if the object matches the operation, false otherwise.
+ *
+ * @example
+ * class DummyClass {
+ *   constructor() {
+ *     this.foo = 42;
+ *     this.bar = 'baz';
+ *   }
+ * }
+ * const dummyInstance = new DummyClass();
+ * objectStatePredicate(dummyInstance, 'isEmpty'); // false
+ * objectStatePredicate(dummyInstance, 'isPlain'); // true
+ * objectStatePredicate({ 1: 'a', 2: 'b' }, 'hasNumericKeys'); // true
+ * objectStatePredicate({ fooBar: 1, barBaz: 2 }, 'hasCamelcaseKeys'); // true
+ * objectStatePredicate({ nested: { a: 1 } }, 'hasNestedObject'); // true
+ * objectStatePredicate(Object.freeze({}), 'isFrozen'); // true
+ * objectStatePredicate(Object.seal({}), 'isSealed'); // true
+ * objectStatePredicate({}, 'isExtensible'); // true
+ * objectStatePredicate([], 'isIterable'); // true
+ * objectStatePredicate(Object.create(null), 'hasNullProto'); // true
+ * objectStatePredicate({}, 'inheritsObject'); // true
+ * objectStatePredicate({ a: 1, b: 2 }, 'isHomogeneous'); // true
+ * objectStatePredicate({ arr: [] }, 'hasArrayProp'); // true
+ * objectStatePredicate({ a: 1, b: 2 }, 'hasNoUndefined'); // true
+ *
+ * All condition blocks and throws are commented for clarity.
+ *
+ * @throws {Error} If an unknown operation is provided.
  */
-export type ObjectStatePredicate = (obj: Record<string, any>, oper: EnumOrString<typeof ObjectStateEnum>) => boolean;
-
 export const objectStatePredicate: ObjectStatePredicate = (obj, oper): boolean => {
   // Check if the object is empty
   if (oper === ObjectStateEnum.IS_EMPTY) {
