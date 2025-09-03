@@ -2,15 +2,20 @@ import { ReservedMethodsEnum } from '../enums/pipe';
 
 /**
  * Reserved method names that cannot be used in pipe expressions.
- * @typedef {'applyFilter' | 'where' | 'sort' | 'pipe' | 'items' | 'count'} ReservedMethods
+ *
+ * @example
+ * type Forbidden = ReservedMethods; // 'applyFilter' | 'where' | ...
  */
 export type ReservedMethods = `${ReservedMethodsEnum}`;
 
 /**
  * Represents a parsed step in a pipe expression.
- * @typedef {Object} ParsedPipeStep
- * @property {string} methodName - The method name to call.
- * @property {any[]} args - The arguments for the method.
+ *
+ * @property methodName The method name to call.
+ * @property args The arguments for the method.
+ *
+ * @example
+ * const step: ParsedPipeStep = { methodName: 'filter', args: [x => x > 0] };
  */
 export type ParsedPipeStep = {
   methodName: string;

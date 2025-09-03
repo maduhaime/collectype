@@ -3,11 +3,6 @@ import { fileURLToPath, URL } from 'url';
 import { defineConfig } from 'vitest/config';
 
 export default defineConfig({
-  resolve: {
-    alias: {
-      '@': fileURLToPath(new URL('./src', import.meta.url)),
-    },
-  },
   test: {
     environment: 'node',
     coverage: {
@@ -16,6 +11,7 @@ export default defineConfig({
         '**/*.config.ts', // Configuration files
         '**/*.d.ts', // Type definitions
         'dist/**', // Distribution files
+        'sample/**', // Sample files
         'src/enums/**', // Enumerations
         'src/interfaces/**', // Interfaces
         'src/types/**', // Types

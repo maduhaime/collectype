@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
-import { stringPredicate } from '../../utils/predicates/stringPredicate';
 import { StringOperEnum } from '../../enums/stringOperation';
+import { stringPredicate } from '../../utils/predicates/stringPredicate';
 
 describe('stringPredicate', () => {
   it('should check EQUALS', () => {
@@ -36,9 +36,13 @@ describe('stringPredicate', () => {
   it('should check MATCHES', () => {
     expect(stringPredicate('abcdef', StringOperEnum.MATCHES, '^abc')).toBe(true);
     expect(stringPredicate('abcdef', StringOperEnum.MATCHES, 'xyz')).toBe(false);
+    // RegExp target
+    expect(stringPredicate('abcdef', StringOperEnum.MATCHES, /^abc/)).toBe(true);
+    expect(stringPredicate('abcdef', StringOperEnum.MATCHES, /xyz/)).toBe(false);
   });
 
-  it('should throw for unsupported operator', () => {
-    expect(() => stringPredicate('abc', 'unsupported', 'abc')).toThrow();
+  it('should throw for unsupported operation', () => {
+    // @ts-expect-error: purposely passing an invalid enum value
+    expect(() => stringPredicate('abc', 'invalid', 'def')).toThrow('Unsupported string predicate operation: invalid');
   });
 });

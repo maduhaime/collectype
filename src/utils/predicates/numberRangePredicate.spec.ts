@@ -29,7 +29,10 @@ describe('numberRangePredicate', () => {
     expect(numberRangePredicate(5, RangeOperEnum.STRICT_OUT_RANGE, 1, 10)).toBe(false);
   });
 
-  it('should throw for unsupported operator', () => {
-    expect(() => numberRangePredicate(5, 'unsupported', 1, 10)).toThrow();
+  it('should throw for unsupported operation', () => {
+    // @ts-expect-error: purposely passing an invalid enum value
+    expect(() => numberRangePredicate(1, 'invalid', 0, 2)).toThrow(
+      'Unsupported number range predicate operation: invalid'
+    );
   });
 });

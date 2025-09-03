@@ -1,0 +1,31 @@
+import { StringStateOperEnum } from '../../enums/stringOperation';
+import { EnumOrString } from '../../types';
+
+// Type for string state predicate function
+export type StringStatePredicate = (source: string, oper: EnumOrString<typeof StringStateOperEnum>) => boolean;
+
+/**
+ * Evaluates a string value according to a state operation from StringStateOperEnum.
+ *
+ * @paramType {string} source - The string value to check.
+ * @paramType {string} oper - The state operation to apply (should be a string value matching StringStateOperEnum).
+ * @returns {boolean} True if the string matches the state, false otherwise.
+ *
+ * @example
+ * stringStatePredicate('', 'isEmpty'); // true
+ * stringStatePredicate('hello', 'isNotEmpty'); // true
+ *
+ * All condition blocks and throws are commented for clarity.
+ *
+ * @throws {Error} If an unsupported operator is provided.
+ */
+export const stringStatePredicate: StringStatePredicate = (source, oper) => {
+  // Check if the string is empty
+  if (oper === StringStateOperEnum.IS_EMPTY) return source === '';
+
+  // Check if the string is not empty
+  if (oper === StringStateOperEnum.IS_NOT_EMPTY) return source.length > 0;
+
+  // Unsupported operator
+  throw new Error(`Unsupported string state predicate operation: ${oper}`);
+};

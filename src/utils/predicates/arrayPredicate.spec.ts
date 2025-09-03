@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
-import { arrayPredicate } from './arrayPredicate';
 import { ArrayOperEnum } from '../../enums/arrayOperation';
+import { arrayPredicate } from './arrayPredicate';
 
 describe('arrayPredicate', () => {
   type DummyType = string;
@@ -69,5 +69,10 @@ describe('arrayPredicate', () => {
   it('should return true if array and target array have no elements in common', () => {
     expect(arrayPredicate(['A', 'B'], ArrayOperEnum.DISJOINT, ['C', 'D'])).toBe(true);
     expect(arrayPredicate(['A', 'B'], ArrayOperEnum.DISJOINT, ['A', 'C'])).toBe(false);
+  });
+
+  it('should throw for unsupported operation', () => {
+    // @ts-expect-error: purposely passing an invalid enum value
+    expect(() => arrayPredicate(['A', 'B'], 'invalid', 'A')).toThrow('Unsupported array predicate operation: invalid');
   });
 });

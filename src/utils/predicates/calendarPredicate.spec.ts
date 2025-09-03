@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
-import { calendarPredicate } from './calendarPredicate';
 import { CalendarOperEnum } from '../../enums/calendarOperation';
+import { calendarPredicate } from './calendarPredicate';
 
 describe('calendarPredicate', () => {
   const today = new Date(Date.UTC(2023, 11, 28)); // 2023-12-28 UTC
@@ -39,5 +39,12 @@ describe('calendarPredicate', () => {
 
   it('should return false for IS_WEEKDAY (Sunday)', () => {
     expect(calendarPredicate(sunday, CalendarOperEnum.IS_WEEKDAY, today)).toBe(false);
+  });
+
+  it('should throw for unsupported operation', () => {
+    // @ts-expect-error: purposely passing an invalid enum value
+    expect(() => calendarPredicate(new Date(), 'invalid', new Date())).toThrow(
+      'Unsupported calendar predicate operation: invalid'
+    );
   });
 });

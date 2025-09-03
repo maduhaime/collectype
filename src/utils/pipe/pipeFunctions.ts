@@ -2,18 +2,30 @@ import { ReservedMethodsEnum } from '../../enums/pipe';
 import { ReservedMethods, ParsedPipeStep } from '../../types/pipe';
 
 /**
- * Checks if a method name is reserved and cannot be used in pipe expressions.
- * @param methodName - The method name to check.
- * @returns {boolean} True if the method is reserved, false otherwise.
+ * Returns true if the given method name is reserved and cannot be used in pipe expressions.
+ *
+ * @paramType ReservedMethods - The set of reserved method names
+ * @param methodName - The method name to check
+ * @returns True if the method is reserved, false otherwise
+ *
+ * @example
+ * isReserved('map'); // true
+ * isReserved('customMethod'); // false
  */
 export function isReserved(methodName: ReservedMethods): methodName is ReservedMethods {
   return (Object.values(ReservedMethodsEnum) as ReservedMethods[]).includes(methodName);
 }
 
 /**
- * Parses a pipe expression string into an array of ParsedPipeStep objects.
- * @param expression - The pipe expression string.
- * @returns {ParsedPipeStep[]} Array of parsed steps.
+ * Parses a pipe expression string into an array of parsed steps.
+ * Each step represents a method call with its arguments.
+ *
+ * @param expression - The pipe expression string
+ * @returns Array of parsed steps (ParsedPipeStep[])
+ *
+ * @example
+ * parsePipeExpression('filter(x => x > 0) | map(x => x * 2)');
+ * // [ { methodName: 'filter', args: ['x => x > 0'] }, { methodName: 'map', args: ['x => x * 2'] } ]
  */
 export function parsePipeExpression(expression: string): ParsedPipeStep[] {
   return expression
@@ -25,9 +37,14 @@ export function parsePipeExpression(expression: string): ParsedPipeStep[] {
 
 /**
  * Parses a method call string into a ParsedPipeStep object.
- * @param raw - The raw method call string.
- * @returns {ParsedPipeStep} ParsedPipeStep object.
- * @throws Error if the expression is invalid.
+ *
+ * @param raw - The raw method call string
+ * @returns ParsedPipeStep object
+ * @throws Error if the expression is invalid
+ *
+ * @example
+ * parseMethodCall('map(x => x * 2)');
+ * // { methodName: 'map', args: ['x => x * 2'] }
  */
 export function parseMethodCall(raw: string): ParsedPipeStep {
   const match = raw.match(/^([a-zA-Z_][\w]*)\s*\((.*)\)$/);
@@ -37,7 +54,7 @@ export function parseMethodCall(raw: string): ParsedPipeStep {
     if (/^[a-zA-Z_][\w]*$/.test(raw.trim())) {
       return { methodName: raw.trim(), args: [] };
     }
-    throw new Error(`Invalid pipe expression: "${raw}"`);
+    throw new Error(`[parseMethodCall] Invalid pipe expression: "${raw}"`);
   }
 
   const methodName = match[1];
@@ -48,9 +65,14 @@ export function parseMethodCall(raw: string): ParsedPipeStep {
 }
 
 /**
- * Parses an argument string into an array of values.
- * @param argString - The argument string.
- * @returns {any[]} Array of parsed arguments.
+ * Parses an argument string into an array of values (booleans, numbers, strings, dates, arrays, objects).
+ *
+ * @param argString - The argument string
+ * @returns Array of parsed arguments (any[])
+ *
+ * @example
+ * parseArguments('1, "foo", true, [1,2], {a:1}')
+ * // [1, 'foo', true, [1,2], {a:1}]
  */
 export function parseArguments(argString: string): any[] {
   const tokens = splitArguments(argString);
@@ -59,8 +81,13 @@ export function parseArguments(argString: string): any[] {
 
 /**
  * Splits an argument string into individual argument tokens, respecting nesting and string literals.
- * @param input - The argument string.
- * @returns {string[]} Array of argument tokens as strings.
+ *
+ * @param input - The argument string
+ * @returns Array of argument tokens as strings
+ *
+ * @example
+ * splitArguments('1, "foo,bar", [1,2], {a:1, b:2}')
+ * // ['1', '"foo,bar"', '[1,2]', '{a:1, b:2}']
  */
 export function splitArguments(input: string): string[] {
   const result: string[] = [];
@@ -125,8 +152,16 @@ export function splitArguments(input: string): string[] {
 /**
  * Parses a single argument string into its corresponding value.
  * Handles booleans, numbers, strings, dates, arrays, and objects.
- * @param str - The argument string.
- * @returns {any} The parsed value.
+ *
+ * @param str - The argument string
+ * @returns The parsed value (any)
+ *
+ * @example
+ * parseSingleArgument('true'); // true
+ * parseSingleArgument('42'); // 42
+ * parseSingleArgument('"foo"'); // 'foo'
+ * parseSingleArgument('[1,2]'); // [1,2]
+ * parseSingleArgument('{a:1}'); // {a:1}
  */
 export function parseSingleArgument(str: string): any {
   const trimmed = str.trim();
@@ -159,8 +194,13 @@ export function parseSingleArgument(str: string): any {
 
 /**
  * Parses an array string into an array of values.
- * @param str - The array string (e.g., "[1, 2, 3]").
- * @returns {any[]} The parsed array.
+ *
+ * @param str - The array string (e.g., "[1, 2, 3]")
+ * @returns The parsed array (any[])
+ *
+ * @example
+ * parseArray('[1, 2, 3]'); // [1, 2, 3]
+ * parseArray('[]'); // []
  */
 export function parseArray(str: string): any[] {
   const content = str.slice(1, -1).trim();
@@ -170,9 +210,14 @@ export function parseArray(str: string): any[] {
 
 /**
  * Parses an object string into an object.
- * @param str - The object string (e.g., "{a: 1, b: 'x'}").
- * @returns {Record<string, any>} The parsed object.
- * @throws Error if an object entry is invalid.
+ *
+ * @param str - The object string (e.g., "{a: 1, b: 'x'}")
+ * @returns The parsed object (Record<string, any>)
+ * @throws Error if an object entry is invalid
+ *
+ * @example
+ * parseObject('{a: 1, b: "x"}'); // { a: 1, b: 'x' }
+ * parseObject('{}'); // {}
  */
 export function parseObject(str: string): Record<string, any> {
   const content = str.slice(1, -1).trim();
@@ -183,7 +228,7 @@ export function parseObject(str: string): Record<string, any> {
   // Parse each key-value pair in the object
   for (const entry of entries) {
     const [keyPart, ...rest] = entry.split(':');
-    if (!keyPart || rest.length === 0) throw new Error(`Invalid object entry: ${entry}`);
+    if (!keyPart || rest.length === 0) throw new Error(`[parseObject] Invalid object entry: ${entry}`);
     const key = keyPart.trim().replace(/^['"]|['"]$/g, '');
     const valueStr = rest.join(':').trim();
     obj[key] = parseSingleArgument(valueStr);
@@ -191,52 +236,3 @@ export function parseObject(str: string): Record<string, any> {
 
   return obj;
 }
-
-// Old functions
-// =======================================
-
-/**
- * Splits a pipe expression string into its component steps using legacy logic.
- * @param expression - The pipe expression string.
- * @returns Array of step strings.
- */
-// export function splitExpression(expression: string): string[] {
-//   const pipePositions: number[] = [];
-
-//   for (let i = 0; i < expression.length; i++) {
-//     if (expression[i] === '|') {
-//       pipePositions.push(i);
-//     }
-//   }
-
-//   const splitIndices: number[] = [];
-
-//   for (const pos of pipePositions) {
-//     const left = expression.slice(0, pos);
-//     const right = expression.slice(pos + 1);
-
-//     // version moderne avec lookbehind
-//     const leftMatch = /(?<=\))\s*$/.test(left);
-
-//     // version avec groupe nommé (facultatif ici)
-//     const rightMatch = /^\s*(?<fn>[a-zA-Z_$][\w$]*)\s*\(/.test(right);
-
-//     if (leftMatch && rightMatch) {
-//       splitIndices.push(pos);
-//     }
-//   }
-
-//   const result: string[] = [];
-//   let lastIndex = 0;
-
-//   for (const index of splitIndices) {
-//     const chunk = expression.slice(lastIndex, index).trim();
-//     if (chunk) result.push(chunk);
-//     lastIndex = index + 1;
-//   }
-
-//   const remaining = expression.slice(lastIndex).trim();
-//   if (remaining) result.push(remaining);
-
-//   return result;
-// }

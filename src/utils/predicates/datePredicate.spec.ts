@@ -1,7 +1,6 @@
 import { describe, expect, it } from 'vitest';
-
-import { datePredicate } from '../../utils/predicates/datePredicate';
 import { DateOperEnum } from '../../enums/dateOperation';
+import { datePredicate } from '../../utils/predicates/datePredicate';
 
 describe('datePredicate', () => {
   const date1 = new Date('2020-01-01');
@@ -43,7 +42,10 @@ describe('datePredicate', () => {
     expect(datePredicate(date1, DateOperEnum.SAME_YEAR, date2)).toBe(true);
   });
 
-  it('should throw for unsupported operator', () => {
-    expect(() => datePredicate(date1, 'unsupported', date2)).toThrow();
+  it('should throw for unsupported operation', () => {
+    // @ts-expect-error: purposely passing an invalid enum value
+    expect(() => datePredicate(new Date(), 'invalid', new Date())).toThrow(
+      'Unsupported date predicate operation: invalid'
+    );
   });
 });

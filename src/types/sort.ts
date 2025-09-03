@@ -1,15 +1,19 @@
 import { SortDirEnum, SortTypeEnum } from '../enums/sort';
 
 /**
- * Type representing possible sort directions.
+ * Type representing possible sort directions ('asc' or 'desc').
  * Used for type safety in sorting functions.
- * @typedef {'asc' | 'desc'} SortDir
+ *
+ * @example
+ * function sort(dir: SortDir) { ... }
  */
 export type SortDir = `${SortDirEnum}`;
 
 /**
- * Type representing possible sort types.
+ * Type representing possible sort types ('string', 'number', 'date', 'boolean').
  * Used for type safety in sorting functions.
- * @typedef {'string' | 'number' | 'date' | 'boolean'} SortType
+ *
+ * @example
+ * function sortByType(type: SortType) { ... }
  */
 export type SortType = `${SortTypeEnum}`;

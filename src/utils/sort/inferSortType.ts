@@ -3,11 +3,29 @@ import { SortTypeEnum } from '../../enums/sort';
 
 /**
  * Infers the sort type of a value for sorting purposes.
- * Returns one of: 'string', 'number', 'boolean', 'date'.
+ * Returns one of: 'string', 'number', 'boolean', or 'date'.
  *
- * @param value - The value to infer the type of.
- * @returns {SortType} The inferred sort type.
- * @throws Error if the type cannot be inferred.
+ * @param value The value whose sort type should be inferred.
+ * @returns {SortType} The inferred sort type (string, number, boolean, or date).
+ * @throws Error if the type cannot be inferred (e.g., object, array, null, undefined).
+ *
+ * @example
+ * inferSortType('abc'); // 'string'
+ * inferSortType(42); // 'number'
+ * inferSortType(true); // 'boolean'
+ * inferSortType(new Date()); // 'date'
+ *
+ * // Throws for unsupported types:
+ * inferSortType({}); // Error
+ * inferSortType([]); // Error
+ * inferSortType(null); // Error
+ * inferSortType(undefined); // Error
+ *
+ * // Compositional usage:
+ * const type = inferSortType(item.value);
+ * if (type === 'string') {
+ *   // sort as string
+ * }
  */
 export function inferSortType(value: unknown): SortType {
   if (typeof value === 'string') return SortTypeEnum.STRING;
