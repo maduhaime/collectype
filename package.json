@@ -31,13 +31,9 @@
       "import": "./dist/types/index.js",
       "types": "./dist/types/index.d.ts"
     },
-    "./utils/filters": {
-      "import": "./dist/utils/filters/index.js",
-      "types": "./dist/utils/filters/index.d.ts"
-    },
-    "./utils/pipe": {
-      "import": "./dist/utils/pipe/index.js",
-      "types": "./dist/utils/pipe/index.d.ts"
+    "./utils/factory": {
+      "import": "./dist/utils/factory/index.js",
+      "types": "./dist/utils/factory/index.d.ts"
     },
     "./utils/predicates": {
       "import": "./dist/utils/predicates/index.js",
@@ -46,10 +42,6 @@
     "./utils/primitives": {
       "import": "./dist/utils/primitives/index.js",
       "types": "./dist/utils/primitives/index.d.ts"
-    },
-    "./utils/sort": {
-      "import": "./dist/utils/sort/index.js",
-      "types": "./dist/utils/index.d.ts"
     }
   },
   "scripts": {
