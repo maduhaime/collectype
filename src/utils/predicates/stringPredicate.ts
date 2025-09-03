@@ -37,7 +37,13 @@ export const stringPredicate: StringPredicate = (source, oper, target) => {
   if (oper === StringOperEnum.ENDS_WITH) return typeof target === 'string' ? source.endsWith(target) : false;
 
   // Check if source matches target (regex or string)
+  // For MATCHES, target can be a string (pattern) or a RegExp
   if (oper === StringOperEnum.MATCHES) {
+    /**
+     * If target is a string, create a RegExp from it.
+     * If target is a RegExp, use it directly.
+     * Any other type returns false.
+     */
     if (typeof target === 'string') return new RegExp(target).test(source);
     if (target instanceof RegExp) return target.test(source);
     return false;

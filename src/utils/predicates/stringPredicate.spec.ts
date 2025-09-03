@@ -36,6 +36,9 @@ describe('stringPredicate', () => {
   it('should check MATCHES', () => {
     expect(stringPredicate('abcdef', StringOperEnum.MATCHES, '^abc')).toBe(true);
     expect(stringPredicate('abcdef', StringOperEnum.MATCHES, 'xyz')).toBe(false);
+    // RegExp target
+    expect(stringPredicate('abcdef', StringOperEnum.MATCHES, /^abc/)).toBe(true);
+    expect(stringPredicate('abcdef', StringOperEnum.MATCHES, /xyz/)).toBe(false);
   });
 
   it('should throw for unsupported operation', () => {
