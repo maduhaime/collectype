@@ -4,17 +4,17 @@
  *
  * @paramType T - The array element type
  * @param arr - The array to search in
- * @param targetArr - The subsequence to search for
- * @returns True if arr contains targetArr as a contiguous subsequence, false otherwise
+ * @param target - The subsequence to search for
+ * @returns True if arr contains target as a contiguous subsequence, false otherwise
  *
  * @example
  * containsSubsequence([1, 2, 3, 4, 5], [2, 3, 4]); // true
  * containsSubsequence(['a', 'b', 'c'], ['b', 'c']); // true
  * containsSubsequence([1, 2, 3], [3, 2]); // false
  */
-export function containsSubsequence<T>(arr: T[], targetArr: T[]): boolean {
-  for (let i = 0; i <= arr.length - targetArr.length; i++) {
-    if (targetArr.every((v, j) => arr[i + j] === v)) return true;
+export function containsSubsequence<T>(arr: T[], target: T[]): boolean {
+  for (let i = 0; i <= arr.length - target.length; i++) {
+    if (target.every((v, j) => arr[i + j] === v)) return true;
   }
   return false;
 }
