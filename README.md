@@ -36,7 +36,7 @@ import { Collection, BaseFunctions } from 'collectype';
 const collection = new Collection(items, BaseFunctions);
 ```
 
-Or use **61 prebuilt filtering methods** by injecting FullFunctions —
+Or use **84 prebuilt filtering methods** by injecting FullFunctions —
 this is a simple form of inversion of control: you pass the functions class
 as a dependency to the Collection constructor, making the collection's
 behavior fully configurable and extensible. This approach allows you to
@@ -166,7 +166,7 @@ const collection2 = new Collection(people, BaseFunctions);
   ```typescript
   /**
    * Generic constructor type for a class taking any array as argument.
-   * @template T The instance type returned by the constructor.
+   * @paramType T The instance type returned by the constructor.
    */
   export type Constructor<T> = new (items: any[]) => T;
   ```
@@ -199,7 +199,7 @@ Core methods in detail:
 - `count`: Returns the number of items in the current filtered/sorted instance (not chainable).
 
 **Note:**
-The `items` and `count` properties also exist on the `Collection` itself, but those always reflect the original, unfiltered data passed to the constructor. In contrast, `items` and `count` on the functions instance (`fn`) reflect the current filtered and/or sorted state after all chained operations. This distinction lets you always access both the raw data and the current query result.
+The `items` and `count` properties also exist on the `Collection` itself, but those always reflect the original, unfiltered data passed to the constructor. In contrast, `items` and `count` on the functions instance (`fn`) reflect the current filtered and/or sorted state after all chained operations. This distinction lets you **always access both the raw data and the current query result**.
 
 ### Using composition to add functionality to your custom Functions
 
@@ -234,28 +234,88 @@ collection.fn.stringEquals('name', 'Steve').count;
 collection.fn.numberInRange('age', 18, 65).count;
 ```
 
-## Advanced methods (81) provided by FullFunctions
+## Advanced methods (84) provided by FullFunctions
 
 `FullFunctions` inherits all the core capabilities of `BaseFunctions`, and adds **comprehensive, type-safe filters** for booleans, numbers, strings, dates, arrays and objects operations. All filters are fully typed and support TypeScript inference, so you get autocompletion and compile-time safety for every field and method.
 
 Each method takes the field name as its first argument. Type safety is enforced automatically: for example, only fields of type `number` in your item can be used with `numberEquals` or `numberStrictInRange`; only boolean, string, date, array, or object fields can be used with their respective filters. This ensures you get autocompletion and type checking for all filter methods, making your code safer and more productive.
 
-#### String methods
+#### Array methods (16)
 
-- `stringEquals(field, value)` — Field equals string value
-- `stringNotEquals(field, value)` — Field does not equal string value
-- `stringIncludes(field, value)` — Field includes substring
-- `stringExcludes(field, value)` — Field does not include substring
-- `stringStartsWith(field, value)` — Field starts with substring
-- `stringEndsWith(field, value)` — Field ends with substring
-- `stringMatches(field, regex)` — Field matches regular expression
+- `arrayEquals(field, array)` — Array strictly equals target array (same order)
+- `arraySetEquals(field, array)` — Array equals target as a set (any order)
+- `arrayIsSubsetOf(field, array)` — Array is a subset of target
+- `arrayIsSupersetOf(field, array)` — Array is a superset of target
+- `arrayStartsWith(field, prefix[])` — Array starts with prefix
+- `arrayEndsWith(field, suffix[])` — Array ends with suffix
+- `arrayContainsSubsequence(field, subsequence[])` — Array contains subsequence
 
-**String boolean methods**
+**Array comparison methods**
 
-- `stringIsEmpty(field)` — Field is an empty string
-- `stringIsNotEmpty(field)` — Field is not an empty string
+- `arrayIntersects(field, array)` — Array has at least one value in common with target
+- `arrayDisjoint(field, array)` — Array has no values in common with target
 
-#### Object methods
+**Array size methods**
+
+- `arrayLengthEquals(field, n)` — Array length equals n
+- `arrayLengthGreaterThan(field, n)` — Array length > n
+- `arrayLengthGreaterThanOrEquals(field, n)` — Array length >= n
+- `arrayLengthLessThan(field, n)` — Array length < n
+- `arrayLengthLessThanOrEquals(field, n)` — Array length <= n
+
+**Array state methods**
+
+- `arrayIsEmpty(field)` — Array is empty
+- `arrayIsNotEmpty(field)` — Array is not empty
+
+#### Boolean methods (2)
+
+- `booleanEquals(field, value)` — Field equals boolean value
+- `booleanNotEquals(field, value)` — Field does not equal boolean value
+
+#### Date methods (17)
+
+- `dateEquals(field, value)` — Field equals date value
+- `dateNotEquals(field, value)` — Field does not equal date value
+- `dateOccursBefore(field, value)` — Field occurs before date
+- `dateOccursAfter(field, value)` — Field occurs after date
+- `dateOccursOnOrBefore(field, value)` — Field occurs on or before date
+- `dateOccursOnOrAfter(field, value)` — Field occurs on or after date
+
+**Date calendar methods**
+
+- `dateIsToday(field, [today])` — Field is today (optionally pass reference date)
+- `dateIsYesterday(field, [today])` — Field is yesterday
+- `dateIsBeforeToday(field, [today])` — Field is before today
+- `dateIsAfterToday(field, [today])` — Field is after today
+- `dateIsFuture(field, [today])` — Field is in the future
+- `dateIsWeekend(field, [today])` — Field is a weekend
+- `dateIsWeekday(field, [today])` — Field is a weekday
+
+**Date range methods**
+
+- `dateInRange(field, min, max)` — Field is within inclusive date range [min, max]
+- `dateOutRange(field, min, max)` — Field is outside inclusive date range [min, max]
+- `dateStrictInRange(field, min, max)` — Field is strictly within date range (min, max)
+- `dateStrictOutRange(field, min, max)` — Field is strictly outside date range (min, max)
+
+#### Number methods (17)
+
+- `numberEquals(field, value)` — Field equals number value
+- `numberNotEquals(field, value)` — Field does not equal number value
+- `numberGreaterThan(field, value)` — Field is greater than value
+- `numberGreaterThanOrEquals(field, value)` — Field is greater than or equals value
+- `numberLessThan(field, value)` — Field is less than value
+- `numberLessThanOrEquals(field, value)` — Field is less than or equals value
+
+**Number range methods**
+
+- `numberInRange(field, min, max)` — Field is within inclusive range [min, max]
+- `numberOutRange(field, min, max)` — Field is outside inclusive range [min, max]
+- `numberStrictInRange(field, min, max)` — Field is strictly within range (min, max)
+- `numberStrictOutRange(field, min, max)` — Field is strictly outside range (min, max)
+
+#### Object methods (18)
 
 **Object attribute methods**
 
@@ -290,79 +350,7 @@ Each method takes the field name as its first argument. Type safety is enforced 
 - `objectIsFrozen(field)` — Object is frozen
 - `objectIsSealed(field)` — Object is sealed
 
-**Array relationship and sequence methods**
-
-- `arrayEquals(field, array)` — Array strictly equals target array (same order)
-- `arraySetEquals(field, array)` — Array equals target as a set (any order)
-- `arrayIsSubsetOf(field, array)` — Array is a subset of target
-- `arrayIsSupersetOf(field, array)` — Array is a superset of target
-- `arrayStartsWith(field, prefix[])` — Array starts with prefix
-- `arrayEndsWith(field, suffix[])` — Array ends with suffix
-- `arrayContainsSubsequence(field, subsequence[])` — Array contains subsequence
-
-**Array size methods**
-
-- `arrayLengthEquals(field, n)` — Array length equals n
-- `arrayLengthGreaterThan(field, n)` — Array length > n
-- `arrayLengthGreaterThanOrEquals(field, n)` — Array length >= n
-- `arrayLengthLessThan(field, n)` — Array length < n
-- `arrayLengthLessThanOrEquals(field, n)` — Array length <= n
-- `arrayIsEmpty(field)` — Array is empty
-- `arrayIsNotEmpty(field)` — Array is not empty
-
-**Array comparison methods**
-
-- `arrayIntersects(field, array)` — Array has at least one value in common with target
-- `arrayDisjoint(field, array)` — Array has no values in common with target
-
-#### Boolean methods
-
-- `booleanEquals(field, value)` — Field equals boolean value
-- `booleanNotEquals(field, value)` — Field does not equal boolean value
-
-#### Date methods
-
-- `dateEquals(field, value)` — Field equals date value
-- `dateNotEquals(field, value)` — Field does not equal date value
-- `dateOccursBefore(field, value)` — Field occurs before date
-- `dateOccursAfter(field, value)` — Field occurs after date
-- `dateOccursOnOrBefore(field, value)` — Field occurs on or before date
-- `dateOccursOnOrAfter(field, value)` — Field occurs on or after date
-
-**Date calendar methods**
-
-- `dateIsToday(field, [today])` — Field is today (optionally pass reference date)
-- `dateIsYesterday(field, [today])` — Field is yesterday
-- `dateIsBeforeToday(field, [today])` — Field is before today
-- `dateIsAfterToday(field, [today])` — Field is after today
-- `dateIsFuture(field, [today])` — Field is in the future
-- `dateIsWeekend(field, [today])` — Field is a weekend
-- `dateIsWeekday(field, [today])` — Field is a weekday
-
-**Date range methods**
-
-- `dateInRange(field, min, max)` — Field is within inclusive date range [min, max]
-- `dateOutRange(field, min, max)` — Field is outside inclusive date range [min, max]
-- `dateStrictInRange(field, min, max)` — Field is strictly within date range (min, max)
-- `dateStrictOutRange(field, min, max)` — Field is strictly outside date range (min, max)
-
-#### Number methods
-
-- `numberEquals(field, value)` — Field equals number value
-- `numberNotEquals(field, value)` — Field does not equal number value
-- `numberGreaterThan(field, value)` — Field is greater than value
-- `numberGreaterThanOrEquals(field, value)` — Field is greater than or equals value
-- `numberLessThan(field, value)` — Field is less than value
-- `numberLessThanOrEquals(field, value)` — Field is less than or equals value
-
-**Number range methods**
-
-- `numberInRange(field, min, max)` — Field is within inclusive range [min, max]
-- `numberOutRange(field, min, max)` — Field is outside inclusive range [min, max]
-- `numberStrictInRange(field, min, max)` — Field is strictly within range (min, max)
-- `numberStrictOutRange(field, min, max)` — Field is strictly outside range (min, max)
-
-#### String methods
+#### String methods (14)
 
 - `stringEquals(field, value)` — Field equals string value
 - `stringNotEquals(field, value)` — Field does not equal string value
@@ -372,7 +360,15 @@ Each method takes the field name as its first argument. Type safety is enforced 
 - `stringEndsWith(field, value)` — Field ends with substring
 - `stringMatches(field, regex)` — Field matches regular expression
 
-**String boolean methods**
+**String size methods**
+
+- `stringLengthEquals(field, n)` — String length equals n
+- `stringLengthGreaterThan(field, n)` — String length > n
+- `stringLengthGreaterThanOrEquals(field, n)` — String length >= n
+- `stringLengthLessThan(field, n)` — String length < n
+- `stringLengthLessThanOrEquals(field, n)` — String length <= n
+
+**String state methods**
 
 - `stringIsEmpty(field)` — Field is an empty string
 - `stringIsNotEmpty(field)` — Field is not an empty string
