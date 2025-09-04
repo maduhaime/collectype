@@ -1,3 +1,31 @@
+# 0.8.0 - 2025-09-03
+
+### Added
+
+- **Object filters and predicates**: FullFunctions now supports advanced, type-safe filters and predicates for object fields, including attribute, instance, key, prototype, and state checks.
+- **Factory pattern for composition**: All filter logic is now modularized into dedicated Factory modules (e.g., `objectKeysFactory`, `objectStateFactory`, etc.), making it easier to compose, extend, and test filters.
+- **Improved documentation**: The README has been significantly expanded and clarified, with detailed lists and explanations for all available filters, including new object methods and usage examples.
+- **In-code documentation**: All core modules and factories now include much more comprehensive JSDoc comments, improved TypeScript support, and practical usage examples directly in the code, making the API easier to understand and use in editors.
+- **Comprehensive test coverage**: New tests for all object-related filters and factories, plus additional edge cases for arrays and other types.
+- **Extended array and primitive filters**: Additional predicates and filters for arrays (such as `arrayIsSubsetOf`, `arrayIsSupersetOf`, `arrayContainsSubsequence`, `arrayIntersects`, `arrayDisjoint`, etc.) and for primitive types (e.g., `stringIsEmpty`, `stringLengthGreaterThan`, `numberInRange`, `dateIsToday`, `dateIsWeekend`, etc.) have been added or improved, providing more granular and expressive filtering capabilities.
+- **API consistency**: All filter and predicate methods now follow a unified naming and signature convention, making the API more predictable and easier to use.
+- **Reusable factories**: Factories are now designed for easy composition and extension, allowing users to create custom filters or extend existing ones.
+
+### Changed
+
+- Refactored FullFunctions to use the new Factory modules for all filter logic, improving maintainability and extensibility.
+- Updated type requirements and documentation to reflect support for object fields and clarify handling of nested objects.
+- Enhanced internal consistency and naming across all filter and predicate modules.
+
+### Fixed
+
+- Minor bug fixes and harmonization in filter logic for all supported types.
+- Documentation and type annotation corrections throughout the codebase.
+
+---
+
+See the README for a full list of available filters and usage examples.
+
 # Changelog
 
 All notable changes to this project will be documented in this file.

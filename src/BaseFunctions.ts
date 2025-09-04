@@ -48,7 +48,7 @@ export class BaseFunctions<T> implements Collectable<T> {
    * @returns {this} The instance for chaining.
    *
    * @example
-   *   collection.fn.where(p => p.is_legendary)
+   * collection.fn.where(p => p.is_legendary)
    */
   where(fn: PredicateFn<T>): this {
     this._items = this._items.filter(fn);

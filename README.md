@@ -111,7 +111,7 @@ export class PersonFunctions extends BaseFunctions<Person> {
     return this.where((item) => item.gender === GenderEnum.MALE);
   }
 
-  // Alternative syntaxe with type for predicate function
+  // Alternative syntax with type for predicate function
   female(): this {
     const predicate: PredicateFn = (item) => item.gender >= GenderEnum.FEMALE;
     return this.where(predicate);
@@ -140,13 +140,13 @@ collection.fn.adult().count;
 // Count how many people are female and adults
 collection.fn.female().adult().count;
 
-// Filter how many people are female and adults, then sort then by age
+// Filter how many people are female and adults, then sort them by age
 collection.fn.female().adult().sort('age');
 ```
 
 ## Explicit type annotation versus Inferred type
 
-CollecType is powerfull enough to infer type, givin you a cleaner and more readable syntax.
+CollecType is powerful enough to infer type, giving you a cleaner and more readable syntax.
 
 ```typescript
 import { Collection, BaseFunctions } from 'collectype';
@@ -171,9 +171,11 @@ const collection2 = new Collection(people, BaseFunctions);
   export type Constructor<T> = new (items: any[]) => T;
   ```
 
-- For built-in filtering, sorting, and piping to work out of the box, your items should be plain objects with primitive fields: `string`, `number`, `boolean`, `Date`, or **`array`** (arrays are now fully supported, with all advanced operations documented below).
-- Nested objects are not yet natively supported. If your data includes nested objects, you can still use CollecType, but you will need to write custom filters or predicates to manipulate those fields.
-- The design is optimized for flat data models and arrays, but is flexible enough to support more complex cases with custom logic.
+For built-in filtering, sorting, and piping to work out of the box, your items should be plain objects with primitive fields: `string`, `number`, `boolean`, `Date`, `array`, or `object`. All these types are supported by default, with many advanced methods documented below.
+
+If your data includes nested objects, you can still use CollecType, but you may need to write custom filters or predicates to manipulate those fields.
+
+The design is optimized for flat data models, but remains flexible enough to support more complex cases with custom logic.
 
 This design allows you to compose, extend, and reuse collection logic in a type-safe and expressive way.
 
@@ -199,29 +201,94 @@ Core methods in detail:
 **Note:**
 The `items` and `count` properties also exist on the `Collection` itself, but those always reflect the original, unfiltered data passed to the constructor. In contrast, `items` and `count` on the functions instance (`fn`) reflect the current filtered and/or sorted state after all chained operations. This distinction lets you always access both the raw data and the current query result.
 
-## Advanced methods provided by FullFunctions
+### Using composition to add functionality to your custom Functions
 
-`FullFunctions` inherits all the core capabilities of `BaseFunctions`, and adds **comprehensive, type-safe filters** for booleans, numbers, strings, dates, and arrays—including advanced array index and size operations. All filters are fully typed and support TypeScript inference, so you get autocompletion and compile-time safety for every field and method.
+```typescript
+// src/collections/Person.ts
+import { Collection, BaseFunctions } from 'collectype';
+import { stringFactory, numberRangeFactory } from 'collectype/utils/factory';
+import { GenderEnum, Person } from '../models/Person';
 
-Each method takes the field name as its first argument. Type safety is enforced automatically: for example, only fields of type `number` in your item can be used with `numberEquals` or `numberStrictInRange`, only boolean, string, date or array fields can be used with their respective filters. This ensures you get autocompletion and type checking for all filter methods, making your code safer and more productive.
+export class PersonFunctions extends BaseFunctions<Person> {
+  // Composition
+  stringEquals = stringFactory.equals(this);
+  numberInRange = numberRangeFactory.inRange(this);
+}
 
-#### Array methods
+export class PersonCollection extends Collection<Person, PersonFunctions> {
+  constructor(items: Person[]) {
+    super(items, PersonFunctions);
+  }
+}
 
-- `arrayIndexEquals(field, index, value)` — Value at index equals value
-- `arrayIndexNotEquals(field, index, value)` — Value at index not equals value
-- `arrayIndexIn(field, index, values[])` — Value at index is in values
-- `arrayIndexNotIn(field, index, values[])` — Value at index is not in values
-- `arrayIndexGreaterThan(field, index, value)` — Value at index is greater than value
-- `arrayIndexGreaterThanOrEquals(field, index, value)` — Value at index is greater than or equals value
-- `arrayIndexLessThan(field, index, value)` — Value at index is less than value
-- `arrayIndexLessThanOrEquals(field, index, value)` — Value at index is less than or equals value
+// index.ts
+import { PersonCollection } from './collections/Person';
+import { people } from './data/people';
 
-**Array membership and quantifier methods**
+const collection = new PersonCollection(people);
 
-- `arrayIncludes(field, value)` — Array includes value
-- `arrayExcludes(field, value)` — Array excludes value
-- `arraySomeEquals(field, value)` — At least one element equals value
-- `arrayEveryEquals(field, value)` — Every element equals value
+// Count how many people are named Steve
+collection.fn.stringEquals('name', 'Steve').count;
+
+// Count how many people are between 18 and 65 years old
+collection.fn.numberInRange('age', 18, 65).count;
+```
+
+## Advanced methods (81) provided by FullFunctions
+
+`FullFunctions` inherits all the core capabilities of `BaseFunctions`, and adds **comprehensive, type-safe filters** for booleans, numbers, strings, dates, arrays and objects operations. All filters are fully typed and support TypeScript inference, so you get autocompletion and compile-time safety for every field and method.
+
+Each method takes the field name as its first argument. Type safety is enforced automatically: for example, only fields of type `number` in your item can be used with `numberEquals` or `numberStrictInRange`; only boolean, string, date, array, or object fields can be used with their respective filters. This ensures you get autocompletion and type checking for all filter methods, making your code safer and more productive.
+
+#### String methods
+
+- `stringEquals(field, value)` — Field equals string value
+- `stringNotEquals(field, value)` — Field does not equal string value
+- `stringIncludes(field, value)` — Field includes substring
+- `stringExcludes(field, value)` — Field does not include substring
+- `stringStartsWith(field, value)` — Field starts with substring
+- `stringEndsWith(field, value)` — Field ends with substring
+- `stringMatches(field, regex)` — Field matches regular expression
+
+**String boolean methods**
+
+- `stringIsEmpty(field)` — Field is an empty string
+- `stringIsNotEmpty(field)` — Field is not an empty string
+
+#### Object methods
+
+**Object attribute methods**
+
+- `objectIsWritable(field)` — Field is writable
+- `objectIsEnumerable(field)` — Field is enumerable
+- `objectIsConfigurable(field)` — Field is configurable
+
+**Object instance methods**
+
+- `objectIsInstanceOf(field, constructor)` — Field is instance of constructor
+- `objectIsConstructor(field)` — Field is a constructor
+
+**Object keys methods**
+
+- `objectHasKey(field, key)` — Object has key
+- `objectHasAnyKey(field, keys[])` — Object has any of the keys
+- `objectHasAllKeys(field, keys[])` — Object has all of the keys
+- `objectHasExactKeys(field, keys[])` — Object has exactly the keys
+- `objectHasNoKeys(field)` — Object has no keys
+
+**Object prototype methods**
+
+- `objectIsPrototypeOf(field, prototype)` — Field is prototype of prototype
+
+**Object state methods**
+
+- `objectIsEmpty(field)` — Object is empty
+- `objectIsPlain(field)` — Object is a plain object
+- `objectHasNumericKeys(field)` — Object has numeric keys
+- `objectHasCamelcaseKeys(field)` — Object has camelCase keys
+- `objectHasNestedObject(field)` — Object has a nested object
+- `objectIsFrozen(field)` — Object is frozen
+- `objectIsSealed(field)` — Object is sealed
 
 **Array relationship and sequence methods**
 
