@@ -61,3 +61,19 @@ export enum StringStateOperEnum {
   /** Checks if string is not empty. */
   IS_NOT_EMPTY = 'is_not_empty',
 }
+
+/**
+ * Enum for string membership operations (isOneOf/isNotOneOf).
+ * Used to specify membership checks against an array of strings.
+ *
+ * @enum {'isOneOf' | 'isNotOneOf'}
+ *
+ * @example
+ * if (oper === StringMembershipOperEnum.IS_ONE_OF) { ... }
+ */
+export enum StringMembershipOperEnum {
+  /** Checks if string is in the array. */
+  IS_ONE_OF = 'isOneOf',
+  /** Checks if string is not in the array. */
+  IS_NOT_ONE_OF = 'isNotOneOf',
+}

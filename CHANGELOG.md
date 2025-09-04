@@ -1,3 +1,43 @@
+# 0.8.2 - 2025-09-04
+
+### Added
+
+- **String membership filters**: Added `stringIsOneOf` and `stringIsNotOneOf` methods to FullFunctions and factories, allowing type-safe filtering for string fields against a list of values.
+- **stringMembershipFactory**: New factory for composing membership-based string filters, following the same pattern as other filter factories.
+- **Unit tests**: Comprehensive unit tests for `stringMembershipFactory` and its integration in FullFunctions, following the same style as other factory tests.
+- **README improvements**: Documentation for string membership methods, usage examples, and clarification of method lists.
+
+### Changed
+
+- Harmonized naming and documentation for all string-related filters in code and README.
+- Improved error messages and type safety for string membership predicates.
+
+### Fixed
+
+- Minor typos and inconsistencies in documentation and method signatures.
+- Test coverage for new string membership features and edge cases.
+
+---
+
+# 0.8.1 - 2025-09-03
+
+### Added
+
+- **String size methods in README**: Added explicit documentation for all string size filter methods (`stringLengthEquals`, `stringLengthGreaterThan`, etc.).
+- **Typos and clarity**: Fixed minor typos, improved clarity and consistency throughout the README and documentation.
+- **Test coverage**: Added or improved tests for string size and state filters.
+
+### Changed
+
+- Updated method lists and examples in README for accuracy and completeness.
+- Improved JSDoc for string-related factories and predicates.
+
+### Fixed
+
+- Minor documentation and code annotation corrections.
+
+---
+
 # 0.8.0 - 2025-09-03
 
 ### Added

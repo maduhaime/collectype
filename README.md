@@ -36,7 +36,7 @@ import { Collection, BaseFunctions } from 'collectype';
 const collection = new Collection(items, BaseFunctions);
 ```
 
-Or use **84 prebuilt filtering methods** by injecting FullFunctions —
+Or use **86 prebuilt filtering methods** by injecting FullFunctions —
 this is a simple form of inversion of control: you pass the functions class
 as a dependency to the Collection constructor, making the collection's
 behavior fully configurable and extensible. This approach allows you to
@@ -234,7 +234,7 @@ collection.fn.stringEquals('name', 'Steve').count;
 collection.fn.numberInRange('age', 18, 65).count;
 ```
 
-## Advanced methods (84) provided by FullFunctions
+## Advanced methods (86) provided by FullFunctions
 
 `FullFunctions` inherits all the core capabilities of `BaseFunctions`, and adds **comprehensive, type-safe filters** for booleans, numbers, strings, dates, arrays and objects operations. All filters are fully typed and support TypeScript inference, so you get autocompletion and compile-time safety for every field and method.
 
@@ -350,7 +350,7 @@ Each method takes the field name as its first argument. Type safety is enforced 
 - `objectIsFrozen(field)` — Object is frozen
 - `objectIsSealed(field)` — Object is sealed
 
-#### String methods (14)
+#### String methods (16)
 
 - `stringEquals(field, value)` — Field equals string value
 - `stringNotEquals(field, value)` — Field does not equal string value
@@ -359,6 +359,11 @@ Each method takes the field name as its first argument. Type safety is enforced 
 - `stringStartsWith(field, value)` — Field starts with substring
 - `stringEndsWith(field, value)` — Field ends with substring
 - `stringMatches(field, regex)` — Field matches regular expression
+
+**String membership methods**
+
+- `stringsIsOneOf(field, values[])` - Field is one of the provided values
+- `stringsIsNotOneOf(field, values[])` — Field is not one of the provided values
 
 **String size methods**
 

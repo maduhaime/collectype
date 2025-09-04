@@ -18,6 +18,7 @@ import { objectInstanceFactory } from './utils/factory/objectInstanceFactory';
 import { objectKeysFactory } from './utils/factory/objectKeysFactory';
 import { objectPrototypeFactory } from './utils/factory/objectPrototypeFactory';
 import { objectStateFactory } from './utils/factory/objectStateFactory';
+import { stringMembershipFactory } from './utils/factory/stringMembershipFactory';
 
 export class FullFunctions<T> extends BaseFunctions<T> {
   // ===========================
@@ -597,6 +598,24 @@ export class FullFunctions<T> extends BaseFunctions<T> {
    * @link ./utils/factory/stringFactory.ts
    */
   stringMatches = stringFactory.matches(this);
+
+  // ===========================
+  // String Membership methods
+  // ===========================
+
+  /**
+   * Checks if a string field is one of the provided values.
+   * @see stringMembershipFactory.isOneOf
+   * @link ./utils/factory/stringMembershipFactory.ts
+   */
+  stringIsOneOf = stringMembershipFactory.isOneOf(this);
+
+  /**
+   * Checks if a string field is not one of the provided values.
+   * @see stringMembershipFactory.isNotOneOf
+   * @link ./utils/factory/stringMembershipFactory.ts
+   */
+  stringIsNotOneOf = stringMembershipFactory.isNotOneOf(this);
 
   // ===========================
   // String state methods

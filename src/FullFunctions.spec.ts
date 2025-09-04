@@ -332,6 +332,18 @@ describe('FullFunctions', () => {
     expect((fn.stringMatches('name', /^A/).items as DummyType[]).map((i: DummyType) => i.id)).toStrictEqual([1]);
   });
 
+  it('should filter items where string field is one of regex', () => {
+    const fn1 = new FullFunctions<DummyType>(dummyItems);
+    expect(
+      (fn1.stringIsOneOf('name', ['Alpha', 'Bravo', 'Charlie']).items as DummyType[]).map((i: DummyType) => i.id)
+    ).toStrictEqual([1, 2, 3]);
+
+    const fn2 = new FullFunctions<DummyType>(dummyItems);
+    expect(
+      (fn2.stringIsNotOneOf('name', ['Alpha', 'Bravo', 'Charlie']).items as DummyType[]).map((i: DummyType) => i.id)
+    ).toStrictEqual([4, 5]);
+  });
+
   it('should filter items where string field is empty and not empty', () => {
     const fn1 = new FullFunctions<DummyType>(dummyItems);
     expect((fn1.stringIsEmpty('name').items as DummyType[]).map((i) => i.id)).toStrictEqual([4, 5]);
