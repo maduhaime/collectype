@@ -1,3 +1,15 @@
+# 0.8.3 - 2025-09-04
+
+### Added
+
+- Added missing export for `stringMembershipFactory` in factories and for `numberStatePredicate` in predicates.
+
+### Fixed
+
+- Harmonized exports to ensure all factories and predicates are accessible via their respective index files.
+
+---
+
 # 0.8.2 - 2025-09-04
 
 ### Added

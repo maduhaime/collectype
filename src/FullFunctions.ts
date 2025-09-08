@@ -3,22 +3,22 @@ import { BaseFunctions } from './BaseFunctions';
 import { arrayFactory } from './utils/factory/arrayFactory';
 import { arrayIndexFactory } from './utils/factory/arrayIndexFactory';
 import { arraySizeFactory } from './utils/factory/arraySizeFactory';
+import { arrayStateFactory } from './utils/factory/arrayStateFactory';
 import { booleanFactory } from './utils/factory/booleanFactory';
-import { dateFactory } from './utils/factory/dateFactory';
 import { calendarFactory } from './utils/factory/calendarFactory';
+import { dateFactory } from './utils/factory/dateFactory';
 import { dateRangeFactory } from './utils/factory/dateRangeFactory';
 import { numberFactory } from './utils/factory/numberFactory';
 import { numberRangeFactory } from './utils/factory/numberRangeFactory';
-import { stringFactory } from './utils/factory/stringFactory';
-import { stringStateFactory } from './utils/factory/stringStateFactory';
-import { arrayStateFactory } from './utils/factory/arrayStateFactory';
-import { stringSizeFactory } from './utils/factory/stringSizeFactory';
 import { objectAttributesFactory } from './utils/factory/objectAttributesFactory';
 import { objectInstanceFactory } from './utils/factory/objectInstanceFactory';
 import { objectKeysFactory } from './utils/factory/objectKeysFactory';
 import { objectPrototypeFactory } from './utils/factory/objectPrototypeFactory';
 import { objectStateFactory } from './utils/factory/objectStateFactory';
+import { stringFactory } from './utils/factory/stringFactory';
 import { stringMembershipFactory } from './utils/factory/stringMembershipFactory';
+import { stringSizeFactory } from './utils/factory/stringSizeFactory';
+import { stringStateFactory } from './utils/factory/stringStateFactory';
 
 export class FullFunctions<T> extends BaseFunctions<T> {
   // ===========================

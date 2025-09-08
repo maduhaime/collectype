@@ -15,5 +15,6 @@ export * from './objectKeysFactory';
 export * from './objectPrototypeFactory';
 export * from './objectStateFactory';
 export * from './stringFactory';
+export * from './stringMembershipFactory';
 export * from './stringSizeFactory';
 export * from './stringStateFactory';
