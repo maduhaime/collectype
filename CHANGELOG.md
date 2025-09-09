@@ -1,3 +1,20 @@
+# 0.8.5 - 2025-09-09
+
+### Changed
+
+- All filter factories and FullFunctions methods now use explicit generic parameters for both the item type and the context type, ensuring full type inference and autocompletion in all usages (e.g., `stringFactory.equals<T, this>(this)`).
+- Updated all test files and factory usages to require both type parameters, improving consistency and type safety across the codebase.
+- Improved and clarified JSDoc documentation for all utility types, factories, and FullFunctions methods, including modern `@template` usage and best practices for `@link`/`@see` tags.
+- Cleaned up and harmonized documentation links: removed broken file links in JSDoc, now only referencing TypeScript symbols for compatibility with TypeDoc and VS Code.
+
+### Fixed
+
+- Fixed TypeScript inference issues when using filter factories in custom function classes and in FullFunctions, especially for string, number, array, and object filters.
+- Fixed test files to match the new factory signatures and context typing.
+- Fixed minor typos and improved consistency in documentation and code comments.
+
+---
+
 # 0.8.4 - 2025-09-08
 
 ### Fixed
