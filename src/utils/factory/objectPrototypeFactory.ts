@@ -1,6 +1,6 @@
 import { ObjectPrototypeEnum } from '../../enums/objectOperation';
 import { ObjectPrototypePredicate, objectPrototypePredicate } from '../predicates/objectPrototypePredicate';
-import { ByType, Wherable } from '../../types/utility';
+import { ObjectKeys, Wherable } from '../../types/utility';
 
 export const objectPrototypeFactory = {
   /**
@@ -18,7 +18,7 @@ export const objectPrototypeFactory = {
    * }
    */
   isPrototypeOf<T, C extends Wherable<T, C>>(ctx: C) {
-    return function <K extends keyof ByType<T, object>>(field: K, target: Parameters<ObjectPrototypePredicate>[2]) {
+    return function (field: ObjectKeys<T>, target: Parameters<ObjectPrototypePredicate>[2]) {
       return ctx.where((item: T) => {
         const proto = item[field] as object;
         return objectPrototypePredicate(proto, ObjectPrototypeEnum.IS_PROTOTYPE_OF, target);

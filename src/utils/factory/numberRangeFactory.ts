@@ -1,6 +1,6 @@
 import { RangeOperEnum } from '../../enums/rangeOperation';
 import { NumberRangePredicate, numberRangePredicate } from '../../utils/predicates/numberRangePredicate';
-import { ByType, Wherable } from '../../types/utility';
+import { NumberKeys, Wherable } from '../../types/utility';
 
 /**
  * Factory function that creates a reusable filter for number ranges (inRange), designed for composition within the provided context.
@@ -18,8 +18,8 @@ import { ByType, Wherable } from '../../types/utility';
  * }
  */
 function inRange<T, C extends Wherable<T, C>>(ctx: C) {
-  return function <K extends keyof ByType<T, number>>(
-    field: K,
+  return function (
+    field: NumberKeys<T>,
     min: Parameters<NumberRangePredicate>[2],
     max: Parameters<NumberRangePredicate>[3]
   ) {
@@ -46,8 +46,8 @@ function inRange<T, C extends Wherable<T, C>>(ctx: C) {
  * }
  */
 function outRange<T, C extends Wherable<T, C>>(ctx: C) {
-  return function <K extends keyof ByType<T, number>>(
-    field: K,
+  return function (
+    field: NumberKeys<T>,
     min: Parameters<NumberRangePredicate>[2],
     max: Parameters<NumberRangePredicate>[3]
   ) {
@@ -74,8 +74,8 @@ function outRange<T, C extends Wherable<T, C>>(ctx: C) {
  * }
  */
 function strictInRange<T, C extends Wherable<T, C>>(ctx: C) {
-  return function <K extends keyof ByType<T, number>>(
-    field: K,
+  return function (
+    field: NumberKeys<T>,
     min: Parameters<NumberRangePredicate>[2],
     max: Parameters<NumberRangePredicate>[3]
   ) {
@@ -102,8 +102,8 @@ function strictInRange<T, C extends Wherable<T, C>>(ctx: C) {
  * }
  */
 function strictOutRange<T, C extends Wherable<T, C>>(ctx: C) {
-  return function <K extends keyof ByType<T, number>>(
-    field: K,
+  return function (
+    field: NumberKeys<T>,
     min: Parameters<NumberRangePredicate>[2],
     max: Parameters<NumberRangePredicate>[3]
   ) {

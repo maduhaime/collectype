@@ -1,6 +1,6 @@
 import { RangeOperEnum } from '../../enums/rangeOperation';
 import { DateRangePredicate, dateRangePredicate } from '../../utils/predicates/dateRangePredicate';
-import { ByType, Wherable } from '../../types/utility';
+import { DateKeys, Wherable } from '../../types/utility';
 
 /**
  * Factory function that creates a reusable filter for date ranges (inRange), designed for composition within the provided context.
@@ -18,11 +18,7 @@ import { ByType, Wherable } from '../../types/utility';
  * }
  */
 function inRange<T, C extends Wherable<T, C>>(ctx: C) {
-  return function <K extends keyof ByType<T, Date>>(
-    field: K,
-    min: Parameters<DateRangePredicate>[2],
-    max: Parameters<DateRangePredicate>[3]
-  ) {
+  return function (field: DateKeys<T>, min: Parameters<DateRangePredicate>[2], max: Parameters<DateRangePredicate>[3]) {
     return ctx.where((item: T) => {
       const source = item[field] as Date;
       return dateRangePredicate(source, RangeOperEnum.IN_RANGE, min, max);
@@ -46,11 +42,7 @@ function inRange<T, C extends Wherable<T, C>>(ctx: C) {
  * }
  */
 function outRange<T, C extends Wherable<T, C>>(ctx: C) {
-  return function <K extends keyof ByType<T, Date>>(
-    field: K,
-    min: Parameters<DateRangePredicate>[2],
-    max: Parameters<DateRangePredicate>[3]
-  ) {
+  return function (field: DateKeys<T>, min: Parameters<DateRangePredicate>[2], max: Parameters<DateRangePredicate>[3]) {
     return ctx.where((item: T) => {
       const source = item[field] as Date;
       return dateRangePredicate(source, RangeOperEnum.OUT_RANGE, min, max);
@@ -74,11 +66,7 @@ function outRange<T, C extends Wherable<T, C>>(ctx: C) {
  * }
  */
 function strictInRange<T, C extends Wherable<T, C>>(ctx: C) {
-  return function <K extends keyof ByType<T, Date>>(
-    field: K,
-    min: Parameters<DateRangePredicate>[2],
-    max: Parameters<DateRangePredicate>[3]
-  ) {
+  return function (field: DateKeys<T>, min: Parameters<DateRangePredicate>[2], max: Parameters<DateRangePredicate>[3]) {
     return ctx.where((item: T) => {
       const source = item[field] as Date;
       return dateRangePredicate(source, RangeOperEnum.STRICT_IN_RANGE, min, max);
@@ -102,11 +90,7 @@ function strictInRange<T, C extends Wherable<T, C>>(ctx: C) {
  * }
  */
 function strictOutRange<T, C extends Wherable<T, C>>(ctx: C) {
-  return function <K extends keyof ByType<T, Date>>(
-    field: K,
-    min: Parameters<DateRangePredicate>[2],
-    max: Parameters<DateRangePredicate>[3]
-  ) {
+  return function (field: DateKeys<T>, min: Parameters<DateRangePredicate>[2], max: Parameters<DateRangePredicate>[3]) {
     return ctx.where((item: T) => {
       const source = item[field] as Date;
       return dateRangePredicate(source, RangeOperEnum.STRICT_OUT_RANGE, min, max);

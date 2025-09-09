@@ -1,6 +1,6 @@
 import { StringMembershipOperEnum } from '../../enums/stringOperation';
 import { StringMembershipPredicate, stringMembershipPredicate } from '../predicates/stringMembershipPredicate';
-import { ByType, Wherable } from '../../types/utility';
+import { StringKeys, Wherable } from '../../types/utility';
 
 export const stringMembershipFactory = {
   /**
@@ -19,7 +19,7 @@ export const stringMembershipFactory = {
    * }
    */
   isOneOf<T, C extends Wherable<T, C>>(ctx: C) {
-    return function <K extends keyof ByType<T, string>>(field: K, target: Parameters<StringMembershipPredicate>[2]) {
+    return function (field: StringKeys<T>, target: Parameters<StringMembershipPredicate>[2]) {
       return ctx.where((item: T) => {
         const str = item[field] as string;
         return stringMembershipPredicate(str, StringMembershipOperEnum.IS_ONE_OF, target);
@@ -41,7 +41,7 @@ export const stringMembershipFactory = {
    * }
    */
   isNotOneOf<T, C extends Wherable<T, C>>(ctx: C) {
-    return function <K extends keyof ByType<T, string>>(field: K, target: Parameters<StringMembershipPredicate>[2]) {
+    return function (field: StringKeys<T>, target: Parameters<StringMembershipPredicate>[2]) {
       return ctx.where((item: T) => {
         const str = item[field] as string;
         return stringMembershipPredicate(str, StringMembershipOperEnum.IS_NOT_ONE_OF, target);

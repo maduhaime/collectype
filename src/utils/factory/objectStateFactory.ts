@@ -1,6 +1,6 @@
 import { ObjectStateEnum } from '../../enums/objectOperation';
 import { objectStatePredicate } from '../predicates/objectStatePredicate';
-import { ByType, Wherable } from '../../types/utility';
+import { ObjectKeys, Wherable } from '../../types/utility';
 
 export const objectStateFactory = {
   /**
@@ -18,7 +18,7 @@ export const objectStateFactory = {
    * }
    */
   isEmpty<T, C extends Wherable<T, C>>(ctx: C) {
-    return function <K extends keyof ByType<T, object>>(field: K) {
+    return function (field: ObjectKeys<T>) {
       return ctx.where((item: T) => {
         const obj = item[field] as object;
         return objectStatePredicate(obj, ObjectStateEnum.IS_EMPTY);
@@ -40,7 +40,7 @@ export const objectStateFactory = {
    * }
    */
   isPlain<T, C extends Wherable<T, C>>(ctx: C) {
-    return function <K extends keyof ByType<T, object>>(field: K) {
+    return function (field: ObjectKeys<T>) {
       return ctx.where((item: T) => {
         const obj = item[field] as object;
         return objectStatePredicate(obj, ObjectStateEnum.IS_PLAIN);
@@ -62,7 +62,7 @@ export const objectStateFactory = {
    * }
    */
   hasNumericKeys<T, C extends Wherable<T, C>>(ctx: C) {
-    return function <K extends keyof ByType<T, object>>(field: K) {
+    return function (field: ObjectKeys<T>) {
       return ctx.where((item: T) => {
         const obj = item[field] as object;
         return objectStatePredicate(obj, ObjectStateEnum.HAS_NUMERIC_KEYS);
@@ -84,7 +84,7 @@ export const objectStateFactory = {
    * }
    */
   hasCamelcaseKeys<T, C extends Wherable<T, C>>(ctx: C) {
-    return function <K extends keyof ByType<T, object>>(field: K) {
+    return function (field: ObjectKeys<T>) {
       return ctx.where((item: T) => {
         const obj = item[field] as object;
         return objectStatePredicate(obj, ObjectStateEnum.HAS_CAMELCASE_KEYS);
@@ -106,7 +106,7 @@ export const objectStateFactory = {
    * }
    */
   hasNestedObject<T, C extends Wherable<T, C>>(ctx: C) {
-    return function <K extends keyof ByType<T, object>>(field: K) {
+    return function (field: ObjectKeys<T>) {
       return ctx.where((item: T) => {
         const obj = item[field] as object;
         return objectStatePredicate(obj, ObjectStateEnum.HAS_NESTED_OBJECT);
@@ -128,7 +128,7 @@ export const objectStateFactory = {
    * }
    */
   isFrozen<T, C extends Wherable<T, C>>(ctx: C) {
-    return function <K extends keyof ByType<T, object>>(field: K) {
+    return function (field: ObjectKeys<T>) {
       return ctx.where((item: T) => {
         const obj = item[field] as object;
         return objectStatePredicate(obj, ObjectStateEnum.IS_FROZEN);
@@ -150,7 +150,7 @@ export const objectStateFactory = {
    * }
    */
   isSealed<T, C extends Wherable<T, C>>(ctx: C) {
-    return function <K extends keyof ByType<T, object>>(field: K) {
+    return function (field: ObjectKeys<T>) {
       return ctx.where((item: T) => {
         const obj = item[field] as object;
         return objectStatePredicate(obj, ObjectStateEnum.IS_SEALED);

@@ -1,6 +1,6 @@
 import { ArrayIndexOperEnum } from '../../enums/arrayOperation';
 import { ArrayIndexPredicate, arrayIndexPredicate } from '../../utils/predicates/arrayIndexPredicate';
-import { ByType, Wherable } from '../../types/utility';
+import { ArrayKeys, Wherable } from '../../types/utility';
 
 /**
  * Factory function that creates a reusable filter for array index fields, designed for composition within the provided context.
@@ -18,8 +18,8 @@ import { ByType, Wherable } from '../../types/utility';
  * }
  */
 function indexEquals<T, C extends Wherable<T, C>>(ctx: C) {
-  return function <K extends keyof ByType<T, any[]>>(
-    field: K,
+  return function (
+    field: ArrayKeys<T>,
     index: Parameters<ArrayIndexPredicate>[2],
     target: Parameters<ArrayIndexPredicate>[3]
   ) {
@@ -48,8 +48,8 @@ function indexEquals<T, C extends Wherable<T, C>>(ctx: C) {
  * }
  */
 function indexNotEquals<T, C extends Wherable<T, C>>(ctx: C) {
-  return function <K extends keyof ByType<T, any[]>>(
-    field: K,
+  return function (
+    field: ArrayKeys<T>,
     index: Parameters<ArrayIndexPredicate>[2],
     target: Parameters<ArrayIndexPredicate>[3]
   ) {
@@ -78,8 +78,8 @@ function indexNotEquals<T, C extends Wherable<T, C>>(ctx: C) {
  * }
  */
 function indexIn<T, C extends Wherable<T, C>>(ctx: C) {
-  return function <K extends keyof ByType<T, any[]>>(
-    field: K,
+  return function (
+    field: ArrayKeys<T>,
     index: Parameters<ArrayIndexPredicate>[2],
     target: Parameters<ArrayIndexPredicate>[3]
   ) {
@@ -108,8 +108,8 @@ function indexIn<T, C extends Wherable<T, C>>(ctx: C) {
  * }
  */
 function indexNotIn<T, C extends Wherable<T, C>>(ctx: C) {
-  return function <K extends keyof ByType<T, any[]>>(
-    field: K,
+  return function (
+    field: ArrayKeys<T>,
     index: Parameters<ArrayIndexPredicate>[2],
     target: Parameters<ArrayIndexPredicate>[3]
   ) {
@@ -123,8 +123,8 @@ function indexNotIn<T, C extends Wherable<T, C>>(ctx: C) {
 }
 
 function indexGreaterThan<T, C extends Wherable<T, C>>(ctx: C) {
-  return function <K extends keyof ByType<T, any[]>>(
-    field: K,
+  return function (
+    field: ArrayKeys<T>,
     index: Parameters<ArrayIndexPredicate>[2],
     target: Parameters<ArrayIndexPredicate>[3]
   ) {
@@ -136,8 +136,8 @@ function indexGreaterThan<T, C extends Wherable<T, C>>(ctx: C) {
 }
 
 function indexGreaterThanOrEquals<T, C extends Wherable<T, C>>(ctx: C) {
-  return function <K extends keyof ByType<T, any[]>>(
-    field: K,
+  return function (
+    field: ArrayKeys<T>,
     index: Parameters<ArrayIndexPredicate>[2],
     target: Parameters<ArrayIndexPredicate>[3]
   ) {
@@ -149,8 +149,8 @@ function indexGreaterThanOrEquals<T, C extends Wherable<T, C>>(ctx: C) {
 }
 
 function indexLessThan<T, C extends Wherable<T, C>>(ctx: C) {
-  return function <K extends keyof ByType<T, any[]>>(
-    field: K,
+  return function (
+    field: ArrayKeys<T>,
     index: Parameters<ArrayIndexPredicate>[2],
     target: Parameters<ArrayIndexPredicate>[3]
   ) {
@@ -162,8 +162,8 @@ function indexLessThan<T, C extends Wherable<T, C>>(ctx: C) {
 }
 
 function indexLessThanOrEquals<T, C extends Wherable<T, C>>(ctx: C) {
-  return function <K extends keyof ByType<T, any[]>>(
-    field: K,
+  return function (
+    field: ArrayKeys<T>,
     index: Parameters<ArrayIndexPredicate>[2],
     target: Parameters<ArrayIndexPredicate>[3]
   ) {

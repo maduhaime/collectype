@@ -1,6 +1,6 @@
 import { ArrayStateOperEnum } from '../../enums/arrayOperation';
 import { arrayStatePredicate } from '../predicates/arrayStatePredicate';
-import { ByType, Wherable } from '../../types/utility';
+import { ArrayKeys, Wherable } from '../../types/utility';
 
 /**
  * Factory function that creates a reusable filter for array state fields, designed for composition within the provided context.
@@ -18,7 +18,7 @@ import { ByType, Wherable } from '../../types/utility';
  * }
  */
 function isEmpty<T, C extends Wherable<T, C>>(ctx: C) {
-  return function <K extends keyof ByType<T, any[]>>(field: K) {
+  return function (field: ArrayKeys<T>) {
     return ctx.where((item: T) => {
       const arr = item[field] as any[];
       return arrayStatePredicate(arr, ArrayStateOperEnum.IS_EMPTY);
@@ -42,7 +42,7 @@ function isEmpty<T, C extends Wherable<T, C>>(ctx: C) {
  * }
  */
 function isNotEmpty<T, C extends Wherable<T, C>>(ctx: C) {
-  return function <K extends keyof ByType<T, any[]>>(field: K) {
+  return function (field: ArrayKeys<T>) {
     return ctx.where((item: T) => {
       const arr = item[field] as any[];
       return arrayStatePredicate(arr, ArrayStateOperEnum.IS_NOT_EMPTY);

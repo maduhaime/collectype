@@ -1,6 +1,6 @@
 import { ObjectAttributesEnum } from '../../enums/objectOperation';
 import { ObjectAttributesPredicate, objectAttributesPredicate } from '../predicates/objectAttributesPredicate';
-import { ByType, Wherable } from '../../types/utility';
+import { ObjectKeys, Wherable } from '../../types/utility';
 
 export const objectAttributesFactory = {
   /**
@@ -18,7 +18,7 @@ export const objectAttributesFactory = {
    * }
    */
   isWritable<T, C extends Wherable<T, C>>(ctx: C) {
-    return function <K extends keyof ByType<T, object>>(field: K, target: Parameters<ObjectAttributesPredicate>[2]) {
+    return function (field: ObjectKeys<T>, target: Parameters<ObjectAttributesPredicate>[2]) {
       return ctx.where((item: T) => {
         const obj = item[field] as object;
         return objectAttributesPredicate(obj, ObjectAttributesEnum.IS_WRITABLE, target);
@@ -40,7 +40,7 @@ export const objectAttributesFactory = {
    * }
    */
   isEnumerable<T, C extends Wherable<T, C>>(ctx: C) {
-    return function <K extends keyof ByType<T, object>>(field: K, target: Parameters<ObjectAttributesPredicate>[2]) {
+    return function (field: ObjectKeys<T>, target: Parameters<ObjectAttributesPredicate>[2]) {
       return ctx.where((item: T) => {
         const obj = item[field] as object;
         return objectAttributesPredicate(obj, ObjectAttributesEnum.IS_ENUMERABLE, target);
@@ -62,7 +62,7 @@ export const objectAttributesFactory = {
    * }
    */
   isConfigurable<T, C extends Wherable<T, C>>(ctx: C) {
-    return function <K extends keyof ByType<T, object>>(field: K, target: Parameters<ObjectAttributesPredicate>[2]) {
+    return function (field: ObjectKeys<T>, target: Parameters<ObjectAttributesPredicate>[2]) {
       return ctx.where((item: T) => {
         const obj = item[field] as object;
         return objectAttributesPredicate(obj, ObjectAttributesEnum.IS_CONFIGURABLE, target);

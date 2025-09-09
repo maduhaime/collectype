@@ -1,6 +1,6 @@
 import { StringSizeOperEnum } from '../../enums/stringOperation';
 import { StringSizePredicate, stringSizePredicate } from '../predicates/stringSizePredicate';
-import { ByType, Wherable } from '../../types/utility';
+import { StringKeys, Wherable } from '../../types/utility';
 
 export const stringSizeFactory = {
   /**
@@ -18,7 +18,7 @@ export const stringSizeFactory = {
    * }
    */
   lengthEquals<T, C extends Wherable<T, C>>(ctx: C) {
-    return function <K extends keyof ByType<T, string>>(field: K, target: Parameters<StringSizePredicate>[2]) {
+    return function (field: StringKeys<T>, target: Parameters<StringSizePredicate>[2]) {
       return ctx.where((item: T) => {
         const str = item[field] as string;
         return stringSizePredicate(str, StringSizeOperEnum.LENGTH_EQUALS, target);
@@ -40,7 +40,7 @@ export const stringSizeFactory = {
    * }
    */
   lengthGreaterThan<T, C extends Wherable<T, C>>(ctx: C) {
-    return function <K extends keyof ByType<T, string>>(field: K, target: Parameters<StringSizePredicate>[2]) {
+    return function (field: StringKeys<T>, target: Parameters<StringSizePredicate>[2]) {
       return ctx.where((item: T) => {
         const str = item[field] as string;
         return stringSizePredicate(str, StringSizeOperEnum.LENGTH_GREATER_THAN, target);
@@ -62,7 +62,7 @@ export const stringSizeFactory = {
    * }
    */
   lengthGreaterThanOrEquals<T, C extends Wherable<T, C>>(ctx: C) {
-    return function <K extends keyof ByType<T, string>>(field: K, target: Parameters<StringSizePredicate>[2]) {
+    return function (field: StringKeys<T>, target: Parameters<StringSizePredicate>[2]) {
       return ctx.where((item: T) => {
         const str = item[field] as string;
         return stringSizePredicate(str, StringSizeOperEnum.LENGTH_GREATER_THAN_OR_EQUALS, target);
@@ -84,7 +84,7 @@ export const stringSizeFactory = {
    * }
    */
   lengthLessThan<T, C extends Wherable<T, C>>(ctx: C) {
-    return function <K extends keyof ByType<T, string>>(field: K, target: Parameters<StringSizePredicate>[2]) {
+    return function (field: StringKeys<T>, target: Parameters<StringSizePredicate>[2]) {
       return ctx.where((item: T) => {
         const str = item[field] as string;
         return stringSizePredicate(str, StringSizeOperEnum.LENGTH_LESS_THAN, target);
@@ -106,7 +106,7 @@ export const stringSizeFactory = {
    * }
    */
   lengthLessThanOrEquals<T, C extends Wherable<T, C>>(ctx: C) {
-    return function <K extends keyof ByType<T, string>>(field: K, target: Parameters<StringSizePredicate>[2]) {
+    return function (field: StringKeys<T>, target: Parameters<StringSizePredicate>[2]) {
       return ctx.where((item: T) => {
         const str = item[field] as string;
         return stringSizePredicate(str, StringSizeOperEnum.LENGTH_LESS_THAN_OR_EQUALS, target);

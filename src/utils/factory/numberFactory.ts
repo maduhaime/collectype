@@ -1,6 +1,6 @@
 import { NumberOperEnum } from '../../enums/numberOperation';
 import { NumberPredicate, numberPredicate } from '../../utils/predicates/numberPredicate';
-import { ByType, Wherable } from '../../types/utility';
+import { NumberKeys, Wherable } from '../../types/utility';
 
 /**
  * Factory function that creates a reusable filter for number equality, designed for composition within the provided context.
@@ -18,7 +18,7 @@ import { ByType, Wherable } from '../../types/utility';
  * }
  */
 function equals<T, C extends Wherable<T, C>>(ctx: C) {
-  return function <K extends keyof ByType<T, number>>(field: K, target: Parameters<NumberPredicate>[2]) {
+  return function (field: NumberKeys<T>, target: Parameters<NumberPredicate>[2]) {
     return ctx.where((item: T) => {
       const source = item[field] as number;
       return numberPredicate(source, NumberOperEnum.EQUALS, target);
@@ -42,7 +42,7 @@ function equals<T, C extends Wherable<T, C>>(ctx: C) {
  * }
  */
 function notEquals<T, C extends Wherable<T, C>>(ctx: C) {
-  return function <K extends keyof ByType<T, number>>(field: K, target: Parameters<NumberPredicate>[2]) {
+  return function (field: NumberKeys<T>, target: Parameters<NumberPredicate>[2]) {
     return ctx.where((item: T) => {
       const source = item[field] as number;
       return numberPredicate(source, NumberOperEnum.NOT_EQUALS, target);
@@ -65,7 +65,7 @@ function notEquals<T, C extends Wherable<T, C>>(ctx: C) {
  * }
  */
 function lessThan<T, C extends Wherable<T, C>>(ctx: C) {
-  return function <K extends keyof ByType<T, number>>(field: K, target: Parameters<NumberPredicate>[2]) {
+  return function (field: NumberKeys<T>, target: Parameters<NumberPredicate>[2]) {
     return ctx.where((item: T) => {
       const source = item[field] as number;
       return numberPredicate(source, NumberOperEnum.LESS_THAN, target);
@@ -88,7 +88,7 @@ function lessThan<T, C extends Wherable<T, C>>(ctx: C) {
  * }
  */
 function lessThanOrEquals<T, C extends Wherable<T, C>>(ctx: C) {
-  return function <K extends keyof ByType<T, number>>(field: K, target: Parameters<NumberPredicate>[2]) {
+  return function (field: NumberKeys<T>, target: Parameters<NumberPredicate>[2]) {
     return ctx.where((item: T) => {
       const source = item[field] as number;
       return numberPredicate(source, NumberOperEnum.LESS_THAN_OR_EQUALS, target);
@@ -111,7 +111,7 @@ function lessThanOrEquals<T, C extends Wherable<T, C>>(ctx: C) {
  * }
  */
 function greaterThan<T, C extends Wherable<T, C>>(ctx: C) {
-  return function <K extends keyof ByType<T, number>>(field: K, target: Parameters<NumberPredicate>[2]) {
+  return function (field: NumberKeys<T>, target: Parameters<NumberPredicate>[2]) {
     return ctx.where((item: T) => {
       const source = item[field] as number;
       return numberPredicate(source, NumberOperEnum.GREATER_THAN, target);
@@ -134,7 +134,7 @@ function greaterThan<T, C extends Wherable<T, C>>(ctx: C) {
  * }
  */
 function greaterThanOrEquals<T, C extends Wherable<T, C>>(ctx: C) {
-  return function <K extends keyof ByType<T, number>>(field: K, target: Parameters<NumberPredicate>[2]) {
+  return function (field: NumberKeys<T>, target: Parameters<NumberPredicate>[2]) {
     return ctx.where((item: T) => {
       const source = item[field] as number;
       return numberPredicate(source, NumberOperEnum.GREATER_THAN_OR_EQUALS, target);

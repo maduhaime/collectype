@@ -1,6 +1,6 @@
 import { BooleanOperEnum } from '../../enums/booleanOperation';
 import { BooleanPredicate, booleanPredicate } from '../../utils/predicates/booleanPredicate';
-import { ByType, Wherable } from '../../types/utility';
+import { BooleanKeys, Wherable } from '../../types/utility';
 
 function equals<T, C extends Wherable<T, C>>(ctx: C) {
   /**
@@ -18,7 +18,7 @@ function equals<T, C extends Wherable<T, C>>(ctx: C) {
    *   booleanEquals = booleanFactory.equals(this);
    * }
    */
-  return function <K extends keyof ByType<T, boolean>>(field: K, target: Parameters<BooleanPredicate>[2]) {
+  return function (field: BooleanKeys<T>, target: Parameters<BooleanPredicate>[2]) {
     return ctx.where((item: T) => {
       const source = item[field] as boolean;
       return booleanPredicate(source, BooleanOperEnum.EQUALS, target);
@@ -42,7 +42,7 @@ function notEquals<T, C extends Wherable<T, C>>(ctx: C) {
    *   booleanNotEquals = booleanFactory.notEquals(this);
    * }
    */
-  return function <K extends keyof ByType<T, boolean>>(field: K, target: Parameters<BooleanPredicate>[2]) {
+  return function (field: BooleanKeys<T>, target: Parameters<BooleanPredicate>[2]) {
     return ctx.where((item: T) => {
       const source = item[field] as boolean;
       return booleanPredicate(source, BooleanOperEnum.NOT_EQUALS, target);

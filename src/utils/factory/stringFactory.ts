@@ -1,6 +1,6 @@
 import { StringOperEnum } from '../../enums/stringOperation';
 import { StringPredicate, stringPredicate } from '../../utils/predicates/stringPredicate';
-import { ByType, Wherable } from '../../types/utility';
+import { StringKeys, Wherable } from '../../types/utility';
 
 /**
  * Factory function that creates a reusable filter for string equality, designed for composition within the provided context.
@@ -18,7 +18,7 @@ import { ByType, Wherable } from '../../types/utility';
  * }
  */
 function equals<T, C extends Wherable<T, C>>(ctx: C) {
-  return function <K extends keyof ByType<T, string>>(field: K, target: Parameters<StringPredicate>[2]) {
+  return function (field: StringKeys<T>, target: Parameters<StringPredicate>[2]) {
     return ctx.where((item: T) => {
       const source = item[field] as string;
       return stringPredicate(source, StringOperEnum.EQUALS, target);
@@ -42,7 +42,7 @@ function equals<T, C extends Wherable<T, C>>(ctx: C) {
  * }
  */
 function notEquals<T, C extends Wherable<T, C>>(ctx: C) {
-  return function <K extends keyof ByType<T, string>>(field: K, target: Parameters<StringPredicate>[2]) {
+  return function (field: StringKeys<T>, target: Parameters<StringPredicate>[2]) {
     return ctx.where((item: T) => {
       const source = item[field] as string;
       return stringPredicate(source, StringOperEnum.NOT_EQUALS, target);
@@ -66,7 +66,7 @@ function notEquals<T, C extends Wherable<T, C>>(ctx: C) {
  * }
  */
 function includes<T, C extends Wherable<T, C>>(ctx: C) {
-  return function <K extends keyof ByType<T, string>>(field: K, target: Parameters<StringPredicate>[2]) {
+  return function (field: StringKeys<T>, target: Parameters<StringPredicate>[2]) {
     return ctx.where((item: T) => {
       const source = item[field] as string;
       return stringPredicate(source, StringOperEnum.INCLUDES, target);
@@ -90,7 +90,7 @@ function includes<T, C extends Wherable<T, C>>(ctx: C) {
  * }
  */
 function excludes<T, C extends Wherable<T, C>>(ctx: C) {
-  return function <K extends keyof ByType<T, string>>(field: K, target: Parameters<StringPredicate>[2]) {
+  return function (field: StringKeys<T>, target: Parameters<StringPredicate>[2]) {
     return ctx.where((item: T) => {
       const source = item[field] as string;
       return stringPredicate(source, StringOperEnum.EXCLUDES, target);
@@ -114,7 +114,7 @@ function excludes<T, C extends Wherable<T, C>>(ctx: C) {
  * }
  */
 function startsWith<T, C extends Wherable<T, C>>(ctx: C) {
-  return function <K extends keyof ByType<T, string>>(field: K, target: Parameters<StringPredicate>[2]) {
+  return function (field: StringKeys<T>, target: Parameters<StringPredicate>[2]) {
     return ctx.where((item: T) => {
       const source = item[field] as string;
       return stringPredicate(source, StringOperEnum.STARTS_WITH, target);
@@ -138,7 +138,7 @@ function startsWith<T, C extends Wherable<T, C>>(ctx: C) {
  * }
  */
 function endsWith<T, C extends Wherable<T, C>>(ctx: C) {
-  return function <K extends keyof ByType<T, string>>(field: K, target: Parameters<StringPredicate>[2]) {
+  return function (field: StringKeys<T>, target: Parameters<StringPredicate>[2]) {
     return ctx.where((item: T) => {
       const source = item[field] as string;
       return stringPredicate(source, StringOperEnum.ENDS_WITH, target);
@@ -162,7 +162,7 @@ function endsWith<T, C extends Wherable<T, C>>(ctx: C) {
  * }
  */
 function matches<T, C extends Wherable<T, C>>(ctx: C) {
-  return function <K extends keyof ByType<T, string>>(field: K, pattern: RegExp) {
+  return function (field: StringKeys<T>, pattern: RegExp) {
     return ctx.where((item: T) => {
       const source = item[field] as string;
       return stringPredicate(source, StringOperEnum.MATCHES, pattern);

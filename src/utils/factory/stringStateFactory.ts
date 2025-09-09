@@ -1,6 +1,6 @@
 import { StringStateOperEnum } from '../../enums/stringOperation';
 import { stringStatePredicate } from '../../utils/predicates/stringStatePredicate';
-import { ByType, Wherable } from '../../types/utility';
+import { StringKeys, Wherable } from '../../types/utility';
 
 /**
  * Factory function that creates a reusable filter for empty strings, designed for composition within the provided context.
@@ -17,7 +17,7 @@ import { ByType, Wherable } from '../../types/utility';
  * }
  */
 function isEmpty<T, C extends Wherable<T, C>>(ctx: C) {
-  return function <K extends keyof ByType<T, string>>(field: K) {
+  return function (field: StringKeys<T>) {
     return ctx.where((item: T) => {
       const source = item[field] as string;
       return stringStatePredicate(source, StringStateOperEnum.IS_EMPTY);
@@ -40,7 +40,7 @@ function isEmpty<T, C extends Wherable<T, C>>(ctx: C) {
  * }
  */
 function isNotEmpty<T, C extends Wherable<T, C>>(ctx: C) {
-  return function <K extends keyof ByType<T, string>>(field: K) {
+  return function (field: StringKeys<T>) {
     return ctx.where((item: T) => {
       const source = item[field] as string;
       return stringStatePredicate(source, StringStateOperEnum.IS_NOT_EMPTY);

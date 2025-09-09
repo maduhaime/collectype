@@ -78,16 +78,87 @@ export type ValueOf<T> = T[keyof T];
 export type EnumOrString<E extends Record<string, string>> = E[keyof E] | E[keyof E];
 
 /**
- * Context type for a collection with a `where` clause.
+ * Context type for a collection or chainable API with a `where` method.
  *
  * @typeParam T - The item type in the collection.
- * @property where - A function that takes a predicate and returns any value (typically used for filtering).
+ * @typeParam C - The context type returned by `where` (usually the same as the containing class, for chaining).
+ *
+ * The `where` method takes a predicate and returns the context `C`, enabling fluent chaining of filters.
  *
  * @example
+ * // Simple usage with default context (returns any)
  * const ctx: Wherable<{ x: number }> = {
  *   where: (predicate) => [1, 2, 3].filter(item => predicate({ x: item }))
  * };
+ *
+ * // Usage with explicit context for chaining
+ * class MyChain implements Wherable<{ x: number }, MyChain> {
+ *   where(predicate: (item: { x: number }) => boolean): MyChain {
+ *     // ...
+ *     return this;
+ *   }
+ * }
  */
 export type Wherable<T, C = any> = {
   where: (predicate: (item: T) => boolean) => C;
 };
+
+/**
+ * Returns the union of keys in T whose value type is string (including optional properties).
+ *
+ * @typeParam T - The object type to inspect.
+ * @example
+ *   type A = { foo: string; bar?: string; baz: number };
+ *   type Keys = StringKeys<A>; // "foo" | "bar"
+ */
+export type StringKeys<T> = { [K in keyof T]: T[K] extends string ? K : never }[keyof T];
+
+/**
+ * Returns the union of keys in T whose value type is number (including optional properties).
+ *
+ * @typeParam T - The object type to inspect.
+ * @example
+ *   type A = { foo: number; bar?: number; baz: string };
+ *   type Keys = NumberKeys<A>; // "foo" | "bar"
+ */
+export type NumberKeys<T> = { [K in keyof T]: T[K] extends number ? K : never }[keyof T];
+
+/**
+ * Returns the union of keys in T whose value type is boolean (including optional properties).
+ *
+ * @typeParam T - The object type to inspect.
+ * @example
+ *   type A = { foo: boolean; bar?: boolean; baz: string };
+ *   type Keys = BooleanKeys<A>; // "foo" | "bar"
+ */
+export type BooleanKeys<T> = { [K in keyof T]: T[K] extends boolean ? K : never }[keyof T];
+
+/**
+ * Returns the union of keys in T whose value type is an array (any[]), including optional properties.
+ *
+ * @typeParam T - The object type to inspect.
+ * @example
+ *   type A = { foo: string[]; bar?: number[]; baz: string };
+ *   type Keys = ArrayKeys<A>; // "foo" | "bar"
+ */
+export type ArrayKeys<T> = { [K in keyof T]: T[K] extends any[] ? K : never }[keyof T];
+
+/**
+ * Returns the union of keys in T whose value type is Date (including optional properties).
+ *
+ * @typeParam T - The object type to inspect.
+ * @example
+ *   type A = { foo: Date; bar?: Date; baz: string };
+ *   type Keys = DateKeys<A>; // "foo" | "bar"
+ */
+export type DateKeys<T> = { [K in keyof T]: T[K] extends Date ? K : never }[keyof T];
+
+/**
+ * Returns the union of keys in T whose value type is object (including optional properties).
+ *
+ * @typeParam T - The object type to inspect.
+ * @example
+ *   type A = { foo: object; bar?: object; baz: string };
+ *   type Keys = ObjectKeys<A>; // "foo" | "bar"
+ */
+export type ObjectKeys<T> = { [K in keyof T]: T[K] extends object ? K : never }[keyof T];

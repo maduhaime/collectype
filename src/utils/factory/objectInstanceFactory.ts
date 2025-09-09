@@ -1,6 +1,6 @@
 import { ObjectInstanceEnum } from '../../enums/objectOperation';
 import { ObjectInstancePredicate, objectInstancePredicate } from '../predicates/objectInstancePredicate';
-import { ByType, Wherable } from '../../types/utility';
+import { ObjectKeys, Wherable } from '../../types/utility';
 
 export const objectInstanceFactory = {
   /**
@@ -18,7 +18,7 @@ export const objectInstanceFactory = {
    * }
    */
   isInstanceOf<T, C extends Wherable<T, C>>(ctx: C) {
-    return function <K extends keyof ByType<T, object>>(field: K, target: Parameters<ObjectInstancePredicate>[2]) {
+    return function (field: ObjectKeys<T>, target: Parameters<ObjectInstancePredicate>[2]) {
       return ctx.where((item: T) => {
         const obj = item[field] as object;
         return objectInstancePredicate(obj, ObjectInstanceEnum.IS_INSTANCE_OF, target);
@@ -40,7 +40,7 @@ export const objectInstanceFactory = {
    * }
    */
   isConstructor<T, C extends Wherable<T, C>>(ctx: C) {
-    return function <K extends keyof ByType<T, object>>(field: K, target: Parameters<ObjectInstancePredicate>[2]) {
+    return function (field: ObjectKeys<T>, target: Parameters<ObjectInstancePredicate>[2]) {
       return ctx.where((item: T) => {
         const obj = item[field] as object;
         return objectInstancePredicate(obj, ObjectInstanceEnum.IS_CONSTRUCTOR, target);
