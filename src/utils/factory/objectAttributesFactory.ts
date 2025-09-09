@@ -17,7 +17,7 @@ export const objectAttributesFactory = {
    *   objectIsWritable = objectAttributesFactory.isWritable(this);
    * }
    */
-  isWritable<T>(ctx: Wherable<T>) {
+  isWritable<T, C extends Wherable<T, C>>(ctx: C) {
     return function <K extends keyof ByType<T, object>>(field: K, target: Parameters<ObjectAttributesPredicate>[2]) {
       return ctx.where((item: T) => {
         const obj = item[field] as object;
@@ -39,7 +39,7 @@ export const objectAttributesFactory = {
    *   objectIsEnumerable = objectAttributesFactory.isEnumerable(this);
    * }
    */
-  isEnumerable<T>(ctx: Wherable<T>) {
+  isEnumerable<T, C extends Wherable<T, C>>(ctx: C) {
     return function <K extends keyof ByType<T, object>>(field: K, target: Parameters<ObjectAttributesPredicate>[2]) {
       return ctx.where((item: T) => {
         const obj = item[field] as object;
@@ -61,7 +61,7 @@ export const objectAttributesFactory = {
    *   objectIsConfigurable = objectAttributesFactory.isConfigurable(this);
    * }
    */
-  isConfigurable<T>(ctx: Wherable<T>) {
+  isConfigurable<T, C extends Wherable<T, C>>(ctx: C) {
     return function <K extends keyof ByType<T, object>>(field: K, target: Parameters<ObjectAttributesPredicate>[2]) {
       return ctx.where((item: T) => {
         const obj = item[field] as object;

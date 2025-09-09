@@ -17,7 +17,7 @@ import { ByType, Wherable } from '../../types/utility';
  *   lengthEquals = arraySizeFactory.lengthEquals(this);
  * }
  */
-function lengthEquals<T>(ctx: Wherable<T>) {
+function lengthEquals<T, C extends Wherable<T, C>>(ctx: C) {
   return function <K extends keyof ByType<T, any[]>>(field: K, n: Parameters<ArraySizePredicate>[2]) {
     return ctx.where((item: T) => {
       const arr = item[field] as any[];
@@ -41,7 +41,7 @@ function lengthEquals<T>(ctx: Wherable<T>) {
  *   lengthGreaterThan = arraySizeFactory.lengthGreaterThan(this);
  * }
  */
-function lengthGreaterThan<T>(ctx: Wherable<T>) {
+function lengthGreaterThan<T, C extends Wherable<T, C>>(ctx: C) {
   return function <K extends keyof ByType<T, any[]>>(field: K, n: Parameters<ArraySizePredicate>[2]) {
     return ctx.where((item: T) => {
       const arr = item[field] as any[];
@@ -65,7 +65,7 @@ function lengthGreaterThan<T>(ctx: Wherable<T>) {
  *   lengthGreaterThanOrEquals = arraySizeFactory.lengthGreaterThanOrEquals(this);
  * }
  */
-function lengthGreaterThanOrEquals<T>(ctx: Wherable<T>) {
+function lengthGreaterThanOrEquals<T, C extends Wherable<T, C>>(ctx: C) {
   return function <K extends keyof ByType<T, any[]>>(field: K, n: Parameters<ArraySizePredicate>[2]) {
     return ctx.where((item: T) => {
       const arr = item[field] as any[];
@@ -89,7 +89,7 @@ function lengthGreaterThanOrEquals<T>(ctx: Wherable<T>) {
  *   lengthLessThan = arraySizeFactory.lengthLessThan(this);
  * }
  */
-function lengthLessThan<T>(ctx: Wherable<T>) {
+function lengthLessThan<T, C extends Wherable<T, C>>(ctx: C) {
   return function <K extends keyof ByType<T, any[]>>(field: K, n: Parameters<ArraySizePredicate>[2]) {
     return ctx.where((item: T) => {
       const arr = item[field] as any[];
@@ -113,7 +113,7 @@ function lengthLessThan<T>(ctx: Wherable<T>) {
  *   lengthLessThanOrEquals = arraySizeFactory.lengthLessThanOrEquals(this);
  * }
  */
-function lengthLessThanOrEquals<T>(ctx: Wherable<T>) {
+function lengthLessThanOrEquals<T, C extends Wherable<T, C>>(ctx: C) {
   return function <K extends keyof ByType<T, any[]>>(field: K, n: Parameters<ArraySizePredicate>[2]) {
     return ctx.where((item: T) => {
       const arr = item[field] as any[];

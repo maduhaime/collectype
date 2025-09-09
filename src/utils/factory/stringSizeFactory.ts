@@ -17,7 +17,7 @@ export const stringSizeFactory = {
    *   stringLengthEquals = stringSizeFactory.lengthEquals(this);
    * }
    */
-  lengthEquals<T>(ctx: Wherable<T>) {
+  lengthEquals<T, C extends Wherable<T, C>>(ctx: C) {
     return function <K extends keyof ByType<T, string>>(field: K, target: Parameters<StringSizePredicate>[2]) {
       return ctx.where((item: T) => {
         const str = item[field] as string;
@@ -39,7 +39,7 @@ export const stringSizeFactory = {
    *   stringLengthGreaterThan = stringSizeFactory.lengthGreaterThan(this);
    * }
    */
-  lengthGreaterThan<T>(ctx: Wherable<T>) {
+  lengthGreaterThan<T, C extends Wherable<T, C>>(ctx: C) {
     return function <K extends keyof ByType<T, string>>(field: K, target: Parameters<StringSizePredicate>[2]) {
       return ctx.where((item: T) => {
         const str = item[field] as string;
@@ -61,7 +61,7 @@ export const stringSizeFactory = {
    *   stringLengthGreaterThanOrEquals = stringSizeFactory.lengthGreaterThanOrEquals(this);
    * }
    */
-  lengthGreaterThanOrEquals<T>(ctx: Wherable<T>) {
+  lengthGreaterThanOrEquals<T, C extends Wherable<T, C>>(ctx: C) {
     return function <K extends keyof ByType<T, string>>(field: K, target: Parameters<StringSizePredicate>[2]) {
       return ctx.where((item: T) => {
         const str = item[field] as string;
@@ -83,7 +83,7 @@ export const stringSizeFactory = {
    *   stringLengthLessThan = stringSizeFactory.lengthLessThan(this);
    * }
    */
-  lengthLessThan<T>(ctx: Wherable<T>) {
+  lengthLessThan<T, C extends Wherable<T, C>>(ctx: C) {
     return function <K extends keyof ByType<T, string>>(field: K, target: Parameters<StringSizePredicate>[2]) {
       return ctx.where((item: T) => {
         const str = item[field] as string;
@@ -105,7 +105,7 @@ export const stringSizeFactory = {
    *   stringLengthLessThanOrEquals = stringSizeFactory.lengthLessThanOrEquals(this);
    * }
    */
-  lengthLessThanOrEquals<T>(ctx: Wherable<T>) {
+  lengthLessThanOrEquals<T, C extends Wherable<T, C>>(ctx: C) {
     return function <K extends keyof ByType<T, string>>(field: K, target: Parameters<StringSizePredicate>[2]) {
       return ctx.where((item: T) => {
         const str = item[field] as string;

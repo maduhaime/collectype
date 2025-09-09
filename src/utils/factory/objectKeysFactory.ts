@@ -17,7 +17,7 @@ export const objectKeysFactory = {
    *   objectHasKey = objectKeysFactory.hasKey(this);
    * }
    */
-  hasKey<T>(ctx: Wherable<T>) {
+  hasKey<T, C extends Wherable<T, C>>(ctx: C) {
     return function <K extends keyof ByType<T, object>>(field: K, target: Parameters<ObjectKeysPredicate>[2]) {
       return ctx.where((item: T) => {
         const obj = item[field] as object;
@@ -39,7 +39,7 @@ export const objectKeysFactory = {
    *   objectHasAllKeys = objectKeysFactory.hasAllKeys(this);
    * }
    */
-  hasAllKeys<T>(ctx: Wherable<T>) {
+  hasAllKeys<T, C extends Wherable<T, C>>(ctx: C) {
     return function <K extends keyof ByType<T, object>>(field: K, target: Parameters<ObjectKeysPredicate>[2]) {
       return ctx.where((item: T) => {
         const obj = item[field] as object;
@@ -61,7 +61,7 @@ export const objectKeysFactory = {
    *   objectHasAnyKey = objectKeysFactory.hasAnyKey(this);
    * }
    */
-  hasAnyKey<T>(ctx: Wherable<T>) {
+  hasAnyKey<T, C extends Wherable<T, C>>(ctx: C) {
     return function <K extends keyof ByType<T, object>>(field: K, target: Parameters<ObjectKeysPredicate>[2]) {
       return ctx.where((item: T) => {
         const obj = item[field] as object;
@@ -83,7 +83,7 @@ export const objectKeysFactory = {
    *   objectHasExactKeys = objectKeysFactory.hasExactKeys(this);
    * }
    */
-  hasExactKeys<T>(ctx: Wherable<T>) {
+  hasExactKeys<T, C extends Wherable<T, C>>(ctx: C) {
     return function <K extends keyof ByType<T, object>>(field: K, target: Parameters<ObjectKeysPredicate>[2]) {
       return ctx.where((item: T) => {
         const obj = item[field] as object;
@@ -105,7 +105,7 @@ export const objectKeysFactory = {
    *   objectHasNoKeys = objectKeysFactory.hasNoKeys(this);
    * }
    */
-  hasNoKeys<T>(ctx: Wherable<T>) {
+  hasNoKeys<T, C extends Wherable<T, C>>(ctx: C) {
     return function <K extends keyof ByType<T, object>>(field: K, target: Parameters<ObjectKeysPredicate>[2]) {
       return ctx.where((item: T) => {
         const obj = item[field] as object;

@@ -2,7 +2,7 @@ import { BooleanOperEnum } from '../../enums/booleanOperation';
 import { BooleanPredicate, booleanPredicate } from '../../utils/predicates/booleanPredicate';
 import { ByType, Wherable } from '../../types/utility';
 
-function equals<T>(ctx: Wherable<T>) {
+function equals<T, C extends Wherable<T, C>>(ctx: C) {
   /**
    * Factory function that creates a reusable filter for boolean fields, designed for composition within the provided context.
    * The returned filter can be used to declaratively build complex queries.
@@ -26,7 +26,7 @@ function equals<T>(ctx: Wherable<T>) {
   };
 }
 
-function notEquals<T>(ctx: Wherable<T>) {
+function notEquals<T, C extends Wherable<T, C>>(ctx: C) {
   /**
    * Factory function that creates a reusable filter for boolean fields, designed for composition within the provided context.
    * The returned filter can be used to declaratively build complex queries.

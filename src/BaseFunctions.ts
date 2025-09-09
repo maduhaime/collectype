@@ -7,6 +7,7 @@ import { ReservedMethodsEnum } from './enums/pipe';
 import { sortByBooleanField, sortByDateField, sortByNumberField, sortByStringField } from './utils/sort/sortFunctions';
 import { SortDir, SortType } from './types/sort';
 import { SortDirEnum, SortTypeEnum } from './enums/sort';
+import { ByType } from './types/utility';
 
 /**
  * Core collection manipulation class providing chainable operations.
@@ -93,16 +94,16 @@ export class BaseFunctions<T> implements Collectable<T> {
     // Apply appropriate sorting strategy based on detected type
     switch (detectedType) {
       case SortTypeEnum.BOOLEAN:
-        this._items = sortByBooleanField(this._items, field, dir);
+        this._items = sortByBooleanField(this._items, field as keyof ByType<T, boolean>, dir);
         break;
       case SortTypeEnum.NUMBER:
-        this._items = sortByNumberField(this._items, field, dir);
+        this._items = sortByNumberField(this._items, field as keyof ByType<T, number>, dir);
         break;
       case SortTypeEnum.DATE:
-        this._items = sortByDateField(this._items, field, dir);
+        this._items = sortByDateField(this._items, field as keyof ByType<T, Date>, dir);
         break;
       case SortTypeEnum.STRING:
-        this._items = sortByStringField(this._items, field, dir);
+        this._items = sortByStringField(this._items, field as keyof ByType<T, string>, dir);
         break;
       default:
         throw new Error(`${detectedType} is not a valid sort type`);

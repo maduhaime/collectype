@@ -17,7 +17,7 @@ import { ByType, Wherable } from '../../types/utility';
  *   dateInRange = dateRangeFactory.inRange(this);
  * }
  */
-function inRange<T>(ctx: Wherable<T>) {
+function inRange<T, C extends Wherable<T, C>>(ctx: C) {
   return function <K extends keyof ByType<T, Date>>(
     field: K,
     min: Parameters<DateRangePredicate>[2],
@@ -45,7 +45,7 @@ function inRange<T>(ctx: Wherable<T>) {
  *   dateOutRange = dateRangeFactory.outRange(this);
  * }
  */
-function outRange<T>(ctx: Wherable<T>) {
+function outRange<T, C extends Wherable<T, C>>(ctx: C) {
   return function <K extends keyof ByType<T, Date>>(
     field: K,
     min: Parameters<DateRangePredicate>[2],
@@ -73,7 +73,7 @@ function outRange<T>(ctx: Wherable<T>) {
  *   dateStrictInRange = dateRangeFactory.strictInRange(this);
  * }
  */
-function strictInRange<T>(ctx: Wherable<T>) {
+function strictInRange<T, C extends Wherable<T, C>>(ctx: C) {
   return function <K extends keyof ByType<T, Date>>(
     field: K,
     min: Parameters<DateRangePredicate>[2],
@@ -101,7 +101,7 @@ function strictInRange<T>(ctx: Wherable<T>) {
  *   dateStrictOutRange = dateRangeFactory.strictOutRange(this);
  * }
  */
-function strictOutRange<T>(ctx: Wherable<T>) {
+function strictOutRange<T, C extends Wherable<T, C>>(ctx: C) {
   return function <K extends keyof ByType<T, Date>>(
     field: K,
     min: Parameters<DateRangePredicate>[2],

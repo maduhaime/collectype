@@ -88,6 +88,6 @@ export type EnumOrString<E extends Record<string, string>> = E[keyof E] | E[keyo
  *   where: (predicate) => [1, 2, 3].filter(item => predicate({ x: item }))
  * };
  */
-export type Wherable<T> = {
-  where: (predicate: (item: T) => boolean) => any;
+export type Wherable<T, C = any> = {
+  where: (predicate: (item: T) => boolean) => C;
 };

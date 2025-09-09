@@ -2,7 +2,7 @@ import { CalendarOperEnum } from '../../enums/calendarOperation';
 import { CalendarPredicate, calendarPredicate } from '../../utils/predicates/calendarPredicate';
 import { ByType, Wherable } from '../../types/utility';
 
-function isToday<T>(ctx: Wherable<T>) {
+function isToday<T, C extends Wherable<T, C>>(ctx: C) {
   return function <K extends keyof ByType<T, Date>>(field: K, today: Parameters<CalendarPredicate>[2] = new Date()) {
     return ctx.where((item: T) => {
       const source = item[field] as Date;
@@ -26,7 +26,7 @@ function isToday<T>(ctx: Wherable<T>) {
  *   isToday = calendarFactory.isToday(this);
  * }
  */
-function isYesterday<T>(ctx: Wherable<T>) {
+function isYesterday<T, C extends Wherable<T, C>>(ctx: C) {
   return function <K extends keyof ByType<T, Date>>(field: K, today: Parameters<CalendarPredicate>[2] = new Date()) {
     return ctx.where((item: T) => {
       const source = item[field] as Date;
@@ -35,7 +35,7 @@ function isYesterday<T>(ctx: Wherable<T>) {
   };
 }
 
-function isBeforeToday<T>(ctx: Wherable<T>) {
+function isBeforeToday<T, C extends Wherable<T, C>>(ctx: C) {
   return function <K extends keyof ByType<T, Date>>(field: K, today: Parameters<CalendarPredicate>[2] = new Date()) {
     return ctx.where((item: T) => {
       const source = item[field] as Date;
@@ -44,7 +44,7 @@ function isBeforeToday<T>(ctx: Wherable<T>) {
   };
 }
 
-function isAfterToday<T>(ctx: Wherable<T>) {
+function isAfterToday<T, C extends Wherable<T, C>>(ctx: C) {
   return function <K extends keyof ByType<T, Date>>(field: K, today: Parameters<CalendarPredicate>[2] = new Date()) {
     return ctx.where((item: T) => {
       const source = item[field] as Date;
@@ -53,7 +53,7 @@ function isAfterToday<T>(ctx: Wherable<T>) {
   };
 }
 
-function isFuture<T>(ctx: Wherable<T>) {
+function isFuture<T, C extends Wherable<T, C>>(ctx: C) {
   return function <K extends keyof ByType<T, Date>>(field: K, today: Parameters<CalendarPredicate>[2] = new Date()) {
     return ctx.where((item: T) => {
       const source = item[field] as Date;
@@ -62,7 +62,7 @@ function isFuture<T>(ctx: Wherable<T>) {
   };
 }
 
-function isPast<T>(ctx: Wherable<T>) {
+function isPast<T, C extends Wherable<T, C>>(ctx: C) {
   return function <K extends keyof ByType<T, Date>>(field: K, today: Parameters<CalendarPredicate>[2] = new Date()) {
     return ctx.where((item: T) => {
       const source = item[field] as Date;
@@ -71,7 +71,7 @@ function isPast<T>(ctx: Wherable<T>) {
   };
 }
 
-function isWeekend<T>(ctx: Wherable<T>) {
+function isWeekend<T, C extends Wherable<T, C>>(ctx: C) {
   return function <K extends keyof ByType<T, Date>>(field: K, today: Parameters<CalendarPredicate>[2] = new Date()) {
     return ctx.where((item: T) => {
       const source = item[field] as Date;
@@ -80,7 +80,7 @@ function isWeekend<T>(ctx: Wherable<T>) {
   };
 }
 
-function isWeekday<T>(ctx: Wherable<T>) {
+function isWeekday<T, C extends Wherable<T, C>>(ctx: C) {
   return function <K extends keyof ByType<T, Date>>(field: K, today: Parameters<CalendarPredicate>[2] = new Date()) {
     return ctx.where((item: T) => {
       const source = item[field] as Date;

@@ -17,7 +17,7 @@ import { ByType, Wherable } from '../../types/utility';
  *   numberInRange = numberRangeFactory.inRange(this);
  * }
  */
-function inRange<T>(ctx: Wherable<T>) {
+function inRange<T, C extends Wherable<T, C>>(ctx: C) {
   return function <K extends keyof ByType<T, number>>(
     field: K,
     min: Parameters<NumberRangePredicate>[2],
@@ -45,7 +45,7 @@ function inRange<T>(ctx: Wherable<T>) {
  *   numberOutRange = numberRangeFactory.outRange(this);
  * }
  */
-function outRange<T>(ctx: Wherable<T>) {
+function outRange<T, C extends Wherable<T, C>>(ctx: C) {
   return function <K extends keyof ByType<T, number>>(
     field: K,
     min: Parameters<NumberRangePredicate>[2],
@@ -73,7 +73,7 @@ function outRange<T>(ctx: Wherable<T>) {
  *   numberStrictInRange = numberRangeFactory.strictInRange(this);
  * }
  */
-function strictInRange<T>(ctx: Wherable<T>) {
+function strictInRange<T, C extends Wherable<T, C>>(ctx: C) {
   return function <K extends keyof ByType<T, number>>(
     field: K,
     min: Parameters<NumberRangePredicate>[2],
@@ -101,7 +101,7 @@ function strictInRange<T>(ctx: Wherable<T>) {
  *   numberStrictOutRange = numberRangeFactory.strictOutRange(this);
  * }
  */
-function strictOutRange<T>(ctx: Wherable<T>) {
+function strictOutRange<T, C extends Wherable<T, C>>(ctx: C) {
   return function <K extends keyof ByType<T, number>>(
     field: K,
     min: Parameters<NumberRangePredicate>[2],

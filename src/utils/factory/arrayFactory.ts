@@ -17,7 +17,7 @@ import { ByType, Wherable } from '../../types/utility';
  *   arrayEquals = arrayFactory.equals(this);
  * }
  */
-function equals<T>(ctx: Wherable<T>) {
+function equals<T, C extends Wherable<T, C>>(ctx: C) {
   return function <K extends keyof ByType<T, any[]>>(field: K, target: Parameters<ArrayPredicate>[2]) {
     // Use the context's where method to filter items
     return ctx.where((item: T) => {
@@ -43,7 +43,7 @@ function equals<T>(ctx: Wherable<T>) {
  *   arraySetEquals = arrayFactory.setEquals(this);
  * }
  */
-function setEquals<T>(ctx: Wherable<T>) {
+function setEquals<T, C extends Wherable<T, C>>(ctx: C) {
   return function <K extends keyof ByType<T, any[]>>(field: K, target: Parameters<ArrayPredicate>[2]) {
     // Use the context's where method to filter items
     return ctx.where((item: T) => {
@@ -69,7 +69,7 @@ function setEquals<T>(ctx: Wherable<T>) {
  *   arrayIncludes = arrayFactory.includes(this);
  * }
  */
-function includes<T>(ctx: Wherable<T>) {
+function includes<T, C extends Wherable<T, C>>(ctx: C) {
   return function <K extends keyof ByType<T, any[]>>(field: K, target: Parameters<ArrayPredicate>[2]) {
     // Use the context's where method to filter items
     return ctx.where((item: T) => {
@@ -95,7 +95,7 @@ function includes<T>(ctx: Wherable<T>) {
  *   arrayExcludes = arrayFactory.excludes(this);
  * }
  */
-function excludes<T>(ctx: Wherable<T>) {
+function excludes<T, C extends Wherable<T, C>>(ctx: C) {
   return function <K extends keyof ByType<T, any[]>>(field: K, target: Parameters<ArrayPredicate>[2]) {
     // Use the context's where method to filter items
     return ctx.where((item: T) => {
@@ -121,7 +121,7 @@ function excludes<T>(ctx: Wherable<T>) {
  *   arraySomeEquals = arrayFactory.someEquals(this);
  * }
  */
-function someEquals<T>(ctx: Wherable<T>) {
+function someEquals<T, C extends Wherable<T, C>>(ctx: C) {
   return function <K extends keyof ByType<T, any[]>>(field: K, target: Parameters<ArrayPredicate>[2]) {
     // Use the context's where method to filter items
     return ctx.where((item: T) => {
@@ -147,7 +147,7 @@ function someEquals<T>(ctx: Wherable<T>) {
  *   arrayEveryEquals = arrayFactory.everyEquals(this);
  * }
  */
-function everyEquals<T>(ctx: Wherable<T>) {
+function everyEquals<T, C extends Wherable<T, C>>(ctx: C) {
   return function <K extends keyof ByType<T, any[]>>(field: K, target: Parameters<ArrayPredicate>[2]) {
     // Use the context's where method to filter items
     return ctx.where((item: T) => {
@@ -173,7 +173,7 @@ function everyEquals<T>(ctx: Wherable<T>) {
  *   arrayIsSubsetOf = arrayFactory.isSubsetOf(this);
  * }
  */
-function isSubsetOf<T>(ctx: Wherable<T>) {
+function isSubsetOf<T, C extends Wherable<T, C>>(ctx: C) {
   return function <K extends keyof ByType<T, any[]>>(field: K, target: Parameters<ArrayPredicate>[2]) {
     // Use the context's where method to filter items
     return ctx.where((item: T) => {
@@ -199,7 +199,7 @@ function isSubsetOf<T>(ctx: Wherable<T>) {
  *   arrayIsSupersetOf = arrayFactory.isSupersetOf(this);
  * }
  */
-function isSupersetOf<T>(ctx: Wherable<T>) {
+function isSupersetOf<T, C extends Wherable<T, C>>(ctx: C) {
   return function <K extends keyof ByType<T, any[]>>(field: K, target: Parameters<ArrayPredicate>[2]) {
     // Use the context's where method to filter items
     return ctx.where((item: T) => {
@@ -225,7 +225,7 @@ function isSupersetOf<T>(ctx: Wherable<T>) {
  *   arrayStartsWith = arrayFactory.startsWith(this);
  * }
  */
-function startsWith<T>(ctx: Wherable<T>) {
+function startsWith<T, C extends Wherable<T, C>>(ctx: C) {
   return function <K extends keyof ByType<T, any[]>>(field: K, target: Parameters<ArrayPredicate>[2]) {
     // Use the context's where method to filter items
     return ctx.where((item: T) => {
@@ -251,7 +251,7 @@ function startsWith<T>(ctx: Wherable<T>) {
  *   arrayEndsWith = arrayFactory.endsWith(this);
  * }
  */
-function endsWith<T>(ctx: Wherable<T>) {
+function endsWith<T, C extends Wherable<T, C>>(ctx: C) {
   return function <K extends keyof ByType<T, any[]>>(field: K, target: Parameters<ArrayPredicate>[2]) {
     // Use the context's where method to filter items
     return ctx.where((item: T) => {
@@ -277,7 +277,7 @@ function endsWith<T>(ctx: Wherable<T>) {
  *   arrayContainsSubsequence = arrayFactory.containsSubsequence(this);
  * }
  */
-function containsSubsequence<T>(ctx: Wherable<T>) {
+function containsSubsequence<T, C extends Wherable<T, C>>(ctx: C) {
   return function <K extends keyof ByType<T, any[]>>(field: K, target: Parameters<ArrayPredicate>[2]) {
     // Use the context's where method to filter items
     return ctx.where((item: T) => {
@@ -303,7 +303,7 @@ function containsSubsequence<T>(ctx: Wherable<T>) {
  *   arrayIntersects = arrayFactory.intersects(this);
  * }
  */
-function intersects<T>(ctx: Wherable<T>) {
+function intersects<T, C extends Wherable<T, C>>(ctx: C) {
   return function <K extends keyof ByType<T, any[]>>(field: K, target: Parameters<ArrayPredicate>[2]) {
     // Use the context's where method to filter items
     return ctx.where((item: T) => {
@@ -329,7 +329,7 @@ function intersects<T>(ctx: Wherable<T>) {
  *   arrayDisjoint = arrayFactory.disjoint(this);
  * }
  */
-function disjoint<T>(ctx: Wherable<T>) {
+function disjoint<T, C extends Wherable<T, C>>(ctx: C) {
   return function <K extends keyof ByType<T, any[]>>(field: K, target: Parameters<ArrayPredicate>[2]) {
     // Use the context's where method to filter items
     return ctx.where((item: T) => {

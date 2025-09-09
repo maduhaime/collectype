@@ -17,7 +17,7 @@ import { ByType, Wherable } from '../../types/utility';
  *   stringEquals = stringFactory.equals(this);
  * }
  */
-function equals<T>(ctx: Wherable<T>) {
+function equals<T, C extends Wherable<T, C>>(ctx: C) {
   return function <K extends keyof ByType<T, string>>(field: K, target: Parameters<StringPredicate>[2]) {
     return ctx.where((item: T) => {
       const source = item[field] as string;
@@ -41,7 +41,7 @@ function equals<T>(ctx: Wherable<T>) {
  *   stringNotEquals = stringFactory.notEquals(this);
  * }
  */
-function notEquals<T>(ctx: Wherable<T>) {
+function notEquals<T, C extends Wherable<T, C>>(ctx: C) {
   return function <K extends keyof ByType<T, string>>(field: K, target: Parameters<StringPredicate>[2]) {
     return ctx.where((item: T) => {
       const source = item[field] as string;
@@ -65,7 +65,7 @@ function notEquals<T>(ctx: Wherable<T>) {
  *   stringIncludes = stringFactory.includes(this);
  * }
  */
-function includes<T>(ctx: Wherable<T>) {
+function includes<T, C extends Wherable<T, C>>(ctx: C) {
   return function <K extends keyof ByType<T, string>>(field: K, target: Parameters<StringPredicate>[2]) {
     return ctx.where((item: T) => {
       const source = item[field] as string;
@@ -89,7 +89,7 @@ function includes<T>(ctx: Wherable<T>) {
  *   stringExcludes = stringFactory.excludes(this);
  * }
  */
-function excludes<T>(ctx: Wherable<T>) {
+function excludes<T, C extends Wherable<T, C>>(ctx: C) {
   return function <K extends keyof ByType<T, string>>(field: K, target: Parameters<StringPredicate>[2]) {
     return ctx.where((item: T) => {
       const source = item[field] as string;
@@ -113,7 +113,7 @@ function excludes<T>(ctx: Wherable<T>) {
  *   stringStartsWith = stringFactory.startsWith(this);
  * }
  */
-function startsWith<T>(ctx: Wherable<T>) {
+function startsWith<T, C extends Wherable<T, C>>(ctx: C) {
   return function <K extends keyof ByType<T, string>>(field: K, target: Parameters<StringPredicate>[2]) {
     return ctx.where((item: T) => {
       const source = item[field] as string;
@@ -137,7 +137,7 @@ function startsWith<T>(ctx: Wherable<T>) {
  *   stringEndsWith = stringFactory.endsWith(this);
  * }
  */
-function endsWith<T>(ctx: Wherable<T>) {
+function endsWith<T, C extends Wherable<T, C>>(ctx: C) {
   return function <K extends keyof ByType<T, string>>(field: K, target: Parameters<StringPredicate>[2]) {
     return ctx.where((item: T) => {
       const source = item[field] as string;
@@ -161,7 +161,7 @@ function endsWith<T>(ctx: Wherable<T>) {
  *   stringMatches = stringFactory.matches(this);
  * }
  */
-function matches<T>(ctx: Wherable<T>) {
+function matches<T, C extends Wherable<T, C>>(ctx: C) {
   return function <K extends keyof ByType<T, string>>(field: K, pattern: RegExp) {
     return ctx.where((item: T) => {
       const source = item[field] as string;

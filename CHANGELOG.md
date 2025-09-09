@@ -1,3 +1,19 @@
+# 0.8.4 - 2025-09-08
+
+### Fixed
+
+- Improved TypeScript type inference for all built-in filter factories (string, number, array, object, date, etc.).
+- All filter factories now use a uniform key constraint `<K extends keyof ByType<T, ...>>` for their field parameter, which restores type inference and eliminates `never` errors in chained calls.
+- Factories and chainable methods now preserve the correct item type throughout all operations, making `.items.map(p => p.field)` always type-safe.
+- Cleaned up unused imports and duplicate parameter declarations in all affected factories.
+
+### Internal
+
+- Refactored the `Wherable` type to accept a context and propagate `this` for better type safety in all chainable APIs.
+- Updated all usages of `Wherable` and related generics in the codebase for consistency.
+
+---
+
 # 0.8.3 - 2025-09-04
 
 ### Added

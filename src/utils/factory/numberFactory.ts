@@ -17,7 +17,7 @@ import { ByType, Wherable } from '../../types/utility';
  *   numberEquals = numberFactory.equals(this);
  * }
  */
-function equals<T>(ctx: Wherable<T>) {
+function equals<T, C extends Wherable<T, C>>(ctx: C) {
   return function <K extends keyof ByType<T, number>>(field: K, target: Parameters<NumberPredicate>[2]) {
     return ctx.where((item: T) => {
       const source = item[field] as number;
@@ -41,7 +41,7 @@ function equals<T>(ctx: Wherable<T>) {
  *   numberNotEquals = numberFactory.notEquals(this);
  * }
  */
-function notEquals<T>(ctx: Wherable<T>) {
+function notEquals<T, C extends Wherable<T, C>>(ctx: C) {
   return function <K extends keyof ByType<T, number>>(field: K, target: Parameters<NumberPredicate>[2]) {
     return ctx.where((item: T) => {
       const source = item[field] as number;
@@ -64,7 +64,7 @@ function notEquals<T>(ctx: Wherable<T>) {
  *   numberLessThan = numberFactory.lessThan(this);
  * }
  */
-function lessThan<T>(ctx: Wherable<T>) {
+function lessThan<T, C extends Wherable<T, C>>(ctx: C) {
   return function <K extends keyof ByType<T, number>>(field: K, target: Parameters<NumberPredicate>[2]) {
     return ctx.where((item: T) => {
       const source = item[field] as number;
@@ -87,7 +87,7 @@ function lessThan<T>(ctx: Wherable<T>) {
  *   numberLessThanOrEquals = numberFactory.lessThanOrEquals(this);
  * }
  */
-function lessThanOrEquals<T>(ctx: Wherable<T>) {
+function lessThanOrEquals<T, C extends Wherable<T, C>>(ctx: C) {
   return function <K extends keyof ByType<T, number>>(field: K, target: Parameters<NumberPredicate>[2]) {
     return ctx.where((item: T) => {
       const source = item[field] as number;
@@ -110,7 +110,7 @@ function lessThanOrEquals<T>(ctx: Wherable<T>) {
  *   numberGreaterThan = numberFactory.greaterThan(this);
  * }
  */
-function greaterThan<T>(ctx: Wherable<T>) {
+function greaterThan<T, C extends Wherable<T, C>>(ctx: C) {
   return function <K extends keyof ByType<T, number>>(field: K, target: Parameters<NumberPredicate>[2]) {
     return ctx.where((item: T) => {
       const source = item[field] as number;
@@ -133,7 +133,7 @@ function greaterThan<T>(ctx: Wherable<T>) {
  *   numberGreaterThanOrEquals = numberFactory.greaterThanOrEquals(this);
  * }
  */
-function greaterThanOrEquals<T>(ctx: Wherable<T>) {
+function greaterThanOrEquals<T, C extends Wherable<T, C>>(ctx: C) {
   return function <K extends keyof ByType<T, number>>(field: K, target: Parameters<NumberPredicate>[2]) {
     return ctx.where((item: T) => {
       const source = item[field] as number;

@@ -17,7 +17,7 @@ export const objectStateFactory = {
    *   objectIsEmpty = objectStateFactory.isEmpty(this);
    * }
    */
-  isEmpty<T>(ctx: Wherable<T>) {
+  isEmpty<T, C extends Wherable<T, C>>(ctx: C) {
     return function <K extends keyof ByType<T, object>>(field: K) {
       return ctx.where((item: T) => {
         const obj = item[field] as object;
@@ -39,7 +39,7 @@ export const objectStateFactory = {
    *   objectIsPlain = objectStateFactory.isPlain(this);
    * }
    */
-  isPlain<T>(ctx: Wherable<T>) {
+  isPlain<T, C extends Wherable<T, C>>(ctx: C) {
     return function <K extends keyof ByType<T, object>>(field: K) {
       return ctx.where((item: T) => {
         const obj = item[field] as object;
@@ -61,7 +61,7 @@ export const objectStateFactory = {
    *   objectHasNumericKeys = objectStateFactory.hasNumericKeys(this);
    * }
    */
-  hasNumericKeys<T>(ctx: Wherable<T>) {
+  hasNumericKeys<T, C extends Wherable<T, C>>(ctx: C) {
     return function <K extends keyof ByType<T, object>>(field: K) {
       return ctx.where((item: T) => {
         const obj = item[field] as object;
@@ -83,7 +83,7 @@ export const objectStateFactory = {
    *   objectHasCamelcaseKeys = objectStateFactory.hasCamelcaseKeys(this);
    * }
    */
-  hasCamelcaseKeys<T>(ctx: Wherable<T>) {
+  hasCamelcaseKeys<T, C extends Wherable<T, C>>(ctx: C) {
     return function <K extends keyof ByType<T, object>>(field: K) {
       return ctx.where((item: T) => {
         const obj = item[field] as object;
@@ -105,7 +105,7 @@ export const objectStateFactory = {
    *   objectHasNestedObject = objectStateFactory.hasNestedObject(this);
    * }
    */
-  hasNestedObject<T>(ctx: Wherable<T>) {
+  hasNestedObject<T, C extends Wherable<T, C>>(ctx: C) {
     return function <K extends keyof ByType<T, object>>(field: K) {
       return ctx.where((item: T) => {
         const obj = item[field] as object;
@@ -127,7 +127,7 @@ export const objectStateFactory = {
    *   objectIsFrozen = objectStateFactory.isFrozen(this);
    * }
    */
-  isFrozen<T>(ctx: Wherable<T>) {
+  isFrozen<T, C extends Wherable<T, C>>(ctx: C) {
     return function <K extends keyof ByType<T, object>>(field: K) {
       return ctx.where((item: T) => {
         const obj = item[field] as object;
@@ -149,7 +149,7 @@ export const objectStateFactory = {
    *   objectIsSealed = objectStateFactory.isSealed(this);
    * }
    */
-  isSealed<T>(ctx: Wherable<T>) {
+  isSealed<T, C extends Wherable<T, C>>(ctx: C) {
     return function <K extends keyof ByType<T, object>>(field: K) {
       return ctx.where((item: T) => {
         const obj = item[field] as object;

@@ -16,7 +16,7 @@ import { ByType, Wherable } from '../../types/utility';
  *   stringIsEmpty = stringStateFactory.isEmpty(this);
  * }
  */
-function isEmpty<T>(ctx: Wherable<T>) {
+function isEmpty<T, C extends Wherable<T, C>>(ctx: C) {
   return function <K extends keyof ByType<T, string>>(field: K) {
     return ctx.where((item: T) => {
       const source = item[field] as string;
@@ -39,7 +39,7 @@ function isEmpty<T>(ctx: Wherable<T>) {
  *   stringIsNotEmpty = stringStateFactory.isNotEmpty(this);
  * }
  */
-function isNotEmpty<T>(ctx: Wherable<T>) {
+function isNotEmpty<T, C extends Wherable<T, C>>(ctx: C) {
   return function <K extends keyof ByType<T, string>>(field: K) {
     return ctx.where((item: T) => {
       const source = item[field] as string;

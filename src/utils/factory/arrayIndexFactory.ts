@@ -17,7 +17,7 @@ import { ByType, Wherable } from '../../types/utility';
  *   arrayIndexEquals = arrayIndexFactory.indexEquals(this);
  * }
  */
-function indexEquals<T>(ctx: Wherable<T>) {
+function indexEquals<T, C extends Wherable<T, C>>(ctx: C) {
   return function <K extends keyof ByType<T, any[]>>(
     field: K,
     index: Parameters<ArrayIndexPredicate>[2],
@@ -47,7 +47,7 @@ function indexEquals<T>(ctx: Wherable<T>) {
  *   arrayIndexNotEquals = arrayIndexFactory.indexNotEquals(this);
  * }
  */
-function indexNotEquals<T>(ctx: Wherable<T>) {
+function indexNotEquals<T, C extends Wherable<T, C>>(ctx: C) {
   return function <K extends keyof ByType<T, any[]>>(
     field: K,
     index: Parameters<ArrayIndexPredicate>[2],
@@ -77,7 +77,7 @@ function indexNotEquals<T>(ctx: Wherable<T>) {
  *   arrayIndexIn = arrayIndexFactory.indexIn(this);
  * }
  */
-function indexIn<T>(ctx: Wherable<T>) {
+function indexIn<T, C extends Wherable<T, C>>(ctx: C) {
   return function <K extends keyof ByType<T, any[]>>(
     field: K,
     index: Parameters<ArrayIndexPredicate>[2],
@@ -107,7 +107,7 @@ function indexIn<T>(ctx: Wherable<T>) {
  *   arrayIndexNotIn = arrayIndexFactory.indexNotIn(this);
  * }
  */
-function indexNotIn<T>(ctx: Wherable<T>) {
+function indexNotIn<T, C extends Wherable<T, C>>(ctx: C) {
   return function <K extends keyof ByType<T, any[]>>(
     field: K,
     index: Parameters<ArrayIndexPredicate>[2],
@@ -122,7 +122,7 @@ function indexNotIn<T>(ctx: Wherable<T>) {
   };
 }
 
-function indexGreaterThan<T>(ctx: Wherable<T>) {
+function indexGreaterThan<T, C extends Wherable<T, C>>(ctx: C) {
   return function <K extends keyof ByType<T, any[]>>(
     field: K,
     index: Parameters<ArrayIndexPredicate>[2],
@@ -135,7 +135,7 @@ function indexGreaterThan<T>(ctx: Wherable<T>) {
   };
 }
 
-function indexGreaterThanOrEquals<T>(ctx: Wherable<T>) {
+function indexGreaterThanOrEquals<T, C extends Wherable<T, C>>(ctx: C) {
   return function <K extends keyof ByType<T, any[]>>(
     field: K,
     index: Parameters<ArrayIndexPredicate>[2],
@@ -148,7 +148,7 @@ function indexGreaterThanOrEquals<T>(ctx: Wherable<T>) {
   };
 }
 
-function indexLessThan<T>(ctx: Wherable<T>) {
+function indexLessThan<T, C extends Wherable<T, C>>(ctx: C) {
   return function <K extends keyof ByType<T, any[]>>(
     field: K,
     index: Parameters<ArrayIndexPredicate>[2],
@@ -161,7 +161,7 @@ function indexLessThan<T>(ctx: Wherable<T>) {
   };
 }
 
-function indexLessThanOrEquals<T>(ctx: Wherable<T>) {
+function indexLessThanOrEquals<T, C extends Wherable<T, C>>(ctx: C) {
   return function <K extends keyof ByType<T, any[]>>(
     field: K,
     index: Parameters<ArrayIndexPredicate>[2],
