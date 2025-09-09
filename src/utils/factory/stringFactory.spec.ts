@@ -19,7 +19,7 @@ describe('stringFactory', () => {
   });
 
   it('should call ctx.where with a predicate for equals', () => {
-    const fn = stringFactory.equals<DummyType>(ctx);
+    const fn = stringFactory.equals<DummyType, typeof ctx>(ctx);
     fn(field, target);
     expect(ctx.where).toHaveBeenCalled();
     const predicate = ctx.where.mock.calls[0][0];
@@ -27,7 +27,7 @@ describe('stringFactory', () => {
   });
 
   it('should call ctx.where with a predicate for notEquals', () => {
-    const fn = stringFactory.notEquals<DummyType>(ctx);
+    const fn = stringFactory.notEquals<DummyType, typeof ctx>(ctx);
     fn(field, target);
     expect(ctx.where).toHaveBeenCalled();
     const predicate = ctx.where.mock.calls[0][0];
@@ -35,7 +35,7 @@ describe('stringFactory', () => {
   });
 
   it('should call ctx.where with a predicate for includes', () => {
-    const fn = stringFactory.includes<DummyType>(ctx);
+    const fn = stringFactory.includes<DummyType, typeof ctx>(ctx);
     fn(field, target);
     expect(ctx.where).toHaveBeenCalled();
     const predicate = ctx.where.mock.calls[0][0];
@@ -43,7 +43,7 @@ describe('stringFactory', () => {
   });
 
   it('should call ctx.where with a predicate for excludes', () => {
-    const fn = stringFactory.excludes<DummyType>(ctx);
+    const fn = stringFactory.excludes<DummyType, typeof ctx>(ctx);
     fn(field, target);
     expect(ctx.where).toHaveBeenCalled();
     const predicate = ctx.where.mock.calls[0][0];
@@ -51,7 +51,7 @@ describe('stringFactory', () => {
   });
 
   it('should call ctx.where with a predicate for startsWith', () => {
-    const fn = stringFactory.startsWith<DummyType>(ctx);
+    const fn = stringFactory.startsWith<DummyType, typeof ctx>(ctx);
     fn(field, target);
     expect(ctx.where).toHaveBeenCalled();
     const predicate = ctx.where.mock.calls[0][0];
@@ -59,7 +59,7 @@ describe('stringFactory', () => {
   });
 
   it('should call ctx.where with a predicate for endsWith', () => {
-    const fn = stringFactory.endsWith<DummyType>(ctx);
+    const fn = stringFactory.endsWith<DummyType, typeof ctx>(ctx);
     fn(field, 'world');
     expect(ctx.where).toHaveBeenCalled();
     const predicate = ctx.where.mock.calls[0][0];
@@ -67,7 +67,7 @@ describe('stringFactory', () => {
   });
 
   it('should call ctx.where with a predicate for matches', () => {
-    const fn = stringFactory.matches<DummyType>(ctx);
+    const fn = stringFactory.matches<DummyType, typeof ctx>(ctx);
     fn(field, pattern);
     expect(ctx.where).toHaveBeenCalled();
     const predicate = ctx.where.mock.calls[0][0];

@@ -1,12 +1,12 @@
 import { RangeOperEnum } from '../../enums/rangeOperation';
 import { NumberRangePredicate, numberRangePredicate } from '../../utils/predicates/numberRangePredicate';
-import { NumberKeys, Wherable } from '../../types/utility';
+import { ByType, Wherable } from '../../types/utility';
 
 /**
  * Factory function that creates a reusable filter for number ranges (inRange), designed for composition within the provided context.
  * The returned filter can be used to declaratively build complex queries.
  *
- * @paramType T - The item type (inferred)
+ * @template T - The item type (inferred)
  * @param ctx - The context providing a `where` method
  * @returns A function that takes a field, min, and max number, and applies the filter
  *
@@ -18,8 +18,8 @@ import { NumberKeys, Wherable } from '../../types/utility';
  * }
  */
 function inRange<T, C extends Wherable<T, C>>(ctx: C) {
-  return function (
-    field: NumberKeys<T>,
+  return function <K extends keyof ByType<T, number>>(
+    field: K,
     min: Parameters<NumberRangePredicate>[2],
     max: Parameters<NumberRangePredicate>[3]
   ) {
@@ -34,7 +34,7 @@ function inRange<T, C extends Wherable<T, C>>(ctx: C) {
  * Factory function that creates a reusable filter for number ranges (outRange), designed for composition within the provided context.
  * The returned filter can be used to declaratively build complex queries.
  *
- * @paramType T - The item type (inferred)
+ * @template T - The item type (inferred)
  * @param ctx - The context providing a `where` method
  * @returns A function that takes a field, min, and max number, and applies the filter
  *
@@ -46,8 +46,8 @@ function inRange<T, C extends Wherable<T, C>>(ctx: C) {
  * }
  */
 function outRange<T, C extends Wherable<T, C>>(ctx: C) {
-  return function (
-    field: NumberKeys<T>,
+  return function <K extends keyof ByType<T, number>>(
+    field: K,
     min: Parameters<NumberRangePredicate>[2],
     max: Parameters<NumberRangePredicate>[3]
   ) {
@@ -62,7 +62,7 @@ function outRange<T, C extends Wherable<T, C>>(ctx: C) {
  * Factory function that creates a reusable filter for number ranges (strictInRange), designed for composition within the provided context.
  * The returned filter can be used to declaratively build complex queries.
  *
- * @paramType T - The item type (inferred)
+ * @template T - The item type (inferred)
  * @param ctx - The context providing a `where` method
  * @returns A function that takes a field, min, and max number, and applies the filter
  *
@@ -74,8 +74,8 @@ function outRange<T, C extends Wherable<T, C>>(ctx: C) {
  * }
  */
 function strictInRange<T, C extends Wherable<T, C>>(ctx: C) {
-  return function (
-    field: NumberKeys<T>,
+  return function <K extends keyof ByType<T, number>>(
+    field: K,
     min: Parameters<NumberRangePredicate>[2],
     max: Parameters<NumberRangePredicate>[3]
   ) {
@@ -90,7 +90,7 @@ function strictInRange<T, C extends Wherable<T, C>>(ctx: C) {
  * Factory function that creates a reusable filter for number ranges (strictOutRange), designed for composition within the provided context.
  * The returned filter can be used to declaratively build complex queries.
  *
- * @paramType T - The item type (inferred)
+ * @template T - The item type (inferred)
  * @param ctx - The context providing a `where` method
  * @returns A function that takes a field, min, and max number, and applies the filter
  *
@@ -102,8 +102,8 @@ function strictInRange<T, C extends Wherable<T, C>>(ctx: C) {
  * }
  */
 function strictOutRange<T, C extends Wherable<T, C>>(ctx: C) {
-  return function (
-    field: NumberKeys<T>,
+  return function <K extends keyof ByType<T, number>>(
+    field: K,
     min: Parameters<NumberRangePredicate>[2],
     max: Parameters<NumberRangePredicate>[3]
   ) {

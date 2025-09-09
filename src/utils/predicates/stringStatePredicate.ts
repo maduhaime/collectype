@@ -7,8 +7,8 @@ export type StringStatePredicate = (source: string, oper: EnumOrString<typeof St
 /**
  * Evaluates a string value according to a state operation from StringStateOperEnum.
  *
- * @paramType {string} source - The string value to check.
- * @paramType {string} oper - The state operation to apply (should be a string value matching StringStateOperEnum).
+ * @template {string} source - The string value to check.
+ * @template {string} oper - The state operation to apply (should be a string value matching StringStateOperEnum).
  * @returns {boolean} True if the string matches the state, false otherwise.
  *
  * @example

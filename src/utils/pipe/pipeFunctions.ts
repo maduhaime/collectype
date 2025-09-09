@@ -4,7 +4,7 @@ import { ReservedMethods, ParsedPipeStep } from '../../types/pipe';
 /**
  * Returns true if the given method name is reserved and cannot be used in pipe expressions.
  *
- * @paramType ReservedMethods - The set of reserved method names
+ * @template ReservedMethods - The set of reserved method names
  * @param methodName - The method name to check
  * @returns True if the method is reserved, false otherwise
  *

@@ -1,12 +1,12 @@
 import { StringSizeOperEnum } from '../../enums/stringOperation';
 import { StringSizePredicate, stringSizePredicate } from '../predicates/stringSizePredicate';
-import { StringKeys, Wherable } from '../../types/utility';
+import { ByType, Wherable } from '../../types/utility';
 
 export const stringSizeFactory = {
   /**
    * Factory function that creates a reusable filter for string length equality, designed for composition within the provided context.
    *
-   * @paramType T - The item type (inferred)
+   * @template T - The item type (inferred)
    * @param ctx - The context providing a `where` method
    * @returns A function that takes a field and a target length, and applies the filter
    *
@@ -18,7 +18,7 @@ export const stringSizeFactory = {
    * }
    */
   lengthEquals<T, C extends Wherable<T, C>>(ctx: C) {
-    return function (field: StringKeys<T>, target: Parameters<StringSizePredicate>[2]) {
+    return function <K extends keyof ByType<T, string>>(field: K, target: Parameters<StringSizePredicate>[2]) {
       return ctx.where((item: T) => {
         const str = item[field] as string;
         return stringSizePredicate(str, StringSizeOperEnum.LENGTH_EQUALS, target);
@@ -28,7 +28,7 @@ export const stringSizeFactory = {
   /**
    * Factory function that creates a reusable filter for string length greater than, designed for composition within the provided context.
    *
-   * @paramType T - The item type (inferred)
+   * @template T - The item type (inferred)
    * @param ctx - The context providing a `where` method
    * @returns A function that takes a field and a target length, and applies the filter
    *
@@ -40,7 +40,7 @@ export const stringSizeFactory = {
    * }
    */
   lengthGreaterThan<T, C extends Wherable<T, C>>(ctx: C) {
-    return function (field: StringKeys<T>, target: Parameters<StringSizePredicate>[2]) {
+    return function <K extends keyof ByType<T, string>>(field: K, target: Parameters<StringSizePredicate>[2]) {
       return ctx.where((item: T) => {
         const str = item[field] as string;
         return stringSizePredicate(str, StringSizeOperEnum.LENGTH_GREATER_THAN, target);
@@ -50,7 +50,7 @@ export const stringSizeFactory = {
   /**
    * Factory function that creates a reusable filter for string length greater than or equals, designed for composition within the provided context.
    *
-   * @paramType T - The item type (inferred)
+   * @template T - The item type (inferred)
    * @param ctx - The context providing a `where` method
    * @returns A function that takes a field and a target length, and applies the filter
    *
@@ -62,7 +62,7 @@ export const stringSizeFactory = {
    * }
    */
   lengthGreaterThanOrEquals<T, C extends Wherable<T, C>>(ctx: C) {
-    return function (field: StringKeys<T>, target: Parameters<StringSizePredicate>[2]) {
+    return function <K extends keyof ByType<T, string>>(field: K, target: Parameters<StringSizePredicate>[2]) {
       return ctx.where((item: T) => {
         const str = item[field] as string;
         return stringSizePredicate(str, StringSizeOperEnum.LENGTH_GREATER_THAN_OR_EQUALS, target);
@@ -72,7 +72,7 @@ export const stringSizeFactory = {
   /**
    * Factory function that creates a reusable filter for string length less than, designed for composition within the provided context.
    *
-   * @paramType T - The item type (inferred)
+   * @template T - The item type (inferred)
    * @param ctx - The context providing a `where` method
    * @returns A function that takes a field and a target length, and applies the filter
    *
@@ -84,7 +84,7 @@ export const stringSizeFactory = {
    * }
    */
   lengthLessThan<T, C extends Wherable<T, C>>(ctx: C) {
-    return function (field: StringKeys<T>, target: Parameters<StringSizePredicate>[2]) {
+    return function <K extends keyof ByType<T, string>>(field: K, target: Parameters<StringSizePredicate>[2]) {
       return ctx.where((item: T) => {
         const str = item[field] as string;
         return stringSizePredicate(str, StringSizeOperEnum.LENGTH_LESS_THAN, target);
@@ -94,7 +94,7 @@ export const stringSizeFactory = {
   /**
    * Factory function that creates a reusable filter for string length less than or equals, designed for composition within the provided context.
    *
-   * @paramType T - The item type (inferred)
+   * @template T - The item type (inferred)
    * @param ctx - The context providing a `where` method
    * @returns A function that takes a field and a target length, and applies the filter
    *
@@ -106,7 +106,7 @@ export const stringSizeFactory = {
    * }
    */
   lengthLessThanOrEquals<T, C extends Wherable<T, C>>(ctx: C) {
-    return function (field: StringKeys<T>, target: Parameters<StringSizePredicate>[2]) {
+    return function <K extends keyof ByType<T, string>>(field: K, target: Parameters<StringSizePredicate>[2]) {
       return ctx.where((item: T) => {
         const str = item[field] as string;
         return stringSizePredicate(str, StringSizeOperEnum.LENGTH_LESS_THAN_OR_EQUALS, target);

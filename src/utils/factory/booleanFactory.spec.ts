@@ -17,7 +17,7 @@ describe('booleanFactory', () => {
   });
 
   it('should call ctx.where with a predicate for equals', () => {
-    const fn = booleanFactory.equals<DummyType>(ctx);
+    const fn = booleanFactory.equals<DummyType, typeof ctx>(ctx);
     fn(field, true);
     expect(ctx.where).toHaveBeenCalled();
     const predicate = ctx.where.mock.calls[0][0];
@@ -25,7 +25,7 @@ describe('booleanFactory', () => {
   });
 
   it('should call ctx.where with a predicate for notEquals', () => {
-    const fn = booleanFactory.notEquals<DummyType>(ctx);
+    const fn = booleanFactory.notEquals<DummyType, typeof ctx>(ctx);
     fn(field, false);
     expect(ctx.where).toHaveBeenCalled();
     const predicate = ctx.where.mock.calls[0][0];

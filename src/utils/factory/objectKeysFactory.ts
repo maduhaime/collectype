@@ -1,12 +1,12 @@
 import { ObjectKeysEnum } from '../../enums/objectOperation';
 import { ObjectKeysPredicate, objectKeysPredicate } from '../predicates/objectKeysPredicate';
-import { ObjectKeys, Wherable } from '../../types/utility';
+import { ByType, Wherable } from '../../types/utility';
 
 export const objectKeysFactory = {
   /**
    * Factory function that creates a reusable filter for object key presence (hasKey), designed for composition within the provided context.
    *
-   * @paramType T - The item type (inferred)
+   * @template T - The item type (inferred)
    * @param ctx - The context providing a `where` method
    * @returns A function that takes a field and a target key, and applies the filter
    *
@@ -18,7 +18,7 @@ export const objectKeysFactory = {
    * }
    */
   hasKey<T, C extends Wherable<T, C>>(ctx: C) {
-    return function (field: ObjectKeys<T>, target: Parameters<ObjectKeysPredicate>[2]) {
+    return function <K extends keyof ByType<T, object>>(field: K, target: Parameters<ObjectKeysPredicate>[2]) {
       return ctx.where((item: T) => {
         const obj = item[field] as object;
         return objectKeysPredicate(obj, ObjectKeysEnum.HAS_KEY, target);
@@ -28,7 +28,7 @@ export const objectKeysFactory = {
   /**
    * Factory function that creates a reusable filter for object all keys presence (hasAllKeys), designed for composition within the provided context.
    *
-   * @paramType T - The item type (inferred)
+   * @template T - The item type (inferred)
    * @param ctx - The context providing a `where` method
    * @returns A function that takes a field and a target key array, and applies the filter
    *
@@ -40,7 +40,7 @@ export const objectKeysFactory = {
    * }
    */
   hasAllKeys<T, C extends Wherable<T, C>>(ctx: C) {
-    return function (field: ObjectKeys<T>, target: Parameters<ObjectKeysPredicate>[2]) {
+    return function <K extends keyof ByType<T, object>>(field: K, target: Parameters<ObjectKeysPredicate>[2]) {
       return ctx.where((item: T) => {
         const obj = item[field] as object;
         return objectKeysPredicate(obj, ObjectKeysEnum.HAS_ALL_KEYS, target);
@@ -50,7 +50,7 @@ export const objectKeysFactory = {
   /**
    * Factory function that creates a reusable filter for object any key presence (hasAnyKey), designed for composition within the provided context.
    *
-   * @paramType T - The item type (inferred)
+   * @template T - The item type (inferred)
    * @param ctx - The context providing a `where` method
    * @returns A function that takes a field and a target key array, and applies the filter
    *
@@ -62,7 +62,7 @@ export const objectKeysFactory = {
    * }
    */
   hasAnyKey<T, C extends Wherable<T, C>>(ctx: C) {
-    return function (field: ObjectKeys<T>, target: Parameters<ObjectKeysPredicate>[2]) {
+    return function <K extends keyof ByType<T, object>>(field: K, target: Parameters<ObjectKeysPredicate>[2]) {
       return ctx.where((item: T) => {
         const obj = item[field] as object;
         return objectKeysPredicate(obj, ObjectKeysEnum.HAS_ANY_KEY, target);
@@ -72,7 +72,7 @@ export const objectKeysFactory = {
   /**
    * Factory function that creates a reusable filter for object exact keys (hasExactKeys), designed for composition within the provided context.
    *
-   * @paramType T - The item type (inferred)
+   * @template T - The item type (inferred)
    * @param ctx - The context providing a `where` method
    * @returns A function that takes a field and a target key array, and applies the filter
    *
@@ -84,7 +84,7 @@ export const objectKeysFactory = {
    * }
    */
   hasExactKeys<T, C extends Wherable<T, C>>(ctx: C) {
-    return function (field: ObjectKeys<T>, target: Parameters<ObjectKeysPredicate>[2]) {
+    return function <K extends keyof ByType<T, object>>(field: K, target: Parameters<ObjectKeysPredicate>[2]) {
       return ctx.where((item: T) => {
         const obj = item[field] as object;
         return objectKeysPredicate(obj, ObjectKeysEnum.HAS_EXACT_KEYS, target);
@@ -94,7 +94,7 @@ export const objectKeysFactory = {
   /**
    * Factory function that creates a reusable filter for object no keys (hasNoKeys), designed for composition within the provided context.
    *
-   * @paramType T - The item type (inferred)
+   * @template T - The item type (inferred)
    * @param ctx - The context providing a `where` method
    * @returns A function that takes a field and a target key array, and applies the filter
    *
@@ -106,7 +106,7 @@ export const objectKeysFactory = {
    * }
    */
   hasNoKeys<T, C extends Wherable<T, C>>(ctx: C) {
-    return function (field: ObjectKeys<T>, target: Parameters<ObjectKeysPredicate>[2]) {
+    return function <K extends keyof ByType<T, object>>(field: K, target: Parameters<ObjectKeysPredicate>[2]) {
       return ctx.where((item: T) => {
         const obj = item[field] as object;
         return objectKeysPredicate(obj, ObjectKeysEnum.HAS_NO_KEYS, target);

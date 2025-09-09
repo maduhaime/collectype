@@ -11,9 +11,9 @@ export type ObjectPrototypePredicate = (
 /**
  * Evaluates prototype-related operations on objects.
  *
- * @paramType {object} obj - The prototype object to check against.
- * @paramType {string} oper - The operation to perform (should be a string value matching ObjectPrototypeEnum).
- * @paramType {object} target - The object to test.
+ * @template {object} obj - The prototype object to check against.
+ * @template {string} oper - The operation to perform (should be a string value matching ObjectPrototypeEnum).
+ * @template {object} target - The object to test.
  * @returns {boolean} True if the operation is satisfied, otherwise throws an error.
  *
  * @example

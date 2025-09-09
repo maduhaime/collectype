@@ -12,7 +12,7 @@ export type ArrayIndexPredicate = <T>(
 /**
  * Evaluates an operation on an array element at a given index.
  * Supports equality, inclusion, exclusion, etc. at the specified index.
- * @paramType T - The type of array elements.
+ * @template T - The type of array elements.
  * @param arr - The array to test.
  * @param oper - The operation to perform (see ArrayIndexOperEnum).
  * @param index - The index to test.
@@ -20,8 +20,8 @@ export type ArrayIndexPredicate = <T>(
  * @returns Result of the operation.
  * @example
  * // DummyType is a placeholder for your type
- * arrayIndexPredicate<DummyType>(['A', 'B', 'C'], 'valueAtIndexEquals', 1, 'B'); // true
- * arrayIndexPredicate<DummyType>(['A', 'B', 'C'], 'valueAtIndexIn', 1, ['A', 'B']); // true
+ * arrayIndexPredicate<DummyType, typeof ctx>(['A', 'B', 'C'], 'valueAtIndexEquals', 1, 'B'); // true
+ * arrayIndexPredicate<DummyType, typeof ctx>(['A', 'B', 'C'], 'valueAtIndexIn', 1, ['A', 'B']); // true
  *
  * All condition blocks and throws are commented for clarity.
  *

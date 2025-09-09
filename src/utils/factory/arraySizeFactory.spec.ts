@@ -18,7 +18,7 @@ describe('arraySizeFactory', () => {
   });
 
   it('should call ctx.where with a predicate for lengthEquals', () => {
-    const fn = arraySizeFactory.lengthEquals<DummyType>(ctx);
+    const fn = arraySizeFactory.lengthEquals<DummyType, typeof ctx>(ctx);
     fn(field, n);
     expect(ctx.where).toHaveBeenCalled();
     const predicate = ctx.where.mock.calls[0][0];
@@ -26,7 +26,7 @@ describe('arraySizeFactory', () => {
   });
 
   it('should call ctx.where with a predicate for lengthGreaterThan', () => {
-    const fn = arraySizeFactory.lengthGreaterThan<DummyType>(ctx);
+    const fn = arraySizeFactory.lengthGreaterThan<DummyType, typeof ctx>(ctx);
     fn(field, n);
     expect(ctx.where).toHaveBeenCalled();
     const predicate = ctx.where.mock.calls[0][0];
@@ -34,7 +34,7 @@ describe('arraySizeFactory', () => {
   });
 
   it('should call ctx.where with a predicate for lengthGreaterThanOrEquals', () => {
-    const fn = arraySizeFactory.lengthGreaterThanOrEquals<DummyType>(ctx);
+    const fn = arraySizeFactory.lengthGreaterThanOrEquals<DummyType, typeof ctx>(ctx);
     fn(field, n);
     expect(ctx.where).toHaveBeenCalled();
     const predicate = ctx.where.mock.calls[0][0];
@@ -42,7 +42,7 @@ describe('arraySizeFactory', () => {
   });
 
   it('should call ctx.where with a predicate for lengthLessThan', () => {
-    const fn = arraySizeFactory.lengthLessThan<DummyType>(ctx);
+    const fn = arraySizeFactory.lengthLessThan<DummyType, typeof ctx>(ctx);
     fn(field, n);
     expect(ctx.where).toHaveBeenCalled();
     const predicate = ctx.where.mock.calls[0][0];
@@ -50,7 +50,7 @@ describe('arraySizeFactory', () => {
   });
 
   it('should call ctx.where with a predicate for lengthLessThanOrEquals', () => {
-    const fn = arraySizeFactory.lengthLessThanOrEquals<DummyType>(ctx);
+    const fn = arraySizeFactory.lengthLessThanOrEquals<DummyType, typeof ctx>(ctx);
     fn(field, n);
     expect(ctx.where).toHaveBeenCalled();
     const predicate = ctx.where.mock.calls[0][0];

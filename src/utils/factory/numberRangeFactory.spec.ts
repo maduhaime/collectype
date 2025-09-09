@@ -19,7 +19,7 @@ describe('numberRangeFactory', () => {
   });
 
   it('should call ctx.where with a predicate for inRange', () => {
-    const fn = numberRangeFactory.inRange<DummyType>(ctx);
+    const fn = numberRangeFactory.inRange<DummyType, typeof ctx>(ctx);
     fn(field, min, max);
     expect(ctx.where).toHaveBeenCalled();
     const predicate = ctx.where.mock.calls[0][0];
@@ -27,7 +27,7 @@ describe('numberRangeFactory', () => {
   });
 
   it('should call ctx.where with a predicate for outRange', () => {
-    const fn = numberRangeFactory.outRange<DummyType>(ctx);
+    const fn = numberRangeFactory.outRange<DummyType, typeof ctx>(ctx);
     fn(field, min, max);
     expect(ctx.where).toHaveBeenCalled();
     const predicate = ctx.where.mock.calls[0][0];
@@ -35,7 +35,7 @@ describe('numberRangeFactory', () => {
   });
 
   it('should call ctx.where with a predicate for strictInRange', () => {
-    const fn = numberRangeFactory.strictInRange<DummyType>(ctx);
+    const fn = numberRangeFactory.strictInRange<DummyType, typeof ctx>(ctx);
     fn(field, min, max);
     expect(ctx.where).toHaveBeenCalled();
     const predicate = ctx.where.mock.calls[0][0];
@@ -43,7 +43,7 @@ describe('numberRangeFactory', () => {
   });
 
   it('should call ctx.where with a predicate for strictOutRange', () => {
-    const fn = numberRangeFactory.strictOutRange<DummyType>(ctx);
+    const fn = numberRangeFactory.strictOutRange<DummyType, typeof ctx>(ctx);
     fn(field, min, max);
     expect(ctx.where).toHaveBeenCalled();
     const predicate = ctx.where.mock.calls[0][0];

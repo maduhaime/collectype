@@ -11,9 +11,9 @@ export type ObjectInstancePredicate = (
 /**
  * Evaluates instance-related operations on objects and targets.
  *
- * @paramType {any} obj - The object to test.
- * @paramType {string} oper - The operation to perform (should be a string value matching ObjectInstanceEnum).
- * @paramType {Function} target - The constructor function to check against.
+ * @template {any} obj - The object to test.
+ * @template {string} oper - The operation to perform (should be a string value matching ObjectInstanceEnum).
+ * @template {Function} target - The constructor function to check against.
  * @returns {boolean} True if the operation is satisfied, otherwise throws an error.
  *
  * @example

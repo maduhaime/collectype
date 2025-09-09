@@ -23,7 +23,7 @@ describe('objectStateFactory', () => {
   });
 
   it('should call ctx.where with a predicate for isEmpty', () => {
-    const fn = objectStateFactory.isEmpty<DummyType>(ctx);
+    const fn = objectStateFactory.isEmpty<DummyType, typeof ctx>(ctx);
     fn(field);
     expect(ctx.where).toHaveBeenCalled();
     const predicate = ctx.where.mock.calls[0][0];
@@ -31,7 +31,7 @@ describe('objectStateFactory', () => {
   });
 
   it('should call ctx.where with a predicate for isPlain', () => {
-    const fn = objectStateFactory.isPlain<DummyType>(ctx);
+    const fn = objectStateFactory.isPlain<DummyType, typeof ctx>(ctx);
     fn(field);
     expect(ctx.where).toHaveBeenCalled();
     const predicate = ctx.where.mock.calls[0][0];
@@ -39,7 +39,7 @@ describe('objectStateFactory', () => {
   });
 
   it('should call ctx.where with a predicate for hasNumericKeys', () => {
-    const fn = objectStateFactory.hasNumericKeys<DummyType>(ctx);
+    const fn = objectStateFactory.hasNumericKeys<DummyType, typeof ctx>(ctx);
     fn(field);
     expect(ctx.where).toHaveBeenCalled();
     const predicate = ctx.where.mock.calls[0][0];
@@ -47,7 +47,7 @@ describe('objectStateFactory', () => {
   });
 
   it('should call ctx.where with a predicate for hasCamelcaseKeys', () => {
-    const fn = objectStateFactory.hasCamelcaseKeys<DummyType>(ctx);
+    const fn = objectStateFactory.hasCamelcaseKeys<DummyType, typeof ctx>(ctx);
     fn(field);
     expect(ctx.where).toHaveBeenCalled();
     const predicate = ctx.where.mock.calls[0][0];
@@ -55,7 +55,7 @@ describe('objectStateFactory', () => {
   });
 
   it('should call ctx.where with a predicate for hasNestedObject', () => {
-    const fn = objectStateFactory.hasNestedObject<DummyType>(ctx);
+    const fn = objectStateFactory.hasNestedObject<DummyType, typeof ctx>(ctx);
     fn(field);
     expect(ctx.where).toHaveBeenCalled();
     const predicate = ctx.where.mock.calls[0][0];
@@ -63,7 +63,7 @@ describe('objectStateFactory', () => {
   });
 
   it('should call ctx.where with a predicate for isFrozen', () => {
-    const fn = objectStateFactory.isFrozen<DummyType>(ctx);
+    const fn = objectStateFactory.isFrozen<DummyType, typeof ctx>(ctx);
     fn(field);
     expect(ctx.where).toHaveBeenCalled();
     const predicate = ctx.where.mock.calls[0][0];
@@ -71,7 +71,7 @@ describe('objectStateFactory', () => {
   });
 
   it('should call ctx.where with a predicate for isSealed', () => {
-    const fn = objectStateFactory.isSealed<DummyType>(ctx);
+    const fn = objectStateFactory.isSealed<DummyType, typeof ctx>(ctx);
     fn(field);
     expect(ctx.where).toHaveBeenCalled();
     const predicate = ctx.where.mock.calls[0][0];

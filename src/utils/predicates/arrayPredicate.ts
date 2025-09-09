@@ -10,15 +10,15 @@ export type ArrayPredicate = <T>(arr: T[], oper: EnumOrString<typeof ArrayOperEn
 /**
  * Evaluates an operation on an array according to the provided operator.
  * Supports inclusion, equality, subset, sequence, and other array operations.
- * @paramType T - The type of array elements.
+ * @template T - The type of array elements.
  * @param arr - The array to test.
  * @param oper - The operation to perform (see ArrayOperEnum).
  * @param target - The value or array to compare, depending on the operation.
  * @returns Result of the operation.
  * @example
  * // DummyType is a placeholder for your type
- * arrayPredicate<DummyType>(['A', 'B'], 'includes', 'A'); // true
- * arrayPredicate<DummyType>(['A', 'B'], 'equals', ['A', 'B']); // true
+ * arrayPredicate<DummyType, typeof ctx>(['A', 'B'], 'includes', 'A'); // true
+ * arrayPredicate<DummyType, typeof ctx>(['A', 'B'], 'equals', ['A', 'B']); // true
  *
  * All condition blocks and throws are commented for clarity.
  *

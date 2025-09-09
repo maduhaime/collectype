@@ -7,7 +7,7 @@ export type NumberPredicate = (source: number, oper: EnumOrString<typeof NumberO
 /**
  * Evaluates a number value against a target using the specified operator.
  * Supports equality and comparison checks.
- * @paramType DummyType - The type of the number value (for example purposes).
+ * @template DummyType - The type of the number value (for example purposes).
  * @param source - The source number value.
  * @param oper - The operator to apply (see NumberOperEnum).
  * @param target - The target number value.

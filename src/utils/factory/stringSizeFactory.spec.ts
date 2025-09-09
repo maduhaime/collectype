@@ -18,7 +18,7 @@ describe('stringSizeFactory', () => {
   });
 
   it('should call ctx.where with a predicate for lengthEquals', () => {
-    const fn = stringSizeFactory.lengthEquals<DummyType>(ctx);
+    const fn = stringSizeFactory.lengthEquals<DummyType, typeof ctx>(ctx);
     fn(field, num);
     expect(ctx.where).toHaveBeenCalled();
     const predicate = ctx.where.mock.calls[0][0];
@@ -26,7 +26,7 @@ describe('stringSizeFactory', () => {
   });
 
   it('should call ctx.where with a predicate for lengthGreaterThan', () => {
-    const fn = stringSizeFactory.lengthGreaterThan<DummyType>(ctx);
+    const fn = stringSizeFactory.lengthGreaterThan<DummyType, typeof ctx>(ctx);
     fn(field, num);
     expect(ctx.where).toHaveBeenCalled();
     const predicate = ctx.where.mock.calls[0][0];
@@ -34,7 +34,7 @@ describe('stringSizeFactory', () => {
   });
 
   it('should call ctx.where with a predicate for lengthGreaterThanOrEquals', () => {
-    const fn = stringSizeFactory.lengthGreaterThanOrEquals<DummyType>(ctx);
+    const fn = stringSizeFactory.lengthGreaterThanOrEquals<DummyType, typeof ctx>(ctx);
     fn(field, num);
     expect(ctx.where).toHaveBeenCalled();
     const predicate = ctx.where.mock.calls[0][0];
@@ -42,7 +42,7 @@ describe('stringSizeFactory', () => {
   });
 
   it('should call ctx.where with a predicate for lengthLessThan', () => {
-    const fn = stringSizeFactory.lengthLessThan<DummyType>(ctx);
+    const fn = stringSizeFactory.lengthLessThan<DummyType, typeof ctx>(ctx);
     fn(field, num);
     expect(ctx.where).toHaveBeenCalled();
     const predicate = ctx.where.mock.calls[0][0];
@@ -50,7 +50,7 @@ describe('stringSizeFactory', () => {
   });
 
   it('should call ctx.where with a predicate for lengthLessThanOrEquals', () => {
-    const fn = stringSizeFactory.lengthLessThanOrEquals<DummyType>(ctx);
+    const fn = stringSizeFactory.lengthLessThanOrEquals<DummyType, typeof ctx>(ctx);
     fn(field, num);
     expect(ctx.where).toHaveBeenCalled();
     const predicate = ctx.where.mock.calls[0][0];

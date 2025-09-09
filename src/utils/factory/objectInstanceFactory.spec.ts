@@ -19,7 +19,7 @@ describe('objectInstanceFactory', () => {
   });
 
   it('should call ctx.where with a predicate for isInstanceOf', () => {
-    const fn = objectInstanceFactory.isInstanceOf<DummyType>(ctx);
+    const fn = objectInstanceFactory.isInstanceOf<DummyType, typeof ctx>(ctx);
     fn(field, MyClass);
     expect(ctx.where).toHaveBeenCalled();
     const predicate = ctx.where.mock.calls[0][0];
@@ -27,7 +27,7 @@ describe('objectInstanceFactory', () => {
   });
 
   it('should call ctx.where with a predicate for isConstructor', () => {
-    const fn = objectInstanceFactory.isConstructor<DummyType>(ctx);
+    const fn = objectInstanceFactory.isConstructor<DummyType, typeof ctx>(ctx);
     fn(field, Function);
     expect(ctx.where).toHaveBeenCalled();
     const predicate = ctx.where.mock.calls[0][0];

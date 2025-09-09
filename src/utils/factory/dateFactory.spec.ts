@@ -18,7 +18,7 @@ describe('dateFactory', () => {
   });
 
   it('should call ctx.where with a predicate for equals', () => {
-    const fn = dateFactory.equals<DummyType>(ctx);
+    const fn = dateFactory.equals<DummyType, typeof ctx>(ctx);
     fn(field, target);
     expect(ctx.where).toHaveBeenCalled();
     const predicate = ctx.where.mock.calls[0][0];
@@ -26,7 +26,7 @@ describe('dateFactory', () => {
   });
 
   it('should call ctx.where with a predicate for notEquals', () => {
-    const fn = dateFactory.notEquals<DummyType>(ctx);
+    const fn = dateFactory.notEquals<DummyType, typeof ctx>(ctx);
     fn(field, target);
     expect(ctx.where).toHaveBeenCalled();
     const predicate = ctx.where.mock.calls[0][0];
@@ -34,7 +34,7 @@ describe('dateFactory', () => {
   });
 
   it('should call ctx.where with a predicate for occursBefore', () => {
-    const fn = dateFactory.occursBefore<DummyType>(ctx);
+    const fn = dateFactory.occursBefore<DummyType, typeof ctx>(ctx);
     fn(field, target);
     expect(ctx.where).toHaveBeenCalled();
     const predicate = ctx.where.mock.calls[0][0];
@@ -42,7 +42,7 @@ describe('dateFactory', () => {
   });
 
   it('should call ctx.where with a predicate for occursOnOrBefore', () => {
-    const fn = dateFactory.occursOnOrBefore<DummyType>(ctx);
+    const fn = dateFactory.occursOnOrBefore<DummyType, typeof ctx>(ctx);
     fn(field, target);
     expect(ctx.where).toHaveBeenCalled();
     const predicate = ctx.where.mock.calls[0][0];
@@ -50,7 +50,7 @@ describe('dateFactory', () => {
   });
 
   it('should call ctx.where with a predicate for occursAfter', () => {
-    const fn = dateFactory.occursAfter<DummyType>(ctx);
+    const fn = dateFactory.occursAfter<DummyType, typeof ctx>(ctx);
     fn(field, target);
     expect(ctx.where).toHaveBeenCalled();
     const predicate = ctx.where.mock.calls[0][0];
@@ -58,7 +58,7 @@ describe('dateFactory', () => {
   });
 
   it('should call ctx.where with a predicate for occursOnOrAfter', () => {
-    const fn = dateFactory.occursOnOrAfter<DummyType>(ctx);
+    const fn = dateFactory.occursOnOrAfter<DummyType, typeof ctx>(ctx);
     fn(field, target);
     expect(ctx.where).toHaveBeenCalled();
     const predicate = ctx.where.mock.calls[0][0];

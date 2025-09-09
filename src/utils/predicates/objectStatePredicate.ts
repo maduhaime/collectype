@@ -9,8 +9,8 @@ export type ObjectStatePredicate = (obj: Record<string, any>, oper: EnumOrString
  * Each operation checks a specific property or characteristic of the object.
  * Throws an error if an unknown operation is passed.
  *
- * @paramType {Record<string, any>} obj - The object to evaluate.
- * @paramType {string} oper - The operation to perform (should be a string value matching ObjectStateEnum).
+ * @template {Record<string, any>} obj - The object to evaluate.
+ * @template {string} oper - The operation to perform (should be a string value matching ObjectStateEnum).
  * @returns {boolean} True if the object matches the operation, false otherwise.
  *
  * @example

@@ -166,7 +166,7 @@ const collection2 = new Collection(people, BaseFunctions);
   ```typescript
   /**
    * Generic constructor type for a class taking any array as argument.
-   * @paramType T The instance type returned by the constructor.
+   * @template T The instance type returned by the constructor.
    */
   export type Constructor<T> = new (items: any[]) => T;
   ```
@@ -211,8 +211,8 @@ import { GenderEnum, Person } from '../models/Person';
 
 export class PersonFunctions extends BaseFunctions<Person> {
   // Composition
-  stringEquals = stringFactory.equals(this);
-  numberInRange = numberRangeFactory.inRange(this);
+  stringEquals = stringFactory.equals<T, this>(this);
+  numberInRange = numberRangeFactory.inRange<T, this>(this);
 }
 
 export class PersonCollection extends Collection<Person, PersonFunctions> {

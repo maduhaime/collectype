@@ -18,7 +18,7 @@ describe('stringMembershipFactory', () => {
   });
 
   it('should call ctx.where with a predicate for isOneOf', () => {
-    const fn = stringMembershipFactory.isOneOf<DummyType>(ctx);
+    const fn = stringMembershipFactory.isOneOf<DummyType, typeof ctx>(ctx);
     fn(field, targets);
     expect(ctx.where).toHaveBeenCalled();
     const predicate = ctx.where.mock.calls[0][0];
@@ -26,7 +26,7 @@ describe('stringMembershipFactory', () => {
   });
 
   it('should call ctx.where with a predicate for isNotOneOf', () => {
-    const fn = stringMembershipFactory.isNotOneOf<DummyType>(ctx);
+    const fn = stringMembershipFactory.isNotOneOf<DummyType, typeof ctx>(ctx);
     fn(field, targets);
     expect(ctx.where).toHaveBeenCalled();
     const predicate = ctx.where.mock.calls[0][0];
@@ -36,7 +36,7 @@ describe('stringMembershipFactory', () => {
   });
 
   it('should handle empty target array for isOneOf', () => {
-    const fn = stringMembershipFactory.isOneOf<DummyType>(ctx);
+    const fn = stringMembershipFactory.isOneOf<DummyType, typeof ctx>(ctx);
     fn(field, []);
     expect(ctx.where).toHaveBeenCalled();
     const predicate = ctx.where.mock.calls[0][0];
@@ -44,7 +44,7 @@ describe('stringMembershipFactory', () => {
   });
 
   it('should handle empty target array for isNotOneOf', () => {
-    const fn = stringMembershipFactory.isNotOneOf<DummyType>(ctx);
+    const fn = stringMembershipFactory.isNotOneOf<DummyType, typeof ctx>(ctx);
     fn(field, []);
     expect(ctx.where).toHaveBeenCalled();
     const predicate = ctx.where.mock.calls[0][0];

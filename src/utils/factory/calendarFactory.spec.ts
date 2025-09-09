@@ -18,7 +18,7 @@ describe('calendarFactory', () => {
   });
 
   it('should call ctx.where with a predicate for isToday', () => {
-    const fn = calendarFactory.isToday<DummyType>(ctx);
+    const fn = calendarFactory.isToday<DummyType, typeof ctx>(ctx);
     fn(field, today);
     expect(ctx.where).toHaveBeenCalled();
     const predicate = ctx.where.mock.calls[0][0];
@@ -26,7 +26,7 @@ describe('calendarFactory', () => {
   });
 
   it('should call ctx.where with a predicate for isYesterday', () => {
-    const fn = calendarFactory.isYesterday<DummyType>(ctx);
+    const fn = calendarFactory.isYesterday<DummyType, typeof ctx>(ctx);
     fn(field, today);
     expect(ctx.where).toHaveBeenCalled();
     const predicate = ctx.where.mock.calls[0][0];
@@ -34,7 +34,7 @@ describe('calendarFactory', () => {
   });
 
   it('should call ctx.where with a predicate for isBeforeToday', () => {
-    const fn = calendarFactory.isBeforeToday<DummyType>(ctx);
+    const fn = calendarFactory.isBeforeToday<DummyType, typeof ctx>(ctx);
     fn(field, today);
     expect(ctx.where).toHaveBeenCalled();
     const predicate = ctx.where.mock.calls[0][0];
@@ -42,7 +42,7 @@ describe('calendarFactory', () => {
   });
 
   it('should call ctx.where with a predicate for isAfterToday', () => {
-    const fn = calendarFactory.isAfterToday<DummyType>(ctx);
+    const fn = calendarFactory.isAfterToday<DummyType, typeof ctx>(ctx);
     fn(field, today);
     expect(ctx.where).toHaveBeenCalled();
     const predicate = ctx.where.mock.calls[0][0];
@@ -50,7 +50,7 @@ describe('calendarFactory', () => {
   });
 
   it('should call ctx.where with a predicate for isFuture', () => {
-    const fn = calendarFactory.isFuture<DummyType>(ctx);
+    const fn = calendarFactory.isFuture<DummyType, typeof ctx>(ctx);
     fn(field, today);
     expect(ctx.where).toHaveBeenCalled();
     const predicate = ctx.where.mock.calls[0][0];
@@ -58,7 +58,7 @@ describe('calendarFactory', () => {
   });
 
   it('should call ctx.where with a predicate for isPast', () => {
-    const fn = calendarFactory.isPast<DummyType>(ctx);
+    const fn = calendarFactory.isPast<DummyType, typeof ctx>(ctx);
     fn(field, today);
     expect(ctx.where).toHaveBeenCalled();
     const predicate = ctx.where.mock.calls[0][0];
@@ -66,7 +66,7 @@ describe('calendarFactory', () => {
   });
 
   it('should call ctx.where with a predicate for isWeekend', () => {
-    const fn = calendarFactory.isWeekend<DummyType>(ctx);
+    const fn = calendarFactory.isWeekend<DummyType, typeof ctx>(ctx);
     fn(field, today);
     expect(ctx.where).toHaveBeenCalled();
     const predicate = ctx.where.mock.calls[0][0];
@@ -74,7 +74,7 @@ describe('calendarFactory', () => {
   });
 
   it('should call ctx.where with a predicate for isWeekday', () => {
-    const fn = calendarFactory.isWeekday<DummyType>(ctx);
+    const fn = calendarFactory.isWeekday<DummyType, typeof ctx>(ctx);
     fn(field, today);
     expect(ctx.where).toHaveBeenCalled();
     const predicate = ctx.where.mock.calls[0][0];

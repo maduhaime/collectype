@@ -1,12 +1,12 @@
 import { ObjectStateEnum } from '../../enums/objectOperation';
 import { objectStatePredicate } from '../predicates/objectStatePredicate';
-import { ObjectKeys, Wherable } from '../../types/utility';
+import { ByType, Wherable } from '../../types/utility';
 
 export const objectStateFactory = {
   /**
    * Factory function that creates a reusable filter for empty objects, designed for composition within the provided context.
    *
-   * @paramType T - The item type (inferred)
+   * @template T - The item type (inferred)
    * @param ctx - The context providing a `where` method
    * @returns A function that takes a field and applies the filter
    *
@@ -18,7 +18,7 @@ export const objectStateFactory = {
    * }
    */
   isEmpty<T, C extends Wherable<T, C>>(ctx: C) {
-    return function (field: ObjectKeys<T>) {
+    return function <K extends keyof ByType<T, object>>(field: K) {
       return ctx.where((item: T) => {
         const obj = item[field] as object;
         return objectStatePredicate(obj, ObjectStateEnum.IS_EMPTY);
@@ -28,7 +28,7 @@ export const objectStateFactory = {
   /**
    * Factory function that creates a reusable filter for plain objects, designed for composition within the provided context.
    *
-   * @paramType T - The item type (inferred)
+   * @template T - The item type (inferred)
    * @param ctx - The context providing a `where` method
    * @returns A function that takes a field and applies the filter
    *
@@ -40,7 +40,7 @@ export const objectStateFactory = {
    * }
    */
   isPlain<T, C extends Wherable<T, C>>(ctx: C) {
-    return function (field: ObjectKeys<T>) {
+    return function <K extends keyof ByType<T, object>>(field: K) {
       return ctx.where((item: T) => {
         const obj = item[field] as object;
         return objectStatePredicate(obj, ObjectStateEnum.IS_PLAIN);
@@ -50,7 +50,7 @@ export const objectStateFactory = {
   /**
    * Factory function that creates a reusable filter for objects with numeric keys, designed for composition within the provided context.
    *
-   * @paramType T - The item type (inferred)
+   * @template T - The item type (inferred)
    * @param ctx - The context providing a `where` method
    * @returns A function that takes a field and applies the filter
    *
@@ -62,7 +62,7 @@ export const objectStateFactory = {
    * }
    */
   hasNumericKeys<T, C extends Wherable<T, C>>(ctx: C) {
-    return function (field: ObjectKeys<T>) {
+    return function <K extends keyof ByType<T, object>>(field: K) {
       return ctx.where((item: T) => {
         const obj = item[field] as object;
         return objectStatePredicate(obj, ObjectStateEnum.HAS_NUMERIC_KEYS);
@@ -72,7 +72,7 @@ export const objectStateFactory = {
   /**
    * Factory function that creates a reusable filter for objects with camelCase keys, designed for composition within the provided context.
    *
-   * @paramType T - The item type (inferred)
+   * @template T - The item type (inferred)
    * @param ctx - The context providing a `where` method
    * @returns A function that takes a field and applies the filter
    *
@@ -84,7 +84,7 @@ export const objectStateFactory = {
    * }
    */
   hasCamelcaseKeys<T, C extends Wherable<T, C>>(ctx: C) {
-    return function (field: ObjectKeys<T>) {
+    return function <K extends keyof ByType<T, object>>(field: K) {
       return ctx.where((item: T) => {
         const obj = item[field] as object;
         return objectStatePredicate(obj, ObjectStateEnum.HAS_CAMELCASE_KEYS);
@@ -94,7 +94,7 @@ export const objectStateFactory = {
   /**
    * Factory function that creates a reusable filter for objects with nested objects, designed for composition within the provided context.
    *
-   * @paramType T - The item type (inferred)
+   * @template T - The item type (inferred)
    * @param ctx - The context providing a `where` method
    * @returns A function that takes a field and applies the filter
    *
@@ -106,7 +106,7 @@ export const objectStateFactory = {
    * }
    */
   hasNestedObject<T, C extends Wherable<T, C>>(ctx: C) {
-    return function (field: ObjectKeys<T>) {
+    return function <K extends keyof ByType<T, object>>(field: K) {
       return ctx.where((item: T) => {
         const obj = item[field] as object;
         return objectStatePredicate(obj, ObjectStateEnum.HAS_NESTED_OBJECT);
@@ -116,7 +116,7 @@ export const objectStateFactory = {
   /**
    * Factory function that creates a reusable filter for frozen objects, designed for composition within the provided context.
    *
-   * @paramType T - The item type (inferred)
+   * @template T - The item type (inferred)
    * @param ctx - The context providing a `where` method
    * @returns A function that takes a field and applies the filter
    *
@@ -128,7 +128,7 @@ export const objectStateFactory = {
    * }
    */
   isFrozen<T, C extends Wherable<T, C>>(ctx: C) {
-    return function (field: ObjectKeys<T>) {
+    return function <K extends keyof ByType<T, object>>(field: K) {
       return ctx.where((item: T) => {
         const obj = item[field] as object;
         return objectStatePredicate(obj, ObjectStateEnum.IS_FROZEN);
@@ -138,7 +138,7 @@ export const objectStateFactory = {
   /**
    * Factory function that creates a reusable filter for sealed objects, designed for composition within the provided context.
    *
-   * @paramType T - The item type (inferred)
+   * @template T - The item type (inferred)
    * @param ctx - The context providing a `where` method
    * @returns A function that takes a field and applies the filter
    *
@@ -150,7 +150,7 @@ export const objectStateFactory = {
    * }
    */
   isSealed<T, C extends Wherable<T, C>>(ctx: C) {
-    return function (field: ObjectKeys<T>) {
+    return function <K extends keyof ByType<T, object>>(field: K) {
       return ctx.where((item: T) => {
         const obj = item[field] as object;
         return objectStatePredicate(obj, ObjectStateEnum.IS_SEALED);

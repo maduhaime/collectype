@@ -20,7 +20,7 @@ describe('objectAttributesFactory', () => {
   });
 
   it('should call ctx.where with a predicate for isWritable', () => {
-    const fn = objectAttributesFactory.isWritable<DummyType>(ctx);
+    const fn = objectAttributesFactory.isWritable<DummyType, typeof ctx>(ctx);
     fn(field, key);
     expect(ctx.where).toHaveBeenCalled();
     const predicate = ctx.where.mock.calls[0][0];
@@ -28,7 +28,7 @@ describe('objectAttributesFactory', () => {
   });
 
   it('should call ctx.where with a predicate for isEnumerable', () => {
-    const fn = objectAttributesFactory.isEnumerable<DummyType>(ctx);
+    const fn = objectAttributesFactory.isEnumerable<DummyType, typeof ctx>(ctx);
     fn(field, key);
     expect(ctx.where).toHaveBeenCalled();
     const predicate = ctx.where.mock.calls[0][0];
@@ -36,7 +36,7 @@ describe('objectAttributesFactory', () => {
   });
 
   it('should call ctx.where with a predicate for isConfigurable', () => {
-    const fn = objectAttributesFactory.isConfigurable<DummyType>(ctx);
+    const fn = objectAttributesFactory.isConfigurable<DummyType, typeof ctx>(ctx);
     fn(field, key);
     expect(ctx.where).toHaveBeenCalled();
     const predicate = ctx.where.mock.calls[0][0];

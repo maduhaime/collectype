@@ -2,7 +2,6 @@ import { hasNull } from '../primitives/null';
 import { hasUndefined } from '../primitives/undefined';
 import { SortDir } from '../../types/sort';
 import { SortDirEnum } from '../../enums/sort';
-import { ByType } from '../../types/utility';
 
 /**
  * Sorts two values when at least one is undefined.
@@ -66,7 +65,7 @@ export function sortNull(a: unknown, b: unknown, dir: SortDir): number {
  * // Compositional usage:
  * const sorted = sortByStringField(items, 'label', 'desc');
  */
-export function sortByStringField<T, K extends keyof ByType<T, string>>(
+export function sortByStringField<T, K extends keyof T>(
   collection: T[],
   field: K,
   dir: SortDir = SortDirEnum.ASC
@@ -102,7 +101,7 @@ export function sortByStringField<T, K extends keyof ByType<T, string>>(
  * // Compositional usage:
  * const sorted = sortByNumberField(items, 'qty', 'desc');
  */
-export function sortByNumberField<T, K extends keyof ByType<T, number>>(
+export function sortByNumberField<T, K extends keyof T>(
   collection: T[],
   field: K,
   dir: SortDir = SortDirEnum.ASC
@@ -138,11 +137,7 @@ export function sortByNumberField<T, K extends keyof ByType<T, number>>(
  * // Compositional usage:
  * const sorted = sortByDateField(items, 'createdAt', 'desc');
  */
-export function sortByDateField<T, K extends keyof ByType<T, Date>>(
-  collection: T[],
-  field: K,
-  dir: SortDir = SortDirEnum.ASC
-): T[] {
+export function sortByDateField<T, K extends keyof T>(collection: T[], field: K, dir: SortDir = SortDirEnum.ASC): T[] {
   return collection.sort((itemA: T, itemB: T) => {
     if (hasUndefined(itemA[field], itemB[field])) return sortUndefined(itemA[field], itemB[field], dir);
     if (hasNull(itemA[field], itemB[field])) return sortNull(itemA[field], itemB[field], dir);
@@ -174,7 +169,7 @@ export function sortByDateField<T, K extends keyof ByType<T, Date>>(
  * // Compositional usage:
  * const sorted = sortByBooleanField(items, 'isActive', 'desc');
  */
-export function sortByBooleanField<T, K extends keyof ByType<T, boolean>>(
+export function sortByBooleanField<T, K extends keyof T>(
   collection: T[],
   field: K,
   dir: SortDir = SortDirEnum.ASC

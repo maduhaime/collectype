@@ -1,13 +1,13 @@
 import { BooleanOperEnum } from '../../enums/booleanOperation';
 import { BooleanPredicate, booleanPredicate } from '../../utils/predicates/booleanPredicate';
-import { BooleanKeys, Wherable } from '../../types/utility';
+import { ByType, Wherable } from '../../types/utility';
 
 function equals<T, C extends Wherable<T, C>>(ctx: C) {
   /**
    * Factory function that creates a reusable filter for boolean fields, designed for composition within the provided context.
    * The returned filter can be used to declaratively build complex queries.
    *
-   * @paramType T - The item type (inferred)
+   * @template T - The item type (inferred)
    * @param ctx - The context providing a `where` method
    * @returns A function that takes a field and a target value, and applies the filter
    *
@@ -18,7 +18,7 @@ function equals<T, C extends Wherable<T, C>>(ctx: C) {
    *   booleanEquals = booleanFactory.equals(this);
    * }
    */
-  return function (field: BooleanKeys<T>, target: Parameters<BooleanPredicate>[2]) {
+  return function <K extends keyof ByType<T, boolean>>(field: K, target: Parameters<BooleanPredicate>[2]) {
     return ctx.where((item: T) => {
       const source = item[field] as boolean;
       return booleanPredicate(source, BooleanOperEnum.EQUALS, target);
@@ -31,7 +31,7 @@ function notEquals<T, C extends Wherable<T, C>>(ctx: C) {
    * Factory function that creates a reusable filter for boolean fields, designed for composition within the provided context.
    * The returned filter can be used to declaratively build complex queries.
    *
-   * @paramType T - The item type (inferred)
+   * @template T - The item type (inferred)
    * @param ctx - The context providing a `where` method
    * @returns A function that takes a field and a target value, and applies the filter
    *
@@ -42,7 +42,7 @@ function notEquals<T, C extends Wherable<T, C>>(ctx: C) {
    *   booleanNotEquals = booleanFactory.notEquals(this);
    * }
    */
-  return function (field: BooleanKeys<T>, target: Parameters<BooleanPredicate>[2]) {
+  return function <K extends keyof ByType<T, boolean>>(field: K, target: Parameters<BooleanPredicate>[2]) {
     return ctx.where((item: T) => {
       const source = item[field] as boolean;
       return booleanPredicate(source, BooleanOperEnum.NOT_EQUALS, target);

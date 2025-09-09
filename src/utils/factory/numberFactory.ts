@@ -1,12 +1,12 @@
 import { NumberOperEnum } from '../../enums/numberOperation';
 import { NumberPredicate, numberPredicate } from '../../utils/predicates/numberPredicate';
-import { NumberKeys, Wherable } from '../../types/utility';
+import { ByType, Wherable } from '../../types/utility';
 
 /**
  * Factory function that creates a reusable filter for number equality, designed for composition within the provided context.
  * The returned filter can be used to declaratively build complex queries.
  *
- * @paramType T - The item type (inferred)
+ * @template T - The item type (inferred)
  * @param ctx - The context providing a `where` method
  * @returns A function that takes a field and a target number, and applies the filter
  *
@@ -18,7 +18,7 @@ import { NumberKeys, Wherable } from '../../types/utility';
  * }
  */
 function equals<T, C extends Wherable<T, C>>(ctx: C) {
-  return function (field: NumberKeys<T>, target: Parameters<NumberPredicate>[2]) {
+  return function <K extends keyof ByType<T, number>>(field: K, target: Parameters<NumberPredicate>[2]) {
     return ctx.where((item: T) => {
       const source = item[field] as number;
       return numberPredicate(source, NumberOperEnum.EQUALS, target);
@@ -30,7 +30,7 @@ function equals<T, C extends Wherable<T, C>>(ctx: C) {
  * Factory function that creates a reusable filter for number inequality, designed for composition within the provided context.
  * The returned filter can be used to declaratively build complex queries.
  *
- * @paramType T - The item type (inferred)
+ * @template T - The item type (inferred)
  * @param ctx - The context providing a `where` method
  * @returns A function that takes a field and a target number, and applies the filter
  *
@@ -42,7 +42,7 @@ function equals<T, C extends Wherable<T, C>>(ctx: C) {
  * }
  */
 function notEquals<T, C extends Wherable<T, C>>(ctx: C) {
-  return function (field: NumberKeys<T>, target: Parameters<NumberPredicate>[2]) {
+  return function <K extends keyof ByType<T, number>>(field: K, target: Parameters<NumberPredicate>[2]) {
     return ctx.where((item: T) => {
       const source = item[field] as number;
       return numberPredicate(source, NumberOperEnum.NOT_EQUALS, target);
@@ -53,7 +53,7 @@ function notEquals<T, C extends Wherable<T, C>>(ctx: C) {
 /**
  * Factory function that creates a reusable filter for number less than, designed for composition within the provided context.
  *
- * @paramType T - The item type (inferred)
+ * @template T - The item type (inferred)
  * @param ctx - The context providing a `where` method
  * @returns A function that takes a field and a target number, and applies the filter
  *
@@ -65,7 +65,7 @@ function notEquals<T, C extends Wherable<T, C>>(ctx: C) {
  * }
  */
 function lessThan<T, C extends Wherable<T, C>>(ctx: C) {
-  return function (field: NumberKeys<T>, target: Parameters<NumberPredicate>[2]) {
+  return function <K extends keyof ByType<T, number>>(field: K, target: Parameters<NumberPredicate>[2]) {
     return ctx.where((item: T) => {
       const source = item[field] as number;
       return numberPredicate(source, NumberOperEnum.LESS_THAN, target);
@@ -76,7 +76,7 @@ function lessThan<T, C extends Wherable<T, C>>(ctx: C) {
 /**
  * Factory function that creates a reusable filter for number less than or equals, designed for composition within the provided context.
  *
- * @paramType T - The item type (inferred)
+ * @template T - The item type (inferred)
  * @param ctx - The context providing a `where` method
  * @returns A function that takes a field and a target number, and applies the filter
  *
@@ -88,7 +88,7 @@ function lessThan<T, C extends Wherable<T, C>>(ctx: C) {
  * }
  */
 function lessThanOrEquals<T, C extends Wherable<T, C>>(ctx: C) {
-  return function (field: NumberKeys<T>, target: Parameters<NumberPredicate>[2]) {
+  return function <K extends keyof ByType<T, number>>(field: K, target: Parameters<NumberPredicate>[2]) {
     return ctx.where((item: T) => {
       const source = item[field] as number;
       return numberPredicate(source, NumberOperEnum.LESS_THAN_OR_EQUALS, target);
@@ -99,7 +99,7 @@ function lessThanOrEquals<T, C extends Wherable<T, C>>(ctx: C) {
 /**
  * Factory function that creates a reusable filter for number greater than, designed for composition within the provided context.
  *
- * @paramType T - The item type (inferred)
+ * @template T - The item type (inferred)
  * @param ctx - The context providing a `where` method
  * @returns A function that takes a field and a target number, and applies the filter
  *
@@ -111,7 +111,7 @@ function lessThanOrEquals<T, C extends Wherable<T, C>>(ctx: C) {
  * }
  */
 function greaterThan<T, C extends Wherable<T, C>>(ctx: C) {
-  return function (field: NumberKeys<T>, target: Parameters<NumberPredicate>[2]) {
+  return function <K extends keyof ByType<T, number>>(field: K, target: Parameters<NumberPredicate>[2]) {
     return ctx.where((item: T) => {
       const source = item[field] as number;
       return numberPredicate(source, NumberOperEnum.GREATER_THAN, target);
@@ -122,7 +122,7 @@ function greaterThan<T, C extends Wherable<T, C>>(ctx: C) {
 /**
  * Factory function that creates a reusable filter for number greater than or equals, designed for composition within the provided context.
  *
- * @paramType T - The item type (inferred)
+ * @template T - The item type (inferred)
  * @param ctx - The context providing a `where` method
  * @returns A function that takes a field and a target number, and applies the filter
  *
@@ -134,7 +134,7 @@ function greaterThan<T, C extends Wherable<T, C>>(ctx: C) {
  * }
  */
 function greaterThanOrEquals<T, C extends Wherable<T, C>>(ctx: C) {
-  return function (field: NumberKeys<T>, target: Parameters<NumberPredicate>[2]) {
+  return function <K extends keyof ByType<T, number>>(field: K, target: Parameters<NumberPredicate>[2]) {
     return ctx.where((item: T) => {
       const source = item[field] as number;
       return numberPredicate(source, NumberOperEnum.GREATER_THAN_OR_EQUALS, target);

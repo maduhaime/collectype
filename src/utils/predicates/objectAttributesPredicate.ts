@@ -11,9 +11,9 @@ export type ObjectAttributesPredicate = (
 /**
  * Evaluates attribute operations on an object's property descriptor.
  *
- * @paramType {Record<string, any>} obj - The object to inspect.
- * @paramType {string} key - The property key to check.
- * @paramType {string} oper - The operation to perform (should be a string value matching ObjectAttributesEnum).
+ * @template {Record<string, any>} obj - The object to inspect.
+ * @template {string} key - The property key to check.
+ * @template {string} oper - The operation to perform (should be a string value matching ObjectAttributesEnum).
  * @returns {boolean} True if the operation is satisfied, otherwise throws an error.
  *
  * @example

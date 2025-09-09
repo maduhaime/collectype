@@ -21,7 +21,7 @@ describe('objectPrototypeFactory', () => {
   });
 
   it('should call ctx.where with a predicate for isPrototypeOf', () => {
-    const fn = objectPrototypeFactory.isPrototypeOf<DummyType>(ctx);
+    const fn = objectPrototypeFactory.isPrototypeOf<DummyType, typeof ctx>(ctx);
     fn(field, proto);
     expect(ctx.where).toHaveBeenCalled();
     const predicate = ctx.where.mock.calls[0][0];

@@ -67,7 +67,7 @@ describe('FullFunctions', () => {
   // ===========================
 
   it('should filter arrays that include a value', () => {
-    const fn = new FullFunctions(dummyItems);
+    const fn = new FullFunctions<DummyType>(dummyItems);
     expect(fn.arrayIncludes('arr', 'A').items.map((i: DummyType) => i.id)).toStrictEqual([1, 3]);
   });
 

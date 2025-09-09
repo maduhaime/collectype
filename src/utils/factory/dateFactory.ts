@@ -1,9 +1,9 @@
 import { DateOperEnum } from '../../enums/dateOperation';
 import { DatePredicate, datePredicate } from '../../utils/predicates/datePredicate';
-import { DateKeys, Wherable } from '../../types/utility';
+import { ByType, Wherable } from '../../types/utility';
 
 function equals<T, C extends Wherable<T, C>>(ctx: C) {
-  return function (field: DateKeys<T>, target: Parameters<DatePredicate>[2]) {
+  return function <K extends keyof ByType<T, Date>>(field: K, target: Parameters<DatePredicate>[2]) {
     return ctx.where((item: T) => {
       const source = item[field] as Date;
       return datePredicate(source, DateOperEnum.EQUALS, target);
@@ -12,7 +12,7 @@ function equals<T, C extends Wherable<T, C>>(ctx: C) {
 }
 
 function notEquals<T, C extends Wherable<T, C>>(ctx: C) {
-  return function (field: DateKeys<T>, target: Parameters<DatePredicate>[2]) {
+  return function <K extends keyof ByType<T, Date>>(field: K, target: Parameters<DatePredicate>[2]) {
     return ctx.where((item: T) => {
       const source = item[field] as Date;
       return datePredicate(source, DateOperEnum.NOT_EQUALS, target);
@@ -24,7 +24,7 @@ function notEquals<T, C extends Wherable<T, C>>(ctx: C) {
  * Factory function that creates a reusable filter for date equality, designed for composition within the provided context.
  * The returned filter can be used to declaratively build complex queries.
  *
- * @paramType T - The item type (inferred)
+ * @template T - The item type (inferred)
  * @param ctx - The context providing a `where` method
  * @returns A function that takes a field and a target date, and applies the filter
  *
@@ -36,7 +36,7 @@ function notEquals<T, C extends Wherable<T, C>>(ctx: C) {
  * }
  */
 function occursBefore<T, C extends Wherable<T, C>>(ctx: C) {
-  return function (field: DateKeys<T>, target: Parameters<DatePredicate>[2]) {
+  return function <K extends keyof ByType<T, Date>>(field: K, target: Parameters<DatePredicate>[2]) {
     return ctx.where((item: T) => {
       const source = item[field] as Date;
       return datePredicate(source, DateOperEnum.OCCURS_BEFORE, target);
@@ -45,7 +45,7 @@ function occursBefore<T, C extends Wherable<T, C>>(ctx: C) {
 }
 
 function occursOnOrBefore<T, C extends Wherable<T, C>>(ctx: C) {
-  return function (field: DateKeys<T>, target: Parameters<DatePredicate>[2]) {
+  return function <K extends keyof ByType<T, Date>>(field: K, target: Parameters<DatePredicate>[2]) {
     return ctx.where((item: T) => {
       const source = item[field] as Date;
       return datePredicate(source, DateOperEnum.OCCURS_ON_OR_BEFORE, target);
@@ -54,7 +54,7 @@ function occursOnOrBefore<T, C extends Wherable<T, C>>(ctx: C) {
 }
 
 function occursAfter<T, C extends Wherable<T, C>>(ctx: C) {
-  return function (field: DateKeys<T>, target: Parameters<DatePredicate>[2]) {
+  return function <K extends keyof ByType<T, Date>>(field: K, target: Parameters<DatePredicate>[2]) {
     return ctx.where((item: T) => {
       const source = item[field] as Date;
       return datePredicate(source, DateOperEnum.OCCURS_AFTER, target);
@@ -63,7 +63,7 @@ function occursAfter<T, C extends Wherable<T, C>>(ctx: C) {
 }
 
 function occursOnOrAfter<T, C extends Wherable<T, C>>(ctx: C) {
-  return function (field: DateKeys<T>, target: Parameters<DatePredicate>[2]) {
+  return function <K extends keyof ByType<T, Date>>(field: K, target: Parameters<DatePredicate>[2]) {
     return ctx.where((item: T) => {
       const source = item[field] as Date;
       return datePredicate(source, DateOperEnum.OCCURS_ON_OR_AFTER, target);

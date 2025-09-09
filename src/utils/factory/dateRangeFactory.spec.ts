@@ -19,7 +19,7 @@ describe('dateRangeFactory', () => {
   });
 
   it('should call ctx.where with a predicate for inRange', () => {
-    const fn = dateRangeFactory.inRange<DummyType>(ctx);
+    const fn = dateRangeFactory.inRange<DummyType, typeof ctx>(ctx);
     fn(field, min, max);
     expect(ctx.where).toHaveBeenCalled();
     const predicate = ctx.where.mock.calls[0][0];
@@ -27,7 +27,7 @@ describe('dateRangeFactory', () => {
   });
 
   it('should call ctx.where with a predicate for outRange', () => {
-    const fn = dateRangeFactory.outRange<DummyType>(ctx);
+    const fn = dateRangeFactory.outRange<DummyType, typeof ctx>(ctx);
     fn(field, min, max);
     expect(ctx.where).toHaveBeenCalled();
     const predicate = ctx.where.mock.calls[0][0];
@@ -35,7 +35,7 @@ describe('dateRangeFactory', () => {
   });
 
   it('should call ctx.where with a predicate for strictInRange', () => {
-    const fn = dateRangeFactory.strictInRange<DummyType>(ctx);
+    const fn = dateRangeFactory.strictInRange<DummyType, typeof ctx>(ctx);
     fn(field, min, max);
     expect(ctx.where).toHaveBeenCalled();
     const predicate = ctx.where.mock.calls[0][0];
@@ -43,7 +43,7 @@ describe('dateRangeFactory', () => {
   });
 
   it('should call ctx.where with a predicate for strictOutRange', () => {
-    const fn = dateRangeFactory.strictOutRange<DummyType>(ctx);
+    const fn = dateRangeFactory.strictOutRange<DummyType, typeof ctx>(ctx);
     fn(field, min, max);
     expect(ctx.where).toHaveBeenCalled();
     const predicate = ctx.where.mock.calls[0][0];

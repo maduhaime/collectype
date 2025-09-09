@@ -2,7 +2,7 @@
  * Returns true if both arrays have the same unique elements and the same length.
  * Useful for comparing sets represented as arrays, regardless of order or duplicates.
  *
- * @paramType T - The array element type
+ * @template T - The array element type
  * @param arr - The first array
  * @param target - The second array
  * @returns True if both arrays have the same unique elements and same length

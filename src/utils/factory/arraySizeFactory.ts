@@ -1,12 +1,12 @@
 import { ArraySizeOperEnum } from '../../enums/arrayOperation';
 import { ArraySizePredicate, arraySizePredicate } from '../../utils/predicates/arraySizePredicate';
-import { ArrayKeys, Wherable } from '../../types/utility';
+import { ByType, Wherable } from '../../types/utility';
 
 /**
  * Factory function that creates a reusable filter for array length equality, designed for composition within the provided context.
  * The returned filter can be used to declaratively build complex queries.
  *
- * @paramType T - The item type (inferred)
+ * @template T - The item type (inferred)
  * @param ctx - The context providing a `where` method
  * @returns A function that takes a field and a target length, and applies the filter
  *
@@ -18,7 +18,7 @@ import { ArrayKeys, Wherable } from '../../types/utility';
  * }
  */
 function lengthEquals<T, C extends Wherable<T, C>>(ctx: C) {
-  return function (field: ArrayKeys<T>, n: Parameters<ArraySizePredicate>[2]) {
+  return function <K extends keyof ByType<T, any[]>>(field: K, n: Parameters<ArraySizePredicate>[2]) {
     return ctx.where((item: T) => {
       const arr = item[field] as any[];
       return arraySizePredicate(arr, ArraySizeOperEnum.LENGTH_EQUALS, n);
@@ -30,7 +30,7 @@ function lengthEquals<T, C extends Wherable<T, C>>(ctx: C) {
  * Factory function that creates a reusable filter for array length greater than, designed for composition within the provided context.
  * The returned filter can be used to declaratively build complex queries.
  *
- * @paramType T - The item type (inferred)
+ * @template T - The item type (inferred)
  * @param ctx - The context providing a `where` method
  * @returns A function that takes a field and a target length, and applies the filter
  *
@@ -42,7 +42,7 @@ function lengthEquals<T, C extends Wherable<T, C>>(ctx: C) {
  * }
  */
 function lengthGreaterThan<T, C extends Wherable<T, C>>(ctx: C) {
-  return function (field: ArrayKeys<T>, n: Parameters<ArraySizePredicate>[2]) {
+  return function <K extends keyof ByType<T, any[]>>(field: K, n: Parameters<ArraySizePredicate>[2]) {
     return ctx.where((item: T) => {
       const arr = item[field] as any[];
       return arraySizePredicate(arr, ArraySizeOperEnum.LENGTH_GREATER_THAN, n);
@@ -54,7 +54,7 @@ function lengthGreaterThan<T, C extends Wherable<T, C>>(ctx: C) {
  * Factory function that creates a reusable filter for array length greater than or equals, designed for composition within the provided context.
  * The returned filter can be used to declaratively build complex queries.
  *
- * @paramType T - The item type (inferred)
+ * @template T - The item type (inferred)
  * @param ctx - The context providing a `where` method
  * @returns A function that takes a field and a target length, and applies the filter
  *
@@ -66,7 +66,7 @@ function lengthGreaterThan<T, C extends Wherable<T, C>>(ctx: C) {
  * }
  */
 function lengthGreaterThanOrEquals<T, C extends Wherable<T, C>>(ctx: C) {
-  return function (field: ArrayKeys<T>, n: Parameters<ArraySizePredicate>[2]) {
+  return function <K extends keyof ByType<T, any[]>>(field: K, n: Parameters<ArraySizePredicate>[2]) {
     return ctx.where((item: T) => {
       const arr = item[field] as any[];
       return arraySizePredicate(arr, ArraySizeOperEnum.LENGTH_GREATER_THAN_OR_EQUALS, n);
@@ -78,7 +78,7 @@ function lengthGreaterThanOrEquals<T, C extends Wherable<T, C>>(ctx: C) {
  * Factory function that creates a reusable filter for array length less than, designed for composition within the provided context.
  * The returned filter can be used to declaratively build complex queries.
  *
- * @paramType T - The item type (inferred)
+ * @template T - The item type (inferred)
  * @param ctx - The context providing a `where` method
  * @returns A function that takes a field and a target length, and applies the filter
  *
@@ -90,7 +90,7 @@ function lengthGreaterThanOrEquals<T, C extends Wherable<T, C>>(ctx: C) {
  * }
  */
 function lengthLessThan<T, C extends Wherable<T, C>>(ctx: C) {
-  return function (field: ArrayKeys<T>, n: Parameters<ArraySizePredicate>[2]) {
+  return function <K extends keyof ByType<T, any[]>>(field: K, n: Parameters<ArraySizePredicate>[2]) {
     return ctx.where((item: T) => {
       const arr = item[field] as any[];
       return arraySizePredicate(arr, ArraySizeOperEnum.LENGTH_LESS_THAN, n);
@@ -102,7 +102,7 @@ function lengthLessThan<T, C extends Wherable<T, C>>(ctx: C) {
  * Factory function that creates a reusable filter for array length less than or equals, designed for composition within the provided context.
  * The returned filter can be used to declaratively build complex queries.
  *
- * @paramType T - The item type (inferred)
+ * @template T - The item type (inferred)
  * @param ctx - The context providing a `where` method
  * @returns A function that takes a field and a target length, and applies the filter
  *
@@ -114,7 +114,7 @@ function lengthLessThan<T, C extends Wherable<T, C>>(ctx: C) {
  * }
  */
 function lengthLessThanOrEquals<T, C extends Wherable<T, C>>(ctx: C) {
-  return function (field: ArrayKeys<T>, n: Parameters<ArraySizePredicate>[2]) {
+  return function <K extends keyof ByType<T, any[]>>(field: K, n: Parameters<ArraySizePredicate>[2]) {
     return ctx.where((item: T) => {
       const arr = item[field] as any[];
       return arraySizePredicate(arr, ArraySizeOperEnum.LENGTH_LESS_THAN_OR_EQUALS, n);

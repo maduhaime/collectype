@@ -1,12 +1,12 @@
 import { ArrayStateOperEnum } from '../../enums/arrayOperation';
 import { arrayStatePredicate } from '../predicates/arrayStatePredicate';
-import { ArrayKeys, Wherable } from '../../types/utility';
+import { ByType, Wherable } from '../../types/utility';
 
 /**
  * Factory function that creates a reusable filter for array state fields, designed for composition within the provided context.
  * The returned filter can be used to declaratively build complex queries.
  *
- * @paramType T - The item type (inferred)
+ * @template T - The item type (inferred)
  * @param ctx - The context providing a `where` method
  * @returns A function that takes a field and a target value, and applies the filter
  *
@@ -18,7 +18,7 @@ import { ArrayKeys, Wherable } from '../../types/utility';
  * }
  */
 function isEmpty<T, C extends Wherable<T, C>>(ctx: C) {
-  return function (field: ArrayKeys<T>) {
+  return function <K extends keyof ByType<T, any[]>>(field: K) {
     return ctx.where((item: T) => {
       const arr = item[field] as any[];
       return arrayStatePredicate(arr, ArrayStateOperEnum.IS_EMPTY);
@@ -30,7 +30,7 @@ function isEmpty<T, C extends Wherable<T, C>>(ctx: C) {
  * Factory function that creates a reusable filter for array state fields, designed for composition within the provided context.
  * The returned filter can be used to declaratively build complex queries.
  *
- * @paramType T - The item type (inferred)
+ * @template T - The item type (inferred)
  * @param ctx - The context providing a `where` method
  * @returns A function that takes a field and a target value, and applies the filter
  *
@@ -42,7 +42,7 @@ function isEmpty<T, C extends Wherable<T, C>>(ctx: C) {
  * }
  */
 function isNotEmpty<T, C extends Wherable<T, C>>(ctx: C) {
-  return function (field: ArrayKeys<T>) {
+  return function <K extends keyof ByType<T, any[]>>(field: K) {
     return ctx.where((item: T) => {
       const arr = item[field] as any[];
       return arrayStatePredicate(arr, ArrayStateOperEnum.IS_NOT_EMPTY);

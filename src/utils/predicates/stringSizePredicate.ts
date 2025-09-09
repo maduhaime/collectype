@@ -6,9 +6,9 @@ export type StringSizePredicate = (str: string, oper: StringSizeOperEnum, num: n
 /**
  * Predicate for string size operations (length comparisons).
  *
- * @paramType {string} str - The string to check.
- * @paramType {string} oper - The operation to perform (should be a string value matching StringSizeOperEnum).
- * @paramType {number} target - The number to compare the string length to.
+ * @template {string} str - The string to check.
+ * @template {string} oper - The operation to perform (should be a string value matching StringSizeOperEnum).
+ * @template {number} target - The number to compare the string length to.
  * @returns {boolean} True if the string matches the size condition, false otherwise.
  *
  * @example

@@ -19,7 +19,7 @@ describe('arrayIndexFactory', () => {
   });
 
   it('should call ctx.where with a predicate for indexEquals', () => {
-    const fn = arrayIndexFactory.indexEquals<DummyType>(ctx);
+    const fn = arrayIndexFactory.indexEquals<DummyType, typeof ctx>(ctx);
     fn(field, index, target);
     expect(ctx.where).toHaveBeenCalled();
     const predicate = ctx.where.mock.calls[0][0];
@@ -29,7 +29,7 @@ describe('arrayIndexFactory', () => {
   });
 
   it('should call ctx.where with a predicate for indexNotEquals', () => {
-    const fn = arrayIndexFactory.indexNotEquals<DummyType>(ctx);
+    const fn = arrayIndexFactory.indexNotEquals<DummyType, typeof ctx>(ctx);
     fn(field, index, target);
     expect(ctx.where).toHaveBeenCalled();
     const predicate = ctx.where.mock.calls[0][0];
@@ -39,7 +39,7 @@ describe('arrayIndexFactory', () => {
   });
 
   it('should call ctx.where with a predicate for indexIn', () => {
-    const fn = arrayIndexFactory.indexIn<DummyType>(ctx);
+    const fn = arrayIndexFactory.indexIn<DummyType, typeof ctx>(ctx);
     fn(field, index, target);
     expect(ctx.where).toHaveBeenCalled();
     const predicate = ctx.where.mock.calls[0][0];
@@ -47,7 +47,7 @@ describe('arrayIndexFactory', () => {
   });
 
   it('should call ctx.where with a predicate for indexNotIn', () => {
-    const fn = arrayIndexFactory.indexNotIn<DummyType>(ctx);
+    const fn = arrayIndexFactory.indexNotIn<DummyType, typeof ctx>(ctx);
     fn(field, index, target);
     expect(ctx.where).toHaveBeenCalled();
     const predicate = ctx.where.mock.calls[0][0];
@@ -57,7 +57,7 @@ describe('arrayIndexFactory', () => {
   });
 
   it('should call ctx.where with a predicate for indexGreaterThan', () => {
-    const fn = arrayIndexFactory.indexGreaterThan<DummyType>(ctx);
+    const fn = arrayIndexFactory.indexGreaterThan<DummyType, typeof ctx>(ctx);
     fn(field, index, target);
     expect(ctx.where).toHaveBeenCalled();
     const predicate = ctx.where.mock.calls[0][0];
@@ -67,7 +67,7 @@ describe('arrayIndexFactory', () => {
   });
 
   it('should call ctx.where with a predicate for indexGreaterThanOrEquals', () => {
-    const fn = arrayIndexFactory.indexGreaterThanOrEquals<DummyType>(ctx);
+    const fn = arrayIndexFactory.indexGreaterThanOrEquals<DummyType, typeof ctx>(ctx);
     fn(field, index, target);
     expect(ctx.where).toHaveBeenCalled();
     const predicate = ctx.where.mock.calls[0][0];
@@ -77,7 +77,7 @@ describe('arrayIndexFactory', () => {
   });
 
   it('should call ctx.where with a predicate for indexLessThan', () => {
-    const fn = arrayIndexFactory.indexLessThan<DummyType>(ctx);
+    const fn = arrayIndexFactory.indexLessThan<DummyType, typeof ctx>(ctx);
     fn(field, index, target);
     expect(ctx.where).toHaveBeenCalled();
     const predicate = ctx.where.mock.calls[0][0];
@@ -87,7 +87,7 @@ describe('arrayIndexFactory', () => {
   });
 
   it('should call ctx.where with a predicate for indexLessThanOrEquals', () => {
-    const fn = arrayIndexFactory.indexLessThanOrEquals<DummyType>(ctx);
+    const fn = arrayIndexFactory.indexLessThanOrEquals<DummyType, typeof ctx>(ctx);
     fn(field, index, target);
     expect(ctx.where).toHaveBeenCalled();
     const predicate = ctx.where.mock.calls[0][0];

@@ -18,7 +18,7 @@ describe('numberFactory', () => {
   });
 
   it('should call ctx.where with a predicate for equals', () => {
-    const fn = numberFactory.equals<DummyType>(ctx);
+    const fn = numberFactory.equals<DummyType, typeof ctx>(ctx);
     fn(field, target);
     expect(ctx.where).toHaveBeenCalled();
     const predicate = ctx.where.mock.calls[0][0];
@@ -26,7 +26,7 @@ describe('numberFactory', () => {
   });
 
   it('should call ctx.where with a predicate for notEquals', () => {
-    const fn = numberFactory.notEquals<DummyType>(ctx);
+    const fn = numberFactory.notEquals<DummyType, typeof ctx>(ctx);
     fn(field, target);
     expect(ctx.where).toHaveBeenCalled();
     const predicate = ctx.where.mock.calls[0][0];
@@ -34,7 +34,7 @@ describe('numberFactory', () => {
   });
 
   it('should call ctx.where with a predicate for lessThan', () => {
-    const fn = numberFactory.lessThan<DummyType>(ctx);
+    const fn = numberFactory.lessThan<DummyType, typeof ctx>(ctx);
     fn(field, target);
     expect(ctx.where).toHaveBeenCalled();
     const predicate = ctx.where.mock.calls[0][0];
@@ -42,7 +42,7 @@ describe('numberFactory', () => {
   });
 
   it('should call ctx.where with a predicate for lessThanOrEquals', () => {
-    const fn = numberFactory.lessThanOrEquals<DummyType>(ctx);
+    const fn = numberFactory.lessThanOrEquals<DummyType, typeof ctx>(ctx);
     fn(field, target);
     expect(ctx.where).toHaveBeenCalled();
     const predicate = ctx.where.mock.calls[0][0];
@@ -50,7 +50,7 @@ describe('numberFactory', () => {
   });
 
   it('should call ctx.where with a predicate for greaterThan', () => {
-    const fn = numberFactory.greaterThan<DummyType>(ctx);
+    const fn = numberFactory.greaterThan<DummyType, typeof ctx>(ctx);
     fn(field, target);
     expect(ctx.where).toHaveBeenCalled();
     const predicate = ctx.where.mock.calls[0][0];
@@ -58,7 +58,7 @@ describe('numberFactory', () => {
   });
 
   it('should call ctx.where with a predicate for greaterThanOrEquals', () => {
-    const fn = numberFactory.greaterThanOrEquals<DummyType>(ctx);
+    const fn = numberFactory.greaterThanOrEquals<DummyType, typeof ctx>(ctx);
     fn(field, target);
     expect(ctx.where).toHaveBeenCalled();
     const predicate = ctx.where.mock.calls[0][0];

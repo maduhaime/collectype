@@ -11,9 +11,9 @@ export type ObjectKeysPredicate = (
 /**
  * Evaluates key/property operations on objects and arrays.
  *
- * @paramType {Record<string, any> | any[]} obj - The object or array to inspect.
- * @paramType {string} oper - The operation to perform (should be a string value matching ObjectKeysEnum).
- * @paramType {string[] | string} target - The key or target to check (string or array of strings).
+ * @template {Record<string, any> | any[]} obj - The object or array to inspect.
+ * @template {string} oper - The operation to perform (should be a string value matching ObjectKeysEnum).
+ * @template {string[] | string} target - The key or target to check (string or array of strings).
  * @returns {boolean} True if the operation is satisfied, otherwise throws an error.
  *
  * @example

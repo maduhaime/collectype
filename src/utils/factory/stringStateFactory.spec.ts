@@ -18,7 +18,7 @@ describe('stringStateFactory', () => {
   });
 
   it('should call ctx.where with a predicate for isEmpty', () => {
-    const fn = stringStateFactory.isEmpty<DummyType>(ctx);
+    const fn = stringStateFactory.isEmpty<DummyType, typeof ctx>(ctx);
     fn(field);
     expect(ctx.where).toHaveBeenCalled();
     const predicate = ctx.where.mock.calls[0][0];
@@ -26,7 +26,7 @@ describe('stringStateFactory', () => {
   });
 
   it('should call ctx.where with a predicate for isNotEmpty', () => {
-    const fn = stringStateFactory.isNotEmpty<DummyType>(ctx);
+    const fn = stringStateFactory.isNotEmpty<DummyType, typeof ctx>(ctx);
     fn(field);
     expect(ctx.where).toHaveBeenCalled();
     const predicate = ctx.where.mock.calls[0][0];

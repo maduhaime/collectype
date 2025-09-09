@@ -2,7 +2,7 @@
  * Returns true if the array contains the target array as a contiguous subsequence.
  * Useful for checking if a sequence of values appears in order within another array.
  *
- * @paramType T - The array element type
+ * @template T - The array element type
  * @param arr - The array to search in
  * @param target - The subsequence to search for
  * @returns True if arr contains target as a contiguous subsequence, false otherwise

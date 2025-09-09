@@ -1,12 +1,12 @@
 import { ArrayOperEnum } from '../../enums/arrayOperation';
 import { ArrayPredicate, arrayPredicate } from '../../utils/predicates/arrayPredicate';
-import { ArrayKeys, Wherable } from '../../types/utility';
+import { ByType, Wherable } from '../../types/utility';
 
 /**
  * Factory function that creates a reusable filter for array fields, designed for composition within the provided context.
  * The returned filter can be used to declaratively build complex queries.
  *
- * @paramType T - The item type (inferred)
+ * @template T - The item type (inferred)
  * @param ctx - The context providing a `where` method
  * @returns A function that takes a field and a target array, and applies the filter
  *
@@ -18,7 +18,7 @@ import { ArrayKeys, Wherable } from '../../types/utility';
  * }
  */
 function equals<T, C extends Wherable<T, C>>(ctx: C) {
-  return function (field: ArrayKeys<T>, target: Parameters<ArrayPredicate>[2]) {
+  return function <K extends keyof ByType<T, any[]>>(field: K, target: Parameters<ArrayPredicate>[2]) {
     // Use the context's where method to filter items
     return ctx.where((item: T) => {
       const arr = item[field] as any[];
@@ -32,7 +32,7 @@ function equals<T, C extends Wherable<T, C>>(ctx: C) {
  * Factory function that creates a reusable filter for array fields, designed for composition within the provided context.
  * The returned filter can be used to declaratively build complex queries.
  *
- * @paramType T - The item type (inferred)
+ * @template T - The item type (inferred)
  * @param ctx - The context providing a `where` method
  * @returns A function that takes a field and a target array, and applies the filter
  *
@@ -44,7 +44,7 @@ function equals<T, C extends Wherable<T, C>>(ctx: C) {
  * }
  */
 function setEquals<T, C extends Wherable<T, C>>(ctx: C) {
-  return function (field: ArrayKeys<T>, target: Parameters<ArrayPredicate>[2]) {
+  return function <K extends keyof ByType<T, any[]>>(field: K, target: Parameters<ArrayPredicate>[2]) {
     // Use the context's where method to filter items
     return ctx.where((item: T) => {
       const arr = item[field] as any[];
@@ -58,7 +58,7 @@ function setEquals<T, C extends Wherable<T, C>>(ctx: C) {
  * Factory function that creates a reusable filter for array fields, designed for composition within the provided context.
  * The returned filter can be used to declaratively build complex queries.
  *
- * @paramType T - The item type (inferred)
+ * @template T - The item type (inferred)
  * @param ctx - The context providing a `where` method
  * @returns A function that takes a field and a target value, and applies the filter
  *
@@ -70,7 +70,7 @@ function setEquals<T, C extends Wherable<T, C>>(ctx: C) {
  * }
  */
 function includes<T, C extends Wherable<T, C>>(ctx: C) {
-  return function (field: ArrayKeys<T>, target: Parameters<ArrayPredicate>[2]) {
+  return function <K extends keyof ByType<T, any[]>>(field: K, target: Parameters<ArrayPredicate>[2]) {
     // Use the context's where method to filter items
     return ctx.where((item: T) => {
       const arr = item[field] as any[];
@@ -84,7 +84,7 @@ function includes<T, C extends Wherable<T, C>>(ctx: C) {
  * Factory function that creates a reusable filter for array fields, designed for composition within the provided context.
  * The returned filter can be used to declaratively build complex queries.
  *
- * @paramType T - The item type (inferred)
+ * @template T - The item type (inferred)
  * @param ctx - The context providing a `where` method
  * @returns A function that takes a field and a target value, and applies the filter
  *
@@ -96,7 +96,7 @@ function includes<T, C extends Wherable<T, C>>(ctx: C) {
  * }
  */
 function excludes<T, C extends Wherable<T, C>>(ctx: C) {
-  return function (field: ArrayKeys<T>, target: Parameters<ArrayPredicate>[2]) {
+  return function <K extends keyof ByType<T, any[]>>(field: K, target: Parameters<ArrayPredicate>[2]) {
     // Use the context's where method to filter items
     return ctx.where((item: T) => {
       const arr = item[field] as any[];
@@ -110,7 +110,7 @@ function excludes<T, C extends Wherable<T, C>>(ctx: C) {
  * Factory function that creates a reusable filter for array fields, designed for composition within the provided context.
  * The returned filter can be used to declaratively build complex queries.
  *
- * @paramType T - The item type (inferred)
+ * @template T - The item type (inferred)
  * @param ctx - The context providing a `where` method
  * @returns A function that takes a field and a target value, and applies the filter
  *
@@ -122,7 +122,7 @@ function excludes<T, C extends Wherable<T, C>>(ctx: C) {
  * }
  */
 function someEquals<T, C extends Wherable<T, C>>(ctx: C) {
-  return function (field: ArrayKeys<T>, target: Parameters<ArrayPredicate>[2]) {
+  return function <K extends keyof ByType<T, any[]>>(field: K, target: Parameters<ArrayPredicate>[2]) {
     // Use the context's where method to filter items
     return ctx.where((item: T) => {
       const arr = item[field] as any[];
@@ -136,7 +136,7 @@ function someEquals<T, C extends Wherable<T, C>>(ctx: C) {
  * Factory function that creates a reusable filter for array fields, designed for composition within the provided context.
  * The returned filter can be used to declaratively build complex queries.
  *
- * @paramType T - The item type (inferred)
+ * @template T - The item type (inferred)
  * @param ctx - The context providing a `where` method
  * @returns A function that takes a field and a target value, and applies the filter
  *
@@ -148,7 +148,7 @@ function someEquals<T, C extends Wherable<T, C>>(ctx: C) {
  * }
  */
 function everyEquals<T, C extends Wherable<T, C>>(ctx: C) {
-  return function (field: ArrayKeys<T>, target: Parameters<ArrayPredicate>[2]) {
+  return function <K extends keyof ByType<T, any[]>>(field: K, target: Parameters<ArrayPredicate>[2]) {
     // Use the context's where method to filter items
     return ctx.where((item: T) => {
       const arr = item[field] as any[];
@@ -162,7 +162,7 @@ function everyEquals<T, C extends Wherable<T, C>>(ctx: C) {
  * Factory function that creates a reusable filter for array fields, designed for composition within the provided context.
  * The returned filter can be used to declaratively build complex queries.
  *
- * @paramType T - The item type (inferred)
+ * @template T - The item type (inferred)
  * @param ctx - The context providing a `where` method
  * @returns A function that takes a field and a target value, and applies the filter
  *
@@ -174,7 +174,7 @@ function everyEquals<T, C extends Wherable<T, C>>(ctx: C) {
  * }
  */
 function isSubsetOf<T, C extends Wherable<T, C>>(ctx: C) {
-  return function (field: ArrayKeys<T>, target: Parameters<ArrayPredicate>[2]) {
+  return function <K extends keyof ByType<T, any[]>>(field: K, target: Parameters<ArrayPredicate>[2]) {
     // Use the context's where method to filter items
     return ctx.where((item: T) => {
       const arr = item[field] as any[];
@@ -188,7 +188,7 @@ function isSubsetOf<T, C extends Wherable<T, C>>(ctx: C) {
  * Factory function that creates a reusable filter for array fields, designed for composition within the provided context.
  * The returned filter can be used to declaratively build complex queries.
  *
- * @paramType T - The item type (inferred)
+ * @template T - The item type (inferred)
  * @param ctx - The context providing a `where` method
  * @returns A function that takes a field and a target value, and applies the filter
  *
@@ -200,7 +200,7 @@ function isSubsetOf<T, C extends Wherable<T, C>>(ctx: C) {
  * }
  */
 function isSupersetOf<T, C extends Wherable<T, C>>(ctx: C) {
-  return function (field: ArrayKeys<T>, target: Parameters<ArrayPredicate>[2]) {
+  return function <K extends keyof ByType<T, any[]>>(field: K, target: Parameters<ArrayPredicate>[2]) {
     // Use the context's where method to filter items
     return ctx.where((item: T) => {
       const arr = item[field] as any[];
@@ -214,7 +214,7 @@ function isSupersetOf<T, C extends Wherable<T, C>>(ctx: C) {
  * Factory function that creates a reusable filter for array fields, designed for composition within the provided context.
  * The returned filter can be used to declaratively build complex queries.
  *
- * @paramType T - The item type (inferred)
+ * @template T - The item type (inferred)
  * @param ctx - The context providing a `where` method
  * @returns A function that takes a field and a target value, and applies the filter
  *
@@ -226,7 +226,7 @@ function isSupersetOf<T, C extends Wherable<T, C>>(ctx: C) {
  * }
  */
 function startsWith<T, C extends Wherable<T, C>>(ctx: C) {
-  return function (field: ArrayKeys<T>, target: Parameters<ArrayPredicate>[2]) {
+  return function <K extends keyof ByType<T, any[]>>(field: K, target: Parameters<ArrayPredicate>[2]) {
     // Use the context's where method to filter items
     return ctx.where((item: T) => {
       const arr = item[field] as any[];
@@ -240,7 +240,7 @@ function startsWith<T, C extends Wherable<T, C>>(ctx: C) {
  * Factory function that creates a reusable filter for array fields, designed for composition within the provided context.
  * The returned filter can be used to declaratively build complex queries.
  *
- * @paramType T - The item type (inferred)
+ * @template T - The item type (inferred)
  * @param ctx - The context providing a `where` method
  * @returns A function that takes a field and a target value, and applies the filter
  *
@@ -252,7 +252,7 @@ function startsWith<T, C extends Wherable<T, C>>(ctx: C) {
  * }
  */
 function endsWith<T, C extends Wherable<T, C>>(ctx: C) {
-  return function (field: ArrayKeys<T>, target: Parameters<ArrayPredicate>[2]) {
+  return function <K extends keyof ByType<T, any[]>>(field: K, target: Parameters<ArrayPredicate>[2]) {
     // Use the context's where method to filter items
     return ctx.where((item: T) => {
       const arr = item[field] as any[];
@@ -266,7 +266,7 @@ function endsWith<T, C extends Wherable<T, C>>(ctx: C) {
  * Factory function that creates a reusable filter for array fields, designed for composition within the provided context.
  * The returned filter can be used to declaratively build complex queries.
  *
- * @paramType T - The item type (inferred)
+ * @template T - The item type (inferred)
  * @param ctx - The context providing a `where` method
  * @returns A function that takes a field and a target value, and applies the filter
  *
@@ -278,7 +278,7 @@ function endsWith<T, C extends Wherable<T, C>>(ctx: C) {
  * }
  */
 function containsSubsequence<T, C extends Wherable<T, C>>(ctx: C) {
-  return function (field: ArrayKeys<T>, target: Parameters<ArrayPredicate>[2]) {
+  return function <K extends keyof ByType<T, any[]>>(field: K, target: Parameters<ArrayPredicate>[2]) {
     // Use the context's where method to filter items
     return ctx.where((item: T) => {
       const arr = item[field] as any[];
@@ -292,7 +292,7 @@ function containsSubsequence<T, C extends Wherable<T, C>>(ctx: C) {
  * Factory function that creates a reusable filter for array fields, designed for composition within the provided context.
  * The returned filter can be used to declaratively build complex queries.
  *
- * @paramType T - The item type (inferred)
+ * @template T - The item type (inferred)
  * @param ctx - The context providing a `where` method
  * @returns A function that takes a field and a target value, and applies the filter
  *
@@ -304,7 +304,7 @@ function containsSubsequence<T, C extends Wherable<T, C>>(ctx: C) {
  * }
  */
 function intersects<T, C extends Wherable<T, C>>(ctx: C) {
-  return function (field: ArrayKeys<T>, target: Parameters<ArrayPredicate>[2]) {
+  return function <K extends keyof ByType<T, any[]>>(field: K, target: Parameters<ArrayPredicate>[2]) {
     // Use the context's where method to filter items
     return ctx.where((item: T) => {
       const arr = item[field] as any[];
@@ -318,7 +318,7 @@ function intersects<T, C extends Wherable<T, C>>(ctx: C) {
  * Factory function that creates a reusable filter for array fields, designed for composition within the provided context.
  * The returned filter can be used to declaratively build complex queries.
  *
- * @paramType T - The item type (inferred)
+ * @template T - The item type (inferred)
  * @param ctx - The context providing a `where` method
  * @returns A function that takes a field and a target value, and applies the filter
  *
@@ -330,7 +330,7 @@ function intersects<T, C extends Wherable<T, C>>(ctx: C) {
  * }
  */
 function disjoint<T, C extends Wherable<T, C>>(ctx: C) {
-  return function (field: ArrayKeys<T>, target: Parameters<ArrayPredicate>[2]) {
+  return function <K extends keyof ByType<T, any[]>>(field: K, target: Parameters<ArrayPredicate>[2]) {
     // Use the context's where method to filter items
     return ctx.where((item: T) => {
       const arr = item[field] as any[];

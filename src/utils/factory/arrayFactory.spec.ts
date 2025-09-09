@@ -18,7 +18,7 @@ describe('arrayFactory', () => {
   });
 
   it('should call ctx.where with a predicate for equals', () => {
-    const fn = arrayFactory.equals<DummyType>(ctx);
+    const fn = arrayFactory.equals<DummyType, typeof ctx>(ctx);
     fn(field, target);
     expect(ctx.where).toHaveBeenCalled();
     const predicate = ctx.where.mock.calls[0][0];
@@ -26,7 +26,7 @@ describe('arrayFactory', () => {
   });
 
   it('should call ctx.where with a predicate for setEquals', () => {
-    const fn = arrayFactory.setEquals<DummyType>(ctx);
+    const fn = arrayFactory.setEquals<DummyType, typeof ctx>(ctx);
     fn(field, target);
     expect(ctx.where).toHaveBeenCalled();
     const predicate = ctx.where.mock.calls[0][0];
@@ -34,7 +34,7 @@ describe('arrayFactory', () => {
   });
 
   it('should call ctx.where with a predicate for includes', () => {
-    const fn = arrayFactory.includes<DummyType>(ctx);
+    const fn = arrayFactory.includes<DummyType, typeof ctx>(ctx);
     fn(field, target);
     expect(ctx.where).toHaveBeenCalled();
     const predicate = ctx.where.mock.calls[0][0];
@@ -42,7 +42,7 @@ describe('arrayFactory', () => {
   });
 
   it('should call ctx.where with a predicate for excludes', () => {
-    const fn = arrayFactory.excludes<DummyType>(ctx);
+    const fn = arrayFactory.excludes<DummyType, typeof ctx>(ctx);
     fn(field, target);
     expect(ctx.where).toHaveBeenCalled();
     const predicate = ctx.where.mock.calls[0][0];
@@ -50,7 +50,7 @@ describe('arrayFactory', () => {
   });
 
   it('should call ctx.where with a predicate for someEquals', () => {
-    const fn = arrayFactory.someEquals<DummyType>(ctx);
+    const fn = arrayFactory.someEquals<DummyType, typeof ctx>(ctx);
     fn(field, target);
     expect(ctx.where).toHaveBeenCalled();
     const predicate = ctx.where.mock.calls[0][0];
@@ -58,7 +58,7 @@ describe('arrayFactory', () => {
   });
 
   it('should call ctx.where with a predicate for everyEquals', () => {
-    const fn = arrayFactory.everyEquals<DummyType>(ctx);
+    const fn = arrayFactory.everyEquals<DummyType, typeof ctx>(ctx);
     fn(field, target);
     expect(ctx.where).toHaveBeenCalled();
     const predicate = ctx.where.mock.calls[0][0];
@@ -66,7 +66,7 @@ describe('arrayFactory', () => {
   });
 
   it('should call ctx.where with a predicate for isSubsetOf', () => {
-    const fn = arrayFactory.isSubsetOf<DummyType>(ctx);
+    const fn = arrayFactory.isSubsetOf<DummyType, typeof ctx>(ctx);
     fn(field, target);
     expect(ctx.where).toHaveBeenCalled();
     const predicate = ctx.where.mock.calls[0][0];
@@ -74,7 +74,7 @@ describe('arrayFactory', () => {
   });
 
   it('should call ctx.where with a predicate for isSupersetOf', () => {
-    const fn = arrayFactory.isSupersetOf<DummyType>(ctx);
+    const fn = arrayFactory.isSupersetOf<DummyType, typeof ctx>(ctx);
     fn(field, target);
     expect(ctx.where).toHaveBeenCalled();
     const predicate = ctx.where.mock.calls[0][0];
@@ -82,7 +82,7 @@ describe('arrayFactory', () => {
   });
 
   it('should call ctx.where with a predicate for startsWith', () => {
-    const fn = arrayFactory.startsWith<DummyType>(ctx);
+    const fn = arrayFactory.startsWith<DummyType, typeof ctx>(ctx);
     fn(field, target);
     expect(ctx.where).toHaveBeenCalled();
     const predicate = ctx.where.mock.calls[0][0];
@@ -90,7 +90,7 @@ describe('arrayFactory', () => {
   });
 
   it('should call ctx.where with a predicate for endsWith', () => {
-    const fn = arrayFactory.endsWith<DummyType>(ctx);
+    const fn = arrayFactory.endsWith<DummyType, typeof ctx>(ctx);
     fn(field, target);
     expect(ctx.where).toHaveBeenCalled();
     const predicate = ctx.where.mock.calls[0][0];
@@ -98,7 +98,7 @@ describe('arrayFactory', () => {
   });
 
   it('should call ctx.where with a predicate for containsSubsequence', () => {
-    const fn = arrayFactory.containsSubsequence<DummyType>(ctx);
+    const fn = arrayFactory.containsSubsequence<DummyType, typeof ctx>(ctx);
     fn(field, target);
     expect(ctx.where).toHaveBeenCalled();
     const predicate = ctx.where.mock.calls[0][0];
@@ -106,7 +106,7 @@ describe('arrayFactory', () => {
   });
 
   it('should call ctx.where with a predicate for intersects', () => {
-    const fn = arrayFactory.intersects<DummyType>(ctx);
+    const fn = arrayFactory.intersects<DummyType, typeof ctx>(ctx);
     fn(field, target);
     expect(ctx.where).toHaveBeenCalled();
     const predicate = ctx.where.mock.calls[0][0];
@@ -114,7 +114,7 @@ describe('arrayFactory', () => {
   });
 
   it('should call ctx.where with a predicate for disjoint', () => {
-    const fn = arrayFactory.disjoint<DummyType>(ctx);
+    const fn = arrayFactory.disjoint<DummyType, typeof ctx>(ctx);
     fn(field, target);
     expect(ctx.where).toHaveBeenCalled();
     const predicate = ctx.where.mock.calls[0][0];

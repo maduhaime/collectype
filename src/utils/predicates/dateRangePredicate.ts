@@ -12,7 +12,7 @@ export type DateRangePredicate = (
 /**
  * Evaluates a date value against a range using the specified operator.
  * Supported operators: IN_RANGE, OUT_RANGE, STRICT_IN_RANGE, STRICT_OUT_RANGE.
- * @paramType DummyType - The type of the date value (for example purposes).
+ * @template DummyType - The type of the date value (for example purposes).
  * @param source - The source date value.
  * @param oper - The range operator to apply (see RangeOperEnum).
  * @param min - The minimum date bound.

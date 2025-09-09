@@ -7,15 +7,15 @@ export type ArraySizePredicate = <T>(arr: T[], oper: EnumOrString<typeof ArraySi
 /**
  * Evaluates an operation on the size of an array.
  * Supports equality, comparison, emptiness, etc.
- * @paramType T - The type of array elements.
+ * @template T - The type of array elements.
  * @param arr - The array to test.
  * @param oper - The operation to perform (see ArraySizeOperEnum).
  * @param num - The size value to compare (if applicable).
  * @returns Result of the operation.
  * @example
  * // DummyType is a placeholder for your type
- * arraySizePredicate<DummyType>(['A', 'B', 'C'], 'lengthEquals', 3); // true
- * arraySizePredicate<DummyType>(['A', 'B', 'C'], 'lengthGreaterThan', 2); // true
+ * arraySizePredicate<DummyType, typeof ctx>(['A', 'B', 'C'], 'lengthEquals', 3); // true
+ * arraySizePredicate<DummyType, typeof ctx>(['A', 'B', 'C'], 'lengthGreaterThan', 2); // true
  *
  * All condition blocks and throws are commented for clarity.
  *

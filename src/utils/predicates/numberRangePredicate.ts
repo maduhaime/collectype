@@ -13,10 +13,10 @@ export type NumberRangePredicate = (
  * Evaluates a number value against a range using the specified operator.
  * Supports inclusive and strict range checks.
  *
- * @paramType {number} source - The source number value.
- * @paramType {string} oper - The range operation to apply (should be a string value matching RangeOperEnum).
- * @paramType {number} min - The minimum bound.
- * @paramType {number} max - The maximum bound.
+ * @template {number} source - The source number value.
+ * @template {string} oper - The range operation to apply (should be a string value matching RangeOperEnum).
+ * @template {number} min - The minimum bound.
+ * @template {number} max - The maximum bound.
  * @returns {boolean} The result of the predicate evaluation.
  *
  * @example

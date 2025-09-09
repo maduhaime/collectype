@@ -2,7 +2,7 @@
  * Returns true if any of the provided arguments is null.
  * Useful for quickly checking the presence of null values in a list.
  *
- * @paramType T - The argument type (inferred)
+ * @template T - The argument type (inferred)
  * @param args - List of values to check
  * @returns True if at least one argument is null, false otherwise
  *

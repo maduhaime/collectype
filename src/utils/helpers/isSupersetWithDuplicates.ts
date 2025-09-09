@@ -2,7 +2,7 @@
  * Returns true if the array is a superset of the target array, including duplicates.
  * All elements of target (including duplicates) must be present in arr.
  *
- * @paramType T - The array element type
+ * @template T - The array element type
  * @param arr - The array to check as superset
  * @param target - The array to check as subset
  * @returns True if arr is a superset of target (with duplicates), false otherwise
