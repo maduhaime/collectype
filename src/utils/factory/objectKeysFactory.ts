@@ -20,7 +20,8 @@ export const objectKeysFactory = {
   hasKey<T, C extends Wherable<T, C>>(ctx: C) {
     return function <K extends keyof ByType<T, object>>(field: K, target: Parameters<ObjectKeysPredicate>[2]) {
       return ctx.where((item: T) => {
-        const obj = item[field] as object;
+        const obj = item[field] as object | undefined;
+        if (obj === undefined) return false;
         return objectKeysPredicate(obj, ObjectKeysEnum.HAS_KEY, target);
       });
     };
@@ -42,7 +43,8 @@ export const objectKeysFactory = {
   hasAllKeys<T, C extends Wherable<T, C>>(ctx: C) {
     return function <K extends keyof ByType<T, object>>(field: K, target: Parameters<ObjectKeysPredicate>[2]) {
       return ctx.where((item: T) => {
-        const obj = item[field] as object;
+        const obj = item[field] as object | undefined;
+        if (obj === undefined) return false;
         return objectKeysPredicate(obj, ObjectKeysEnum.HAS_ALL_KEYS, target);
       });
     };
@@ -64,7 +66,8 @@ export const objectKeysFactory = {
   hasAnyKey<T, C extends Wherable<T, C>>(ctx: C) {
     return function <K extends keyof ByType<T, object>>(field: K, target: Parameters<ObjectKeysPredicate>[2]) {
       return ctx.where((item: T) => {
-        const obj = item[field] as object;
+        const obj = item[field] as object | undefined;
+        if (obj === undefined) return false;
         return objectKeysPredicate(obj, ObjectKeysEnum.HAS_ANY_KEY, target);
       });
     };
@@ -86,7 +89,8 @@ export const objectKeysFactory = {
   hasExactKeys<T, C extends Wherable<T, C>>(ctx: C) {
     return function <K extends keyof ByType<T, object>>(field: K, target: Parameters<ObjectKeysPredicate>[2]) {
       return ctx.where((item: T) => {
-        const obj = item[field] as object;
+        const obj = item[field] as object | undefined;
+        if (obj === undefined) return false;
         return objectKeysPredicate(obj, ObjectKeysEnum.HAS_EXACT_KEYS, target);
       });
     };
@@ -108,7 +112,8 @@ export const objectKeysFactory = {
   hasNoKeys<T, C extends Wherable<T, C>>(ctx: C) {
     return function <K extends keyof ByType<T, object>>(field: K, target: Parameters<ObjectKeysPredicate>[2]) {
       return ctx.where((item: T) => {
-        const obj = item[field] as object;
+        const obj = item[field] as object | undefined;
+        if (obj === undefined) return false;
         return objectKeysPredicate(obj, ObjectKeysEnum.HAS_NO_KEYS, target);
       });
     };

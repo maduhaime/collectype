@@ -20,7 +20,8 @@ export const objectInstanceFactory = {
   isInstanceOf<T, C extends Wherable<T, C>>(ctx: C) {
     return function <K extends keyof ByType<T, object>>(field: K, target: Parameters<ObjectInstancePredicate>[2]) {
       return ctx.where((item: T) => {
-        const obj = item[field] as object;
+        const obj = item[field] as object | undefined;
+        if (obj === undefined) return false;
         return objectInstancePredicate(obj, ObjectInstanceEnum.IS_INSTANCE_OF, target);
       });
     };
@@ -42,7 +43,8 @@ export const objectInstanceFactory = {
   isConstructor<T, C extends Wherable<T, C>>(ctx: C) {
     return function <K extends keyof ByType<T, object>>(field: K, target: Parameters<ObjectInstancePredicate>[2]) {
       return ctx.where((item: T) => {
-        const obj = item[field] as object;
+        const obj = item[field] as object | undefined;
+        if (obj === undefined) return false;
         return objectInstancePredicate(obj, ObjectInstanceEnum.IS_CONSTRUCTOR, target);
       });
     };

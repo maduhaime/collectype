@@ -20,7 +20,8 @@ import { ByType, Wherable } from '../../types/utility';
 function lengthEquals<T, C extends Wherable<T, C>>(ctx: C) {
   return function <K extends keyof ByType<T, any[]>>(field: K, n: Parameters<ArraySizePredicate>[2]) {
     return ctx.where((item: T) => {
-      const arr = item[field] as any[];
+      const arr = item[field] as any[] | undefined;
+      if (!arr) return false;
       return arraySizePredicate(arr, ArraySizeOperEnum.LENGTH_EQUALS, n);
     });
   };
@@ -44,7 +45,8 @@ function lengthEquals<T, C extends Wherable<T, C>>(ctx: C) {
 function lengthGreaterThan<T, C extends Wherable<T, C>>(ctx: C) {
   return function <K extends keyof ByType<T, any[]>>(field: K, n: Parameters<ArraySizePredicate>[2]) {
     return ctx.where((item: T) => {
-      const arr = item[field] as any[];
+      const arr = item[field] as any[] | undefined;
+      if (!arr) return false;
       return arraySizePredicate(arr, ArraySizeOperEnum.LENGTH_GREATER_THAN, n);
     });
   };
@@ -68,7 +70,8 @@ function lengthGreaterThan<T, C extends Wherable<T, C>>(ctx: C) {
 function lengthGreaterThanOrEquals<T, C extends Wherable<T, C>>(ctx: C) {
   return function <K extends keyof ByType<T, any[]>>(field: K, n: Parameters<ArraySizePredicate>[2]) {
     return ctx.where((item: T) => {
-      const arr = item[field] as any[];
+      const arr = item[field] as any[] | undefined;
+      if (!arr) return false;
       return arraySizePredicate(arr, ArraySizeOperEnum.LENGTH_GREATER_THAN_OR_EQUALS, n);
     });
   };
@@ -92,7 +95,8 @@ function lengthGreaterThanOrEquals<T, C extends Wherable<T, C>>(ctx: C) {
 function lengthLessThan<T, C extends Wherable<T, C>>(ctx: C) {
   return function <K extends keyof ByType<T, any[]>>(field: K, n: Parameters<ArraySizePredicate>[2]) {
     return ctx.where((item: T) => {
-      const arr = item[field] as any[];
+      const arr = item[field] as any[] | undefined;
+      if (!arr) return false;
       return arraySizePredicate(arr, ArraySizeOperEnum.LENGTH_LESS_THAN, n);
     });
   };
@@ -116,7 +120,8 @@ function lengthLessThan<T, C extends Wherable<T, C>>(ctx: C) {
 function lengthLessThanOrEquals<T, C extends Wherable<T, C>>(ctx: C) {
   return function <K extends keyof ByType<T, any[]>>(field: K, n: Parameters<ArraySizePredicate>[2]) {
     return ctx.where((item: T) => {
-      const arr = item[field] as any[];
+      const arr = item[field] as any[] | undefined;
+      if (!arr) return false;
       return arraySizePredicate(arr, ArraySizeOperEnum.LENGTH_LESS_THAN_OR_EQUALS, n);
     });
   };

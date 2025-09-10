@@ -25,7 +25,8 @@ function indexEquals<T, C extends Wherable<T, C>>(ctx: C) {
   ) {
     // Use the context's where method to filter items
     return ctx.where((item: T) => {
-      const arr = item[field] as any[];
+      const arr = item[field] as any[] | undefined;
+      if (!arr) return false;
       // Compare the value at index using the 'indexEquals' operation
       return arrayIndexPredicate(arr, ArrayIndexOperEnum.VALUE_AT_INDEX_EQUALS, index, target);
     });
@@ -55,7 +56,8 @@ function indexNotEquals<T, C extends Wherable<T, C>>(ctx: C) {
   ) {
     // Use the context's where method to filter items
     return ctx.where((item: T) => {
-      const arr = item[field] as any[];
+      const arr = item[field] as any[] | undefined;
+      if (!arr) return false;
       // Compare the value at index using the 'indexNotEquals' operation
       return arrayIndexPredicate(arr, ArrayIndexOperEnum.VALUE_AT_INDEX_NOT_EQUALS, index, target);
     });
@@ -85,7 +87,8 @@ function indexIn<T, C extends Wherable<T, C>>(ctx: C) {
   ) {
     // Use the context's where method to filter items
     return ctx.where((item: T) => {
-      const arr = item[field] as any[];
+      const arr = item[field] as any[] | undefined;
+      if (!arr) return false;
       // Compare the value at index using the 'indexIn' operation
       return arrayIndexPredicate(arr, ArrayIndexOperEnum.VALUE_AT_INDEX_IN, index, target);
     });
@@ -115,7 +118,8 @@ function indexNotIn<T, C extends Wherable<T, C>>(ctx: C) {
   ) {
     // Use the context's where method to filter items
     return ctx.where((item: T) => {
-      const arr = item[field] as any[];
+      const arr = item[field] as any[] | undefined;
+      if (!arr) return false;
       // Compare the value at index using the 'indexNotIn' operation
       return arrayIndexPredicate(arr, ArrayIndexOperEnum.VALUE_AT_INDEX_NOT_IN, index, target);
     });
@@ -129,7 +133,8 @@ function indexGreaterThan<T, C extends Wherable<T, C>>(ctx: C) {
     target: Parameters<ArrayIndexPredicate>[3]
   ) {
     return ctx.where((item: T) => {
-      const arr = item[field] as any[];
+      const arr = item[field] as any[] | undefined;
+      if (!arr) return false;
       return arrayIndexPredicate(arr, ArrayIndexOperEnum.VALUE_AT_INDEX_GREATER_THAN, index, target);
     });
   };
@@ -142,7 +147,8 @@ function indexGreaterThanOrEquals<T, C extends Wherable<T, C>>(ctx: C) {
     target: Parameters<ArrayIndexPredicate>[3]
   ) {
     return ctx.where((item: T) => {
-      const arr = item[field] as any[];
+      const arr = item[field] as any[] | undefined;
+      if (!arr) return false;
       return arrayIndexPredicate(arr, ArrayIndexOperEnum.VALUE_AT_INDEX_GREATER_THAN_OR_EQUALS, index, target);
     });
   };
@@ -155,7 +161,8 @@ function indexLessThan<T, C extends Wherable<T, C>>(ctx: C) {
     target: Parameters<ArrayIndexPredicate>[3]
   ) {
     return ctx.where((item: T) => {
-      const arr = item[field] as any[];
+      const arr = item[field] as any[] | undefined;
+      if (!arr) return false;
       return arrayIndexPredicate(arr, ArrayIndexOperEnum.VALUE_AT_INDEX_LESS_THAN, index, target);
     });
   };
@@ -168,7 +175,8 @@ function indexLessThanOrEquals<T, C extends Wherable<T, C>>(ctx: C) {
     target: Parameters<ArrayIndexPredicate>[3]
   ) {
     return ctx.where((item: T) => {
-      const arr = item[field] as any[];
+      const arr = item[field] as any[] | undefined;
+      if (!arr) return false;
       return arrayIndexPredicate(arr, ArrayIndexOperEnum.VALUE_AT_INDEX_LESS_THAN_OR_EQUALS, index, target);
     });
   };

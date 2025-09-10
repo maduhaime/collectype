@@ -5,7 +5,8 @@ import { ByType, Wherable } from '../../types/utility';
 function isToday<T, C extends Wherable<T, C>>(ctx: C) {
   return function <K extends keyof ByType<T, Date>>(field: K, today: Parameters<CalendarPredicate>[2] = new Date()) {
     return ctx.where((item: T) => {
-      const source = item[field] as Date;
+      const source = item[field] as Date | undefined;
+      if (source === undefined) return false;
       return calendarPredicate(source, CalendarOperEnum.IS_TODAY, today);
     });
   };
@@ -29,7 +30,8 @@ function isToday<T, C extends Wherable<T, C>>(ctx: C) {
 function isYesterday<T, C extends Wherable<T, C>>(ctx: C) {
   return function <K extends keyof ByType<T, Date>>(field: K, today: Parameters<CalendarPredicate>[2] = new Date()) {
     return ctx.where((item: T) => {
-      const source = item[field] as Date;
+      const source = item[field] as Date | undefined;
+      if (source === undefined) return false;
       return calendarPredicate(source, CalendarOperEnum.IS_YESTERDAY, today);
     });
   };
@@ -38,7 +40,8 @@ function isYesterday<T, C extends Wherable<T, C>>(ctx: C) {
 function isBeforeToday<T, C extends Wherable<T, C>>(ctx: C) {
   return function <K extends keyof ByType<T, Date>>(field: K, today: Parameters<CalendarPredicate>[2] = new Date()) {
     return ctx.where((item: T) => {
-      const source = item[field] as Date;
+      const source = item[field] as Date | undefined;
+      if (source === undefined) return false;
       return calendarPredicate(source, CalendarOperEnum.IS_BEFORE_TODAY, today);
     });
   };
@@ -47,7 +50,8 @@ function isBeforeToday<T, C extends Wherable<T, C>>(ctx: C) {
 function isAfterToday<T, C extends Wherable<T, C>>(ctx: C) {
   return function <K extends keyof ByType<T, Date>>(field: K, today: Parameters<CalendarPredicate>[2] = new Date()) {
     return ctx.where((item: T) => {
-      const source = item[field] as Date;
+      const source = item[field] as Date | undefined;
+      if (source === undefined) return false;
       return calendarPredicate(source, CalendarOperEnum.IS_AFTER_TODAY, today);
     });
   };
@@ -56,7 +60,8 @@ function isAfterToday<T, C extends Wherable<T, C>>(ctx: C) {
 function isFuture<T, C extends Wherable<T, C>>(ctx: C) {
   return function <K extends keyof ByType<T, Date>>(field: K, today: Parameters<CalendarPredicate>[2] = new Date()) {
     return ctx.where((item: T) => {
-      const source = item[field] as Date;
+      const source = item[field] as Date | undefined;
+      if (source === undefined) return false;
       return calendarPredicate(source, CalendarOperEnum.IS_FUTURE, today);
     });
   };
@@ -65,7 +70,8 @@ function isFuture<T, C extends Wherable<T, C>>(ctx: C) {
 function isPast<T, C extends Wherable<T, C>>(ctx: C) {
   return function <K extends keyof ByType<T, Date>>(field: K, today: Parameters<CalendarPredicate>[2] = new Date()) {
     return ctx.where((item: T) => {
-      const source = item[field] as Date;
+      const source = item[field] as Date | undefined;
+      if (source === undefined) return false;
       return calendarPredicate(source, CalendarOperEnum.IS_PAST, today);
     });
   };
@@ -74,7 +80,8 @@ function isPast<T, C extends Wherable<T, C>>(ctx: C) {
 function isWeekend<T, C extends Wherable<T, C>>(ctx: C) {
   return function <K extends keyof ByType<T, Date>>(field: K, today: Parameters<CalendarPredicate>[2] = new Date()) {
     return ctx.where((item: T) => {
-      const source = item[field] as Date;
+      const source = item[field] as Date | undefined;
+      if (source === undefined) return false;
       return calendarPredicate(source, CalendarOperEnum.IS_WEEKEND, today);
     });
   };
@@ -83,7 +90,8 @@ function isWeekend<T, C extends Wherable<T, C>>(ctx: C) {
 function isWeekday<T, C extends Wherable<T, C>>(ctx: C) {
   return function <K extends keyof ByType<T, Date>>(field: K, today: Parameters<CalendarPredicate>[2] = new Date()) {
     return ctx.where((item: T) => {
-      const source = item[field] as Date;
+      const source = item[field] as Date | undefined;
+      if (source === undefined) return false;
       return calendarPredicate(source, CalendarOperEnum.IS_WEEKDAY, today);
     });
   };

@@ -20,7 +20,8 @@ export const objectPrototypeFactory = {
   isPrototypeOf<T, C extends Wherable<T, C>>(ctx: C) {
     return function <K extends keyof ByType<T, object>>(field: K, target: Parameters<ObjectPrototypePredicate>[2]) {
       return ctx.where((item: T) => {
-        const proto = item[field] as object;
+        const proto = item[field] as object | undefined;
+        if (proto === undefined) return false;
         return objectPrototypePredicate(proto, ObjectPrototypeEnum.IS_PROTOTYPE_OF, target);
       });
     };

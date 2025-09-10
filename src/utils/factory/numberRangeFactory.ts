@@ -24,7 +24,8 @@ function inRange<T, C extends Wherable<T, C>>(ctx: C) {
     max: Parameters<NumberRangePredicate>[3]
   ) {
     return ctx.where((item: T) => {
-      const source = item[field] as number;
+      const source = item[field] as number | undefined;
+      if (source === undefined) return false;
       return numberRangePredicate(source, RangeOperEnum.IN_RANGE, min, max);
     });
   };
@@ -52,7 +53,8 @@ function outRange<T, C extends Wherable<T, C>>(ctx: C) {
     max: Parameters<NumberRangePredicate>[3]
   ) {
     return ctx.where((item: T) => {
-      const source = item[field] as number;
+      const source = item[field] as number | undefined;
+      if (source === undefined) return false;
       return numberRangePredicate(source, RangeOperEnum.OUT_RANGE, min, max);
     });
   };
@@ -80,7 +82,8 @@ function strictInRange<T, C extends Wherable<T, C>>(ctx: C) {
     max: Parameters<NumberRangePredicate>[3]
   ) {
     return ctx.where((item: T) => {
-      const source = item[field] as number;
+      const source = item[field] as number | undefined;
+      if (source === undefined) return false;
       return numberRangePredicate(source, RangeOperEnum.STRICT_IN_RANGE, min, max);
     });
   };
@@ -108,7 +111,8 @@ function strictOutRange<T, C extends Wherable<T, C>>(ctx: C) {
     max: Parameters<NumberRangePredicate>[3]
   ) {
     return ctx.where((item: T) => {
-      const source = item[field] as number;
+      const source = item[field] as number | undefined;
+      if (source === undefined) return false;
       return numberRangePredicate(source, RangeOperEnum.STRICT_OUT_RANGE, min, max);
     });
   };

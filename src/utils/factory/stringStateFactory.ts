@@ -19,7 +19,8 @@ import { ByType, Wherable } from '../../types/utility';
 function isEmpty<T, C extends Wherable<T, C>>(ctx: C) {
   return function <K extends keyof ByType<T, string>>(field: K) {
     return ctx.where((item: T) => {
-      const source = item[field] as string;
+      const source = item[field] as string | undefined;
+      if (source === undefined) return false;
       return stringStatePredicate(source, StringStateOperEnum.IS_EMPTY);
     });
   };
@@ -42,7 +43,8 @@ function isEmpty<T, C extends Wherable<T, C>>(ctx: C) {
 function isNotEmpty<T, C extends Wherable<T, C>>(ctx: C) {
   return function <K extends keyof ByType<T, string>>(field: K) {
     return ctx.where((item: T) => {
-      const source = item[field] as string;
+      const source = item[field] as string | undefined;
+      if (source === undefined) return false;
       return stringStatePredicate(source, StringStateOperEnum.IS_NOT_EMPTY);
     });
   };

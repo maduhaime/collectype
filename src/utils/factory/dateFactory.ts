@@ -5,7 +5,8 @@ import { ByType, Wherable } from '../../types/utility';
 function equals<T, C extends Wherable<T, C>>(ctx: C) {
   return function <K extends keyof ByType<T, Date>>(field: K, target: Parameters<DatePredicate>[2]) {
     return ctx.where((item: T) => {
-      const source = item[field] as Date;
+      const source = item[field] as Date | undefined;
+      if (source === undefined) return false;
       return datePredicate(source, DateOperEnum.EQUALS, target);
     });
   };
@@ -14,7 +15,8 @@ function equals<T, C extends Wherable<T, C>>(ctx: C) {
 function notEquals<T, C extends Wherable<T, C>>(ctx: C) {
   return function <K extends keyof ByType<T, Date>>(field: K, target: Parameters<DatePredicate>[2]) {
     return ctx.where((item: T) => {
-      const source = item[field] as Date;
+      const source = item[field] as Date | undefined;
+      if (source === undefined) return false;
       return datePredicate(source, DateOperEnum.NOT_EQUALS, target);
     });
   };
@@ -38,7 +40,8 @@ function notEquals<T, C extends Wherable<T, C>>(ctx: C) {
 function occursBefore<T, C extends Wherable<T, C>>(ctx: C) {
   return function <K extends keyof ByType<T, Date>>(field: K, target: Parameters<DatePredicate>[2]) {
     return ctx.where((item: T) => {
-      const source = item[field] as Date;
+      const source = item[field] as Date | undefined;
+      if (source === undefined) return false;
       return datePredicate(source, DateOperEnum.OCCURS_BEFORE, target);
     });
   };
@@ -47,7 +50,8 @@ function occursBefore<T, C extends Wherable<T, C>>(ctx: C) {
 function occursOnOrBefore<T, C extends Wherable<T, C>>(ctx: C) {
   return function <K extends keyof ByType<T, Date>>(field: K, target: Parameters<DatePredicate>[2]) {
     return ctx.where((item: T) => {
-      const source = item[field] as Date;
+      const source = item[field] as Date | undefined;
+      if (source === undefined) return false;
       return datePredicate(source, DateOperEnum.OCCURS_ON_OR_BEFORE, target);
     });
   };
@@ -56,7 +60,8 @@ function occursOnOrBefore<T, C extends Wherable<T, C>>(ctx: C) {
 function occursAfter<T, C extends Wherable<T, C>>(ctx: C) {
   return function <K extends keyof ByType<T, Date>>(field: K, target: Parameters<DatePredicate>[2]) {
     return ctx.where((item: T) => {
-      const source = item[field] as Date;
+      const source = item[field] as Date | undefined;
+      if (source === undefined) return false;
       return datePredicate(source, DateOperEnum.OCCURS_AFTER, target);
     });
   };
@@ -65,7 +70,8 @@ function occursAfter<T, C extends Wherable<T, C>>(ctx: C) {
 function occursOnOrAfter<T, C extends Wherable<T, C>>(ctx: C) {
   return function <K extends keyof ByType<T, Date>>(field: K, target: Parameters<DatePredicate>[2]) {
     return ctx.where((item: T) => {
-      const source = item[field] as Date;
+      const source = item[field] as Date | undefined;
+      if (source === undefined) return false;
       return datePredicate(source, DateOperEnum.OCCURS_ON_OR_AFTER, target);
     });
   };

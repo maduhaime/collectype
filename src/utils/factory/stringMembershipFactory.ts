@@ -21,7 +21,8 @@ export const stringMembershipFactory = {
   isOneOf<T, C extends Wherable<T, C>>(ctx: C) {
     return function <K extends keyof ByType<T, string>>(field: K, target: Parameters<StringMembershipPredicate>[2]) {
       return ctx.where((item: T) => {
-        const str = item[field] as string;
+        const str = item[field] as string | undefined;
+        if (str === undefined) return false;
         return stringMembershipPredicate(str, StringMembershipOperEnum.IS_ONE_OF, target);
       });
     };
@@ -43,7 +44,8 @@ export const stringMembershipFactory = {
   isNotOneOf<T, C extends Wherable<T, C>>(ctx: C) {
     return function <K extends keyof ByType<T, string>>(field: K, target: Parameters<StringMembershipPredicate>[2]) {
       return ctx.where((item: T) => {
-        const str = item[field] as string;
+        const str = item[field] as string | undefined;
+        if (str === undefined) return false;
         return stringMembershipPredicate(str, StringMembershipOperEnum.IS_NOT_ONE_OF, target);
       });
     };

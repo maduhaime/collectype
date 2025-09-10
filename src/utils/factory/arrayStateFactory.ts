@@ -20,7 +20,8 @@ import { ByType, Wherable } from '../../types/utility';
 function isEmpty<T, C extends Wherable<T, C>>(ctx: C) {
   return function <K extends keyof ByType<T, any[]>>(field: K) {
     return ctx.where((item: T) => {
-      const arr = item[field] as any[];
+      const arr = item[field] as any[] | undefined;
+      if (!arr) return false;
       return arrayStatePredicate(arr, ArrayStateOperEnum.IS_EMPTY);
     });
   };
@@ -44,7 +45,8 @@ function isEmpty<T, C extends Wherable<T, C>>(ctx: C) {
 function isNotEmpty<T, C extends Wherable<T, C>>(ctx: C) {
   return function <K extends keyof ByType<T, any[]>>(field: K) {
     return ctx.where((item: T) => {
-      const arr = item[field] as any[];
+      const arr = item[field] as any[] | undefined;
+      if (!arr) return false;
       return arrayStatePredicate(arr, ArrayStateOperEnum.IS_NOT_EMPTY);
     });
   };

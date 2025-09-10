@@ -20,7 +20,8 @@ export const objectStateFactory = {
   isEmpty<T, C extends Wherable<T, C>>(ctx: C) {
     return function <K extends keyof ByType<T, object>>(field: K) {
       return ctx.where((item: T) => {
-        const obj = item[field] as object;
+        const obj = item[field] as object | undefined;
+        if (obj === undefined) return false;
         return objectStatePredicate(obj, ObjectStateEnum.IS_EMPTY);
       });
     };
@@ -42,7 +43,8 @@ export const objectStateFactory = {
   isPlain<T, C extends Wherable<T, C>>(ctx: C) {
     return function <K extends keyof ByType<T, object>>(field: K) {
       return ctx.where((item: T) => {
-        const obj = item[field] as object;
+        const obj = item[field] as object | undefined;
+        if (obj === undefined) return false;
         return objectStatePredicate(obj, ObjectStateEnum.IS_PLAIN);
       });
     };
@@ -64,7 +66,8 @@ export const objectStateFactory = {
   hasNumericKeys<T, C extends Wherable<T, C>>(ctx: C) {
     return function <K extends keyof ByType<T, object>>(field: K) {
       return ctx.where((item: T) => {
-        const obj = item[field] as object;
+        const obj = item[field] as object | undefined;
+        if (obj === undefined) return false;
         return objectStatePredicate(obj, ObjectStateEnum.HAS_NUMERIC_KEYS);
       });
     };
@@ -86,7 +89,8 @@ export const objectStateFactory = {
   hasCamelcaseKeys<T, C extends Wherable<T, C>>(ctx: C) {
     return function <K extends keyof ByType<T, object>>(field: K) {
       return ctx.where((item: T) => {
-        const obj = item[field] as object;
+        const obj = item[field] as object | undefined;
+        if (obj === undefined) return false;
         return objectStatePredicate(obj, ObjectStateEnum.HAS_CAMELCASE_KEYS);
       });
     };
@@ -108,7 +112,8 @@ export const objectStateFactory = {
   hasNestedObject<T, C extends Wherable<T, C>>(ctx: C) {
     return function <K extends keyof ByType<T, object>>(field: K) {
       return ctx.where((item: T) => {
-        const obj = item[field] as object;
+        const obj = item[field] as object | undefined;
+        if (obj === undefined) return false;
         return objectStatePredicate(obj, ObjectStateEnum.HAS_NESTED_OBJECT);
       });
     };
@@ -130,7 +135,8 @@ export const objectStateFactory = {
   isFrozen<T, C extends Wherable<T, C>>(ctx: C) {
     return function <K extends keyof ByType<T, object>>(field: K) {
       return ctx.where((item: T) => {
-        const obj = item[field] as object;
+        const obj = item[field] as object | undefined;
+        if (obj === undefined) return false;
         return objectStatePredicate(obj, ObjectStateEnum.IS_FROZEN);
       });
     };
@@ -152,7 +158,8 @@ export const objectStateFactory = {
   isSealed<T, C extends Wherable<T, C>>(ctx: C) {
     return function <K extends keyof ByType<T, object>>(field: K) {
       return ctx.where((item: T) => {
-        const obj = item[field] as object;
+        const obj = item[field] as object | undefined;
+        if (obj === undefined) return false;
         return objectStatePredicate(obj, ObjectStateEnum.IS_SEALED);
       });
     };

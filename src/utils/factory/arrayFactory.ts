@@ -21,7 +21,8 @@ function equals<T, C extends Wherable<T, C>>(ctx: C) {
   return function <K extends keyof ByType<T, any[]>>(field: K, target: Parameters<ArrayPredicate>[2]) {
     // Use the context's where method to filter items
     return ctx.where((item: T) => {
-      const arr = item[field] as any[];
+      const arr = item[field] as any[] | undefined;
+      if (!arr) return false;
       // Compare the array using the 'equals' operation
       return arrayPredicate(arr, ArrayOperEnum.EQUALS, target);
     });
@@ -47,7 +48,8 @@ function setEquals<T, C extends Wherable<T, C>>(ctx: C) {
   return function <K extends keyof ByType<T, any[]>>(field: K, target: Parameters<ArrayPredicate>[2]) {
     // Use the context's where method to filter items
     return ctx.where((item: T) => {
-      const arr = item[field] as any[];
+      const arr = item[field] as any[] | undefined;
+      if (!arr) return false;
       // Compare the array using the 'setEquals' operation
       return arrayPredicate(arr, ArrayOperEnum.SET_EQUALS, target);
     });
@@ -99,7 +101,8 @@ function excludes<T, C extends Wherable<T, C>>(ctx: C) {
   return function <K extends keyof ByType<T, any[]>>(field: K, target: Parameters<ArrayPredicate>[2]) {
     // Use the context's where method to filter items
     return ctx.where((item: T) => {
-      const arr = item[field] as any[];
+      const arr = item[field] as any[] | undefined;
+      if (!arr) return false;
       // Check if the array excludes the target value
       return arrayPredicate(arr, ArrayOperEnum.EXCLUDES, target);
     });
@@ -125,7 +128,8 @@ function someEquals<T, C extends Wherable<T, C>>(ctx: C) {
   return function <K extends keyof ByType<T, any[]>>(field: K, target: Parameters<ArrayPredicate>[2]) {
     // Use the context's where method to filter items
     return ctx.where((item: T) => {
-      const arr = item[field] as any[];
+      const arr = item[field] as any[] | undefined;
+      if (!arr) return false;
       // Check if some element in the array equals the target value
       return arrayPredicate(arr, ArrayOperEnum.SOME_EQUALS, target);
     });
@@ -151,7 +155,8 @@ function everyEquals<T, C extends Wherable<T, C>>(ctx: C) {
   return function <K extends keyof ByType<T, any[]>>(field: K, target: Parameters<ArrayPredicate>[2]) {
     // Use the context's where method to filter items
     return ctx.where((item: T) => {
-      const arr = item[field] as any[];
+      const arr = item[field] as any[] | undefined;
+      if (!arr) return false;
       // Check if every element in the array equals the target value
       return arrayPredicate(arr, ArrayOperEnum.EVERY_EQUALS, target);
     });
@@ -177,7 +182,8 @@ function isSubsetOf<T, C extends Wherable<T, C>>(ctx: C) {
   return function <K extends keyof ByType<T, any[]>>(field: K, target: Parameters<ArrayPredicate>[2]) {
     // Use the context's where method to filter items
     return ctx.where((item: T) => {
-      const arr = item[field] as any[];
+      const arr = item[field] as any[] | undefined;
+      if (!arr) return false;
       // Check if the array is a subset of the target value
       return arrayPredicate(arr, ArrayOperEnum.IS_SUBSET_OF, target);
     });
@@ -203,7 +209,8 @@ function isSupersetOf<T, C extends Wherable<T, C>>(ctx: C) {
   return function <K extends keyof ByType<T, any[]>>(field: K, target: Parameters<ArrayPredicate>[2]) {
     // Use the context's where method to filter items
     return ctx.where((item: T) => {
-      const arr = item[field] as any[];
+      const arr = item[field] as any[] | undefined;
+      if (!arr) return false;
       // Check if the array is a superset of the target value
       return arrayPredicate(arr, ArrayOperEnum.IS_SUPERSET_OF, target);
     });
@@ -229,7 +236,8 @@ function startsWith<T, C extends Wherable<T, C>>(ctx: C) {
   return function <K extends keyof ByType<T, any[]>>(field: K, target: Parameters<ArrayPredicate>[2]) {
     // Use the context's where method to filter items
     return ctx.where((item: T) => {
-      const arr = item[field] as any[];
+      const arr = item[field] as any[] | undefined;
+      if (!arr) return false;
       // Check if the array starts with the target value
       return arrayPredicate(arr, ArrayOperEnum.STARTS_WITH, target);
     });
@@ -255,7 +263,8 @@ function endsWith<T, C extends Wherable<T, C>>(ctx: C) {
   return function <K extends keyof ByType<T, any[]>>(field: K, target: Parameters<ArrayPredicate>[2]) {
     // Use the context's where method to filter items
     return ctx.where((item: T) => {
-      const arr = item[field] as any[];
+      const arr = item[field] as any[] | undefined;
+      if (!arr) return false;
       // Check if the array ends with the target value
       return arrayPredicate(arr, ArrayOperEnum.ENDS_WITH, target);
     });
@@ -281,7 +290,8 @@ function containsSubsequence<T, C extends Wherable<T, C>>(ctx: C) {
   return function <K extends keyof ByType<T, any[]>>(field: K, target: Parameters<ArrayPredicate>[2]) {
     // Use the context's where method to filter items
     return ctx.where((item: T) => {
-      const arr = item[field] as any[];
+      const arr = item[field] as any[] | undefined;
+      if (!arr) return false;
       // Check if the array contains the target subsequence
       return arrayPredicate(arr, ArrayOperEnum.CONTAINS_SUBSEQUENCE, target);
     });
@@ -307,7 +317,8 @@ function intersects<T, C extends Wherable<T, C>>(ctx: C) {
   return function <K extends keyof ByType<T, any[]>>(field: K, target: Parameters<ArrayPredicate>[2]) {
     // Use the context's where method to filter items
     return ctx.where((item: T) => {
-      const arr = item[field] as any[];
+      const arr = item[field] as any[] | undefined;
+      if (!arr) return false;
       // Check if the array intersects with the target value
       return arrayPredicate(arr, ArrayOperEnum.INTERSECTS, target);
     });
@@ -333,7 +344,8 @@ function disjoint<T, C extends Wherable<T, C>>(ctx: C) {
   return function <K extends keyof ByType<T, any[]>>(field: K, target: Parameters<ArrayPredicate>[2]) {
     // Use the context's where method to filter items
     return ctx.where((item: T) => {
-      const arr = item[field] as any[];
+      const arr = item[field] as any[] | undefined;
+      if (!arr) return false;
       // Check if the array is disjoint from the target value
       return arrayPredicate(arr, ArrayOperEnum.DISJOINT, target);
     });

@@ -20,7 +20,8 @@ function equals<T, C extends Wherable<T, C>>(ctx: C) {
    */
   return function <K extends keyof ByType<T, boolean>>(field: K, target: Parameters<BooleanPredicate>[2]) {
     return ctx.where((item: T) => {
-      const source = item[field] as boolean;
+      const source = item[field] as boolean | undefined;
+      if (source === undefined) return false;
       return booleanPredicate(source, BooleanOperEnum.EQUALS, target);
     });
   };
@@ -44,7 +45,8 @@ function notEquals<T, C extends Wherable<T, C>>(ctx: C) {
    */
   return function <K extends keyof ByType<T, boolean>>(field: K, target: Parameters<BooleanPredicate>[2]) {
     return ctx.where((item: T) => {
-      const source = item[field] as boolean;
+      const source = item[field] as boolean | undefined;
+      if (source === undefined) return false;
       return booleanPredicate(source, BooleanOperEnum.NOT_EQUALS, target);
     });
   };
