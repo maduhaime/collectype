@@ -1,7 +1,8 @@
 {
   "name": "collectype",
-  "version": "0.8.5",
+  "version": "0.8.6",
   "description": "CollecType is a modern, type-safe collection utility for TypeScript. Effortlessly filter, sort, and transform arrays of any type using a fluent, chainable API.",
+  "homepage": "https://maduhaime.github.io/collectype/",
   "keywords": [
     "typescript",
     "collection",

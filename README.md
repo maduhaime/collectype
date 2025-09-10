@@ -8,7 +8,9 @@ Its goal: make working with collections as productive and enjoyable as possible,
 
 ## Documentation
 
-More detailed documentation is coming soon.
+- [Project Home](https://maduhaime.github.io/collectype/) on github.io.
+- [API Reference](https://maduhaime.github.io/collectype/modules) on github.io.
+- [Changelog](https://github.com/maduhaime/collectype/blob/main/CHANGELOG.md) github.com
 
 ## Installation
 
@@ -55,7 +57,6 @@ You can also provide your own functions class to add **custom business logic**. 
 
 ```typescript
 import { Collection, BaseFunctions } from 'collectype';
-import { PredicateFn } from 'collectype/types';
 import { people } from './data/people';
 
 type Person = {
@@ -113,7 +114,7 @@ export class PersonFunctions extends BaseFunctions<Person> {
 
   // Alternative syntax with type for predicate function
   female(): this {
-    const predicate: PredicateFn = (item) => item.gender >= GenderEnum.FEMALE;
+    const predicate: PredicateFn = (item) => item.gender === GenderEnum.FEMALE;
     return this.where(predicate);
   }
 
@@ -462,9 +463,9 @@ console.log(count);
 You can also use the `pipe` method to apply a sequence of operations from a string expression:
 
 ```typescript
-const adults = collection.fn.pipe("adult(21) | sort('age', 'desc')");
+const men = collection.fn.pipe("adult(21) | male()").sort('age', 'desc')");
 
-console.log(adults.items.map((p) => p.name));
+console.log(men.items.map((p) => p.name));
 ```
 
 > ⚠️ **Warning:** The `pipe` method evaluates the expression dynamically. If the expression contains a typo, calls a non-existent method, or passes invalid arguments, it will throw a runtime error. Use with caution and prefer direct chaining for type safety whenever possible.

@@ -1,3 +1,15 @@
+# 0.8.6 - 2025-09-10
+
+### Added
+
+- Added explicit guard clause (undefined) tests for every method in all factories (array, arrayIndex, arraySize, arrayState, boolean, calendar, date, dateRange, etc.)
+
+### Changed
+
+- Enriched and harmonized JSDoc documentation for all factories and utilities, with realistic examples.
+
+---
+
 # 0.8.5 - 2025-09-09
 
 ### Changed
