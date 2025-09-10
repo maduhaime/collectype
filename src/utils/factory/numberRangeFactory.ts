@@ -12,10 +12,28 @@ import { ByType, Wherable } from '../../types/utility';
  *
  * @example
  * import { numberRangeFactory } from 'collectype/utils/factory';
+ * import { BaseFunctions } from 'collectype';
  *
- * class DummyFunctions extends BaseFunctions<DummyType> {
+ * interface Product {
+ *   name: string;
+ *   price?: number;
+ * }
+ *
+ * const min = 5;
+ * const max = 15;
+ * const products = [
+ *   { name: 'Book', price: 10 },
+ *   { name: 'Pen', price: 2 },
+ *   { name: 'Gift' },
+ * ];
+ *
+ * class ProductFunctions extends BaseFunctions<Product> {
  *   numberInRange = numberRangeFactory.inRange(this);
  * }
+ *
+ * const fn = new ProductFunctions(products);
+ * fn.numberInRange('price', min, max);
+ * // Result: [{ name: 'Book', price: 10 }]
  */
 function inRange<T, C extends Wherable<T, C>>(ctx: C) {
   return function <K extends keyof ByType<T, number>>(
@@ -41,10 +59,28 @@ function inRange<T, C extends Wherable<T, C>>(ctx: C) {
  *
  * @example
  * import { numberRangeFactory } from 'collectype/utils/factory';
+ * import { BaseFunctions } from 'collectype';
  *
- * class DummyFunctions extends BaseFunctions<DummyType> {
+ * interface Product {
+ *   name: string;
+ *   price?: number;
+ * }
+ *
+ * const min = 5;
+ * const max = 15;
+ * const products = [
+ *   { name: 'Book', price: 10 },
+ *   { name: 'Pen', price: 2 },
+ *   { name: 'Gift' },
+ * ];
+ *
+ * class ProductFunctions extends BaseFunctions<Product> {
  *   numberOutRange = numberRangeFactory.outRange(this);
  * }
+ *
+ * const fn = new ProductFunctions(products);
+ * fn.numberOutRange('price', min, max);
+ * // Result: [{ name: 'Pen', price: 2 }]
  */
 function outRange<T, C extends Wherable<T, C>>(ctx: C) {
   return function <K extends keyof ByType<T, number>>(
@@ -70,10 +106,28 @@ function outRange<T, C extends Wherable<T, C>>(ctx: C) {
  *
  * @example
  * import { numberRangeFactory } from 'collectype/utils/factory';
+ * import { BaseFunctions } from 'collectype';
  *
- * class DummyFunctions extends BaseFunctions<DummyType> {
+ * interface Product {
+ *   name: string;
+ *   price?: number;
+ * }
+ *
+ * const min = 5;
+ * const max = 15;
+ * const products = [
+ *   { name: 'Book', price: 10 },
+ *   { name: 'Pen', price: 5 },
+ *   { name: 'Gift' },
+ * ];
+ *
+ * class ProductFunctions extends BaseFunctions<Product> {
  *   numberStrictInRange = numberRangeFactory.strictInRange(this);
  * }
+ *
+ * const fn = new ProductFunctions(products);
+ * fn.numberStrictInRange('price', min, max);
+ * // Result: [{ name: 'Book', price: 10 }]
  */
 function strictInRange<T, C extends Wherable<T, C>>(ctx: C) {
   return function <K extends keyof ByType<T, number>>(
@@ -99,10 +153,28 @@ function strictInRange<T, C extends Wherable<T, C>>(ctx: C) {
  *
  * @example
  * import { numberRangeFactory } from 'collectype/utils/factory';
+ * import { BaseFunctions } from 'collectype';
  *
- * class DummyFunctions extends BaseFunctions<DummyType> {
+ * interface Product {
+ *   name: string;
+ *   price?: number;
+ * }
+ *
+ * const min = 5;
+ * const max = 15;
+ * const products = [
+ *   { name: 'Book', price: 10 },
+ *   { name: 'Pen', price: 5 },
+ *   { name: 'Gift' },
+ * ];
+ *
+ * class ProductFunctions extends BaseFunctions<Product> {
  *   numberStrictOutRange = numberRangeFactory.strictOutRange(this);
  * }
+ *
+ * const fn = new ProductFunctions(products);
+ * fn.numberStrictOutRange('price', min, max);
+ * // Result: []
  */
 function strictOutRange<T, C extends Wherable<T, C>>(ctx: C) {
   return function <K extends keyof ByType<T, number>>(

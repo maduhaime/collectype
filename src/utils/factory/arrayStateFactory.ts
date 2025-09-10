@@ -12,10 +12,26 @@ import { ByType, Wherable } from '../../types/utility';
  *
  * @example
  * import { arrayStateFactory } from 'collectype/utils/factory';
+ * import { BaseFunctions } from 'collectype';
  *
- * class DummyFunctions extends BaseFunctions<DummyType> {
+ * interface Person {
+ *   name: string;
+ *   tags?: string[];
+ * }
+ *
+ * const people = [
+ *   { name: 'Alice', tags: [] },
+ *   { name: 'Bob', tags: ['dev'] },
+ *   { name: 'Carol' },
+ * ];
+ *
+ * class PersonFunctions extends BaseFunctions<Person> {
  *   arrayIsEmpty = arrayStateFactory.isEmpty(this);
  * }
+ *
+ * const fn = new PersonFunctions(people);
+ * fn.arrayIsEmpty('tags');
+ * // Result: [{ name: 'Alice', tags: [] }]
  */
 function isEmpty<T, C extends Wherable<T, C>>(ctx: C) {
   return function <K extends keyof ByType<T, any[]>>(field: K) {
@@ -37,10 +53,26 @@ function isEmpty<T, C extends Wherable<T, C>>(ctx: C) {
  *
  * @example
  * import { arrayStateFactory } from 'collectype/utils/factory';
+ * import { BaseFunctions } from 'collectype';
  *
- * class DummyFunctions extends BaseFunctions<DummyType> {
+ * interface Person {
+ *   name: string;
+ *   tags?: string[];
+ * }
+ *
+ * const people = [
+ *   { name: 'Alice', tags: [] },
+ *   { name: 'Bob', tags: ['dev'] },
+ *   { name: 'Carol' },
+ * ];
+ *
+ * class PersonFunctions extends BaseFunctions<Person> {
  *   arrayIsNotEmpty = arrayStateFactory.isNotEmpty(this);
  * }
+ *
+ * const fn = new PersonFunctions(people);
+ * fn.arrayIsNotEmpty('tags');
+ * // Result: [{ name: 'Bob', tags: ['dev'] }]
  */
 function isNotEmpty<T, C extends Wherable<T, C>>(ctx: C) {
   return function <K extends keyof ByType<T, any[]>>(field: K) {

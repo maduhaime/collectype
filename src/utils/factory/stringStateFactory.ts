@@ -11,10 +11,26 @@ import { ByType, Wherable } from '../../types/utility';
  *
  * @example
  * import { stringStateFactory } from 'collectype/utils/factory';
+ * import { BaseFunctions } from 'collectype';
  *
- * class DummyFunctions extends BaseFunctions<DummyType> {
+ * interface Person {
+ *   name: string;
+ *   city?: string;
+ * }
+ *
+ * const people = [
+ *   { name: 'Alice', city: '' },
+ *   { name: 'Bob', city: 'London' },
+ *   { name: 'Carol' },
+ * ];
+ *
+ * class PersonFunctions extends BaseFunctions<Person> {
  *   stringIsEmpty = stringStateFactory.isEmpty(this);
  * }
+   
+ * const fn = new PersonFunctions(people);
+ * fn.stringIsEmpty('city');
+ * // Result: [{ name: 'Alice', city: '' }]
  */
 function isEmpty<T, C extends Wherable<T, C>>(ctx: C) {
   return function <K extends keyof ByType<T, string>>(field: K) {
@@ -35,10 +51,26 @@ function isEmpty<T, C extends Wherable<T, C>>(ctx: C) {
  *
  * @example
  * import { stringStateFactory } from 'collectype/utils/factory';
+ * import { BaseFunctions } from 'collectype';
  *
- * class DummyFunctions extends BaseFunctions<DummyType> {
+ * interface Person {
+ *   name: string;
+ *   city?: string;
+ * }
+ *
+ * const people = [
+ *   { name: 'Alice', city: '' },
+ *   { name: 'Bob', city: 'London' },
+ *   { name: 'Carol' },
+ * ];
+ *
+ * class PersonFunctions extends BaseFunctions<Person> {
  *   stringIsNotEmpty = stringStateFactory.isNotEmpty(this);
  * }
+   
+ * const fn = new PersonFunctions(people);
+ * fn.stringIsNotEmpty('city');
+ * // Result: [{ name: 'Bob', city: 'London' }]
  */
 function isNotEmpty<T, C extends Wherable<T, C>>(ctx: C) {
   return function <K extends keyof ByType<T, string>>(field: K) {

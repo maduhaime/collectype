@@ -12,10 +12,26 @@ import { ByType, Wherable } from '../../types/utility';
  *
  * @example
  * import { stringFactory } from 'collectype/utils/factory';
+ * import { BaseFunctions } from 'collectype';
  *
- * class DummyFunctions extends BaseFunctions<DummyType> {
+ * interface Person {
+ *   name: string;
+ *   city?: string;
+ * }
+ *
+ * const people = [
+ *   { name: 'Alice', city: 'Paris' },
+ *   { name: 'Bob', city: 'London' },
+ *   { name: 'Carol' },
+ * ];
+ *
+ * class PersonFunctions extends BaseFunctions<Person> {
  *   stringEquals = stringFactory.equals(this);
  * }
+ *
+ * const fn = new PersonFunctions(people);
+ * fn.stringEquals('city', 'Paris');
+ * // Result: [{ name: 'Alice', city: 'Paris' }]
  */
 function equals<T, C extends Wherable<T, C>>(ctx: C) {
   return function <K extends keyof ByType<T, string>>(field: K, target: Parameters<StringPredicate>[2]) {
@@ -37,10 +53,26 @@ function equals<T, C extends Wherable<T, C>>(ctx: C) {
  *
  * @example
  * import { stringFactory } from 'collectype/utils/factory';
+ * import { BaseFunctions } from 'collectype';
  *
- * class DummyFunctions extends BaseFunctions<DummyType> {
+ * interface Person {
+ *   name: string;
+ *   city?: string;
+ * }
+ *
+ * const people = [
+ *   { name: 'Alice', city: 'Paris' },
+ *   { name: 'Bob', city: 'London' },
+ *   { name: 'Carol' },
+ * ];
+ *
+ * class PersonFunctions extends BaseFunctions<Person> {
  *   stringNotEquals = stringFactory.notEquals(this);
  * }
+ *
+ * const fn = new PersonFunctions(people);
+ * fn.stringNotEquals('city', 'London');
+ * // Result: [{ name: 'Alice', city: 'Paris' }]
  */
 function notEquals<T, C extends Wherable<T, C>>(ctx: C) {
   return function <K extends keyof ByType<T, string>>(field: K, target: Parameters<StringPredicate>[2]) {
@@ -62,10 +94,26 @@ function notEquals<T, C extends Wherable<T, C>>(ctx: C) {
  *
  * @example
  * import { stringFactory } from 'collectype/utils/factory';
+ * import { BaseFunctions } from 'collectype';
  *
- * class DummyFunctions extends BaseFunctions<DummyType> {
+ * interface Person {
+ *   name: string;
+ *   city?: string;
+ * }
+ *
+ * const people = [
+ *   { name: 'Alice', city: 'Paris' },
+ *   { name: 'Bob', city: 'London' },
+ *   { name: 'Carol' },
+ * ];
+ *
+ * class PersonFunctions extends BaseFunctions<Person> {
  *   stringIncludes = stringFactory.includes(this);
  * }
+ *
+ * const fn = new PersonFunctions(people);
+ * fn.stringIncludes('city', 'Par');
+ * // Result: [{ name: 'Alice', city: 'Paris' }]
  */
 function includes<T, C extends Wherable<T, C>>(ctx: C) {
   return function <K extends keyof ByType<T, string>>(field: K, target: Parameters<StringPredicate>[2]) {
@@ -87,10 +135,26 @@ function includes<T, C extends Wherable<T, C>>(ctx: C) {
  *
  * @example
  * import { stringFactory } from 'collectype/utils/factory';
+ * import { BaseFunctions } from 'collectype';
  *
- * class DummyFunctions extends BaseFunctions<DummyType> {
+ * interface Person {
+ *   name: string;
+ *   city?: string;
+ * }
+ *
+ * const people = [
+ *   { name: 'Alice', city: 'Paris' },
+ *   { name: 'Bob', city: 'London' },
+ *   { name: 'Carol' },
+ * ];
+ *
+ * class PersonFunctions extends BaseFunctions<Person> {
  *   stringExcludes = stringFactory.excludes(this);
  * }
+ *
+ * const fn = new PersonFunctions(people);
+ * fn.stringExcludes('city', 'Lon');
+ * // Result: [{ name: 'Alice', city: 'Paris' }]
  */
 function excludes<T, C extends Wherable<T, C>>(ctx: C) {
   return function <K extends keyof ByType<T, string>>(field: K, target: Parameters<StringPredicate>[2]) {
@@ -112,10 +176,26 @@ function excludes<T, C extends Wherable<T, C>>(ctx: C) {
  *
  * @example
  * import { stringFactory } from 'collectype/utils/factory';
+ * import { BaseFunctions } from 'collectype';
  *
- * class DummyFunctions extends BaseFunctions<DummyType> {
+ * interface Person {
+ *   name: string;
+ *   city?: string;
+ * }
+ *
+ * const people = [
+ *   { name: 'Alice', city: 'Paris' },
+ *   { name: 'Bob', city: 'London' },
+ *   { name: 'Carol' },
+ * ];
+ *
+ * class PersonFunctions extends BaseFunctions<Person> {
  *   stringStartsWith = stringFactory.startsWith(this);
  * }
+ *
+ * const fn = new PersonFunctions(people);
+ * fn.stringStartsWith('city', 'Par');
+ * // Result: [{ name: 'Alice', city: 'Paris' }]
  */
 function startsWith<T, C extends Wherable<T, C>>(ctx: C) {
   return function <K extends keyof ByType<T, string>>(field: K, target: Parameters<StringPredicate>[2]) {
@@ -137,10 +217,26 @@ function startsWith<T, C extends Wherable<T, C>>(ctx: C) {
  *
  * @example
  * import { stringFactory } from 'collectype/utils/factory';
+ * import { BaseFunctions } from 'collectype';
  *
- * class DummyFunctions extends BaseFunctions<DummyType> {
+ * interface Person {
+ *   name: string;
+ *   city?: string;
+ * }
+ *
+ * const people = [
+ *   { name: 'Alice', city: 'Paris' },
+ *   { name: 'Bob', city: 'London' },
+ *   { name: 'Carol' },
+ * ];
+ *
+ * class PersonFunctions extends BaseFunctions<Person> {
  *   stringEndsWith = stringFactory.endsWith(this);
  * }
+ *
+ * const fn = new PersonFunctions(people);
+ * fn.stringEndsWith('city', 'is');
+ * // Result: [{ name: 'Alice', city: 'Paris' }]
  */
 function endsWith<T, C extends Wherable<T, C>>(ctx: C) {
   return function <K extends keyof ByType<T, string>>(field: K, target: Parameters<StringPredicate>[2]) {
@@ -162,10 +258,26 @@ function endsWith<T, C extends Wherable<T, C>>(ctx: C) {
  *
  * @example
  * import { stringFactory } from 'collectype/utils/factory';
+ * import { BaseFunctions } from 'collectype';
  *
- * class DummyFunctions extends BaseFunctions<DummyType> {
+ * interface Person {
+ *   name: string;
+ *   city?: string;
+ * }
+ *
+ * const people = [
+ *   { name: 'Alice', city: 'Paris' },
+ *   { name: 'Bob', city: 'London' },
+ *   { name: 'Carol' },
+ * ];
+ *
+ * class PersonFunctions extends BaseFunctions<Person> {
  *   stringMatches = stringFactory.matches(this);
  * }
+ *
+ * const fn = new PersonFunctions(people);
+ * fn.stringMatches('city', /^P/);
+ * // Result: [{ name: 'Alice', city: 'Paris' }]
  */
 function matches<T, C extends Wherable<T, C>>(ctx: C) {
   return function <K extends keyof ByType<T, string>>(field: K, pattern: RegExp) {

@@ -12,10 +12,26 @@ import { ByType, Wherable } from '../../types/utility';
  *
  * @example
  * import { numberFactory } from 'collectype/utils/factory';
+ * import { BaseFunctions } from 'collectype';
  *
- * class DummyFunctions extends BaseFunctions<DummyType> {
+ * interface Product {
+ *   name: string;
+ *   price?: number;
+ * }
+ *
+ * const products = [
+ *   { name: 'Book', price: 10 },
+ *   { name: 'Pen', price: 2 },
+ *   { name: 'Gift' },
+ * ];
+ *
+ * class ProductFunctions extends BaseFunctions<Product> {
  *   numberEquals = numberFactory.equals(this);
  * }
+ *
+ * const fn = new ProductFunctions(products);
+ * fn.numberEquals('price', 10);
+ * // Result: [{ name: 'Book', price: 10 }]
  */
 function equals<T, C extends Wherable<T, C>>(ctx: C) {
   return function <K extends keyof ByType<T, number>>(field: K, target: Parameters<NumberPredicate>[2]) {
@@ -37,10 +53,26 @@ function equals<T, C extends Wherable<T, C>>(ctx: C) {
  *
  * @example
  * import { numberFactory } from 'collectype/utils/factory';
+ * import { BaseFunctions } from 'collectype';
  *
- * class DummyFunctions extends BaseFunctions<DummyType> {
+ * interface Product {
+ *   name: string;
+ *   price?: number;
+ * }
+ *
+ * const products = [
+ *   { name: 'Book', price: 10 },
+ *   { name: 'Pen', price: 2 },
+ *   { name: 'Gift' },
+ * ];
+ *
+ * class ProductFunctions extends BaseFunctions<Product> {
  *   numberNotEquals = numberFactory.notEquals(this);
  * }
+ *
+ * const fn = new ProductFunctions(products);
+ * fn.numberNotEquals('price', 2);
+ * // Result: [{ name: 'Book', price: 10 }]
  */
 function notEquals<T, C extends Wherable<T, C>>(ctx: C) {
   return function <K extends keyof ByType<T, number>>(field: K, target: Parameters<NumberPredicate>[2]) {
@@ -61,10 +93,26 @@ function notEquals<T, C extends Wherable<T, C>>(ctx: C) {
  *
  * @example
  * import { numberFactory } from 'collectype/utils/factory';
+ * import { BaseFunctions } from 'collectype';
  *
- * class DummyFunctions extends BaseFunctions<DummyType> {
+ * interface Product {
+ *   name: string;
+ *   price?: number;
+ * }
+ *
+ * const products = [
+ *   { name: 'Book', price: 10 },
+ *   { name: 'Pen', price: 2 },
+ *   { name: 'Gift' },
+ * ];
+ *
+ * class ProductFunctions extends BaseFunctions<Product> {
  *   numberLessThan = numberFactory.lessThan(this);
  * }
+ *
+ * const fn = new ProductFunctions(products);
+ * fn.numberLessThan('price', 5);
+ * // Result: [{ name: 'Pen', price: 2 }]
  */
 function lessThan<T, C extends Wherable<T, C>>(ctx: C) {
   return function <K extends keyof ByType<T, number>>(field: K, target: Parameters<NumberPredicate>[2]) {
@@ -85,10 +133,26 @@ function lessThan<T, C extends Wherable<T, C>>(ctx: C) {
  *
  * @example
  * import { numberFactory } from 'collectype/utils/factory';
+ * import { BaseFunctions } from 'collectype';
  *
- * class DummyFunctions extends BaseFunctions<DummyType> {
+ * interface Product {
+ *   name: string;
+ *   price?: number;
+ * }
+ *
+ * const products = [
+ *   { name: 'Book', price: 10 },
+ *   { name: 'Pen', price: 2 },
+ *   { name: 'Gift' },
+ * ];
+ *
+ * class ProductFunctions extends BaseFunctions<Product> {
  *   numberLessThanOrEquals = numberFactory.lessThanOrEquals(this);
  * }
+ *
+ * const fn = new ProductFunctions(products);
+ * fn.numberLessThanOrEquals('price', 10);
+ * // Result: [{ name: 'Book', price: 10 }, { name: 'Pen', price: 2 }]
  */
 function lessThanOrEquals<T, C extends Wherable<T, C>>(ctx: C) {
   return function <K extends keyof ByType<T, number>>(field: K, target: Parameters<NumberPredicate>[2]) {
@@ -109,10 +173,26 @@ function lessThanOrEquals<T, C extends Wherable<T, C>>(ctx: C) {
  *
  * @example
  * import { numberFactory } from 'collectype/utils/factory';
+ * import { BaseFunctions } from 'collectype';
  *
- * class DummyFunctions extends BaseFunctions<DummyType> {
+ * interface Product {
+ *   name: string;
+ *   price?: number;
+ * }
+ *
+ * const products = [
+ *   { name: 'Book', price: 10 },
+ *   { name: 'Pen', price: 2 },
+ *   { name: 'Gift' },
+ * ];
+ *
+ * class ProductFunctions extends BaseFunctions<Product> {
  *   numberGreaterThan = numberFactory.greaterThan(this);
  * }
+ *
+ * const fn = new ProductFunctions(products);
+ * fn.numberGreaterThan('price', 5);
+ * // Result: [{ name: 'Book', price: 10 }]
  */
 function greaterThan<T, C extends Wherable<T, C>>(ctx: C) {
   return function <K extends keyof ByType<T, number>>(field: K, target: Parameters<NumberPredicate>[2]) {
@@ -133,10 +213,26 @@ function greaterThan<T, C extends Wherable<T, C>>(ctx: C) {
  *
  * @example
  * import { numberFactory } from 'collectype/utils/factory';
+ * import { BaseFunctions } from 'collectype';
  *
- * class DummyFunctions extends BaseFunctions<DummyType> {
+ * interface Product {
+ *   name: string;
+ *   price?: number;
+ * }
+ *
+ * const products = [
+ *   { name: 'Book', price: 10 },
+ *   { name: 'Pen', price: 2 },
+ *   { name: 'Gift' },
+ * ];
+ *
+ * class ProductFunctions extends BaseFunctions<Product> {
  *   numberGreaterThanOrEquals = numberFactory.greaterThanOrEquals(this);
  * }
+ *
+ * const fn = new ProductFunctions(products);
+ * fn.numberGreaterThanOrEquals('price', 2);
+ * // Result: [{ name: 'Book', price: 10 }, { name: 'Pen', price: 2 }]
  */
 function greaterThanOrEquals<T, C extends Wherable<T, C>>(ctx: C) {
   return function <K extends keyof ByType<T, number>>(field: K, target: Parameters<NumberPredicate>[2]) {
