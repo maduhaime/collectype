@@ -4,11 +4,11 @@
   "description": "CollecType is a modern, type-safe collection utility for TypeScript. Effortlessly filter, sort, and transform arrays of any type using a fluent, chainable API.",
   "homepage": "https://maduhaime.github.io/collectype/",
   "keywords": [
-    "typescript",
     "collection",
+    "typescript",
+    "type-safe",
     "filter",
-    "sort",
-    "predicate"
+    "sort"
   ],
   "license": "MIT",
   "author": "Marc-Antoine Duhaime",
@@ -62,5 +62,8 @@
     "typedoc-plugin-markdown": "^4.8.1",
     "typescript": "^5.9.2",
     "vitest": "^3.2.4"
+  },
+  "dependencies": {
+    "predictype": "^0.7.3"
   }
 }
