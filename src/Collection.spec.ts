@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest';
 
-import { Collection } from './Collection';
-import { BaseFunctions } from './BaseFunctions';
+import { Collection } from './Collection.js';
+import { BaseFunctions } from './BaseFunctions.js';
 
 type DummyType = { id: number; value: number };
 

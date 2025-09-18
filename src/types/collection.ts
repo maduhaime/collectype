@@ -1,5 +1,5 @@
-import { BaseFunctions } from '../BaseFunctions';
-import { FullFunctions } from '../FullFunctions';
+import { BaseFunctions } from '../BaseFunctions.js';
+import { FullFunctions } from '../FullFunctions.js';
 
 /**
  * Type for a constructor of a functions class (BaseFunctions or FullFunctions).

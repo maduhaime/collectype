@@ -1,5 +1,5 @@
-import { SortType } from '../../types/sort';
-import { SortTypeEnum } from '../../enums/sort';
+import { SortType } from '../../types/sort.js';
+import { SortTypeEnum } from '../../enums/sort.js';
 
 /**
  * Infers the sort type of a value for sorting purposes.

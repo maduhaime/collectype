@@ -1,0 +1,36 @@
+coverage/
+docs/
+node_modules/
+src/
+
+# Test files
+src/**/*.spec.ts
+
+# Config files
+.gitattributes
+.gitignore
+.npmignore
+.nvmrc
+.prettierignore
+.prettierrc.json
+tsconfig.cjs.json
+tsconfig.esm.json
+tsconfig.json
+typedoc.json
+vitest.config.ts
+
+# Packaged files
+/*.tgz
+
+# Local environment files
+*.local
+
+# Visual Studio Code
+.github
+.vscode
+
+# MacOS
+.DS_Store
+
+# Windows
+Thumbs.db

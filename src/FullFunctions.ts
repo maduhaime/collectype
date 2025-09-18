@@ -58,65 +58,65 @@ import {
   StringSubstringEnum,
 } from 'predictype';
 
-import { BaseFunctions } from './BaseFunctions';
+import { BaseFunctions } from './BaseFunctions.js';
 
-import { arrayComparisonFactory } from './utils/factory/arrays/arrayComparison.js';
-import { arrayIndexComparisonFactory } from './utils/factory/arrays/arrayIndexComparison.js';
-import { arrayIndexMembershipFactory } from './utils/factory/arrays/arrayIndexMembership.js';
-import { arrayIntersectionFactory } from './utils/factory/arrays/arrayIntersection';
-import { arrayMembershipFactory } from './utils/factory/arrays/arrayMembership';
-import { arrayRelationFactory } from './utils/factory/arrays/arrayRelation';
-import { arraySequenceFactory } from './utils/factory/arrays/arraySequence.js';
-import { arraySizeFactory } from './utils/factory/arrays/arraySize';
-import { arrayStateFactory } from './utils/factory/arrays/arrayState';
+import { arrayComparisonFactory } from './factory/arrays/arrayComparison.js';
+import { arrayIndexComparisonFactory } from './factory/arrays/arrayIndexComparison.js';
+import { arrayIndexMembershipFactory } from './factory/arrays/arrayIndexMembership.js';
+import { arrayIntersectionFactory } from './factory/arrays/arrayIntersection.js';
+import { arrayMembershipFactory } from './factory/arrays/arrayMembership.js';
+import { arrayRelationFactory } from './factory/arrays/arrayRelation.js';
+import { arraySequenceFactory } from './factory/arrays/arraySequence.js';
+import { arraySizeFactory } from './factory/arrays/arraySize.js';
+import { arrayStateFactory } from './factory/arrays/arrayState.js';
 
-import { bigIntComparisonFactory } from './utils/factory/bigints/bigIntComparison.js';
-import { bigIntMembershipFactory } from './utils/factory/bigints/bigIntMembership.js';
-import { bigIntRangeFactory } from './utils/factory/bigints/bigIntRange.js';
-import { bigIntStateFactory } from './utils/factory/bigints/bigIntState.js';
+import { bigIntComparisonFactory } from './factory/bigints/bigIntComparison.js';
+import { bigIntMembershipFactory } from './factory/bigints/bigIntMembership.js';
+import { bigIntRangeFactory } from './factory/bigints/bigIntRange.js';
+import { bigIntStateFactory } from './factory/bigints/bigIntState.js';
 
-import { booleanComparisonFactory } from './utils/factory/booleans/booleanComparison.js';
-import { booleanStateFactory } from './utils/factory/booleans/booleanState.js';
+import { booleanComparisonFactory } from './factory/booleans/booleanComparison.js';
+import { booleanStateFactory } from './factory/booleans/booleanState.js';
 
-import { dateCalendarFactory } from './utils/factory/dates/dateCalendar.js';
-import { dateComparisonFactory } from './utils/factory/dates/dateComparison.js';
-import { dateRangeFactory } from './utils/factory/dates/dateRange.js';
-import { dateStateFactory } from './utils/factory/dates/dateState.js';
+import { dateCalendarFactory } from './factory/dates/dateCalendar.js';
+import { dateComparisonFactory } from './factory/dates/dateComparison.js';
+import { dateRangeFactory } from './factory/dates/dateRange.js';
+import { dateStateFactory } from './factory/dates/dateState.js';
 
-import { mapEntryFactory } from './utils/factory/maps/mapEntry.js';
-import { mapKeyFactory } from './utils/factory/maps/mapKey.js';
-import { mapSizeFactory } from './utils/factory/maps/mapSize.js';
-import { mapStateFactory } from './utils/factory/maps/mapState.js';
-import { mapValueFactory } from './utils/factory/maps/mapValue.js';
+import { mapEntryFactory } from './factory/maps/mapEntry.js';
+import { mapKeyFactory } from './factory/maps/mapKey.js';
+import { mapSizeFactory } from './factory/maps/mapSize.js';
+import { mapStateFactory } from './factory/maps/mapState.js';
+import { mapValueFactory } from './factory/maps/mapValue.js';
 
-import { numberComparisonFactory } from './utils/factory/numbers/numberComparison.js';
-import { numberRangeFactory } from './utils/factory/numbers/numberRange.js';
-import { numberStateFactory } from './utils/factory/numbers/numberState.js';
+import { numberComparisonFactory } from './factory/numbers/numberComparison.js';
+import { numberRangeFactory } from './factory/numbers/numberRange.js';
+import { numberStateFactory } from './factory/numbers/numberState.js';
 
-import { objectAttributesFactory } from './utils/factory/objects/objectAttributes.js';
-import { objectInstanceRelationFactory } from './utils/factory/objects/objectInstanceRelation.js';
-import { objectInstanceTypeFactory } from './utils/factory/objects/objectInstanceType';
+import { objectAttributesFactory } from './factory/objects/objectAttributes.js';
+import { objectInstanceRelationFactory } from './factory/objects/objectInstanceRelation.js';
+import { objectInstanceTypeFactory } from './factory/objects/objectInstanceType.js';
 
-import { objectKeyFactory } from './utils/factory/objects/objectKey.js';
-import { objectKeyMembershipFactory } from './utils/factory/objects/objectKeyMembership';
-import { objectKeysFactory } from './utils/factory/objects/objectKeys.js';
-import { objectKeysStateFactory } from './utils/factory/objects/objectKeysState';
-import { objectPropertyFactory } from './utils/factory/objects/objectProperty';
-import { objectPrototypeRelationFactory } from './utils/factory/objects/objectPrototypeRelation.js';
-import { objectPrototypeStateFactory } from './utils/factory/objects/objectPrototypeState.js';
-import { objectStateFactory } from './utils/factory/objects/objectState.js';
+import { objectKeyFactory } from './factory/objects/objectKey.js';
+import { objectKeyMembershipFactory } from './factory/objects/objectKeyMembership.js';
+import { objectKeysFactory } from './factory/objects/objectKeys.js';
+import { objectKeysStateFactory } from './factory/objects/objectKeysState.js';
+import { objectPropertyFactory } from './factory/objects/objectProperty.js';
+import { objectPrototypeRelationFactory } from './factory/objects/objectPrototypeRelation.js';
+import { objectPrototypeStateFactory } from './factory/objects/objectPrototypeState.js';
+import { objectStateFactory } from './factory/objects/objectState.js';
 
-import { setComparisonFactory } from './utils/factory/sets/setComparison.js';
-import { setRelationFactory } from './utils/factory/sets/setRelation.js';
-import { setSizeFactory } from './utils/factory/sets/setSize.js';
-import { setStateFactory } from './utils/factory/sets/setState.js';
+import { setComparisonFactory } from './factory/sets/setComparison.js';
+import { setRelationFactory } from './factory/sets/setRelation.js';
+import { setSizeFactory } from './factory/sets/setSize.js';
+import { setStateFactory } from './factory/sets/setState.js';
 
-import { stringComparisonFactory } from './utils/factory/strings/stringComparison.js';
-import { stringMembershipFactory } from './utils/factory/strings/stringMembership.js';
-import { stringPatternFactory } from './utils/factory/strings/stringPattern.js';
-import { stringSizeFactory } from './utils/factory/strings/stringSize.js';
-import { stringStateFactory } from './utils/factory/strings/stringState.js';
-import { stringSubstringFactory } from './utils/factory/strings/stringSubstring.js';
+import { stringComparisonFactory } from './factory/strings/stringComparison.js';
+import { stringMembershipFactory } from './factory/strings/stringMembership.js';
+import { stringPatternFactory } from './factory/strings/stringPattern.js';
+import { stringSizeFactory } from './factory/strings/stringSize.js';
+import { stringStateFactory } from './factory/strings/stringState.js';
+import { stringSubstringFactory } from './factory/strings/stringSubstring.js';
 
 export class FullFunctions<T> extends BaseFunctions<T> {
   // ===========================

@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest';
 
-import { inferSortType } from './inferSortType';
-import { SortTypeEnum } from '../../enums/sort';
+import { inferSortType } from './inferSortType.js';
+import { SortTypeEnum } from '../../enums/sort.js';
 
 describe('inferSortType', () => {
   it('should infer string type', () => {

@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { FullFunctions } from './FullFunctions';
+import { FullFunctions } from './FullFunctions.js';
 
 interface ArrayDummyType {
   arr: number[];
@@ -176,143 +176,173 @@ describe('FullFunctions', () => {
 
   describe('BigInt family', () => {
     const data: BigIntDummyType[] = [
-      { num: 1n },
-      { num: 2n },
-      { num: 3n },
-      { num: 4n },
-      { num: 0n },
-      { num: -2n },
-      { num: -3n },
-      { num: 5n },
+      { num: BigInt(1) },
+      { num: BigInt(2) },
+      { num: BigInt(3) },
+      { num: BigInt(4) },
+      { num: BigInt(0) },
+      { num: BigInt(-2) },
+      { num: BigInt(-3) },
+      { num: BigInt(5) },
     ];
 
     it('should return items with bigint equals', () => {
       const ff = new FullFunctions<BigIntDummyType>(data);
-      expect(ff.bigintEquals('num', 2n).items).toEqual([{ num: 2n }]);
+      expect(ff.bigintEquals('num', BigInt(2)).items).toEqual([{ num: BigInt(2) }]);
     });
 
     it('should return items with bigint not equals', () => {
       const ff = new FullFunctions<BigIntDummyType>(data);
-      expect(ff.bigintNotEquals('num', 2n).items).toEqual([
-        { num: 1n },
-        { num: 3n },
-        { num: 4n },
-        { num: 0n },
-        { num: -2n },
-        { num: -3n },
-        { num: 5n },
+      expect(ff.bigintNotEquals('num', BigInt(2)).items).toEqual([
+        { num: BigInt(1) },
+        { num: BigInt(3) },
+        { num: BigInt(4) },
+        { num: BigInt(0) },
+        { num: BigInt(-2) },
+        { num: BigInt(-3) },
+        { num: BigInt(5) },
       ]);
     });
 
     it('should return items with bigint greater than', () => {
       const ff = new FullFunctions<BigIntDummyType>(data);
-      expect(ff.bigintGreaterThan('num', 2n).items).toEqual([{ num: 3n }, { num: 4n }, { num: 5n }]);
+      expect(ff.bigintGreaterThan('num', BigInt(2)).items).toEqual([
+        { num: BigInt(3) },
+        { num: BigInt(4) },
+        { num: BigInt(5) },
+      ]);
     });
 
     it('should return items with bigint greater than or equals', () => {
       const ff = new FullFunctions<BigIntDummyType>(data);
-      expect(ff.bigintGreaterThanOrEquals('num', 2n).items).toEqual([
-        { num: 2n },
-        { num: 3n },
-        { num: 4n },
-        { num: 5n },
+      expect(ff.bigintGreaterThanOrEquals('num', BigInt(2)).items).toEqual([
+        { num: BigInt(2) },
+        { num: BigInt(3) },
+        { num: BigInt(4) },
+        { num: BigInt(5) },
       ]);
     });
 
     it('should return items with bigint less than', () => {
       const ff = new FullFunctions<BigIntDummyType>(data);
-      expect(ff.bigintLessThan('num', 2n).items).toEqual([{ num: 1n }, { num: 0n }, { num: -2n }, { num: -3n }]);
+      expect(ff.bigintLessThan('num', BigInt(2)).items).toEqual([
+        { num: BigInt(1) },
+        { num: BigInt(0) },
+        { num: BigInt(-2) },
+        { num: BigInt(-3) },
+      ]);
     });
 
     it('should return items with bigint less than or equals', () => {
       const ff = new FullFunctions<BigIntDummyType>(data);
-      expect(ff.bigintLessThanOrEquals('num', 2n).items).toEqual([
-        { num: 1n },
-        { num: 2n },
-        { num: 0n },
-        { num: -2n },
-        { num: -3n },
+      expect(ff.bigintLessThanOrEquals('num', BigInt(2)).items).toEqual([
+        { num: BigInt(1) },
+        { num: BigInt(2) },
+        { num: BigInt(0) },
+        { num: BigInt(-2) },
+        { num: BigInt(-3) },
       ]);
     });
 
     it('should return items with bigint in set', () => {
       const ff = new FullFunctions<BigIntDummyType>(data);
-      expect(ff.bigintIn('num', [2n, 4n, -2n]).items).toEqual([{ num: 2n }, { num: 4n }, { num: -2n }]);
+      expect(ff.bigintIn('num', [BigInt(2), BigInt(4), BigInt(-2)]).items).toEqual([
+        { num: BigInt(2) },
+        { num: BigInt(4) },
+        { num: BigInt(-2) },
+      ]);
     });
 
     it('should return items with bigint not in set', () => {
       const ff = new FullFunctions<BigIntDummyType>(data);
-      expect(ff.bigintNotIn('num', [2n, 4n, -2n]).items).toEqual([
-        { num: 1n },
-        { num: 3n },
-        { num: 0n },
-        { num: -3n },
-        { num: 5n },
+      expect(ff.bigintNotIn('num', [BigInt(2), BigInt(4), BigInt(-2)]).items).toEqual([
+        { num: BigInt(1) },
+        { num: BigInt(3) },
+        { num: BigInt(0) },
+        { num: BigInt(-3) },
+        { num: BigInt(5) },
       ]);
     });
 
     it('should return items with bigint between a given range', () => {
       const ff = new FullFunctions<BigIntDummyType>(data);
-      expect(ff.bigintBetween('num', 1n, 3n).items).toEqual([{ num: 1n }, { num: 2n }, { num: 3n }]);
+      expect(ff.bigintBetween('num', BigInt(1), BigInt(3)).items).toEqual([
+        { num: BigInt(1) },
+        { num: BigInt(2) },
+        { num: BigInt(3) },
+      ]);
     });
 
     it('should return items with bigint not between a given range', () => {
       const ff = new FullFunctions<BigIntDummyType>(data);
-      expect(ff.bigintNotBetween('num', 1n, 3n).items).toEqual([
-        { num: 4n },
-        { num: 0n },
-        { num: -2n },
-        { num: -3n },
-        { num: 5n },
+      expect(ff.bigintNotBetween('num', BigInt(1), BigInt(3)).items).toEqual([
+        { num: BigInt(4) },
+        { num: BigInt(0) },
+        { num: BigInt(-2) },
+        { num: BigInt(-3) },
+        { num: BigInt(5) },
       ]);
     });
 
     it('should return items with bigint strictly between', () => {
       const ff = new FullFunctions<BigIntDummyType>(data);
-      expect(ff.bigintStrictBetween('num', 1n, 4n).items).toEqual([{ num: 2n }, { num: 3n }]);
+      expect(ff.bigintStrictBetween('num', BigInt(1), BigInt(4)).items).toEqual([
+        { num: BigInt(2) },
+        { num: BigInt(3) },
+      ]);
     });
 
     it('should return items with bigint strictly not between', () => {
       const ff = new FullFunctions<BigIntDummyType>(data);
-      expect(ff.bigintStrictNotBetween('num', 1n, 4n).items).toEqual([
-        { num: 1n },
-        { num: 4n },
-        { num: 0n },
-        { num: -2n },
-        { num: -3n },
-        { num: 5n },
+      expect(ff.bigintStrictNotBetween('num', BigInt(1), BigInt(4)).items).toEqual([
+        { num: BigInt(1) },
+        { num: BigInt(4) },
+        { num: BigInt(0) },
+        { num: BigInt(-2) },
+        { num: BigInt(-3) },
+        { num: BigInt(5) },
       ]);
     });
 
     it('should return items where bigint is even', () => {
       const ff = new FullFunctions<BigIntDummyType>(data);
-      expect(ff.bigintIsEven('num').items).toEqual([{ num: 2n }, { num: 4n }, { num: 0n }, { num: -2n }]);
+      expect(ff.bigintIsEven('num').items).toEqual([
+        { num: BigInt(2) },
+        { num: BigInt(4) },
+        { num: BigInt(0) },
+        { num: BigInt(-2) },
+      ]);
     });
 
     it('should return items where bigint is odd', () => {
       const ff = new FullFunctions<BigIntDummyType>(data);
-      expect(ff.bigintIsOdd('num').items).toEqual([{ num: 1n }, { num: 3n }, { num: -3n }, { num: 5n }]);
+      expect(ff.bigintIsOdd('num').items).toEqual([
+        { num: BigInt(1) },
+        { num: BigInt(3) },
+        { num: BigInt(-3) },
+        { num: BigInt(5) },
+      ]);
     });
 
     it('should return items where bigint is positive', () => {
       const ff = new FullFunctions<BigIntDummyType>(data);
       expect(ff.bigintIsPositive('num').items).toEqual([
-        { num: 1n },
-        { num: 2n },
-        { num: 3n },
-        { num: 4n },
-        { num: 5n },
+        { num: BigInt(1) },
+        { num: BigInt(2) },
+        { num: BigInt(3) },
+        { num: BigInt(4) },
+        { num: BigInt(5) },
       ]);
     });
 
     it('should return items where bigint is negative', () => {
       const ff = new FullFunctions<BigIntDummyType>(data);
-      expect(ff.bigintIsNegative('num').items).toEqual([{ num: -2n }, { num: -3n }]);
+      expect(ff.bigintIsNegative('num').items).toEqual([{ num: BigInt(-2) }, { num: BigInt(-3) }]);
     });
 
     it('should return items where bigint is zero', () => {
       const ff = new FullFunctions<BigIntDummyType>(data);
-      expect(ff.bigintIsZero('num').items).toEqual([{ num: 0n }]);
+      expect(ff.bigintIsZero('num').items).toEqual([{ num: BigInt(0) }]);
     });
   });
 

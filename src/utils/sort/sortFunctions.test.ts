@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 
-import { hasNull } from '../primitives/null';
-import { hasUndefined } from '../primitives/undefined';
+import { hasNull } from '../primitives/null.js';
+import { hasUndefined } from '../primitives/undefined.js';
 
 import {
   sortByBooleanField,
@@ -10,7 +10,7 @@ import {
   sortByStringField,
   sortNull,
   sortUndefined,
-} from '../../utils/sort/sortFunctions';
+} from '../../utils/sort/sortFunctions.js';
 
 /**
  * Tests for sortFunctions utilities.
@@ -195,7 +195,7 @@ describe('sortFunctions / sortByStringField', () => {
       { id: 2, name: null },
     ];
     const result = sortByStringField(dummyItems, 'name', 'asc');
-    expect(result.map((i) => i.id)).toStrictEqual([1, 2]);
+    expect(result.map((i: DummyType) => i.id)).toStrictEqual([1, 2]);
   });
 
   it('should handle all undefined values (DESC)', () => {
@@ -204,7 +204,7 @@ describe('sortFunctions / sortByStringField', () => {
       { id: 2, name: undefined },
     ];
     const result = sortByStringField(dummyItems, 'name', 'desc');
-    expect(result.map((i) => i.id)).toStrictEqual([1, 2]);
+    expect(result.map((i: DummyType) => i.id)).toStrictEqual([1, 2]);
   });
 
   it('should throw for invalid SortDir', () => {
@@ -291,7 +291,7 @@ describe('sortFunctions / sortByNumberField', () => {
       { id: 2, qty: null },
     ];
     const result = sortByNumberField(dummyItems, 'qty', 'asc');
-    expect(result.map((i) => i.id)).toStrictEqual([1, 2]);
+    expect(result.map((i: DummyType) => i.id)).toStrictEqual([1, 2]);
   });
 
   it('should handle all undefined values (DESC)', () => {
@@ -300,7 +300,7 @@ describe('sortFunctions / sortByNumberField', () => {
       { id: 2, qty: undefined },
     ];
     const result = sortByNumberField(dummyItems, 'qty', 'desc');
-    expect(result.map((i) => i.id)).toStrictEqual([1, 2]);
+    expect(result.map((i: DummyType) => i.id)).toStrictEqual([1, 2]);
   });
 
   it('should throw for invalid SortDir', () => {
@@ -387,7 +387,7 @@ describe('sortFunctions / sortByDateField', () => {
       { id: 2, date: null },
     ];
     const result = sortByDateField(dummyItems, 'date', 'asc');
-    expect(result.map((i) => i.id)).toStrictEqual([1, 2]);
+    expect(result.map((i: DummyType) => i.id)).toStrictEqual([1, 2]);
   });
 
   it('should handle all undefined values (DESC)', () => {
@@ -396,7 +396,7 @@ describe('sortFunctions / sortByDateField', () => {
       { id: 2, date: undefined },
     ];
     const result = sortByDateField(dummyItems, 'date', 'desc');
-    expect(result.map((i) => i.id)).toStrictEqual([1, 2]);
+    expect(result.map((i: DummyType) => i.id)).toStrictEqual([1, 2]);
   });
 
   it('should throw for invalid SortDir', () => {
@@ -483,7 +483,7 @@ describe('sortFunctions / sortByBooleanField', () => {
       { id: 2, flag: null },
     ];
     const result = sortByBooleanField(dummyItems, 'flag', 'asc');
-    expect(result.map((i) => i.id)).toStrictEqual([1, 2]);
+    expect(result.map((i: DummyType) => i.id)).toStrictEqual([1, 2]);
   });
 
   it('should handle all undefined values (DESC)', () => {
@@ -492,7 +492,7 @@ describe('sortFunctions / sortByBooleanField', () => {
       { id: 2, flag: undefined },
     ];
     const result = sortByBooleanField(dummyItems, 'flag', 'desc');
-    expect(result.map((i) => i.id)).toStrictEqual([1, 2]);
+    expect(result.map((i: DummyType) => i.id)).toStrictEqual([1, 2]);
   });
 
   it('should throw for invalid SortDir', () => {

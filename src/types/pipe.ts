@@ -1,4 +1,4 @@
-import { ReservedMethodsEnum } from '../enums/pipe';
+import { ReservedMethodsEnum } from '../enums/pipe.js';
 
 /**
  * Reserved method names that cannot be used in pipe expressions.

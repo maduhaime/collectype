@@ -1,13 +1,18 @@
-import { Collectable } from './interfaces/Collectable';
-import { inferSortType } from './utils/sort/inferSortType';
-import { isReserved, parsePipeExpression } from './utils/pipe/pipeFunctions';
-import { ParsedPipeStep } from './types/pipe';
-import { PredicateFn } from './types/collection';
-import { ReservedMethodsEnum } from './enums/pipe';
-import { sortByBooleanField, sortByDateField, sortByNumberField, sortByStringField } from './utils/sort/sortFunctions';
-import { SortDir, SortType } from './types/sort';
-import { SortDirEnum, SortTypeEnum } from './enums/sort';
-import { ByType } from './types/utility';
+import { Collectable } from './interfaces/Collectable.js';
+import { inferSortType } from './utils/sort/inferSortType.js';
+import { isReserved, parsePipeExpression } from './utils/pipe/pipeFunctions.js';
+import { ParsedPipeStep } from './types/pipe.js';
+import { PredicateFn } from './types/collection.js';
+import { ReservedMethodsEnum } from './enums/pipe.js';
+import {
+  sortByBooleanField,
+  sortByDateField,
+  sortByNumberField,
+  sortByStringField,
+} from './utils/sort/sortFunctions.js';
+import { SortDir, SortType } from './types/sort.js';
+import { SortDirEnum, SortTypeEnum } from './enums/sort.js';
+import { ByType } from './types/utility.js';
 
 /**
  * Core collection manipulation class providing chainable operations.
