@@ -44,7 +44,7 @@ const collection = new Collection(people, BaseFunctions);
 // expect(collection.fn.where((p) => p.age > 20).items.map((p) => p.name)).toContain('George Clooney');
 ```
 
-Or use **86 prebuilt filtering methods** by injecting FullFunctions —
+Or use **120 prebuilt filtering methods** by injecting FullFunctions —
 this is a simple form of inversion of control: you pass the functions class
 as a dependency to the Collection constructor, making the collection's
 behavior fully configurable and extensible. This approach allows you to
