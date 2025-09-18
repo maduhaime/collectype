@@ -32,10 +32,16 @@ CollecType is built around two main abstractions: the `Collection` class and a s
 To create a collection, instantiate `Collection` with your items and the functions class you want to use:
 
 ```typescript
+// README Example 1
+// index.ts
 import { Collection, BaseFunctions } from 'collectype';
+import { people } from './data/person';
 
 // Basic collection with core functionality
-const collection = new Collection(items, BaseFunctions);
+const collection = new Collection(people, BaseFunctions);
+
+// expect(collection.items.length).toBe(30);
+// expect(collection.fn.where((p) => p.age > 20).items.map((p) => p.name)).toContain('George Clooney');
 ```
 
 Or use **86 prebuilt filtering methods** by injecting FullFunctions —
@@ -47,23 +53,38 @@ Collection itself, promoting flexibility, testability, and clean separation
 of concerns.
 
 ```typescript
+// README Example 2
 import { Collection, FullFunctions } from 'collectype';
+import { people } from './data/person';
 
 // Collection with advanced functionality
-const collection = new Collection(items, FullFunctions);
+const collection = new Collection(people, FullFunctions);
+
+// expect(collection.items.length).toBe(30);
+// expect(collection.fn.numberGreaterOrEqual('age', 18).count).toBe(30);
 ```
 
 You can also provide your own functions class to add **custom business logic**. This lets you create a domain-specific language (DSL) tailored to your business needs. By encapsulating your most common filters and operations as chainable methods, you make your code more readable, predictable, and expressive. This approach bridges the gap between technical code and business language, making intent clear and reducing errors.
 
 ```typescript
-import { Collection, BaseFunctions } from 'collectype';
-import { people } from './data/people';
-
+// ./person.ts
 type Person = {
   name: string;
-  gender: 'male' | 'female' | 'other';
   age: number;
+  gender: 'male' | 'female' | 'other';
+  single: boolean;
+  country?: string | undefined;
+  industry?: string | undefined;
+  quote?: string | undefined;
+  hobbies?: string[] | undefined;
 };
+```
+
+```typescript
+// README Example 3
+import { Collection, BaseFunctions } from 'collectype';
+import { Person } from './models/Person';
+import { people } from './data/person';
 
 class PersonFunctions extends BaseFunctions<Person> {
   // Filter adults (age >= target)
@@ -76,36 +97,17 @@ const collection = new Collection(people, PersonFunctions);
 
 // Count how many people are adults
 collection.fn.adult().count;
+
+// expect(collection.fn.count).toBe(30);
 ```
 
 For full encapsulation, you can create a custom collection class and domain-specific functions. This approach isolates your business logic from the rest of your application, making it easier to reuse, test, and evolve independently. By grouping related filters and operations in dedicated classes, you ensure that your codebase remains organized, maintainable, and clear—especially as your domain grows in complexity. **Encapsulation also helps prevent accidental misuse** and makes your intent explicit, improving both reliability and onboarding for new developers:
 
 ```typescript
-// src/models/Person.ts
-export enum GenderEnum {
-  MALE = 'male',
-  FEMALE = 'female',
-  OTHER = 'other',
-}
-
-// export type Gender = typeof valueof GenderEnum;
-export type Gender = `${GenderEnum}`;
-
-export type Person = {
-  name: string;
-  age: number;
-  gender: Gender;
-  single: boolean;
-  country?: string;
-  industry?: string;
-  quote?: string;
-  hobbies?: string[];
-};
-
-// src/collections/Person.ts
-import { Collection, BaseFunctions } from 'collectype';
-import { PredicateFn } from 'collectype/types';
-import { GenderEnum, Person } from '../models/Person';
+// README Example 4
+import { Collection, BaseFunctions, PredicateFn } from 'collectype';
+import { GenderEnum, Person } from './models/Person';
+import { people } from './data/person';
 
 export class PersonFunctions extends BaseFunctions<Person> {
   male(): this {
@@ -114,7 +116,7 @@ export class PersonFunctions extends BaseFunctions<Person> {
 
   // Alternative syntax with type for predicate function
   female(): this {
-    const predicate: PredicateFn = (item) => item.gender === GenderEnum.FEMALE;
+    const predicate: PredicateFn<Person> = (item) => item.gender === GenderEnum.FEMALE;
     return this.where(predicate);
   }
 
@@ -123,17 +125,7 @@ export class PersonFunctions extends BaseFunctions<Person> {
   }
 }
 
-export class PersonCollection extends Collection<Person, PersonFunctions> {
-  constructor(items: Person[]) {
-    super(items, PersonFunctions);
-  }
-}
-
-// index.ts
-import { PersonCollection } from './collections/Person';
-import { people } from './data/people';
-
-const collection = new PersonCollection(people);
+const collection = new Collection(people, PersonFunctions);
 
 // Count how many people are adults
 collection.fn.adult().count;
@@ -143,6 +135,10 @@ collection.fn.female().adult().count;
 
 // Filter how many people are female and adults, then sort them by age
 collection.fn.female().adult().sort('age');
+
+// expect(collection.fn.male().count).toBe(14);
+// expect(collection.fn.female().count).toBe(16);
+// expect(collection.fn.adult().count).toBe(30);
 ```
 
 ## Explicit type annotation versus Inferred type
@@ -199,23 +195,25 @@ Core methods in detail:
 - `items`: Returns the current array of items in the instance, reflecting any applied filters or sorts (not chainable).
 - `count`: Returns the number of items in the current filtered/sorted instance (not chainable).
 
+> **Sorting limitations:**
+> Sorting is only supported on primitive fields (string, number, boolean, Date). You cannot sort "out-of-the-box" on fields of type object, set, map, or array.
+
 **Note:**
 The `items` and `count` properties also exist on the `Collection` itself, but those always reflect the original, unfiltered data passed to the constructor. In contrast, `items` and `count` on the functions instance (`fn`) reflect the current filtered and/or sorted state after all chained operations. This distinction lets you **always access both the raw data and the current query result**.
 
 ### Using composition to add functionality to your custom Functions
 
 ```typescript
+// README Example 5
 // src/collections/Person.ts
 import { Collection, BaseFunctions } from 'collectype';
-import { stringFactory, numberRangeFactory } from 'collectype/utils/factory';
-import { GenderEnum, Person } from '../models/Person';
+import { stringComparisonFactory, numberRangeFactory } from 'collectype';
+import { Person } from './models/Person';
 
 export class PersonFunctions extends BaseFunctions<Person> {
-  // Composition
-  stringEquals = stringFactory.equals<T, this>(this);
-  numberInRange = numberRangeFactory.inRange<T, this>(this);
+  stringEquals = stringComparisonFactory<Person, this>(this, 'equals');
+  numberBetween = numberRangeFactory<Person, this>(this, 'between');
 }
-
 export class PersonCollection extends Collection<Person, PersonFunctions> {
   constructor(items: Person[]) {
     super(items, PersonFunctions);
@@ -224,7 +222,7 @@ export class PersonCollection extends Collection<Person, PersonFunctions> {
 
 // index.ts
 import { PersonCollection } from './collections/Person';
-import { people } from './data/people';
+import { people } from './data/person';
 
 const collection = new PersonCollection(people);
 
@@ -232,154 +230,94 @@ const collection = new PersonCollection(people);
 collection.fn.stringEquals('name', 'Steve').count;
 
 // Count how many people are between 18 and 65 years old
-collection.fn.numberInRange('age', 18, 65).count;
+collection.fn.numberBetween('age', 18, 65).count;
+
+// expect(collection.fn.stringEquals('name', 'David Beckham').count).toBe(1);
+// expect(collection.fn.numberBetween('age', 18, 65).count).toBe(26);
 ```
 
-## Advanced methods (86) provided by FullFunctions
+## Advanced methods (120) provided by FullFunctions
 
-`FullFunctions` inherits all the core capabilities of `BaseFunctions`, and adds **comprehensive, type-safe filters** for booleans, numbers, strings, dates, arrays and objects operations. All filters are fully typed and support TypeScript inference, so you get autocompletion and compile-time safety for every field and method.
+`FullFunctions` inherits all the capabilities of `BaseFunctions` and adds **120 strongly-typed filters** for arrays, bigints, booleans, dates, maps, numbers, objects, sets, and strings. All methods are strictly typed and support full TypeScript type inference.
 
-Each method takes the field name as its first argument. Type safety is enforced automatically: for example, only fields of type `number` in your item can be used with `numberEquals` or `numberStrictInRange`; only boolean, string, date, array, or object fields can be used with their respective filters. This ensures you get autocompletion and type checking for all filter methods, making your code safer and more productive.
+Each method takes the field name as its first argument, and TypeScript autocompletion will guide you based on the field's type.
 
-#### Array methods (16)
+### Methods provided by FullFunctions
 
-- `arrayEquals(field, array)` — Array strictly equals target array (same order)
-- `arraySetEquals(field, array)` — Array equals target as a set (any order)
-- `arrayIsSubsetOf(field, array)` — Array is a subset of target
-- `arrayIsSupersetOf(field, array)` — Array is a superset of target
-- `arrayStartsWith(field, prefix[])` — Array starts with prefix
-- `arrayEndsWith(field, suffix[])` — Array ends with suffix
-- `arrayContainsSubsequence(field, subsequence[])` — Array contains subsequence
+#### Arrays
 
-**Array comparison methods**
+- arrayEquals, arrayNotEquals, arraySameMembers, arraySetEquals, arraySetNotEquals
+- arrayAtIndexEquals, arrayAtIndexGreaterThan, arrayAtIndexGreaterThanOrEquals, arrayAtIndexLessThan, arrayAtIndexLessThanOrEquals, arrayAtIndexNotEquals
+- arrayAtIndexIn, arrayAtIndexNotIn
+- arrayDisjoint, arrayIntersects
+- arrayEveryEquals, arrayExcludes, arrayIncludes, arraySomeEquals
+- arrayStrictSubsetOf, arrayStrictSupersetOf, arraySubsetOf, arraySupersetOf
+- arrayContainsSubsequence, arrayStartsWith, arrayEndsWith
+- arraySizeEquals, arraySizeGreaterThan, arraySizeGreaterThanOrEquals, arraySizeLessThan, arraySizeLessThanOrEquals
+- arrayIsEmpty, arrayIsNotEmpty
 
-- `arrayIntersects(field, array)` — Array has at least one value in common with target
-- `arrayDisjoint(field, array)` — Array has no values in common with target
+#### BigInt
 
-**Array size methods**
+- bigintEquals, bigintGreaterThan, bigintGreaterThanOrEquals, bigintLessThan, bigintLessThanOrEquals, bigintNotEquals
+- bigintNotIn, bigintIn
+- bigintBetween, bigintNotBetween, bigintStrictBetween, bigintStrictNotBetween
+- bigintIsEven, bigintIsNegative, bigintIsOdd, bigintIsPositive, bigintIsZero
 
-- `arrayLengthEquals(field, n)` — Array length equals n
-- `arrayLengthGreaterThan(field, n)` — Array length > n
-- `arrayLengthGreaterThanOrEquals(field, n)` — Array length >= n
-- `arrayLengthLessThan(field, n)` — Array length < n
-- `arrayLengthLessThanOrEquals(field, n)` — Array length <= n
+#### Boolean
 
-**Array state methods**
+- booleanEquals, booleanNotEquals
+- booleanIsFalse, booleanIsTrue
 
-- `arrayIsEmpty(field)` — Array is empty
-- `arrayIsNotEmpty(field)` — Array is not empty
+#### Date
 
-#### Boolean methods (2)
+- dateIsFirstDayOfMonth, dateIsFuture, dateIsLastDayOfMonth, dateIsPast, dateIsToday, dateIsTomorrow, dateIsWeekday, dateIsWeekend, dateIsYesterday
+- dateAfter, dateAfterOrEqual, dateBefore, dateBeforeOrEqual, dateEquals, dateNotEquals, dateSameDay, dateSameMonth, dateSameYear
+- dateBetween, dateNotBetween, dateStrictBetween, dateStrictNotBetween
+- dateIsInvalid, dateIsValid
 
-- `booleanEquals(field, value)` — Field equals boolean value
-- `booleanNotEquals(field, value)` — Field does not equal boolean value
+#### Map
 
-#### Date methods (17)
+- mapHasEntry, mapLacksEntry
+- mapHasKey, mapLacksKey
+- mapSizeEquals, mapSizeGreaterThan, mapSizeGreaterThanOrEquals, mapSizeLessThan, mapSizeLessThanOrEquals
+- mapIsEmpty, mapIsNotEmpty
+- mapContainsValue, mapLacksValue
 
-- `dateEquals(field, value)` — Field equals date value
-- `dateNotEquals(field, value)` — Field does not equal date value
-- `dateOccursBefore(field, value)` — Field occurs before date
-- `dateOccursAfter(field, value)` — Field occurs after date
-- `dateOccursOnOrBefore(field, value)` — Field occurs on or before date
-- `dateOccursOnOrAfter(field, value)` — Field occurs on or after date
+#### Number
 
-**Date calendar methods**
+- numberEquals, numberGreaterOrEqual, numberGreaterThan, numberLessOrEqual, numberLessThan, numberNotEquals
+- numberBetween, numberNotBetween, numberStrictBetween, numberStrictNotBetween
+- numberIsFinite, numberIsFloat, numberIsInteger, numberIsNegative, numberIsPositive, numberIsZero
 
-- `dateIsToday(field, [today])` — Field is today (optionally pass reference date)
-- `dateIsYesterday(field, [today])` — Field is yesterday
-- `dateIsBeforeToday(field, [today])` — Field is before today
-- `dateIsAfterToday(field, [today])` — Field is after today
-- `dateIsFuture(field, [today])` — Field is in the future
-- `dateIsWeekend(field, [today])` — Field is a weekend
-- `dateIsWeekday(field, [today])` — Field is a weekday
+#### Object
 
-**Date range methods**
+- objectIsAccessor, objectIsConfigurable, objectIsDataProperty, objectIsEnumerable, objectIsWritable
+- objectInstanceOf, objectIsPrototypeOf
+- objectIsInstanceOfClass, objectIsInstanceOfConstructor, objectIsInstanceOfFunction, objectIsInstanceOfObject
+- objectContainsKey, objectLacksKey
+- objectIn, objectNotIn
+- objectContainsAllKeys, objectContainsAnyKey, objectContainsOnlyKeys, objectContainsSymbolKeys, objectEqualsKeys, objectLacksAllKeys, objectOnlyKeys, objectStrictEqualsKeys
+- objectHasCamelcaseKeys, objectHasHomogeneousKeys, objectHasOnlyStringKeys, objectHasOnlySymbolKeys
+- objectContainsOwnProperty, objectContainsProperty
+- objectPrototypeContainsPrototype, objectPrototypeIsPrototypeOf
+- objectPrototypeIsNull
+- objectIsEmpty, objectIsPlain, objectHasNumericKeys, objectHasNestedObject, objectIsFrozen, objectIsSealed, objectIsExtensible, objectIsIterable, objectHasNullProto, objectInheritsObject, objectIsHomogeneous, objectHasArrayProp, objectHasNoUndefined
 
-- `dateInRange(field, min, max)` — Field is within inclusive date range [min, max]
-- `dateOutRange(field, min, max)` — Field is outside inclusive date range [min, max]
-- `dateStrictInRange(field, min, max)` — Field is strictly within date range (min, max)
-- `dateStrictOutRange(field, min, max)` — Field is strictly outside date range (min, max)
+#### Set
 
-#### Number methods (17)
+- setEquals, setNotEquals
+- setDisjoint, setIntersects, setSubsetOf, setSupersetOf
+- setSizeEquals, setSizeGreaterThan, setSizeGreaterThanOrEquals, setSizeLessThan, setSizeLessThanOrEquals
+- setIsEmpty, setIsNotEmpty
 
-- `numberEquals(field, value)` — Field equals number value
-- `numberNotEquals(field, value)` — Field does not equal number value
-- `numberGreaterThan(field, value)` — Field is greater than value
-- `numberGreaterThanOrEquals(field, value)` — Field is greater than or equals value
-- `numberLessThan(field, value)` — Field is less than value
-- `numberLessThanOrEquals(field, value)` — Field is less than or equals value
+#### String
 
-**Number range methods**
-
-- `numberInRange(field, min, max)` — Field is within inclusive range [min, max]
-- `numberOutRange(field, min, max)` — Field is outside inclusive range [min, max]
-- `numberStrictInRange(field, min, max)` — Field is strictly within range (min, max)
-- `numberStrictOutRange(field, min, max)` — Field is strictly outside range (min, max)
-
-#### Object methods (18)
-
-**Object attribute methods**
-
-- `objectIsWritable(field)` — Field is writable
-- `objectIsEnumerable(field)` — Field is enumerable
-- `objectIsConfigurable(field)` — Field is configurable
-
-**Object instance methods**
-
-- `objectIsInstanceOf(field, constructor)` — Field is instance of constructor
-- `objectIsConstructor(field)` — Field is a constructor
-
-**Object keys methods**
-
-- `objectHasKey(field, key)` — Object has key
-- `objectHasAnyKey(field, keys[])` — Object has any of the keys
-- `objectHasAllKeys(field, keys[])` — Object has all of the keys
-- `objectHasExactKeys(field, keys[])` — Object has exactly the keys
-- `objectHasNoKeys(field)` — Object has no keys
-
-**Object prototype methods**
-
-- `objectIsPrototypeOf(field, prototype)` — Field is prototype of prototype
-
-**Object state methods**
-
-- `objectIsEmpty(field)` — Object is empty
-- `objectIsPlain(field)` — Object is a plain object
-- `objectHasNumericKeys(field)` — Object has numeric keys
-- `objectHasCamelcaseKeys(field)` — Object has camelCase keys
-- `objectHasNestedObject(field)` — Object has a nested object
-- `objectIsFrozen(field)` — Object is frozen
-- `objectIsSealed(field)` — Object is sealed
-
-#### String methods (16)
-
-- `stringEquals(field, value)` — Field equals string value
-- `stringNotEquals(field, value)` — Field does not equal string value
-- `stringIncludes(field, value)` — Field includes substring
-- `stringExcludes(field, value)` — Field does not include substring
-- `stringStartsWith(field, value)` — Field starts with substring
-- `stringEndsWith(field, value)` — Field ends with substring
-- `stringMatches(field, regex)` — Field matches regular expression
-
-**String membership methods**
-
-- `stringsIsOneOf(field, values[])` - Field is one of the provided values
-- `stringsIsNotOneOf(field, values[])` — Field is not one of the provided values
-
-**String size methods**
-
-- `stringLengthEquals(field, n)` — String length equals n
-- `stringLengthGreaterThan(field, n)` — String length > n
-- `stringLengthGreaterThanOrEquals(field, n)` — String length >= n
-- `stringLengthLessThan(field, n)` — String length < n
-- `stringLengthLessThanOrEquals(field, n)` — String length <= n
-
-**String state methods**
-
-- `stringIsEmpty(field)` — Field is an empty string
-- `stringIsNotEmpty(field)` — Field is not an empty string
-
----
+- stringEquals, stringGreaterThan, stringLessThan, stringNotEquals
+- stringIn, stringNotIn
+- stringMatches, stringNotMatches
+- stringSizeEquals, stringSizeGreaterThan, stringSizeGreaterThanOrEquals, stringSizeLessThan, stringSizeLessThanOrEquals
+- stringIsBlank, stringIsEmpty, stringIsNotBlank, stringIsNotEmpty
+- stringEndsWith, stringExcludes, stringIncludes, stringStartsWith
 
 ### Advanced method usage and hidden chaining
 
@@ -388,29 +326,10 @@ This section demonstrates how to leverage advanced filtering, custom domain logi
 Below, we define a `PersonFunctions` class that adds domain-specific filters (such as `male`, `female`, and `adult`) and a composed method `femaleAdultByAge` that chains multiple filters and sorts the result.
 
 ```typescript
-// src/models/Person.ts
-export enum GenderEnum {
-  MALE = 'male',
-  FEMALE = 'female',
-  OTHER = 'other',
-}
-
-export type Gender = `${GenderEnum}`;
-
-export type Person = {
-  name: string;
-  age: number;
-  gender: Gender;
-  single: boolean;
-  country?: string;
-  industry?: string;
-  quote?: string;
-  hobbies?: string[];
-};
-
+// README Example 6-7
 // src/collections/Person.ts
 import { Collection, FullFunctions } from 'collectype';
-import { GenderEnum, Person } from '../models/Person';
+import { GenderEnum, Person } from './models/Person';
 
 // Custom functions for Person domain
 export class PersonFunctions extends FullFunctions<Person> {
@@ -426,7 +345,12 @@ export class PersonFunctions extends FullFunctions<Person> {
 
   // Filter adults (age >= target)
   adult(target: number = 18): this {
-    return this.numberGreaterThanOrEquals('age', target);
+    return this.numberGreaterOrEqual('age', target);
+  }
+
+  // Filter olds (age >= target)
+  old(target: number = 65): this {
+    return this.numberGreaterOrEqual('age', target);
   }
 
   // Filter people who have 'fishing' as a hobby
@@ -449,13 +373,15 @@ export class PersonCollection extends Collection<Person, PersonFunctions> {
 
 // index.ts
 import { PersonCollection } from './collections/Person';
-import { people } from './data/people';
+import { people } from './data/person';
 
 const collection = new PersonCollection(people);
 
 // Count how many people are female and adults, sorted by age
 const count = collection.fn.femaleAdultByAge().count;
 console.log(count);
+
+// expect(collection.fn.femaleAdultByAge().count).toBe(16);
 ```
 
 #### Using pipe for dynamic expressions
@@ -463,9 +389,10 @@ console.log(count);
 You can also use the `pipe` method to apply a sequence of operations from a string expression:
 
 ```typescript
-const men = collection.fn.pipe("adult(21) | male()").sort('age', 'desc')");
+const oldMen = collection.fn.pipe('old(65) | male()').sort('age', 'desc');
+console.log(oldMen);
 
-console.log(men.items.map((p) => p.name));
+// expect(oldMen.items.map((p) => p.name)).toStrictEqual(['Bill Gates', 'Yannick Noah']);
 ```
 
 > ⚠️ **Warning:** The `pipe` method evaluates the expression dynamically. If the expression contains a typo, calls a non-existent method, or passes invalid arguments, it will throw a runtime error. Use with caution and prefer direct chaining for type safety whenever possible.

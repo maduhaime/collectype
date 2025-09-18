@@ -1,7 +1,7 @@
-import { hasNull } from '../primitives/null';
-import { hasUndefined } from '../primitives/undefined';
-import { SortDir } from '../../types/sort';
-import { SortDirEnum } from '../../enums/sort';
+import { hasNull } from '../primitives/null.js';
+import { hasUndefined } from '../primitives/undefined.js';
+import { SortDir } from '../../types/sort.js';
+import { SortDirEnum } from '../../enums/sort.js';
 
 /**
  * Sorts two values when at least one is undefined.

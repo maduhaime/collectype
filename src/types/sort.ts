@@ -1,4 +1,4 @@
-import { SortDirEnum, SortTypeEnum } from '../enums/sort';
+import { SortDirEnum, SortTypeEnum } from '../enums/sort.js';
 
 /**
  * Type representing possible sort directions ('asc' or 'desc').

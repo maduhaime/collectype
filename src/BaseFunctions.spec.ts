@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach } from 'vitest';
-import { BaseFunctions } from './BaseFunctions';
+import { BaseFunctions } from './BaseFunctions.js';
 
 type DummyType = {
   name: string;

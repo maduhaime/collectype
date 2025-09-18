@@ -9,7 +9,7 @@ import {
   parseArray,
   parseObject,
   splitArguments,
-} from './pipeFunctions';
+} from './pipeFunctions.js';
 
 describe('isReserved', () => {
   it('should return true for reserved methods and false for non-reserved', () => {

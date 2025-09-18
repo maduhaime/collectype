@@ -1,6 +1,6 @@
-import { BaseFunctions } from './BaseFunctions';
-import { Collectable } from './interfaces/Collectable';
-import { Constructor } from './types/utility';
+import { BaseFunctions } from './BaseFunctions.js';
+import { Collectable } from './interfaces/Collectable.js';
+import { Constructor } from './types/utility.js';
 
 /**
  * Base collection implementation using a configurable functions class.

@@ -1,3 +1,31 @@
+# 0.9.0 - 2025-09-18
+
+### Changed
+
+- Replaced all internal predicate logic with Predictype, a robust and extensible predicate engine.
+- All filter methods now leverage Predictype's unified, type-safe predicate factories.
+
+### Breaking Changes
+
+- Many filter method names have changed to align with Predictype's naming conventions. For example, `numberInRange` is now `numberBetween`, and similar updates apply across all predicate families. Please review your code and update method names accordingly.
+- All usage examples in the documentation have been reviewed and updated to match the new implementation, with corresponding unit tests to ensure accuracy.
+
+### Added
+
+- Support for many more predicate families (arrays, bigints, booleans, dates, maps, numbers, objects, sets, strings, etc.) thanks to Predictype integration.
+- Homogeneous and structured naming conventions for all filter methods, following Predictype's categorization.
+- Improved method signatures: no more ambiguous parameters or union types—each filter method is strictly typed and self-explanatory.
+- Better predicate categorization and discoverability, with clear separation by data family.
+
+### Benefits
+
+- Predictype integration brings a much broader and more consistent set of filters.
+- TypeScript autocompletion and type inference are now more reliable and precise for all filter methods.
+- The codebase is easier to maintain, extend, and document, with a single source of truth for predicate logic.
+- Future updates and new predicate families can be integrated seamlessly via Predictype.
+
+---
+
 # 0.8.6 - 2025-09-10
 
 ### Added

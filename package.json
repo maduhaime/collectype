@@ -1,14 +1,14 @@
 {
   "name": "collectype",
-  "version": "0.8.6",
+  "version": "0.9.0",
   "description": "CollecType is a modern, type-safe collection utility for TypeScript. Effortlessly filter, sort, and transform arrays of any type using a fluent, chainable API.",
   "homepage": "https://maduhaime.github.io/collectype/",
   "keywords": [
-    "typescript",
     "collection",
+    "typescript",
+    "type-safe",
     "filter",
-    "sort",
-    "predicate"
+    "sort"
   ],
   "license": "MIT",
   "author": "Marc-Antoine Duhaime",
@@ -17,41 +17,33 @@
     "url": "git+https://github.com/maduhaime/collectype.git"
   },
   "type": "module",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "./dist/cjs/index.js",
+  "module": "./dist/esm/index.js",
+  "types": "./dist/esm/index.d.ts",
   "exports": {
     ".": {
-      "import": "./dist/index.js",
-      "types": "./dist/index.d.ts"
-    },
-    "./enums": {
-      "import": "./dist/enums/index.js",
-      "types": "./dist/enums/index.d.ts"
-    },
-    "./types": {
-      "import": "./dist/types/index.js",
-      "types": "./dist/types/index.d.ts"
-    },
-    "./utils/factory": {
-      "import": "./dist/utils/factory/index.js",
-      "types": "./dist/utils/factory/index.d.ts"
-    },
-    "./utils/predicates": {
-      "import": "./dist/utils/predicates/index.js",
-      "types": "./dist/utils/predicates/index.d.ts"
-    },
-    "./utils/primitives": {
-      "import": "./dist/utils/primitives/index.js",
-      "types": "./dist/utils/primitives/index.d.ts"
+      "import": {
+        "types": "./dist/esm/index.d.ts",
+        "default": "./dist/esm/index.js"
+      },
+      "require": {
+        "types": "./dist/cjs/index.d.ts",
+        "default": "./dist/cjs/index.js"
+      }
     }
   },
   "scripts": {
-    "build": "rimraf dist && tsc --project tsconfig.build.json",
+    "build:cjs": "tsc -p tsconfig.cjs.json",
+    "build:esm": "tsc -p tsconfig.esm.json",
+    "build": "rimraf dist && npm run build:cjs && npm run build:esm",
+    "code:pack": "npm run build && npm pack",
+    "code:prepublish": "npm run build && npm test",
+    "code:publish": "npm publish --access public",
+    "docs": "rimraf docs && typedoc",
+    "docs:deploy": "npm run docs && gh-pages -d docs -f",
     "test": "vitest run",
     "test:watch": "vitest watch",
-    "test:coverage": "vitest run --coverage",
-    "docs": "rimraf docs && typedoc",
-    "docs:deploy": "npm run docs && gh-pages -d docs -f"
+    "test:coverage": "vitest run --coverage"
   },
   "devDependencies": {
     "@types/node": "^24.3.1",
@@ -62,5 +54,8 @@
     "typedoc-plugin-markdown": "^4.8.1",
     "typescript": "^5.9.2",
     "vitest": "^3.2.4"
+  },
+  "dependencies": {
+    "predictype": "^0.7.3"
   }
 }
