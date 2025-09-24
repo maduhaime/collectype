@@ -1,3 +1,31 @@
+# Changelog
+
+All notable changes to this project will be documented in this file.
+
+# 0.9.2 - 2025-09-24
+
+### Changed
+
+- Updated project dependencies to their latest stable versions for improved security and compatibility.
+
+---
+
+# 0.9.1 - 2025-09-18
+
+### Changed
+
+- Harmonized and standardized all JSDoc documentation for every predicate factory across all families (arrays, bigints, booleans, dates, maps, numbers, objects, sets, strings).
+- All documentation and code comments are now fully in English, with homogeneous style and structure for Copilot/AI compatibility.
+- All usage examples in factories and documentation now use a variable for the data array and a `fn` instance, ensuring consistency and clarity.
+- Improved and clarified README documentation, with a full English review and minor stylistic corrections.
+
+### Fixed
+
+- Minor typos and inconsistencies in code comments and documentation.
+- Ensured all predicate factories and filter methods have up-to-date, Copilot-friendly JSDoc and examples.
+
+---
+
 # 0.9.0 - 2025-09-18
 
 ### Changed
