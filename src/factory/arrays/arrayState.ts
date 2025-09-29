@@ -41,7 +41,7 @@ export function arrayStateFactory<T, C extends Wherable<T, C>>(
   ctx: C,
   oper: Parameters<typeof PredicType.array.state>[1],
 ) {
-  return function <K extends keyof ByType<T, any[]>>(field: K) {
+  return function <K extends keyof ByType<T, any[]>>(field: K): C {
     return ctx.where((item: T) => {
       const arr = item[field] as any[] | undefined;
       if (!arr) return false;

@@ -44,7 +44,7 @@ export function arraySequenceFactory<T, C extends Wherable<T, C>>(
   return function <K extends keyof ByType<T, any[]>>(
     field: K,
     target: Parameters<typeof PredicType.array.sequence>[2],
-  ) {
+  ): C {
     return ctx.where((item: T) => {
       const arr = item[field] as any[] | undefined;
       if (!arr) return false;

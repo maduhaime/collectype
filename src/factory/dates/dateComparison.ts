@@ -45,7 +45,7 @@ export function dateComparisonFactory<T, C extends Wherable<T, C>>(
   return function <K extends keyof ByType<T, Date>>(
     field: K,
     target: Parameters<typeof PredicType.date.comparison>[2],
-  ) {
+  ): C {
     return ctx.where((item: T) => {
       const value = item[field] as Date | undefined;
       if (!(value instanceof Date)) return false;

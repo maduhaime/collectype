@@ -1,6 +1,6 @@
 {
   "name": "collectype",
-  "version": "0.9.3",
+  "version": "0.9.4",
   "description": "CollecType is a modern, type-safe collection utility for TypeScript. Effortlessly filter, sort, and transform arrays of any type using a fluent, chainable API.",
   "homepage": "https://maduhaime.github.io/collectype/",
   "keywords": [
@@ -36,15 +36,16 @@
     "build:cjs": "tsc -p tsconfig.cjs.json",
     "build:esm": "tsc -p tsconfig.esm.json",
     "build": "rimraf dist && npm run build:cjs && npm run build:esm",
+    "code:check": "npm run lint && npm run format:check",
     "code:pack": "npm run build && npm pack",
-    "code:prepublish": "npm run build && npm test",
+    "code:prepublish": "npm run code:check && npm run test && npm build",
     "code:publish": "npm publish --access public",
     "docs": "rimraf docs && typedoc",
     "docs:deploy": "npm run docs && gh-pages -d docs -f",
-    "lint": "eslint",
-    "lint:fix": "eslint --fix",
-    "format": "prettier --check .",
-    "format:write": "prettier --write .",
+    "lint": "eslint 'src/**/*.ts'",
+    "lint:fix": "eslint --fix 'src/**/*.ts'",
+    "format:check": "prettier --check 'src/**/*.{ts,json,md}'",
+    "format:write": "prettier --write 'src/**/*.{ts,json,md}'",
     "test": "vitest run",
     "test:watch": "vitest watch",
     "test:coverage": "vitest run --coverage"
@@ -53,11 +54,10 @@
     "@types/node": "^24.5.2",
     "@typescript-eslint/eslint-plugin": "^8.44.1",
     "@vitest/coverage-v8": "^3.2.4",
-    "gh-pages": "^6.3.0",
     "eslint": "^9.36.0",
     "eslint-plugin-import": "^2.32.0",
     "eslint-plugin-prettier": "^5.5.4",
-    "eslint-plugin-unused-imports": "^4.2.0",
+    "gh-pages": "^6.3.0",
     "prettier": "^3.6.2",
     "rimraf": "^6.0.1",
     "typedoc": "^0.28.13",
@@ -66,6 +66,6 @@
     "vitest": "^3.2.4"
   },
   "dependencies": {
-    "predictype": "^0.7.5"
+    "predictype": "^0.7.6"
   }
 }

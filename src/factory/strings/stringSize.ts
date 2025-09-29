@@ -6,10 +6,11 @@ import { ByType, Wherable } from '../../types/utility.js';
  * Creates a predicate filter for string size using `PredicType.string.size`.
  *
  * @template T - The item type in the collection.
- * @template C - The context type, extending Wherable.
- * @param ctx - The context instance (e.g., a collection or query object).
- * @param oper - The string size operation to perform (see PredicType.string.size).
- * @returns A function that takes a field key and a target size, and filters items where the string size matches the operation.
+ * @template C - The Wherable context type (must extend Wherable<T, C>).
+ * @param {C} ctx - The context (usually a collection) supporting the `where` method.
+ * @param {Parameters<typeof PredicType.string.size>[1]} oper - The string size operation to perform (see PredicType.string.size).
+ * @returns {<K extends keyof ByType<T, string>>(field: K, target: Parameters<typeof PredicType.string.size>[2]) => C}
+ *   Returns a function that takes a field (of type string on T) and a target size, and applies the string size predicate to filter the context.
  *
  * @example
  * // Example: Composing a string size filter as a property, homogeneous model
@@ -19,7 +20,7 @@ import { ByType, Wherable } from '../../types/utility.js';
  * type Person = { name: string; city: string };
  *
  * class PersonFunctions extends BaseFunctions<Person> {
- *   cityHasLength = stringSizeFactory<Person, this>(this, 'eq');
+ *   stringHasLength = stringSizeFactory<Person, this>(this, 'eq');
  * }
  *
  * // Usage:
@@ -29,7 +30,7 @@ import { ByType, Wherable } from '../../types/utility.js';
  *   { name: 'Eve', city: 'Rome' }
  * ];
  * const fn = new PersonFunctions(people);
- * const filtered = fn.cityHasLength('city', 5);
+ * const filtered = fn.stringHasLength('city', 5);
  * // filtered contains the items where 'city' has a length of 5
  *
  * @remarks
@@ -40,7 +41,10 @@ export function stringSizeFactory<T, C extends Wherable<T, C>>(
   ctx: C,
   oper: Parameters<typeof PredicType.string.size>[1],
 ) {
-  return function <K extends keyof ByType<T, string>>(field: K, target: Parameters<typeof PredicType.string.size>[2]) {
+  return function <K extends keyof ByType<T, string>>(
+    field: K,
+    target: Parameters<typeof PredicType.string.size>[2],
+  ): C {
     return ctx.where((item: T) => {
       const value = item[field] as string | undefined;
       if (typeof value !== 'string') return false;

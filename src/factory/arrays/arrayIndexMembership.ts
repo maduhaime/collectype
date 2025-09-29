@@ -45,7 +45,7 @@ export function arrayIndexMembershipFactory<T, C extends Wherable<T, C>>(
     field: K,
     index: Parameters<typeof PredicType.array.indexMembership>[2],
     target: Parameters<typeof PredicType.array.indexMembership>[3],
-  ) {
+  ): C {
     return ctx.where((item: T) => {
       const array = item[field] as any[] | undefined;
       if (!array) return false;

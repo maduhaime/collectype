@@ -41,7 +41,7 @@ export function objectKeysStateFactory<T, C extends Wherable<T, C>>(
   ctx: C,
   oper: Parameters<typeof PredicType.object.keysState>[1],
 ) {
-  return function <K extends keyof ByType<T, object>>(field: K) {
+  return function <K extends keyof ByType<T, object>>(field: K): C {
     return ctx.where((item: T) => {
       const value = item[field] as object | undefined;
       if (typeof value !== 'object' || value === null) return false;

@@ -2,7 +2,6 @@ import importPlugin from 'eslint-plugin-import';
 import prettierPlugin from 'eslint-plugin-prettier';
 import tseslint from '@typescript-eslint/eslint-plugin';
 import tsparser from '@typescript-eslint/parser';
-import unusedImports from 'eslint-plugin-unused-imports';
 
 export default [
   {
@@ -18,15 +17,20 @@ export default [
     plugins: {
       '@typescript-eslint': tseslint,
       'import': importPlugin,
-      'unused-imports': unusedImports,
       'prettier': prettierPlugin,
     },
     rules: {
-      // --- Arrow functions ---
+      // Force braces + return for all arrow functions
       'arrow-body-style': ['error', 'as-needed'],
 
-      // --- Imports ---
-      'unused-imports/no-unused-imports': 'error',
+      // Disable unused vars from base eslint as it can conflict with TS
+      'no-unused-vars': 'off',
+
+      // Max line length
+      'max-len': ['warn', { code: 120, ignoreUrls: true, ignoreComments: true }],
+
+      // Imports
+      'import/no-duplicates': 'error',
       'import/order': [
         'error',
         {
@@ -35,12 +39,13 @@ export default [
         },
       ],
 
-      // --- Misc ---
-      'no-console': 'warn',
-
-      // --- TypeScript rules (similaire à recommended) ---
+      // Ignore unused args that start with _
       '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
-      '@typescript-eslint/explicit-function-return-type': 'off',
+      // Explicit return type for functions (TypeScript best practice)
+      '@typescript-eslint/explicit-function-return-type': 'warn',
+
+      // Warn on console.log usage
+      'no-console': 'warn',
     },
   },
 ];

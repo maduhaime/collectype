@@ -41,7 +41,7 @@ export function mapEntryFactory<T, C extends Wherable<T, C>>(ctx: C, oper: Param
   return function <K extends keyof ByType<T, Map<any, any>>>(
     field: K,
     target: Parameters<typeof PredicType.map.entry>[2],
-  ) {
+  ): C {
     return ctx.where((item: T) => {
       const value = item[field] as Map<any, any> | undefined;
       if (!(value instanceof Map)) return false;

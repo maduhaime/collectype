@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file.
 
+# 0.9.4 - 2025-09-29
+
+### Changed
+
+- Updated `@param` and `@returns` tags to include specific TypeScript types using `Parameters<typeof PredicType.X.Y>[N]` pattern for better IDE support and type safety.
+- Standardized documentation format across objects, sets, and strings factory families to match the numbers family standard.
+- Improved template parameter descriptions with consistent "The Wherable context type (must extend Wherable<T, C>)" format.
+
+### Fixed
+
+- Ensured all factory functions have proper return type annotations with full generic signatures for enhanced TypeScript IntelliSense.
+- Corrected JSDoc formatting inconsistencies across different factory families.
+
+---
+
 # 0.9.3 - 2025-09-28
 
 ### Changed

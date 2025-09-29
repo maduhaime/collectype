@@ -45,7 +45,7 @@ export function bigIntRangeFactory<T, C extends Wherable<T, C>>(
     field: K,
     min: Parameters<typeof PredicType.bigint.range>[2],
     max: Parameters<typeof PredicType.bigint.range>[3],
-  ) {
+  ): C {
     return ctx.where((item: T) => {
       const value = item[field] as bigint | undefined;
       if (typeof value !== 'bigint') return false;

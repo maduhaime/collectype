@@ -44,7 +44,7 @@ export function objectKeyMembershipFactory<T, C extends Wherable<T, C>>(
   return function <K extends keyof ByType<T, object>>(
     field: K,
     keys: Parameters<typeof PredicType.object.keyMembership>[2],
-  ) {
+  ): C {
     return ctx.where((item: T) => {
       const value = item[field] as object | undefined;
       if (typeof value !== 'object' || value === null) return false;

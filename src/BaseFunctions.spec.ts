@@ -21,7 +21,7 @@ describe('BaseFunctions', () => {
 
   it('should throw if pipe method does not return this', () => {
     class BadFn extends BaseFunctions<DummyType> {
-      bad() {
+      bad(): number {
         return 42;
       }
     }
@@ -32,10 +32,10 @@ describe('BaseFunctions', () => {
 
   it('should execute a valid pipe chain', () => {
     class ChainFn extends BaseFunctions<DummyType> {
-      filterByName(name: string) {
+      filterByName(name: string): this {
         return this.where((i) => i.name === name);
       }
-      filterByColor(color: string) {
+      filterByColor(color: string): this {
         return this.where((i) => i.color === color);
       }
     }

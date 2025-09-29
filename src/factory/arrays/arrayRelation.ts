@@ -44,7 +44,7 @@ export function arrayRelationFactory<T, C extends Wherable<T, C>>(
   return function <K extends keyof ByType<T, any[]>>(
     field: K,
     target: Parameters<typeof PredicType.array.relation>[2],
-  ) {
+  ): C {
     return ctx.where((item: T) => {
       const arr = item[field] as any[] | undefined;
       if (!arr) return false;

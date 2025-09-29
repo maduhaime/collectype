@@ -45,7 +45,7 @@ export function arrayIndexComparisonFactory<T, C extends Wherable<T, C>>(
     field: K,
     index: Parameters<typeof PredicType.array.indexComparison>[2],
     target: Parameters<typeof PredicType.array.indexComparison>[3],
-  ) {
+  ): C {
     return ctx.where((item: T) => {
       const arr = item[field] as any[] | undefined;
       if (!arr) return false;

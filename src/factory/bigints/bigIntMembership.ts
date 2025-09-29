@@ -45,7 +45,7 @@ export function bigIntMembershipFactory<T, C extends Wherable<T, C>>(
   return function <K extends keyof ByType<T, bigint>>(
     field: K,
     target: Parameters<typeof PredicType.bigint.membership>[2],
-  ) {
+  ): C {
     return ctx.where((item: T) => {
       const value = item[field] as bigint | undefined;
       if (typeof value !== 'bigint') return false;

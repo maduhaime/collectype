@@ -44,7 +44,7 @@ export function booleanComparisonFactory<T, C extends Wherable<T, C>>(
   return function <K extends keyof ByType<T, boolean>>(
     field: K,
     target: Parameters<typeof PredicType.boolean.comparison>[2],
-  ) {
+  ): C {
     return ctx.where((item: T) => {
       const value = item[field] as boolean | undefined;
       if (typeof value !== 'boolean') return false;

@@ -45,7 +45,7 @@ export function numberComparisonFactory<T, C extends Wherable<T, C>>(
   return function <K extends keyof ByType<T, number>>(
     field: K,
     target: Parameters<typeof PredicType.number.comparison>[2],
-  ) {
+  ): C {
     return ctx.where((item: T) => {
       const value = item[field] as number | undefined;
       if (typeof value !== 'number') return false;

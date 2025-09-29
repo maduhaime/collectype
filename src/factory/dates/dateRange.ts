@@ -46,7 +46,7 @@ export function dateRangeFactory<T, C extends Wherable<T, C>>(
     field: K,
     min: Parameters<typeof PredicType.date.range>[2],
     max: Parameters<typeof PredicType.date.range>[3],
-  ) {
+  ): C {
     return ctx.where((item: T) => {
       const value = item[field] as Date | undefined;
       // Handle invalid dates based on operation

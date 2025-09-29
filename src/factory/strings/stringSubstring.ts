@@ -6,10 +6,11 @@ import { ByType, Wherable } from '../../types/utility.js';
  * Creates a predicate filter for string substring using `PredicType.string.substring`.
  *
  * @template T - The item type in the collection.
- * @template C - The context type, extending Wherable.
- * @param ctx - The context instance (e.g., a collection or query object).
- * @param oper - The string substring operation to perform (see PredicType.string.substring).
- * @returns A function that takes a field key and a substring, and filters items where the string substring matches the operation.
+ * @template C - The Wherable context type (must extend Wherable<T, C>).
+ * @param {C} ctx - The context (usually a collection) supporting the `where` method.
+ * @param {Parameters<typeof PredicType.string.substring>[1]} oper - The string substring operation to perform (see PredicType.string.substring).
+ * @returns {<K extends keyof ByType<T, string>>(field: K, target: Parameters<typeof PredicType.string.substring>[2]) => C}
+ *   Returns a function that takes a field (of type string on T) and a substring, and applies the string substring predicate to filter the context.
  *
  * @example
  * // Example: Composing a string substring filter as a property, homogeneous model
@@ -19,7 +20,7 @@ import { ByType, Wherable } from '../../types/utility.js';
  * type Person = { name: string; city: string };
  *
  * class PersonFunctions extends BaseFunctions<Person> {
- *   cityContains = stringSubstringFactory<Person, this>(this, 'contains');
+ *   stringContains = stringSubstringFactory<Person, this>(this, 'contains');
  * }
  *
  * // Usage:
@@ -29,7 +30,7 @@ import { ByType, Wherable } from '../../types/utility.js';
  *   { name: 'Eve', city: 'Paris' }
  * ];
  * const fn = new PersonFunctions(people);
- * const filtered = fn.cityContains('city', 'ar');
+ * const filtered = fn.stringContains('city', 'ar');
  * // filtered contains the items where 'city' contains 'ar'
  *
  * @remarks
@@ -43,7 +44,7 @@ export function stringSubstringFactory<T, C extends Wherable<T, C>>(
   return function <K extends keyof ByType<T, string>>(
     field: K,
     target: Parameters<typeof PredicType.string.substring>[2],
-  ) {
+  ): C {
     return ctx.where((item: T) => {
       const value = item[field] as string | undefined;
       if (typeof value !== 'string') return false;

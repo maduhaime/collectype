@@ -6,10 +6,11 @@ import { ByType, Wherable } from '../../types/utility.js';
  * Creates a predicate filter for object prototype relations using `PredicType.object.prototypeRelation`.
  *
  * @template T - The item type in the collection.
- * @template C - The context type, extending Wherable.
- * @param ctx - The context instance (e.g., a collection or query object).
- * @param oper - The prototype relation operation to perform (see PredicType.object.prototypeRelation).
- * @returns A function that takes a field key and a prototype, and filters items where the object's prototype relation matches the operation.
+ * @template C - The Wherable context type (must extend Wherable<T, C>).
+ * @param {C} ctx - The context (usually a collection) supporting the `where` method.
+ * @param {Parameters<typeof PredicType.object.prototypeRelation>[1]} oper - The prototype relation operation to perform (see PredicType.object.prototypeRelation).
+ * @returns {<K extends keyof ByType<T, object>>(field: K, proto: Parameters<typeof PredicType.object.prototypeRelation>[2]) => C}
+ *   Returns a function that takes a field (of type object on T) and a prototype, and applies the object prototype relation predicate to filter the context.
  *
  * @example
  * // Example: Composing an object prototype relation filter as a property, homogeneous model
@@ -43,7 +44,7 @@ export function objectPrototypeRelationFactory<T, C extends Wherable<T, C>>(
   return function <K extends keyof ByType<T, object>>(
     field: K,
     proto: Parameters<typeof PredicType.object.prototypeRelation>[2],
-  ) {
+  ): C {
     return ctx.where((item: T) => {
       const value = item[field] as object | undefined;
       if (typeof value !== 'object' || value === null) return false;

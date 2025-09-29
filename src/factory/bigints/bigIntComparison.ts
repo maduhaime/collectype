@@ -44,7 +44,7 @@ export function bigIntComparisonFactory<T, C extends Wherable<T, C>>(
   return function <K extends keyof ByType<T, bigint>>(
     field: K,
     target: Parameters<typeof PredicType.bigint.comparison>[2],
-  ) {
+  ): C {
     return ctx.where((item: T) => {
       const value = item[field] as bigint | undefined;
       if (typeof value !== 'bigint') return false;

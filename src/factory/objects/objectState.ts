@@ -8,7 +8,7 @@ import { ByType, Wherable } from '../../types/utility.js';
  * @template T - The item type in the collection.
  * @template C - The Wherable context type (must extend Wherable<T, C>).
  * @param {C} ctx - The context (usually a collection) supporting the `where` method.
- * @param {Parameters<typeof PredicType.object.state>[1]} oper - The object state operation (e.g., 'isPlain', 'isEmpty', etc.).
+ * @param {Parameters<typeof PredicType.object.state>[1]} oper - The object state operation (e.g., 'is_plain', 'is_empty', etc.).
  * @returns {<K extends keyof ByType<T, object>>(field: K) => C}
  *   Returns a function that takes a field (of type object on T) and applies the object state predicate to filter the context.
  *
@@ -20,7 +20,7 @@ import { ByType, Wherable } from '../../types/utility.js';
  * type Person = { name: string; meta: { country?: string } };
  *
  * class PersonFunctions extends BaseFunctions<Person> {
- *   objectIsEmpty = objectStateFactory<Person, this>(this, 'isEmpty');
+ *   objectIsEmpty = objectStateFactory<Person, this>(this, 'is_empty');
  * }
  *
  * // Usage:
@@ -41,7 +41,7 @@ export function objectStateFactory<T, C extends Wherable<T, C>>(
   ctx: C,
   oper: Parameters<typeof PredicType.object.state>[1],
 ) {
-  return function <K extends keyof ByType<T, object>>(field: K) {
+  return function <K extends keyof ByType<T, object>>(field: K): C {
     return ctx.where((item: T) => {
       const value = item[field] as object | undefined;
       if (typeof value !== 'object' || value === null) return false;

@@ -6,10 +6,11 @@ import { ByType, Wherable } from '../../types/utility.js';
  * Creates a predicate filter for set relations using `PredicType.set.relation`.
  *
  * @template T - The item type in the collection.
- * @template C - The context type, extending Wherable.
- * @param ctx - The context instance (e.g., a collection or query object).
- * @param oper - The set relation operation to perform (see PredicType.set.relation).
- * @returns A function that takes a field key and a target set, and filters items where the set relation matches the operation.
+ * @template C - The Wherable context type (must extend Wherable<T, C>).
+ * @param {C} ctx - The context (usually a collection) supporting the `where` method.
+ * @param {Parameters<typeof PredicType.set.relation>[1]} oper - The set relation operation to perform (see PredicType.set.relation).
+ * @returns {<K extends keyof ByType<T, Set<any>>>(field: K, target: Parameters<typeof PredicType.set.relation>[2]) => C}
+ *   Returns a function that takes a field (of type Set on T) and a target set, and applies the set relation predicate to filter the context.
  *
  * @example
  * // Example: Composing a set relation filter as a property, homogeneous model
@@ -43,7 +44,7 @@ export function setRelationFactory<T, C extends Wherable<T, C>>(
   return function <K extends keyof ByType<T, Set<any>>>(
     field: K,
     target: Parameters<typeof PredicType.set.relation>[2],
-  ) {
+  ): C {
     return ctx.where((item: T) => {
       const value = item[field] as Set<any> | undefined;
       if (!(value instanceof Set)) return false;

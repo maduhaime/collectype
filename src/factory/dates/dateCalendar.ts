@@ -45,7 +45,7 @@ export function dateCalendarFactory<T, C extends Wherable<T, C>>(
     field: K,
     // TODDO: Implement this later
     // today?: Parameters<typeof PredicType.date.calendar>[2]
-  ) {
+  ): C {
     return ctx.where((item: T) => {
       const value = item[field] as Date | undefined;
       if (!(value instanceof Date) || isNaN(value.getTime())) return false;

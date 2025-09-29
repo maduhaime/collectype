@@ -6,10 +6,11 @@ import { ByType, Wherable } from '../../types/utility.js';
  * Creates a predicate filter for object attribute checks using `PredicType.object.attributes`.
  *
  * @template T - The item type in the collection.
- * @template C - The context type, extending Wherable.
- * @param ctx - The context instance (e.g., a collection or query object).
- * @param oper - The attribute operation to perform (see PredicType.object.attributes).
- * @returns A function that takes a field key and a target value, and filters items where the object's attribute matches the operation.
+ * @template C - The Wherable context type (must extend Wherable<T, C>).
+ * @param {C} ctx - The context (usually a collection) supporting the `where` method.
+ * @param {Parameters<typeof PredicType.object.attributes>[1]} oper - The attribute operation to perform (see PredicType.object.attributes).
+ * @returns {<K extends keyof ByType<T, object>>(field: K, target: Parameters<typeof PredicType.object.attributes>[2]) => C}
+ *   Returns a function that takes a field (of type object on T) and a target value, and applies the object attribute predicate to filter the context.
  *
  * @example
  * // Example: Composing an object attribute filter as a property, homogeneous model
@@ -43,7 +44,7 @@ export function objectAttributesFactory<T, C extends Wherable<T, C>>(
   return function <K extends keyof ByType<T, object>>(
     field: K,
     target: Parameters<typeof PredicType.object.attributes>[2],
-  ) {
+  ): C {
     return ctx.where((item: T) => {
       const value = item[field] as object | undefined;
       if (typeof value !== 'object' || value === null) return false;
