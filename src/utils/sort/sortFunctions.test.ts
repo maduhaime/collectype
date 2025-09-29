@@ -2,7 +2,6 @@ import { describe, expect, it } from 'vitest';
 
 import { hasNull } from '../primitives/null.js';
 import { hasUndefined } from '../primitives/undefined.js';
-
 import {
   sortByBooleanField,
   sortByDateField,

@@ -1,3 +1,7 @@
+import { PredicType } from 'predictype';
+
+import { ByType, Wherable } from '../../types/utility.js';
+
 /**
  * Creates a predicate filter for object key presence using `PredicType.object.key`.
  *
@@ -33,15 +37,9 @@
  * - The operation and target must match the signature of PredicType.object.key.
  * - Returns a new filtered context; does not mutate the original.
  */
-import { PredicType } from 'predictype';
-import { ByType, Wherable } from '../../types/utility.js';
-
-/**
- * Factory for object key presence using PredicType.object.key
- */
 export function objectKeyFactory<T, C extends Wherable<T, C>>(
   ctx: C,
-  oper: Parameters<typeof PredicType.object.key>[1]
+  oper: Parameters<typeof PredicType.object.key>[1],
 ) {
   return function <K extends keyof ByType<T, object>>(field: K, target: Parameters<typeof PredicType.object.key>[2]) {
     return ctx.where((item: T) => {

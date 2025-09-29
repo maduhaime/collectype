@@ -1,3 +1,7 @@
+import { PredicType } from 'predictype';
+
+import { ByType, Wherable } from '../../types/utility.js';
+
 /**
  * Creates a predicate filter for map value using `PredicType.map.value`.
  *
@@ -33,13 +37,10 @@
  * - The operation and target must match the signature of PredicType.map.value.
  * - Returns a new filtered context; does not mutate the original.
  */
-import { PredicType } from 'predictype';
-import { ByType, Wherable } from '../../types/utility.js';
-
 export function mapValueFactory<T, C extends Wherable<T, C>>(ctx: C, oper: Parameters<typeof PredicType.map.value>[1]) {
   return function <K extends keyof ByType<T, Map<any, any>>>(
     field: K,
-    target: Parameters<typeof PredicType.map.value>[2]
+    target: Parameters<typeof PredicType.map.value>[2],
   ) {
     return ctx.where((item: T) => {
       const value = item[field] as Map<any, any> | undefined;

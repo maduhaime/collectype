@@ -1,3 +1,7 @@
+import { PredicType } from 'predictype';
+
+import { ByType, Wherable } from '../../types/utility.js';
+
 /**
  * Factory for creating array index membership predicates for use with a Wherable context.
  *
@@ -33,17 +37,14 @@
  * - The operation, index, and target must match the signature of PredicType.array.indexMembership.
  * - Returns a new filtered context; does not mutate the original.
  */
-import { PredicType } from 'predictype';
-import { ByType, Wherable } from '../../types/utility.js';
-
 export function arrayIndexMembershipFactory<T, C extends Wherable<T, C>>(
   ctx: C,
-  oper: Parameters<typeof PredicType.array.indexMembership>[1]
+  oper: Parameters<typeof PredicType.array.indexMembership>[1],
 ) {
   return function <K extends keyof ByType<T, any[]>>(
     field: K,
     index: Parameters<typeof PredicType.array.indexMembership>[2],
-    target: Parameters<typeof PredicType.array.indexMembership>[3]
+    target: Parameters<typeof PredicType.array.indexMembership>[3],
   ) {
     return ctx.where((item: T) => {
       const array = item[field] as any[] | undefined;

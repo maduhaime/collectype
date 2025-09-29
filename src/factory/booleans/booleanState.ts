@@ -1,3 +1,7 @@
+import { PredicType } from 'predictype';
+
+import { ByType, Wherable } from '../../types/utility.js';
+
 /**
  * Creates a predicate filter for boolean state using `PredicType.boolean.state`.
  *
@@ -33,12 +37,9 @@
  * - The operation must match the signature of PredicType.boolean.state.
  * - Returns a new filtered context; does not mutate the original.
  */
-import { PredicType } from 'predictype';
-import { ByType, Wherable } from '../../types/utility.js';
-
 export function booleanStateFactory<T, C extends Wherable<T, C>>(
   ctx: C,
-  oper: Parameters<typeof PredicType.boolean.state>[1]
+  oper: Parameters<typeof PredicType.boolean.state>[1],
 ) {
   return function <K extends keyof ByType<T, boolean>>(field: K) {
     return ctx.where((item: T) => {

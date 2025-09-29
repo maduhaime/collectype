@@ -1,4 +1,5 @@
 import { PredicType } from 'predictype';
+
 import { ByType, Wherable } from '../../types/utility.js';
 
 /**

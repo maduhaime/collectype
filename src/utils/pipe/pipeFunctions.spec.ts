@@ -43,7 +43,7 @@ describe('parseMethodCall', () => {
 
   it('should handle date string args', () => {
     const { methodName, args } = parseMethodCall(
-      'filterByDate(Sat Dec 31 1994 19:00:00 GMT-0500 (Eastern Standard Time))'
+      'filterByDate(Sat Dec 31 1994 19:00:00 GMT-0500 (Eastern Standard Time))',
     );
     expect(methodName).toBe('filterByDate');
     expect(args[0]).toBeInstanceOf(Date);

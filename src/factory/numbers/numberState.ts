@@ -1,3 +1,7 @@
+import { PredicType } from 'predictype';
+
+import { ByType, Wherable } from '../../types/utility.js';
+
 /**
  * Creates a predicate filter for number state using `PredicType.number.state`.
  *
@@ -34,12 +38,9 @@
  * - The operation must match the signature of PredicType.number.state.
  * - Returns a new filtered context; does not mutate the original.
  */
-import { PredicType } from 'predictype';
-import { ByType, Wherable } from '../../types/utility.js';
-
 export function numberStateFactory<T, C extends Wherable<T, C>>(
   ctx: C,
-  oper: Parameters<typeof PredicType.number.state>[1]
+  oper: Parameters<typeof PredicType.number.state>[1],
 ) {
   return function <K extends keyof ByType<T, number>>(field: K) {
     return ctx.where((item: T) => {

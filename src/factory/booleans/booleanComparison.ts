@@ -1,3 +1,7 @@
+import { PredicType } from 'predictype';
+
+import { ByType, Wherable } from '../../types/utility.js';
+
 /**
  * Creates a predicate filter for boolean comparison using `PredicType.boolean.comparison`.
  *
@@ -33,16 +37,13 @@
  * - The operation and target must match the signature of PredicType.boolean.comparison.
  * - Returns a new filtered context; does not mutate the original.
  */
-import { PredicType } from 'predictype';
-import { ByType, Wherable } from '../../types/utility.js';
-
 export function booleanComparisonFactory<T, C extends Wherable<T, C>>(
   ctx: C,
-  oper: Parameters<typeof PredicType.boolean.comparison>[1]
+  oper: Parameters<typeof PredicType.boolean.comparison>[1],
 ) {
   return function <K extends keyof ByType<T, boolean>>(
     field: K,
-    target: Parameters<typeof PredicType.boolean.comparison>[2]
+    target: Parameters<typeof PredicType.boolean.comparison>[2],
   ) {
     return ctx.where((item: T) => {
       const value = item[field] as boolean | undefined;

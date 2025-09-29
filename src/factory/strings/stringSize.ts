@@ -1,4 +1,5 @@
 import { PredicType } from 'predictype';
+
 import { ByType, Wherable } from '../../types/utility.js';
 
 /**
@@ -37,7 +38,7 @@ import { ByType, Wherable } from '../../types/utility.js';
  */
 export function stringSizeFactory<T, C extends Wherable<T, C>>(
   ctx: C,
-  oper: Parameters<typeof PredicType.string.size>[1]
+  oper: Parameters<typeof PredicType.string.size>[1],
 ) {
   return function <K extends keyof ByType<T, string>>(field: K, target: Parameters<typeof PredicType.string.size>[2]) {
     return ctx.where((item: T) => {

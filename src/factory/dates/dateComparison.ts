@@ -1,3 +1,7 @@
+import { PredicType } from 'predictype';
+
+import { ByType, Wherable } from '../../types/utility.js';
+
 /**
  * Creates a predicate filter for date comparison using `PredicType.date.comparison`.
  *
@@ -34,16 +38,13 @@
  * - The operation and target must match the signature of PredicType.date.comparison.
  * - Returns a new filtered context; does not mutate the original.
  */
-import { PredicType } from 'predictype';
-import { ByType, Wherable } from '../../types/utility.js';
-
 export function dateComparisonFactory<T, C extends Wherable<T, C>>(
   ctx: C,
-  oper: Parameters<typeof PredicType.date.comparison>[1]
+  oper: Parameters<typeof PredicType.date.comparison>[1],
 ) {
   return function <K extends keyof ByType<T, Date>>(
     field: K,
-    target: Parameters<typeof PredicType.date.comparison>[2]
+    target: Parameters<typeof PredicType.date.comparison>[2],
   ) {
     return ctx.where((item: T) => {
       const value = item[field] as Date | undefined;

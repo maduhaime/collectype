@@ -1,3 +1,7 @@
+import { PredicType } from 'predictype';
+
+import { ByType, Wherable } from '../../types/utility.js';
+
 /**
  * Factory for creating array sequence predicates for use with a Wherable context.
  *
@@ -33,16 +37,13 @@
  * - The operation and target must match the signature of PredicType.array.sequence.
  * - Returns a new filtered context; does not mutate the original.
  */
-import { PredicType } from 'predictype';
-import { ByType, Wherable } from '../../types/utility.js';
-
 export function arraySequenceFactory<T, C extends Wherable<T, C>>(
   ctx: C,
-  oper: Parameters<typeof PredicType.array.sequence>[1]
+  oper: Parameters<typeof PredicType.array.sequence>[1],
 ) {
   return function <K extends keyof ByType<T, any[]>>(
     field: K,
-    target: Parameters<typeof PredicType.array.sequence>[2]
+    target: Parameters<typeof PredicType.array.sequence>[2],
   ) {
     return ctx.where((item: T) => {
       const arr = item[field] as any[] | undefined;

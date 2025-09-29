@@ -1,4 +1,5 @@
 import { PredicType } from 'predictype';
+
 import { ByType, Wherable } from '../../types/utility.js';
 
 /**
@@ -37,7 +38,7 @@ import { ByType, Wherable } from '../../types/utility.js';
  */
 export function objectPrototypeStateFactory<T, C extends Wherable<T, C>>(
   ctx: C,
-  oper: Parameters<typeof PredicType.object.prototypeState>[1]
+  oper: Parameters<typeof PredicType.object.prototypeState>[1],
 ) {
   return function <K extends keyof ByType<T, object>>(field: K) {
     return ctx.where((item: T) => {

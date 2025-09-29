@@ -1,3 +1,7 @@
+import { PredicType } from 'predictype';
+
+import { ByType, Wherable } from '../../types/utility.js';
+
 /**
  * Creates a predicate filter for bigint range using `PredicType.bigint.range`.
  *
@@ -33,17 +37,14 @@
  * - The operation, min, and max must match the signature of PredicType.bigint.range.
  * - Returns a new filtered context; does not mutate the original.
  */
-import { PredicType } from 'predictype';
-import { ByType, Wherable } from '../../types/utility.js';
-
 export function bigIntRangeFactory<T, C extends Wherable<T, C>>(
   ctx: C,
-  oper: Parameters<typeof PredicType.bigint.range>[1]
+  oper: Parameters<typeof PredicType.bigint.range>[1],
 ) {
   return function <K extends keyof ByType<T, bigint>>(
     field: K,
     min: Parameters<typeof PredicType.bigint.range>[2],
-    max: Parameters<typeof PredicType.bigint.range>[3]
+    max: Parameters<typeof PredicType.bigint.range>[3],
   ) {
     return ctx.where((item: T) => {
       const value = item[field] as bigint | undefined;

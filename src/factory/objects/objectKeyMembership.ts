@@ -1,3 +1,7 @@
+import { PredicType } from 'predictype';
+
+import { ByType, Wherable } from '../../types/utility.js';
+
 /**
  * Creates a predicate filter for object key membership using `PredicType.object.keyMembership`.
  *
@@ -33,19 +37,13 @@
  * - The operation and keys must match the signature of PredicType.object.keyMembership.
  * - Returns a new filtered context; does not mutate the original.
  */
-import { PredicType } from 'predictype';
-import { ByType, Wherable } from '../../types/utility.js';
-
-/**
- * Factory for object key presence using PredicType.object.keyMembership
- */
 export function objectKeyMembershipFactory<T, C extends Wherable<T, C>>(
   ctx: C,
-  oper: Parameters<typeof PredicType.object.keyMembership>[1]
+  oper: Parameters<typeof PredicType.object.keyMembership>[1],
 ) {
   return function <K extends keyof ByType<T, object>>(
     field: K,
-    keys: Parameters<typeof PredicType.object.keyMembership>[2]
+    keys: Parameters<typeof PredicType.object.keyMembership>[2],
   ) {
     return ctx.where((item: T) => {
       const value = item[field] as object | undefined;

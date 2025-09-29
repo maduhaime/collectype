@@ -1,3 +1,7 @@
+import { PredicType } from 'predictype';
+
+import { ByType, Wherable } from '../../types/utility.js';
+
 /**
  * Creates a predicate filter for bigint membership using `PredicType.bigint.membership`.
  *
@@ -34,16 +38,13 @@
  * - The operation and target must match the signature of PredicType.bigint.membership.
  * - Returns a new filtered context; does not mutate the original.
  */
-import { PredicType } from 'predictype';
-import { ByType, Wherable } from '../../types/utility.js';
-
 export function bigIntMembershipFactory<T, C extends Wherable<T, C>>(
   ctx: C,
-  oper: Parameters<typeof PredicType.bigint.membership>[1]
+  oper: Parameters<typeof PredicType.bigint.membership>[1],
 ) {
   return function <K extends keyof ByType<T, bigint>>(
     field: K,
-    target: Parameters<typeof PredicType.bigint.membership>[2]
+    target: Parameters<typeof PredicType.bigint.membership>[2],
   ) {
     return ctx.where((item: T) => {
       const value = item[field] as bigint | undefined;

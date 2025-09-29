@@ -59,7 +59,6 @@ import {
 } from 'predictype';
 
 import { BaseFunctions } from './BaseFunctions.js';
-
 import { arrayComparisonFactory } from './factory/arrays/arrayComparison.js';
 import { arrayIndexComparisonFactory } from './factory/arrays/arrayIndexComparison.js';
 import { arrayIndexMembershipFactory } from './factory/arrays/arrayIndexMembership.js';
@@ -69,34 +68,27 @@ import { arrayRelationFactory } from './factory/arrays/arrayRelation.js';
 import { arraySequenceFactory } from './factory/arrays/arraySequence.js';
 import { arraySizeFactory } from './factory/arrays/arraySize.js';
 import { arrayStateFactory } from './factory/arrays/arrayState.js';
-
 import { bigIntComparisonFactory } from './factory/bigints/bigIntComparison.js';
 import { bigIntMembershipFactory } from './factory/bigints/bigIntMembership.js';
 import { bigIntRangeFactory } from './factory/bigints/bigIntRange.js';
 import { bigIntStateFactory } from './factory/bigints/bigIntState.js';
-
 import { booleanComparisonFactory } from './factory/booleans/booleanComparison.js';
 import { booleanStateFactory } from './factory/booleans/booleanState.js';
-
 import { dateCalendarFactory } from './factory/dates/dateCalendar.js';
 import { dateComparisonFactory } from './factory/dates/dateComparison.js';
 import { dateRangeFactory } from './factory/dates/dateRange.js';
 import { dateStateFactory } from './factory/dates/dateState.js';
-
 import { mapEntryFactory } from './factory/maps/mapEntry.js';
 import { mapKeyFactory } from './factory/maps/mapKey.js';
 import { mapSizeFactory } from './factory/maps/mapSize.js';
 import { mapStateFactory } from './factory/maps/mapState.js';
 import { mapValueFactory } from './factory/maps/mapValue.js';
-
 import { numberComparisonFactory } from './factory/numbers/numberComparison.js';
 import { numberRangeFactory } from './factory/numbers/numberRange.js';
 import { numberStateFactory } from './factory/numbers/numberState.js';
-
 import { objectAttributesFactory } from './factory/objects/objectAttributes.js';
 import { objectInstanceRelationFactory } from './factory/objects/objectInstanceRelation.js';
 import { objectInstanceTypeFactory } from './factory/objects/objectInstanceType.js';
-
 import { objectKeyFactory } from './factory/objects/objectKey.js';
 import { objectKeyMembershipFactory } from './factory/objects/objectKeyMembership.js';
 import { objectKeysFactory } from './factory/objects/objectKeys.js';
@@ -105,12 +97,10 @@ import { objectPropertyFactory } from './factory/objects/objectProperty.js';
 import { objectPrototypeRelationFactory } from './factory/objects/objectPrototypeRelation.js';
 import { objectPrototypeStateFactory } from './factory/objects/objectPrototypeState.js';
 import { objectStateFactory } from './factory/objects/objectState.js';
-
 import { setComparisonFactory } from './factory/sets/setComparison.js';
 import { setRelationFactory } from './factory/sets/setRelation.js';
 import { setSizeFactory } from './factory/sets/setSize.js';
 import { setStateFactory } from './factory/sets/setState.js';
-
 import { stringComparisonFactory } from './factory/strings/stringComparison.js';
 import { stringMembershipFactory } from './factory/strings/stringMembership.js';
 import { stringPatternFactory } from './factory/strings/stringPattern.js';
@@ -135,12 +125,12 @@ export class FullFunctions<T> extends BaseFunctions<T> {
   arrayAtIndexGreaterThan = arrayIndexComparisonFactory<T, this>(this, ArrayIndexComparisonEnum.AT_INDEX_GREATER_THAN);
   arrayAtIndexGreaterThanOrEquals = arrayIndexComparisonFactory<T, this>(
     this,
-    ArrayIndexComparisonEnum.AT_INDEX_GREATER_THAN_OR_EQUALS
+    ArrayIndexComparisonEnum.AT_INDEX_GREATER_THAN_OR_EQUALS,
   );
   arrayAtIndexLessThan = arrayIndexComparisonFactory<T, this>(this, ArrayIndexComparisonEnum.AT_INDEX_LESS_THAN);
   arrayAtIndexLessThanOrEquals = arrayIndexComparisonFactory<T, this>(
     this,
-    ArrayIndexComparisonEnum.AT_INDEX_LESS_THAN_OR_EQUALS
+    ArrayIndexComparisonEnum.AT_INDEX_LESS_THAN_OR_EQUALS,
   );
   arrayAtIndexNotEquals = arrayIndexComparisonFactory<T, this>(this, ArrayIndexComparisonEnum.AT_INDEX_NOT_EQUALS);
 
@@ -329,7 +319,7 @@ export class FullFunctions<T> extends BaseFunctions<T> {
   objectIsInstanceOfClass = objectInstanceTypeFactory<T, this>(this, ObjectInstanceTypeEnum.INSTANCE_OF_CLASS);
   objectIsInstanceOfConstructor = objectInstanceTypeFactory<T, this>(
     this,
-    ObjectInstanceTypeEnum.INSTANCE_OF_CONSTRUCTOR
+    ObjectInstanceTypeEnum.INSTANCE_OF_CONSTRUCTOR,
   );
   objectIsInstanceOfFunction = objectInstanceTypeFactory<T, this>(this, ObjectInstanceTypeEnum.INSTANCE_OF_FUNCTION);
   objectIsInstanceOfObject = objectInstanceTypeFactory<T, this>(this, ObjectInstanceTypeEnum.INSTANCE_OF_OBJECT);
@@ -365,11 +355,11 @@ export class FullFunctions<T> extends BaseFunctions<T> {
   // Object Prototype Relation
   objectPrototypeContainsPrototype = objectPrototypeRelationFactory<T, this>(
     this,
-    ObjectPrototypeRelationEnum.CONTAINS_PROTOTYPE
+    ObjectPrototypeRelationEnum.CONTAINS_PROTOTYPE,
   );
   objectPrototypeIsPrototypeOf = objectPrototypeRelationFactory<T, this>(
     this,
-    ObjectPrototypeRelationEnum.IS_PROTOTYPE_OF
+    ObjectPrototypeRelationEnum.IS_PROTOTYPE_OF,
   );
 
   // Object Prototype State

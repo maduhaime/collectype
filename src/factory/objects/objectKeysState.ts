@@ -1,3 +1,7 @@
+import { PredicType } from 'predictype';
+
+import { ByType, Wherable } from '../../types/utility.js';
+
 /**
  * Creates a predicate filter for object keys state using `PredicType.object.keysState`.
  *
@@ -33,15 +37,9 @@
  * - The operation must match the signature of PredicType.object.keysState.
  * - Returns a new filtered context; does not mutate the original.
  */
-import { PredicType } from 'predictype';
-import { ByType, Wherable } from '../../types/utility.js';
-
-/**
- * Factory for object key operations using PredicType.object.keysState
- */
 export function objectKeysStateFactory<T, C extends Wherable<T, C>>(
   ctx: C,
-  oper: Parameters<typeof PredicType.object.keysState>[1]
+  oper: Parameters<typeof PredicType.object.keysState>[1],
 ) {
   return function <K extends keyof ByType<T, object>>(field: K) {
     return ctx.where((item: T) => {

@@ -1,3 +1,7 @@
+import { PredicType } from 'predictype';
+
+import { ByType, Wherable } from '../../types/utility.js';
+
 /**
  * Creates a predicate filter for bigint comparison using `PredicType.bigint.comparison`.
  *
@@ -33,16 +37,13 @@
  * - The operation and target must match the signature of PredicType.bigint.comparison.
  * - Returns a new filtered context; does not mutate the original.
  */
-import { PredicType } from 'predictype';
-import { ByType, Wherable } from '../../types/utility.js';
-
 export function bigIntComparisonFactory<T, C extends Wherable<T, C>>(
   ctx: C,
-  oper: Parameters<typeof PredicType.bigint.comparison>[1]
+  oper: Parameters<typeof PredicType.bigint.comparison>[1],
 ) {
   return function <K extends keyof ByType<T, bigint>>(
     field: K,
-    target: Parameters<typeof PredicType.bigint.comparison>[2]
+    target: Parameters<typeof PredicType.bigint.comparison>[2],
   ) {
     return ctx.where((item: T) => {
       const value = item[field] as bigint | undefined;

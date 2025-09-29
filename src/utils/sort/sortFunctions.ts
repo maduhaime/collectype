@@ -68,7 +68,7 @@ export function sortNull(a: unknown, b: unknown, dir: SortDir): number {
 export function sortByStringField<T, K extends keyof T>(
   collection: T[],
   field: K,
-  dir: SortDir = SortDirEnum.ASC
+  dir: SortDir = SortDirEnum.ASC,
 ): T[] {
   return collection.sort((itemA: T, itemB: T) => {
     if (hasUndefined(itemA[field], itemB[field])) return sortUndefined(itemA[field], itemB[field], dir);
@@ -104,7 +104,7 @@ export function sortByStringField<T, K extends keyof T>(
 export function sortByNumberField<T, K extends keyof T>(
   collection: T[],
   field: K,
-  dir: SortDir = SortDirEnum.ASC
+  dir: SortDir = SortDirEnum.ASC,
 ): T[] {
   return collection.sort((itemA: T, itemB: T) => {
     if (hasUndefined(itemA[field], itemB[field])) return sortUndefined(itemA[field], itemB[field], dir);
@@ -172,7 +172,7 @@ export function sortByDateField<T, K extends keyof T>(collection: T[], field: K,
 export function sortByBooleanField<T, K extends keyof T>(
   collection: T[],
   field: K,
-  dir: SortDir = SortDirEnum.ASC
+  dir: SortDir = SortDirEnum.ASC,
 ): T[] {
   return collection.sort((itemA: T, itemB: T) => {
     if (hasUndefined(itemA[field], itemB[field])) return sortUndefined(itemA[field], itemB[field], dir);

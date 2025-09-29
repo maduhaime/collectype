@@ -1,3 +1,7 @@
+import { PredicType, DateRangeEnum } from 'predictype';
+
+import { ByType, Wherable } from '../../types/utility.js';
+
 /**
  * Creates a predicate filter for date range using `PredicType.date.range`.
  *
@@ -34,17 +38,14 @@
  * - The operation, min, and max must match the signature of PredicType.date.range.
  * - Returns a new filtered context; does not mutate the original.
  */
-import { PredicType, DateRangeEnum } from 'predictype';
-import { ByType, Wherable } from '../../types/utility.js';
-
 export function dateRangeFactory<T, C extends Wherable<T, C>>(
   ctx: C,
-  oper: Parameters<typeof PredicType.date.range>[1]
+  oper: Parameters<typeof PredicType.date.range>[1],
 ) {
   return function <K extends keyof ByType<T, Date>>(
     field: K,
     min: Parameters<typeof PredicType.date.range>[2],
-    max: Parameters<typeof PredicType.date.range>[3]
+    max: Parameters<typeof PredicType.date.range>[3],
   ) {
     return ctx.where((item: T) => {
       const value = item[field] as Date | undefined;
