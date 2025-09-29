@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file.
 
+# 0.9.3 - 2025-09-28
+
+### Changed
+
+- Implemented consistent code formatting and linting across the entire codebase using Prettier and ESLint.
+- Applied uniform code style standards to all TypeScript files, improving readability and maintainability.
+- Updated all source files to follow consistent indentation, spacing, and formatting rules.
+
+### Fixed
+
+- Resolved minor formatting inconsistencies throughout the project.
+- Ensured all code follows the established style guidelines for better collaboration and code quality.
+
+---
+
 # 0.9.2 - 2025-09-24
 
 ### Changed
