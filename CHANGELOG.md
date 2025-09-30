@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file.
 
+# 0.9.5 - 2025-09-29
+
+### Enhanced
+
+- **Improved sort method flexibility**: The `sort()` method now accepts both enum values (`SortDirEnum.ASC/DESC`, `SortTypeEnum.STRING/NUMBER/etc.`) and their string equivalents (`'asc'/'desc'`, `'string'/'number'/etc.`) for enhanced developer experience and API consistency.
+- **Optimized parameter normalization**: Implemented efficient type assertion approach for converting string parameters to enum values, reducing code complexity and improving performance.
+
+### Added
+
+- **Comprehensive sort testing**: Added extensive test coverage for both string and enum parameter variations, including mixed parameter combinations to ensure API flexibility.
+- **Enhanced error handling**: Improved error messages and type safety in sort operations with better parameter validation.
+
+### Fixed
+
+- **Sort parameter validation**: Resolved issues where undefined sort types could cause runtime errors by implementing proper parameter normalization.
+
+---
+
 # 0.9.4 - 2025-09-29
 
 ### Changed
