@@ -1,5 +1,5 @@
-import { ReservedMethodsEnum } from '../../enums/pipe.js';
-import { ReservedMethods, ParsedPipeStep } from '../../types/pipe.js';
+import { ReservedMethods, ReservedMethodsEnum } from '../../enums/pipe.js';
+import { ParsedPipeStep } from '../../types/pipe.js';
 
 /**
  * Returns true if the given method name is reserved and cannot be used in pipe expressions.

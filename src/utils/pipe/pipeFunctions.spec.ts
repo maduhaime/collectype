@@ -17,7 +17,7 @@ describe('isReserved', () => {
     expect(isReserved('sort')).toBe(true);
     expect(isReserved('where')).toBe(true);
 
-    // @ts-expect-error
+    // @ts-expect-error - Testing with non-enum value for coverage
     expect(isReserved('nonReserved')).toBe(false);
   });
 });

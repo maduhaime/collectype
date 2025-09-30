@@ -16,3 +16,5 @@ export enum ReservedMethodsEnum {
   /** Reserved for count accessor. */
   COUNT = 'count',
 }
+
+export type ReservedMethods = ReservedMethodsEnum | `${ReservedMethodsEnum}`;
