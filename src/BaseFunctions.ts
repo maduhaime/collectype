@@ -10,8 +10,7 @@ import {
   sortByNumberField,
   sortByStringField,
 } from './utils/sort/sortFunctions.js';
-import { SortDir, SortType } from './types/sort.js';
-import { SortDirEnum, SortTypeEnum } from './enums/sort.js';
+import { SortDir, SortDirEnum, SortType, SortTypeEnum } from './enums/sort.js';
 import { ByType } from './types/utility.js';
 
 /**
@@ -90,28 +89,33 @@ export class BaseFunctions<T> implements Collectable<T> {
    * @throws Error if an unsupported sort type is provided.
    */
   sort<K extends keyof T>(field: K, dir: SortDir = SortDirEnum.ASC, type?: SortType): this {
+    // Normalize direction and type to enum values using type assertion
+    const enumDir = typeof dir === 'string' ? (dir as SortDirEnum) : dir;
+
     // Auto-detect sort type from the first item's field value if not specified
     let detectedType: SortType | undefined = type;
     if (!detectedType && this._items.length > 0) {
       detectedType = inferSortType(this._items[0][field]);
     }
 
+    const enumType = typeof detectedType === 'string' ? (detectedType as SortTypeEnum) : detectedType;
+
     // Apply appropriate sorting strategy based on detected type
-    switch (detectedType) {
+    switch (enumType) {
       case SortTypeEnum.BOOLEAN:
-        this._items = sortByBooleanField(this._items, field as keyof ByType<T, boolean>, dir);
+        this._items = sortByBooleanField(this._items, field as keyof ByType<T, boolean>, enumDir);
         break;
       case SortTypeEnum.NUMBER:
-        this._items = sortByNumberField(this._items, field as keyof ByType<T, number>, dir);
+        this._items = sortByNumberField(this._items, field as keyof ByType<T, number>, enumDir);
         break;
       case SortTypeEnum.DATE:
-        this._items = sortByDateField(this._items, field as keyof ByType<T, Date>, dir);
+        this._items = sortByDateField(this._items, field as keyof ByType<T, Date>, enumDir);
         break;
       case SortTypeEnum.STRING:
-        this._items = sortByStringField(this._items, field as keyof ByType<T, string>, dir);
+        this._items = sortByStringField(this._items, field as keyof ByType<T, string>, enumDir);
         break;
       default:
-        throw new Error(`${detectedType} is not a valid sort type`);
+        throw new Error(`${enumType} is not a valid sort type`);
     }
     return this;
   }

@@ -14,6 +14,8 @@ export enum SortDirEnum {
   DESC = 'desc',
 }
 
+export type SortDir = SortDirEnum | `${SortDirEnum}`;
+
 /**
  * Enum for sort type (string, number, date, boolean).
  * Used to specify the data type for sorting.
@@ -33,3 +35,5 @@ export enum SortTypeEnum {
   /** Sort by boolean values. */
   BOOLEAN = 'boolean',
 }
+
+export type SortType = SortTypeEnum | `${SortTypeEnum}`;

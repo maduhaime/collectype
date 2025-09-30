@@ -1,6 +1,7 @@
 import { describe, it, expect, beforeEach } from 'vitest';
 
 import { BaseFunctions } from './BaseFunctions.js';
+import { SortDirEnum, SortTypeEnum } from './enums/sort.js';
 
 type DummyType = {
   name: string;
@@ -69,14 +70,21 @@ describe('BaseFunctions', () => {
     expect(result.items).toEqual(items);
   });
 
-  it('should sort items by string field', () => {
+  it('should sort items by string field with string params', () => {
     fn.sort('color');
     expect(fn.items.map((i) => i.color)).toEqual(['blue', 'green', 'red']);
     fn.sort('color', 'desc');
     expect(fn.items.map((i) => i.color)).toEqual(['red', 'green', 'blue']);
   });
 
-  it('should sort items by number field', () => {
+  it('should sort items by string field with enum params', () => {
+    fn.sort('color', SortDirEnum.ASC, SortTypeEnum.STRING);
+    expect(fn.items.map((i) => i.color)).toEqual(['blue', 'green', 'red']);
+    fn.sort('color', SortDirEnum.DESC, SortTypeEnum.STRING);
+    expect(fn.items.map((i) => i.color)).toEqual(['red', 'green', 'blue']);
+  });
+
+  it('should sort items by number field with string params', () => {
     fn.sort('age');
     expect(fn.items.map((i) => i.age)).toEqual([25, 25, 30]);
 
@@ -84,7 +92,15 @@ describe('BaseFunctions', () => {
     expect(fn.items.map((i) => i.age)).toEqual([30, 25, 25]);
   });
 
-  it('should sort items by date field', () => {
+  it('should sort items by number field with enum params', () => {
+    fn.sort('age', SortDirEnum.ASC, SortTypeEnum.NUMBER);
+    expect(fn.items.map((i) => i.age)).toEqual([25, 25, 30]);
+
+    fn.sort('age', SortDirEnum.DESC, SortTypeEnum.NUMBER);
+    expect(fn.items.map((i) => i.age)).toEqual([30, 25, 25]);
+  });
+
+  it('should sort items by date field with string params', () => {
     fn.sort('date');
     expect(fn.items.map((i) => i.date?.toISOString())).toEqual([
       new Date('2023-01-01').toISOString(),
@@ -100,11 +116,52 @@ describe('BaseFunctions', () => {
     ]);
   });
 
-  it('should sort items by boolean field', () => {
+  it('should sort items by date field with enum params', () => {
+    fn.sort('date', SortDirEnum.ASC, SortTypeEnum.DATE);
+    expect(fn.items.map((i) => i.date?.toISOString())).toEqual([
+      new Date('2023-01-01').toISOString(),
+      new Date('2023-01-02').toISOString(),
+      new Date('2023-01-03').toISOString(),
+    ]);
+
+    fn.sort('date', SortDirEnum.DESC, SortTypeEnum.DATE);
+    expect(fn.items.map((i) => i.date?.toISOString())).toEqual([
+      new Date('2023-01-03').toISOString(),
+      new Date('2023-01-02').toISOString(),
+      new Date('2023-01-01').toISOString(),
+    ]);
+  });
+
+  it('should sort items by boolean field with string params', () => {
     fn.sort('flag');
     expect(fn.items.map((i) => i.flag)).toEqual([false, true, true]);
     fn.sort('flag', 'desc');
     expect(fn.items.map((i) => i.flag)).toEqual([true, true, false]);
+  });
+
+  it('should sort items by boolean field with enum params', () => {
+    fn.sort('flag', SortDirEnum.ASC, SortTypeEnum.BOOLEAN);
+    expect(fn.items.map((i) => i.flag)).toEqual([false, true, true]);
+    fn.sort('flag', SortDirEnum.DESC, SortTypeEnum.BOOLEAN);
+    expect(fn.items.map((i) => i.flag)).toEqual([true, true, false]);
+  });
+
+  it('should work with mixed string and enum params', () => {
+    // Mixed: string direction with enum type
+    fn.sort('age', 'asc', SortTypeEnum.NUMBER);
+    expect(fn.items.map((i) => i.age)).toEqual([25, 25, 30]);
+
+    // Mixed: enum direction with string type
+    fn.sort('age', SortDirEnum.DESC, 'number');
+    expect(fn.items.map((i) => i.age)).toEqual([30, 25, 25]);
+
+    // All strings
+    fn.sort('color', 'asc', 'string');
+    expect(fn.items.map((i) => i.color)).toEqual(['blue', 'green', 'red']);
+
+    // All enums
+    fn.sort('color', SortDirEnum.DESC, SortTypeEnum.STRING);
+    expect(fn.items.map((i) => i.color)).toEqual(['red', 'green', 'blue']);
   });
 
   it('should where and chain', () => {
