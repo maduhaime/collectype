@@ -61,16 +61,6 @@ export class BaseFunctions<T> implements Collectable<T> {
   }
 
   /**
-   * @deprecated Use {@link where} instead for a shorter, more idiomatic syntax.
-   * Applies a filter function to the items.
-   * @param fn - The predicate function to filter items.
-   * @returns The instance for chaining.
-   */
-  applyFilter(fn: PredicateFn<T>): this {
-    return this.where(fn);
-  }
-
-  /**
    * Returns the current instance (all items).
    * @returns {this} The instance for chaining.
    */

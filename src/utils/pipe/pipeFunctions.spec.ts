@@ -15,7 +15,6 @@ describe('isReserved', () => {
   it('should return true for reserved methods and false for non-reserved', () => {
     expect(isReserved('pipe')).toBe(true);
     expect(isReserved('sort')).toBe(true);
-    expect(isReserved('applyFilter')).toBe(true);
     expect(isReserved('where')).toBe(true);
 
     // @ts-expect-error

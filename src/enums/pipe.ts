@@ -2,12 +2,10 @@
  * Enum for reserved method names that cannot be used in pipe expressions.
  * Used to prevent conflicts in pipeable APIs.
  *
- * @enum {'applyFilter' | 'where' | 'sort' | 'pipe' | 'items' | 'count'}
+ * @enum {'where' | 'sort' | 'pipe' | 'items' | 'count'}
  */
 export enum ReservedMethodsEnum {
-  /** Reserved for filter application. */
-  APPLY_FILTER = 'applyFilter',
-  /** Reserved for where clause. */
+  /** Reserved for filter operation. */
   WHERE = 'where',
   /** Reserved for sort operation. */
   SORT = 'sort',

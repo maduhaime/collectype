@@ -4,7 +4,7 @@ import { ReservedMethodsEnum } from '../enums/pipe.js';
  * Reserved method names that cannot be used in pipe expressions.
  *
  * @example
- * type Forbidden = ReservedMethods; // 'applyFilter' | 'where' | ...
+ * type Forbidden = ReservedMethods; // 'where' | 'sort' ...
  */
 export type ReservedMethods = `${ReservedMethodsEnum}`;
 
