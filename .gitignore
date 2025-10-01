@@ -2,7 +2,6 @@
 /dist
 /docs
 /coverage
-/sample
 
 # Packaged files
 /*.tgz
