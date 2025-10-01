@@ -45,10 +45,12 @@ import {
   ObjectPrototypeStateEnum,
   ObjectStateEnum,
   // Set enums
+  SetArrayMembershipEnum,
   SetComparisonEnum,
   SetRelationEnum,
   SetSizeEnum,
   SetStateEnum,
+  SetMembershipEnum,
   // String enums
   StringComparisonEnum,
   StringMembershipEnum,
@@ -56,6 +58,7 @@ import {
   StringSizeEnum,
   StringStateEnum,
   StringSubstringEnum,
+  SetIntersectionEnum,
 } from 'predictype';
 
 import { BaseFunctions } from './BaseFunctions.js';
@@ -97,10 +100,13 @@ import { objectPropertyFactory } from './factory/objects/objectProperty.js';
 import { objectPrototypeRelationFactory } from './factory/objects/objectPrototypeRelation.js';
 import { objectPrototypeStateFactory } from './factory/objects/objectPrototypeState.js';
 import { objectStateFactory } from './factory/objects/objectState.js';
+import { setArrayMembershipFactory } from './factory/sets/setArrayMembership.js';
 import { setComparisonFactory } from './factory/sets/setComparison.js';
+import { setIntersectionFactory } from './factory/sets/setIntersection.js';
 import { setRelationFactory } from './factory/sets/setRelation.js';
 import { setSizeFactory } from './factory/sets/setSize.js';
 import { setStateFactory } from './factory/sets/setState.js';
+import { setMembershipFactory } from './factory/sets/setMembership.js';
 import { stringComparisonFactory } from './factory/strings/stringComparison.js';
 import { stringMembershipFactory } from './factory/strings/stringMembership.js';
 import { stringPatternFactory } from './factory/strings/stringPattern.js';
@@ -385,13 +391,27 @@ export class FullFunctions<T> extends BaseFunctions<T> {
   // Set factories
   // ===========================
 
+  // Set Array Membership
+  setContainsAll = setArrayMembershipFactory<T, this>(this, SetArrayMembershipEnum.CONTAINS_ALL);
+  setContainsAny = setArrayMembershipFactory<T, this>(this, SetArrayMembershipEnum.CONTAINS_ANY);
+  setExcludesAll = setArrayMembershipFactory<T, this>(this, SetArrayMembershipEnum.EXCLUDES_ALL);
+
   // Set Comparison
   setEquals = setComparisonFactory<T, this>(this, SetComparisonEnum.EQUALS);
   setNotEquals = setComparisonFactory<T, this>(this, SetComparisonEnum.NOT_EQUALS);
+  setSameElements = setComparisonFactory<T, this>(this, SetComparisonEnum.SAME_ELEMENTS);
+
+  // Set Intersection
+  setDisjoint = setIntersectionFactory<T, this>(this, SetIntersectionEnum.DISJOINT);
+  setIntersects = setIntersectionFactory<T, this>(this, SetIntersectionEnum.INTERSECTS);
+
+  // Set Membership
+  setIncludes = setMembershipFactory<T, this>(this, SetMembershipEnum.INCLUDES);
+  setExcludes = setMembershipFactory<T, this>(this, SetMembershipEnum.EXCLUDES);
 
   // Set Relation
-  setDisjoint = setRelationFactory<T, this>(this, SetRelationEnum.DISJOINT);
-  setIntersects = setRelationFactory<T, this>(this, SetRelationEnum.INTERSECTS);
+  setStrictSubsetOf = setRelationFactory<T, this>(this, SetRelationEnum.STRICT_SUBSET_OF);
+  setStrictSupersetOf = setRelationFactory<T, this>(this, SetRelationEnum.STRICT_SUPERSET_OF);
   setSubsetOf = setRelationFactory<T, this>(this, SetRelationEnum.SUBSET_OF);
   setSupersetOf = setRelationFactory<T, this>(this, SetRelationEnum.SUPERSET_OF);
 
@@ -405,6 +425,8 @@ export class FullFunctions<T> extends BaseFunctions<T> {
   // SetState
   setIsEmpty = setStateFactory<T, this>(this, SetStateEnum.IS_EMPTY);
   setIsNotEmpty = setStateFactory<T, this>(this, SetStateEnum.IS_NOT_EMPTY);
+  setHasPrimitives = setStateFactory<T, this>(this, SetStateEnum.HAS_PRIMITIVES);
+  setHasObjects = setStateFactory<T, this>(this, SetStateEnum.HAS_OBJECTS);
 
   // ===========================
   // String factories

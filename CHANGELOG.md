@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file.
 
+# 0.9.6 (2025-10-01)
+
+## Features
+
+- Added all missing Set predicates:
+  - setStrictSubsetOf, setStrictSupersetOf, setSameElements, setHasPrimitives, setHasObjects, setIntersection, etc.
+- Dedicated factories for setMembership, setArrayMembership, setIntersection.
+- Full exposure of all Set predicates from PredicType 0.8.1 in FullFunctions.
+
+## Tests
+
+- Added and fixed unit tests for all new Set predicates.
+- Full coverage and 100% passing tests.
+
 # 0.9.5 - 2025-09-29
 
 ### Enhanced

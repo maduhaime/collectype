@@ -785,9 +785,21 @@ describe('FullFunctions', () => {
       ]);
     });
 
+    it('should return items where set is strict subset of', () => {
+      const ff = new FullFunctions<SetDummyType>(data);
+      expect(ff.setStrictSubsetOf('set', new Set([1, 2, 3])).items).toEqual(
+        expect.arrayContaining([{ set: s3 }, { set: s5 }, { set: s4 }]),
+      );
+    });
+
     it('should return items where set is superset of', () => {
       const ff = new FullFunctions<SetDummyType>(data);
       expect(ff.setSupersetOf('set', new Set([1])).items).toEqual([{ set: s1 }, { set: s2 }, { set: s3 }]);
+    });
+
+    it('should return items where set is strict superset of', () => {
+      const ff = new FullFunctions<SetDummyType>(data);
+      expect(ff.setStrictSupersetOf('set', new Set([1])).items).toEqual([{ set: s1 }, { set: s2 }]);
     });
 
     it('should return items where sets are disjoint', () => {
@@ -798,6 +810,60 @@ describe('FullFunctions', () => {
     it('should return items where sets intersect', () => {
       const ff = new FullFunctions<SetDummyType>(data);
       expect(ff.setIntersects('set', new Set([2, 3])).items).toEqual([{ set: s1 }, { set: s2 }, { set: s5 }]);
+    });
+
+    it('should return items where sets intersection is not empty', () => {
+      // Utilise un type générique pour permettre l'appel
+      interface AnySetDummyType {
+        set: Set<any>;
+      }
+      const s1: Set<any> = new Set([1, 2, 3]);
+      const s2: Set<any> = new Set([3, 2, 1]);
+      const s3: Set<any> = new Set([1]);
+      const s4: Set<any> = new Set();
+      const s5: Set<any> = new Set([2, 3]);
+      const data: AnySetDummyType[] = [{ set: s1 }, { set: s2 }, { set: s3 }, { set: s4 }, { set: s5 }];
+      const ff = new FullFunctions<AnySetDummyType>(data);
+      expect(ff.setIntersects('set', new Set([2, 3])).items).toEqual([{ set: s1 }, { set: s2 }, { set: s5 }]);
+    });
+
+    it('should return items where set has only primitives', () => {
+      interface AnySetDummyType {
+        set: Set<any>;
+      }
+      const ff = new FullFunctions<AnySetDummyType>([
+        { set: new Set([1, 2]) },
+        { set: new Set(['a', 'b']) },
+        { set: new Set([{}, 1]) },
+        { set: new Set() },
+      ]);
+      expect(ff.setHasPrimitives('set').items).toEqual(
+        expect.arrayContaining([
+          { set: new Set([1, 2]) },
+          { set: new Set(['a', 'b']) },
+          { set: new Set([{}, 1]) },
+          { set: new Set() },
+        ]),
+      );
+    });
+
+    it('should return items where set has objects', () => {
+      interface AnySetDummyType {
+        set: Set<any>;
+      }
+      const obj = {};
+      const ff = new FullFunctions<AnySetDummyType>([
+        { set: new Set([obj, 1]) },
+        { set: new Set([1, 2]) },
+        { set: new Set([obj]) },
+        { set: new Set() },
+      ]);
+      expect(ff.setHasObjects('set').items).toEqual([{ set: new Set([obj, 1]) }, { set: new Set([obj]) }]);
+    });
+
+    it('should return items where sets have same elements', () => {
+      const ff = new FullFunctions<SetDummyType>(data);
+      expect(ff.setSameElements('set', new Set([3, 2, 1])).items).toEqual([{ set: s1 }, { set: s2 }]);
     });
   });
 
