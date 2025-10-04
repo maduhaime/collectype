@@ -3,6 +3,7 @@ docs/
 node_modules/
 src/
 sample/
+tests/
 
 # Test files
 src/**/*.spec.ts
