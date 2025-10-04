@@ -1,21 +1,5 @@
-export enum GenderEnum {
-  MALE = 'male',
-  FEMALE = 'female',
-  OTHER = 'other',
-}
-
-export type Gender = `${GenderEnum}`;
-
-export type Person = {
-  name: string;
-  age: number;
-  gender: Gender;
-  single: boolean;
-  country?: string;
-  industry?: string;
-  quote?: string;
-  hobbies?: string[];
-};
+// ./data/Person.ts
+import { Person } from '../models/Person';
 
 export const people: Person[] = [
   {
