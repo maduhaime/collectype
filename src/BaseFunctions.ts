@@ -3,6 +3,7 @@ import { inferSortType } from './utils/sort/inferSortType.js';
 import { isReserved, parsePipeExpression } from './utils/pipe/pipeFunctions.js';
 import { ParsedPipeStep } from './types/pipe.js';
 import { PredicateFn } from './types/collection.js';
+import { CollectionInfo, PageState, SortState, FilterSteps } from './types/info.js';
 import { ReservedMethodsEnum } from './enums/pipe.js';
 import {
   sortByBooleanField,
@@ -13,6 +14,8 @@ import {
 import { SortDir, SortDirEnum, SortType, SortTypeEnum } from './enums/sort.js';
 import { ByType } from './types/utility.js';
 
+const UNKNOWN = '_unknown_';
+
 /**
  * Core collection manipulation class providing chainable operations.
  * Serves as the foundation for filtering, sorting, and transforming collections of any type.
@@ -20,6 +23,10 @@ import { ByType } from './types/utility.js';
  */
 export class BaseFunctions<T> implements Collectable<T> {
   protected _items: T[];
+  protected _pageState?: PageState;
+  protected _sortState?: SortState;
+  protected _filterSteps: FilterSteps = [];
+  protected _stepName: string = UNKNOWN;
 
   /**
    * Creates an instance of BaseFunctions.
@@ -46,6 +53,51 @@ export class BaseFunctions<T> implements Collectable<T> {
   }
 
   /**
+   * Gets information about the current state of the collection.
+   * @returns {CollectionInfo} Information about pagination, sorting, filters, and operations.
+   */
+  get info(): CollectionInfo {
+    return {
+      page: this._pageState ? { ...this._pageState } : undefined,
+      sort: this._sortState ? { ...this._sortState } : undefined,
+      filterSteps: [...this._filterSteps],
+      steps: this._filterSteps.length,
+      count: this._items.length,
+    };
+  }
+
+  /**
+   * Marks the next operation with a custom name for tracking purposes.
+   * The name will be used in the filter state instead of "anonymous".
+   *
+   * @param name - The name to use for the next operation
+   * @param operation - The operation to execute
+   * @returns {this} The result of the operation for chaining
+   * @throws Error if a reserved method name is used as step name
+   *
+   * @example
+   * collection.fn.step('flying', this.arrayIncludes('types', 'flying'))
+   */
+  step<R extends this>(name: string, operation: R): R {
+    // Prevent use of reserved method names as step names
+    if (isReserved(name as ReservedMethodsEnum)) {
+      throw new Error(`Step name "${name}" is reserved and cannot be used`);
+    }
+
+    this._stepName = name;
+    return operation;
+  }
+
+  /**
+   * Helper method to get the step name (pending or default) and clear pending name.
+   */
+  protected getStepName(defaultName: string = UNKNOWN): string {
+    const stepName = this._stepName !== UNKNOWN ? this._stepName : defaultName || UNKNOWN;
+    this._stepName = UNKNOWN; // Reset to unknown
+    return stepName;
+  }
+
+  /**
    * Filters items using the provided predicate function.
    * This is the preferred, concise method for filtering collections.
    *
@@ -57,6 +109,8 @@ export class BaseFunctions<T> implements Collectable<T> {
    */
   where(fn: PredicateFn<T>): this {
     this._items = this._items.filter(fn);
+    const stepName = this.getStepName(fn.name);
+    this._filterSteps.push(stepName);
     return this;
   }
 
@@ -90,6 +144,13 @@ export class BaseFunctions<T> implements Collectable<T> {
 
     const enumType = typeof detectedType === 'string' ? (detectedType as SortTypeEnum) : detectedType;
 
+    // Store sorting state
+    this._sortState = {
+      field: String(field),
+      direction: enumDir,
+      type: enumType!,
+    };
+
     // Apply appropriate sorting strategy based on detected type
     switch (enumType) {
       case SortTypeEnum.BOOLEAN:
@@ -107,6 +168,7 @@ export class BaseFunctions<T> implements Collectable<T> {
       default:
         throw new Error(`${enumType} is not a valid sort type`);
     }
+
     return this;
   }
 
@@ -126,9 +188,23 @@ export class BaseFunctions<T> implements Collectable<T> {
       throw new Error('perPage must be greater than or equal to 1');
     }
 
+    // Store total items before pagination
+    const totalItems = this._items.length;
+    const totalPages = Math.ceil(totalItems / perPage);
+
     // Calculate pagination indices
     const startIndex = (current - 1) * perPage;
     const endIndex = startIndex + perPage;
+
+    // Store pagination state
+    this._pageState = {
+      current,
+      perPage,
+      startIndex,
+      endIndex,
+      totalPages,
+      totalItems,
+    };
 
     // Apply pagination using array slice
     this._items = this._items.slice(startIndex, endIndex);
