@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file.
 
+# 0.10.0 (2025-10-11)
+
+## Features
+
+- **Added pagination support**: Introduced new `page(current, perPage)` method for efficient collection pagination.
+  - `current` parameter: Current page number (1-based indexing)
+  - `perPage` parameter: Number of items per page (default: 20)
+  - Full method chaining support with `where()`, `sort()` and other collection methods
+  - Comprehensive test coverage with 11 test cases covering all scenarios
+
+---
+
 # 0.9.6 (2025-10-01)
 
 ## Features

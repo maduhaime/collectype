@@ -182,7 +182,7 @@ This design allows you to compose, extend, and reuse collection logic in a type-
 
 The `BaseFunctions` class provides core methods for working with your collections.
 
-Chainable methods (`where`, `sort`, `all`, `pipe`) always return the same BaseFunctions instance (`this`), with the internal items (`this._items`) updated by the operation. This allows you to build expressive and composable queries.
+Chainable methods (`where`, `sort`, `page`, `all`, `pipe`) always return the same BaseFunctions instance (`this`), with the internal items (`this._items`) updated by the operation. This allows you to build expressive and composable queries.
 
 The `items` property gives you the current filtered and/or sorted subset, and `count` returns its quantity.
 
@@ -190,6 +190,7 @@ Core methods in detail:
 
 - `where(predicate)`: Chainable. Returns the same instance with internal items updated to those matching the predicate function.
 - `sort(field, direction?)`: Chainable. Returns the same instance with internal items sorted by the specified field (ascending or descending).
+- `page(current, perPage?)`: Chainable. Returns the same instance with internal items paginated to the specified page (1-based indexing, default 20 items per page).
 - `all()`: Chainable. Returns the same instance with all items.
 - `pipe('expression')`: Chainable. Returns the same instance after applying a sequence of functions, from an expression string.
 - `items`: Returns the current array of items in the instance, reflecting any applied filters or sorts (not chainable).
@@ -197,6 +198,9 @@ Core methods in detail:
 
 > **Sorting limitations:**
 > Sorting is only supported on primitive fields (string, number, boolean, Date). You cannot sort "out-of-the-box" on fields of type object, set, map, or array.
+
+> **Pagination restrictions:**
+> The `page()` method is **not available in pipe expressions** for architectural consistency. Use direct method chaining instead: `collection.fn.where(predicate).page(1, 10)` rather than `collection.fn.pipe('where(predicate) | page(1, 10)')`.
 
 **Note:**
 The `items` and `count` properties also exist on the `Collection` itself, but those always reflect the original, unfiltered data passed to the constructor. In contrast, `items` and `count` on the functions instance (`fn`) reflect the current filtered and/or sorted state after all chained operations. This distinction lets you **always access both the raw data and the current query result**.
