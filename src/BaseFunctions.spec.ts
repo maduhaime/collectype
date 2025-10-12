@@ -13,7 +13,12 @@ type DummyType = {
 
 describe('BaseFunctions', () => {
   it('should throw if pipe uses a reserved method', () => {
-    expect(() => fn.pipe('items()')).toThrow(/reserved/);
+    expect(() => fn.pipe('where(x => x.name === "test")')).toThrow(/reserved/);
+    expect(() => fn.pipe('sort("name")')).toThrow(/reserved/);
+    expect(() => fn.pipe('pipe("test")')).toThrow(/reserved/);
+    expect(() => fn.pipe('items')).toThrow(/reserved/);
+    expect(() => fn.pipe('count')).toThrow(/reserved/);
+    expect(() => fn.pipe('page(1, 10)')).toThrow(/reserved/);
   });
 
   it('should throw if pipe uses an unknown method', () => {
@@ -44,6 +49,7 @@ describe('BaseFunctions', () => {
     chain.pipe('filterByName("Bob") | filterByColor("red")');
     expect(chain.items).toEqual([{ name: 'Bob', age: 25, color: 'red', date: new Date('2023-01-03'), flag: true }]);
   });
+
   const items: DummyType[] = [
     { name: 'Bob', age: 25, color: 'red', date: new Date('2023-01-03'), flag: true },
     { name: 'Alice', age: 30, color: 'blue', date: new Date('2023-01-01'), flag: false },
@@ -175,5 +181,123 @@ describe('BaseFunctions', () => {
     const badFn = new BaseFunctions<{ foo: number }>(badItems);
     // On force un type de tri non supporté pour déclencher le throw
     expect(() => badFn.sort('foo', 'asc', 'notatype' as any)).toThrow('notatype is not a valid sort type');
+  });
+
+  describe('page', () => {
+    let pageFn: BaseFunctions<DummyType>;
+
+    beforeEach(() => {
+      pageFn = new BaseFunctions(items);
+    });
+    it('should return first page with default page size (20)', () => {
+      // Create a larger dataset for pagination testing
+      const largeItems: DummyType[] = Array.from({ length: 50 }, (_, i) => ({
+        name: `Item${i}`,
+        age: 20 + i,
+        color: `color${i}`,
+        date: new Date(`2023-01-${(i % 30) + 1}`),
+        flag: i % 2 === 0,
+      }));
+      const largeFn = new BaseFunctions(largeItems);
+
+      const result = largeFn.page(1);
+      expect(result).toBe(largeFn);
+      expect(largeFn.items).toHaveLength(20);
+      expect(largeFn.items[0].name).toBe('Item0');
+      expect(largeFn.items[19].name).toBe('Item19');
+    });
+
+    it('should return second page with default page size', () => {
+      const largeItems: DummyType[] = Array.from({ length: 50 }, (_, i) => ({
+        name: `Item${i}`,
+        age: 20 + i,
+        color: `color${i}`,
+        date: new Date(`2023-01-${(i % 30) + 1}`),
+        flag: i % 2 === 0,
+      }));
+      const largeFn = new BaseFunctions(largeItems);
+
+      const result = largeFn.page(2);
+      expect(result).toBe(largeFn);
+      expect(largeFn.items).toHaveLength(20);
+      expect(largeFn.items[0].name).toBe('Item20');
+      expect(largeFn.items[19].name).toBe('Item39');
+    });
+
+    it('should return last page with remaining items', () => {
+      const largeItems: DummyType[] = Array.from({ length: 45 }, (_, i) => ({
+        name: `Item${i}`,
+        age: 20 + i,
+        color: `color${i}`,
+        date: new Date(`2023-01-${(i % 30) + 1}`),
+        flag: i % 2 === 0,
+      }));
+      const largeFn = new BaseFunctions(largeItems);
+
+      const result = largeFn.page(3); // Page 3 with default size 20 should have 5 items (45 total)
+      expect(result).toBe(largeFn);
+      expect(largeFn.items).toHaveLength(5);
+      expect(largeFn.items[0].name).toBe('Item40');
+      expect(largeFn.items[4].name).toBe('Item44');
+    });
+
+    it('should work with custom page size', () => {
+      const result = pageFn.page(1, 2);
+      expect(result).toBe(pageFn);
+      expect(pageFn.items).toHaveLength(2);
+      expect(pageFn.items[0].name).toBe('Bob');
+      expect(pageFn.items[1].name).toBe('Charlie');
+    });
+
+    it('should return second page with custom page size', () => {
+      const result = pageFn.page(2, 2);
+      expect(result).toBe(pageFn);
+      expect(pageFn.items).toHaveLength(1);
+      expect(pageFn.items[0].name).toBe('Alice');
+    });
+
+    it('should return empty array when page exceeds available items', () => {
+      const result = pageFn.page(5, 10);
+      expect(result).toBe(pageFn);
+      expect(pageFn.items).toHaveLength(0);
+    });
+
+    it('should handle page size larger than total items', () => {
+      const result = pageFn.page(1, 10);
+      expect(result).toBe(pageFn);
+      expect(pageFn.items).toHaveLength(3); // All items should be returned
+      expect(pageFn.items.map((i) => i.name)).toEqual(['Bob', 'Charlie', 'Alice']);
+    });
+
+    it('should throw error for invalid current (less than 1)', () => {
+      expect(() => pageFn.page(0)).toThrow('current must be greater than or equal to 1');
+      expect(() => pageFn.page(-1)).toThrow('current must be greater than or equal to 1');
+    });
+
+    it('should throw error for invalid perPage (less than 1)', () => {
+      expect(() => pageFn.page(1, 0)).toThrow('perPage must be greater than or equal to 1');
+      expect(() => pageFn.page(1, -5)).toThrow('perPage must be greater than or equal to 1');
+    });
+
+    it('should chain with other methods', () => {
+      const largeItems: DummyType[] = Array.from({ length: 10 }, (_, i) => ({
+        name: `Item${i}`,
+        age: 20 + (i % 3),
+        color: i % 2 === 0 ? 'red' : 'blue',
+        date: new Date(`2023-01-${i + 1}`),
+        flag: i % 2 === 0,
+      }));
+      const largeFn = new BaseFunctions(largeItems);
+
+      // Chain where -> sort -> page
+      const result = largeFn
+        .where((i) => i.color === 'red')
+        .sort('age')
+        .page(1, 2);
+
+      expect(result).toBe(largeFn);
+      expect(largeFn.items).toHaveLength(2);
+      expect(largeFn.items.every((i) => i.color === 'red')).toBe(true);
+    });
   });
 });

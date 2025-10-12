@@ -111,6 +111,32 @@ export class BaseFunctions<T> implements Collectable<T> {
   }
 
   /**
+   * Paginates the items by returning a specific page of results.
+   * @param {number} current - The current page number (1-based).
+   * @param {number} [perPage=20] - The number of items per page. Default is 20.
+   * @returns {this} The instance for chaining.
+   * @throws Error if current is less than 1 or perPage is less than 1.
+   */
+  page(current: number, perPage: number = 20): this {
+    // Validate input parameters
+    if (current < 1) {
+      throw new Error('current must be greater than or equal to 1');
+    }
+    if (perPage < 1) {
+      throw new Error('perPage must be greater than or equal to 1');
+    }
+
+    // Calculate pagination indices
+    const startIndex = (current - 1) * perPage;
+    const endIndex = startIndex + perPage;
+
+    // Apply pagination using array slice
+    this._items = this._items.slice(startIndex, endIndex);
+
+    return this;
+  }
+
+  /**
    * Executes a sequence of chainable operations from a pipe expression string.
    * Parses and executes multiple method calls in sequence, ensuring each returns 'this' for chaining.
    * @param {string} expression - The pipe expression string (e.g., "method1(arg) | method2(arg)").

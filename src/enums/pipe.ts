@@ -2,7 +2,7 @@
  * Enum for reserved method names that cannot be used in pipe expressions.
  * Used to prevent conflicts in pipeable APIs.
  *
- * @enum {'where' | 'sort' | 'pipe' | 'items' | 'count'}
+ * @enum {'where' | 'sort' | 'pipe' | 'items' | 'count' | 'page'}
  */
 export enum ReservedMethodsEnum {
   /** Reserved for filter operation. */
@@ -15,6 +15,8 @@ export enum ReservedMethodsEnum {
   ITEMS = 'items',
   /** Reserved for count accessor. */
   COUNT = 'count',
+  /** Reserved for pagination operation. */
+  PAGE = 'page',
 }
 
 export type ReservedMethods = ReservedMethodsEnum | `${ReservedMethodsEnum}`;
