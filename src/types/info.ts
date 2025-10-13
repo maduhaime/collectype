@@ -35,9 +35,7 @@ export type CollectionInfo = {
   /** Sorting state */
   sort?: SortState;
   /** Applied filter steps */
-  filterSteps: FilterSteps;
-  /** Total number of steps (filter operations) performed */
-  steps: number;
+  steps: FilterSteps;
   /** Current number of items in the collection */
   count: number;
 };

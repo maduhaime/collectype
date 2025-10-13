@@ -12,13 +12,28 @@ import {
 } from './pipeFunctions.js';
 
 describe('isReserved', () => {
-  it('should return true for reserved methods and false for non-reserved', () => {
-    expect(isReserved('pipe')).toBe(true);
-    expect(isReserved('sort')).toBe(true);
+  it('should return true for all reserved methods', () => {
+    // Core collection operations
     expect(isReserved('where')).toBe(true);
+    expect(isReserved('sort')).toBe(true);
+    expect(isReserved('pipe')).toBe(true);
+    expect(isReserved('page')).toBe(true);
 
+    // Accessors
+    expect(isReserved('items')).toBe(true);
+    expect(isReserved('count')).toBe(true);
+    expect(isReserved('info')).toBe(true);
+
+    // Step management operations
+    expect(isReserved('begin')).toBe(true);
+    expect(isReserved('end')).toBe(true);
+  });
+
+  it('should return false for non-reserved methods', () => {
     // @ts-expect-error - Testing with non-enum value for coverage
     expect(isReserved('nonReserved')).toBe(false);
+    // @ts-expect-error - Testing with non-enum value for coverage
+    expect(isReserved('')).toBe(false);
   });
 });
 

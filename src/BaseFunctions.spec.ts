@@ -20,7 +20,8 @@ describe('BaseFunctions', () => {
     expect(() => fn.pipe('count')).toThrow(/reserved/);
     expect(() => fn.pipe('page(1, 10)')).toThrow(/reserved/);
     expect(() => fn.pipe('info')).toThrow(/reserved/);
-    expect(() => fn.pipe('step("test", this)')).toThrow(/reserved/);
+    expect(() => fn.pipe('begin("test")')).toThrow(/reserved/);
+    expect(() => fn.pipe('end()')).toThrow(/reserved/);
   });
 
   it('should throw if pipe uses an unknown method', () => {
@@ -77,8 +78,7 @@ describe('BaseFunctions', () => {
       const info = fn.info;
       expect(info.page).toBeUndefined();
       expect(info.sort).toBeUndefined();
-      expect(info.filterSteps).toEqual([]);
-      expect(info.steps).toBe(0);
+      expect(info.steps).toEqual([]);
       expect(info.count).toBe(3); // Initial dataset has 3 items
     });
 
@@ -98,22 +98,19 @@ describe('BaseFunctions', () => {
       fn.where((item) => item.age === 999); // No items match this
       const info = fn.info;
       expect(info.count).toBe(0); // Over-filtered!
-      expect(info.steps).toBe(1);
+      expect(info.steps).toEqual(['_unknown_']); // where() adds '_unknown_'
     });
 
-    it('should track where operations in filters', () => {
+    it('should track where operations as _unknown_', () => {
       fn.where((item) => item.age === 25);
       const info = fn.info;
-      expect(info.filterSteps).toHaveLength(1);
-      expect(info.filterSteps[0]).toBe('_unknown_');
-      expect(info.steps).toBe(1);
+      expect(info.steps).toEqual(['_unknown_']); // where() adds '_unknown_'
     });
 
-    it('should track multiple where operations', () => {
+    it('should track multiple where operations as separate _unknown_', () => {
       fn.where((item) => item.age === 25).where((item) => item.color === 'red');
       const info = fn.info;
-      expect(info.filterSteps).toHaveLength(2);
-      expect(info.steps).toBe(2);
+      expect(info.steps).toEqual(['_unknown_', '_unknown_']); // Each where() adds '_unknown_'
     });
 
     it('should track sort state', () => {
@@ -124,7 +121,6 @@ describe('BaseFunctions', () => {
         direction: 'asc',
         type: 'string',
       });
-      expect(info.steps).toBe(0); // Sort doesn't count as filter step
     });
 
     it('should track pagination state with totalPages calculation', () => {
@@ -147,7 +143,6 @@ describe('BaseFunctions', () => {
         totalPages: 3,
         totalItems: 25,
       });
-      expect(info.steps).toBe(0); // Page doesn't count as filter step
     });
 
     it('should calculate totalPages correctly for exact divisions', () => {
@@ -187,7 +182,7 @@ describe('BaseFunctions', () => {
 
       const info = complexFn.info;
 
-      expect(info.filterSteps).toHaveLength(1);
+      expect(info.steps).toEqual(['_unknown_']); // where() adds '_unknown_'
       expect(info.sort).toEqual({
         field: 'name',
         direction: 'asc',
@@ -196,13 +191,6 @@ describe('BaseFunctions', () => {
       expect(info.page?.current).toBe(1);
       expect(info.page?.perPage).toBe(5);
       expect(info.page?.totalPages).toBeGreaterThan(0);
-      expect(info.steps).toBe(1); // Only where() counts as filter step
-    });
-
-    it('should track all() operation', () => {
-      fn.all();
-      const info = fn.info;
-      expect(info.steps).toBe(0); // all() doesn't count as filter step
     });
 
     it('should track pipe operation', () => {
@@ -215,9 +203,8 @@ describe('BaseFunctions', () => {
       testFn.pipe('filterByAge(25)');
 
       const info = testFn.info;
-      // pipe() doesn't increment count, only filterByAge() which calls where()
-      expect(info.steps).toBe(1);
-      expect(info.filterSteps).toHaveLength(1); // filterByAge calls where once
+      // pipe() doesn't increment count, but where() still adds '_unknown_'
+      expect(info.steps).toEqual(['_unknown_']); // filterByAge calls where which adds '_unknown_'
     });
   });
 
@@ -454,36 +441,58 @@ describe('BaseFunctions', () => {
 
   describe('step method security', () => {
     it('should reject reserved method names as step names', () => {
+      // Core operations
       expect(() => {
-        fn.step(
-          'where',
-          fn.where((item) => item.age === 25),
-        );
+        fn.begin('where');
       }).toThrow('Step name "where" is reserved and cannot be used');
 
       expect(() => {
-        fn.step('sort', fn.sort('name'));
+        fn.begin('sort');
       }).toThrow('Step name "sort" is reserved and cannot be used');
 
       expect(() => {
-        fn.step('pipe', fn.all());
+        fn.begin('pipe');
       }).toThrow('Step name "pipe" is reserved and cannot be used');
 
       expect(() => {
-        fn.step('step', fn.all());
-      }).toThrow('Step name "step" is reserved and cannot be used');
+        fn.begin('page');
+      }).toThrow('Step name "page" is reserved and cannot be used');
+
+      // Accessors
+      expect(() => {
+        fn.begin('items');
+      }).toThrow('Step name "items" is reserved and cannot be used');
+
+      expect(() => {
+        fn.begin('count');
+      }).toThrow('Step name "count" is reserved and cannot be used');
+
+      expect(() => {
+        fn.begin('info');
+      }).toThrow('Step name "info" is reserved and cannot be used');
+
+      // Step management
+      expect(() => {
+        fn.begin('begin');
+      }).toThrow('Step name "begin" is reserved and cannot be used');
+
+      expect(() => {
+        fn.begin('end');
+      }).toThrow('Step name "end" is reserved and cannot be used');
     });
 
     it('should allow non-reserved step names', () => {
-      // Reset fn to clean state
       const freshFn = new BaseFunctions(items);
 
       expect(() => {
-        freshFn.step('customFilter', freshFn).where((item) => item.age === 25);
+        freshFn
+          .begin('customFilter')
+          .where((item) => item.age === 25)
+          .end();
       }).not.toThrow();
 
       const info = freshFn.info;
-      expect(info.filterSteps[0]).toBe('customFilter');
+      expect(info.steps[0]).toBe('customFilter');
     });
   });
 });

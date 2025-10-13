@@ -1,9 +1,10 @@
+import { ByType } from './types/utility.js';
 import { Collectable } from './interfaces/Collectable.js';
+import { CollectionInfo, PageState, SortState } from './types/info.js';
 import { inferSortType } from './utils/sort/inferSortType.js';
 import { isReserved, parsePipeExpression } from './utils/pipe/pipeFunctions.js';
 import { ParsedPipeStep } from './types/pipe.js';
 import { PredicateFn } from './types/collection.js';
-import { CollectionInfo, PageState, SortState, FilterSteps } from './types/info.js';
 import { ReservedMethodsEnum } from './enums/pipe.js';
 import {
   sortByBooleanField,
@@ -12,9 +13,7 @@ import {
   sortByStringField,
 } from './utils/sort/sortFunctions.js';
 import { SortDir, SortDirEnum, SortType, SortTypeEnum } from './enums/sort.js';
-import { ByType } from './types/utility.js';
-
-const UNKNOWN = '_unknown_';
+import { StepManager } from './utils/step/StepManager.js';
 
 /**
  * Core collection manipulation class providing chainable operations.
@@ -25,8 +24,7 @@ export class BaseFunctions<T> implements Collectable<T> {
   protected _items: T[];
   protected _pageState?: PageState;
   protected _sortState?: SortState;
-  protected _filterSteps: FilterSteps = [];
-  protected _stepName: string = UNKNOWN;
+  protected _stepManager = new StepManager();
 
   /**
    * Creates an instance of BaseFunctions.
@@ -60,41 +58,30 @@ export class BaseFunctions<T> implements Collectable<T> {
     return {
       page: this._pageState ? { ...this._pageState } : undefined,
       sort: this._sortState ? { ...this._sortState } : undefined,
-      filterSteps: [...this._filterSteps],
-      steps: this._filterSteps.length,
+      steps: this._stepManager.steps,
       count: this._items.length,
     };
   }
 
   /**
-   * Marks the next operation with a custom name for tracking purposes.
-   * The name will be used in the filter state instead of "anonymous".
-   *
-   * @param name - The name to use for the next operation
-   * @param operation - The operation to execute
-   * @returns {this} The result of the operation for chaining
-   * @throws Error if a reserved method name is used as step name
-   *
-   * @example
-   * collection.fn.step('flying', this.arrayIncludes('types', 'flying'))
+   * Starts a named step with stack management for nested calls.
+   * Automatically handles nested step calls without breaking the chain.
    */
-  step<R extends this>(name: string, operation: R): R {
-    // Prevent use of reserved method names as step names
+  begin(name: string): this {
     if (isReserved(name as ReservedMethodsEnum)) {
       throw new Error(`Step name "${name}" is reserved and cannot be used`);
     }
 
-    this._stepName = name;
-    return operation;
+    this._stepManager.begin(name);
+    return this;
   }
 
   /**
-   * Helper method to get the step name (pending or default) and clear pending name.
+   * Ends the current step and pops from stack.
    */
-  protected getStepName(defaultName: string = UNKNOWN): string {
-    const stepName = this._stepName !== UNKNOWN ? this._stepName : defaultName || UNKNOWN;
-    this._stepName = UNKNOWN; // Reset to unknown
-    return stepName;
+  end(): this {
+    this._stepManager.end();
+    return this;
   }
 
   /**
@@ -108,9 +95,11 @@ export class BaseFunctions<T> implements Collectable<T> {
    * collection.fn.where(p => p.is_legendary)
    */
   where(fn: PredicateFn<T>): this {
+    // Only add '_unknown_' if no step is in progress
+    if (!this._stepManager.isInStep) {
+      this._stepManager.addUnknownStep();
+    }
     this._items = this._items.filter(fn);
-    const stepName = this.getStepName(fn.name);
-    this._filterSteps.push(stepName);
     return this;
   }
 
@@ -194,7 +183,7 @@ export class BaseFunctions<T> implements Collectable<T> {
 
     // Calculate pagination indices
     const startIndex = (current - 1) * perPage;
-    const endIndex = startIndex + perPage;
+    const endIndex = Math.min(startIndex + perPage, totalItems);
 
     // Store pagination state
     this._pageState = {
