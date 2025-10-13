@@ -19,6 +19,9 @@ describe('BaseFunctions', () => {
     expect(() => fn.pipe('items')).toThrow(/reserved/);
     expect(() => fn.pipe('count')).toThrow(/reserved/);
     expect(() => fn.pipe('page(1, 10)')).toThrow(/reserved/);
+    expect(() => fn.pipe('info')).toThrow(/reserved/);
+    expect(() => fn.pipe('begin("test")')).toThrow(/reserved/);
+    expect(() => fn.pipe('end()')).toThrow(/reserved/);
   });
 
   it('should throw if pipe uses an unknown method', () => {
@@ -68,6 +71,141 @@ describe('BaseFunctions', () => {
 
   it('should return correct count via count getter', () => {
     expect(fn.count).toBe(items.length);
+  });
+
+  describe('info getter', () => {
+    it('should return initial state with no operations', () => {
+      const info = fn.info;
+      expect(info.page).toBeUndefined();
+      expect(info.sort).toBeUndefined();
+      expect(info.steps).toEqual([]);
+      expect(info.count).toBe(3); // Initial dataset has 3 items
+    });
+
+    it('should track current item count', () => {
+      fn.where((item) => item.age === 25);
+      const info = fn.info;
+      expect(info.count).toBe(2); // Bob and Charlie both have age 25
+    });
+
+    it('should track single item count', () => {
+      fn.where((item) => item.age === 30);
+      const info = fn.info;
+      expect(info.count).toBe(1); // Only Alice has age 30
+    });
+
+    it('should detect over-filtering with count 0', () => {
+      fn.where((item) => item.age === 999); // No items match this
+      const info = fn.info;
+      expect(info.count).toBe(0); // Over-filtered!
+      expect(info.steps).toEqual(['_unknown_']); // where() adds '_unknown_'
+    });
+
+    it('should track where operations as _unknown_', () => {
+      fn.where((item) => item.age === 25);
+      const info = fn.info;
+      expect(info.steps).toEqual(['_unknown_']); // where() adds '_unknown_'
+    });
+
+    it('should track multiple where operations as separate _unknown_', () => {
+      fn.where((item) => item.age === 25).where((item) => item.color === 'red');
+      const info = fn.info;
+      expect(info.steps).toEqual(['_unknown_', '_unknown_']); // Each where() adds '_unknown_'
+    });
+
+    it('should track sort state', () => {
+      fn.sort('name', 'asc');
+      const info = fn.info;
+      expect(info.sort).toEqual({
+        field: 'name',
+        direction: 'asc',
+        type: 'string',
+      });
+    });
+
+    it('should track pagination state with totalPages calculation', () => {
+      // Create larger dataset for meaningful pagination
+      const largeItems = Array.from({ length: 25 }, (_, i) => ({
+        name: `Item${i}`,
+        age: 20 + i,
+        color: i % 2 === 0 ? 'red' : 'blue',
+      }));
+      const largeFn = new BaseFunctions(largeItems);
+
+      largeFn.page(2, 10);
+      const info = largeFn.info;
+
+      expect(info.page).toEqual({
+        current: 2,
+        perPage: 10,
+        startIndex: 10,
+        endIndex: 20,
+        totalPages: 3,
+        totalItems: 25,
+      });
+    });
+
+    it('should calculate totalPages correctly for exact divisions', () => {
+      const exactItems = Array.from({ length: 20 }, (_, i) => ({ name: `Item${i}` }));
+      const exactFn = new BaseFunctions(exactItems);
+
+      exactFn.page(1, 10);
+      const info = exactFn.info;
+
+      expect(info.page?.totalPages).toBe(2);
+      expect(info.page?.totalItems).toBe(20);
+    });
+
+    it('should calculate totalPages correctly for single items', () => {
+      const singleItems = Array.from({ length: 1 }, (_, i) => ({ name: `Item${i}` }));
+      const singleFn = new BaseFunctions(singleItems);
+
+      singleFn.page(1, 10);
+      const info = singleFn.info;
+
+      expect(info.page?.totalPages).toBe(1);
+      expect(info.page?.totalItems).toBe(1);
+    });
+
+    it('should track complex chain with filter, sort, and pagination', () => {
+      const complexItems = Array.from({ length: 30 }, (_, i) => ({
+        name: `Item${i}`,
+        age: 20 + (i % 10),
+        color: i % 3 === 0 ? 'red' : i % 3 === 1 ? 'blue' : 'green',
+      }));
+      const complexFn = new BaseFunctions(complexItems);
+
+      complexFn
+        .where((item) => item.age > 22)
+        .sort('name', 'asc')
+        .page(1, 5);
+
+      const info = complexFn.info;
+
+      expect(info.steps).toEqual(['_unknown_']); // where() adds '_unknown_'
+      expect(info.sort).toEqual({
+        field: 'name',
+        direction: 'asc',
+        type: 'string',
+      });
+      expect(info.page?.current).toBe(1);
+      expect(info.page?.perPage).toBe(5);
+      expect(info.page?.totalPages).toBeGreaterThan(0);
+    });
+
+    it('should track pipe operation', () => {
+      class TestFn extends BaseFunctions<DummyType> {
+        filterByAge(age: number): this {
+          return this.where((i) => i.age === age);
+        }
+      }
+      const testFn = new TestFn(items);
+      testFn.pipe('filterByAge(25)');
+
+      const info = testFn.info;
+      // pipe() doesn't increment count, but where() still adds '_unknown_'
+      expect(info.steps).toEqual(['_unknown_']); // filterByAge calls where which adds '_unknown_'
+    });
   });
 
   it('should return itself with all()', () => {
@@ -298,6 +436,63 @@ describe('BaseFunctions', () => {
       expect(result).toBe(largeFn);
       expect(largeFn.items).toHaveLength(2);
       expect(largeFn.items.every((i) => i.color === 'red')).toBe(true);
+    });
+  });
+
+  describe('step method security', () => {
+    it('should reject reserved method names as step names', () => {
+      // Core operations
+      expect(() => {
+        fn.begin('where');
+      }).toThrow('Step name "where" is reserved and cannot be used');
+
+      expect(() => {
+        fn.begin('sort');
+      }).toThrow('Step name "sort" is reserved and cannot be used');
+
+      expect(() => {
+        fn.begin('pipe');
+      }).toThrow('Step name "pipe" is reserved and cannot be used');
+
+      expect(() => {
+        fn.begin('page');
+      }).toThrow('Step name "page" is reserved and cannot be used');
+
+      // Accessors
+      expect(() => {
+        fn.begin('items');
+      }).toThrow('Step name "items" is reserved and cannot be used');
+
+      expect(() => {
+        fn.begin('count');
+      }).toThrow('Step name "count" is reserved and cannot be used');
+
+      expect(() => {
+        fn.begin('info');
+      }).toThrow('Step name "info" is reserved and cannot be used');
+
+      // Step management
+      expect(() => {
+        fn.begin('begin');
+      }).toThrow('Step name "begin" is reserved and cannot be used');
+
+      expect(() => {
+        fn.begin('end');
+      }).toThrow('Step name "end" is reserved and cannot be used');
+    });
+
+    it('should allow non-reserved step names', () => {
+      const freshFn = new BaseFunctions(items);
+
+      expect(() => {
+        freshFn
+          .begin('customFilter')
+          .where((item) => item.age === 25)
+          .end();
+      }).not.toThrow();
+
+      const info = freshFn.info;
+      expect(info.steps[0]).toBe('customFilter');
     });
   });
 });

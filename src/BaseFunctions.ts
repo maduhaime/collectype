@@ -1,4 +1,6 @@
+import { ByType } from './types/utility.js';
 import { Collectable } from './interfaces/Collectable.js';
+import { CollectionInfo, PageState, SortState } from './types/info.js';
 import { inferSortType } from './utils/sort/inferSortType.js';
 import { isReserved, parsePipeExpression } from './utils/pipe/pipeFunctions.js';
 import { ParsedPipeStep } from './types/pipe.js';
@@ -11,7 +13,7 @@ import {
   sortByStringField,
 } from './utils/sort/sortFunctions.js';
 import { SortDir, SortDirEnum, SortType, SortTypeEnum } from './enums/sort.js';
-import { ByType } from './types/utility.js';
+import { StepManager } from './utils/step/StepManager.js';
 
 /**
  * Core collection manipulation class providing chainable operations.
@@ -20,6 +22,9 @@ import { ByType } from './types/utility.js';
  */
 export class BaseFunctions<T> implements Collectable<T> {
   protected _items: T[];
+  protected _pageState?: PageState;
+  protected _sortState?: SortState;
+  protected _stepManager = new StepManager();
 
   /**
    * Creates an instance of BaseFunctions.
@@ -46,6 +51,40 @@ export class BaseFunctions<T> implements Collectable<T> {
   }
 
   /**
+   * Gets information about the current state of the collection.
+   * @returns {CollectionInfo} Information about pagination, sorting, filters, and operations.
+   */
+  get info(): CollectionInfo {
+    return {
+      page: this._pageState ? { ...this._pageState } : undefined,
+      sort: this._sortState ? { ...this._sortState } : undefined,
+      steps: this._stepManager.steps,
+      count: this._items.length,
+    };
+  }
+
+  /**
+   * Starts a named step with stack management for nested calls.
+   * Automatically handles nested step calls without breaking the chain.
+   */
+  begin(name: string): this {
+    if (isReserved(name as ReservedMethodsEnum)) {
+      throw new Error(`Step name "${name}" is reserved and cannot be used`);
+    }
+
+    this._stepManager.begin(name);
+    return this;
+  }
+
+  /**
+   * Ends the current step and pops from stack.
+   */
+  end(): this {
+    this._stepManager.end();
+    return this;
+  }
+
+  /**
    * Filters items using the provided predicate function.
    * This is the preferred, concise method for filtering collections.
    *
@@ -56,6 +95,10 @@ export class BaseFunctions<T> implements Collectable<T> {
    * collection.fn.where(p => p.is_legendary)
    */
   where(fn: PredicateFn<T>): this {
+    // Only add '_unknown_' if no step is in progress
+    if (!this._stepManager.isInStep) {
+      this._stepManager.addUnknownStep();
+    }
     this._items = this._items.filter(fn);
     return this;
   }
@@ -90,6 +133,13 @@ export class BaseFunctions<T> implements Collectable<T> {
 
     const enumType = typeof detectedType === 'string' ? (detectedType as SortTypeEnum) : detectedType;
 
+    // Store sorting state
+    this._sortState = {
+      field: String(field),
+      direction: enumDir,
+      type: enumType!,
+    };
+
     // Apply appropriate sorting strategy based on detected type
     switch (enumType) {
       case SortTypeEnum.BOOLEAN:
@@ -107,6 +157,7 @@ export class BaseFunctions<T> implements Collectable<T> {
       default:
         throw new Error(`${enumType} is not a valid sort type`);
     }
+
     return this;
   }
 
@@ -126,9 +177,23 @@ export class BaseFunctions<T> implements Collectable<T> {
       throw new Error('perPage must be greater than or equal to 1');
     }
 
+    // Store total items before pagination
+    const totalItems = this._items.length;
+    const totalPages = Math.ceil(totalItems / perPage);
+
     // Calculate pagination indices
     const startIndex = (current - 1) * perPage;
-    const endIndex = startIndex + perPage;
+    const endIndex = Math.min(startIndex + perPage, totalItems);
+
+    // Store pagination state
+    this._pageState = {
+      current,
+      perPage,
+      startIndex,
+      endIndex,
+      totalPages,
+      totalItems,
+    };
 
     // Apply pagination using array slice
     this._items = this._items.slice(startIndex, endIndex);
