@@ -2,6 +2,43 @@
 
 All notable changes to this project will be documented in this file.
 
+# 0.11.0 (2025-10-13)
+
+## Features
+
+- **Added collection state information**: Introduced new `info` property for comprehensive collection state tracking.
+  - `info.count`: Current number of items after all applied operations
+  - `info.steps`: Array of applied filter steps with custom naming support
+  - `info.sort`: Sorting state information (field, direction, type)
+  - `info.page`: Pagination state information (current page, total pages, indices)
+  - Full integration with existing collection operations
+
+- **Added step management system**: Introduced `begin(stepName)` and `end()` methods for named operation tracking.
+  - `begin(stepName)`: Start a named step for custom filter identification
+  - `end()`: End the current named step
+  - Stack-based nested step support for complex operation chains
+  - Named steps appear in `info.steps` instead of generic `'_unknown_'` markers
+
+## Breaking Changes
+
+- **Reserved method names updated**: Added `begin` and `end` to reserved method names list
+  - These method names cannot be used in custom step names or pipe expressions
+  - Updated validation to prevent conflicts with new step management API
+
+## Enhanced
+
+- **Improved step tracking**: Operations using `where()` without named steps now consistently show as `'_unknown_'` in `info.steps`
+- **Enhanced API documentation**: Updated README with comprehensive `info` usage examples and step management patterns
+- **Better operation visibility**: Collection state is now fully transparent and trackable for debugging and analytics
+
+## Tests
+
+- **Comprehensive test coverage**: Added 44 tests for BaseFunctions including step security validation
+- **Complete step management testing**: Full coverage of nested step operations and stack management
+- **Enhanced reserved methods testing**: All 9 reserved methods now properly tested with case sensitivity validation
+
+---
+
 # 0.10.0 (2025-10-11)
 
 ## Features

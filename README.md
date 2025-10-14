@@ -188,13 +188,16 @@ The `items` property gives you the current filtered and/or sorted subset, and `c
 
 Core methods in detail:
 
-- `where(predicate)`: Chainable. Returns the same instance with internal items updated to those matching the predicate function.
-- `sort(field, direction?)`: Chainable. Returns the same instance with internal items sorted by the specified field (ascending or descending).
-- `page(current, perPage?)`: Chainable. Returns the same instance with internal items paginated to the specified page (1-based indexing, default 20 items per page).
 - `all()`: Chainable. Returns the same instance with all items.
-- `pipe('expression')`: Chainable. Returns the same instance after applying a sequence of functions, from an expression string.
-- `items`: Returns the current array of items in the instance, reflecting any applied filters or sorts (not chainable).
+- `begin(stepName)`: Chainable. Starts a named step for tracking operations in `info.steps`. Use with `end()` to create meaningful step names instead of `'_unknown_'`.
 - `count`: Returns the number of items in the current filtered/sorted instance (not chainable).
+- `end()`: Chainable. Ends the current named step started with `begin()`.
+- `info`: Returns detailed information about the current state of the collection, including pagination state, sorting state, applied filter steps, and current item count (not chainable).
+- `items`: Returns the current array of items in the instance, reflecting any applied filters or sorts (not chainable).
+- `page(current, perPage?)`: Chainable. Returns the same instance with internal items paginated to the specified page (1-based indexing, default 20 items per page).
+- `pipe('expression')`: Chainable. Returns the same instance after applying a sequence of functions, from an expression string.
+- `sort(field, direction?)`: Chainable. Returns the same instance with internal items sorted by the specified field (ascending or descending).
+- `where(predicate)`: Chainable. Returns the same instance with internal items updated to those matching the predicate function.
 
 > **Sorting limitations:**
 > Sorting is only supported on primitive fields (string, number, boolean, Date). You cannot sort "out-of-the-box" on fields of type object, set, map, or array.
@@ -203,7 +206,7 @@ Core methods in detail:
 > The `page()` method is **not available in pipe expressions** for architectural consistency. Use direct method chaining instead: `collection.fn.where(predicate).page(1, 10)` rather than `collection.fn.pipe('where(predicate) | page(1, 10)')`.
 
 **Note:**
-The `items` and `count` properties also exist on the `Collection` itself, but those always reflect the original, unfiltered data passed to the constructor. In contrast, `items` and `count` on the functions instance (`fn`) reflect the current filtered and/or sorted state after all chained operations. This distinction lets you **always access both the raw data and the current query result**.
+The `items` and `count` properties also exist on the `Collection` itself, but those always reflect the original, unfiltered data passed to the constructor. In contrast, `items`, `count`, and `info` on the functions instance (`fn`) reflect the current filtered and/or sorted state after all chained operations. This distinction lets you **always access both the raw data and the current query result**.
 
 ### Using composition to add functionality to your custom Functions
 
@@ -400,6 +403,70 @@ console.log(oldMen);
 ```
 
 > ⚠️ **Warning:** The `pipe` method evaluates the expression dynamically. If the expression contains a typo, calls a non-existent method, or passes invalid arguments, it will throw a runtime error. Use with caution and prefer direct chaining for type safety whenever possible.
+
+### Collection state information with `info`
+
+The `info` property provides comprehensive information about the current state of your collection after all applied operations:
+
+```typescript
+// README Example 8
+// src/collections/Person.ts
+import { Collection, FullFunctions } from 'collectype';
+import { GenderEnum, Person } from './models/Person';
+
+class PersonFunctions extends FullFunctions<Person> {
+  female(): this {
+    return this.stringEquals('gender', GenderEnum.FEMALE);
+  }
+
+  adult(target: number = 18): this {
+    return this.numberGreaterOrEqual('age', target);
+  }
+
+  woman(): this {
+    return this.begin('Only Women').female().adult().end();
+  }
+}
+
+// Custom collection for Person
+export class PersonCollection extends Collection<Person, PersonFunctions> {
+  constructor(items: Person[]) {
+    super(items, PersonFunctions);
+  }
+}
+
+// index.ts
+import { people } from './data/person';
+
+const collection = new PersonCollection(people);
+
+const result = collection.fn.woman().sort('age', 'asc').page(1, 10);
+
+// expect(collection.fn.woman().sort('age', 'asc').page(1, 10).info).toEqual({
+//   count: 10,
+//   steps: ['Only Women'],
+//   sort: {
+//     field: 'age',
+//     direction: 'asc',
+//     type: 'number',
+//   },
+//   page: {
+//     current: 1,
+//     perPage: 10,
+//     startIndex: 0,
+//     endIndex: 10,
+//     totalPages: 2,
+//     totalItems: 16,
+//   },
+// });
+```
+
+The `info` object contains:
+
+- `count`: Current number of items in the filtered/sorted/paginated result
+- `steps`: Array of named filter steps (custom methods show their names, `where()` calls show as `'_unknown_'`)
+- `sort`: Sorting state with field name, direction (`'asc'`/`'desc'`), and inferred type (`'string'`/`'number'`/`'boolean'`/`'date'`)
+- `page`: Pagination state with current page, items per page, start/end indices, total pages, and total items count
 
 ---
 
