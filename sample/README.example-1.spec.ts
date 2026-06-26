@@ -4,7 +4,6 @@ import { describe, it, expect } from 'vitest';
 // It ensures that the documentation is always up-to-date and correct.
 
 // README Example 1
-// index.ts
 import { Collection, BaseFunctions } from 'collectype';
 import { people } from './data/person';
 

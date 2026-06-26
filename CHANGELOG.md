@@ -2,6 +2,25 @@
 
 All notable changes to this project will be documented in this file.
 
+# [0.12.0] - 2026-06-26
+
+### Fixed
+
+- **High severity vulnerabilities**: Updated dependencies (`flatted`, `picomatch`) to resolve security vulnerabilities.
+- **Tests**: Fixed 3 broken tests...
+
+### Changed
+
+- **Configuration**: Removed deprecated `downlevelIteration` option from `tsconfig.json`.
+- **Dependencies**: Updated several development dependencies, including `@typescript-eslint/eslint-plugin`, `@typescript/parser`, `@vitest/coverage-v8`, `eslint`, `eslint-plugin-prettier`, `prettier`, `rimraf`, `typedoc`, `typedoc-plugin-markdown`, `typescript`, and `vitest`.
+- **Plugins**: Temporarily removed `importPlugin` due to lack of support for ESLint 10+.
+- **Samples**: Kept the public `collectype` import in sample comments while resolving it locally from source during tests, avoiding a self-referential package dependency.
+
+### Tests
+
+- **FullFunctions**: Split the specs by family to isolate failures faster and make debugging more targeted.
+- **Test discovery**: Restricted Vitest to the repository's source, sample, and test folders so generated output like `dist` is no longer scanned.
+
 # 0.11.0 (2025-10-13)
 
 ## Features

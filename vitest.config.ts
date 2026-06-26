@@ -1,10 +1,16 @@
-/// <reference types="vitest" />
-import { fileURLToPath, URL } from 'url';
 import { defineConfig } from 'vitest/config';
+import { fileURLToPath, URL } from 'node:url';
 
 export default defineConfig({
+  resolve: {
+    alias: {
+      collectype: fileURLToPath(new URL('./src/index.ts', import.meta.url)),
+    },
+  },
   test: {
     environment: 'node',
+    include: ['src/**/*.spec.ts', 'src/**/*.test.ts', 'sample/**/*.spec.ts', 'tests/**/*.spec.ts'],
+    exclude: ['dist/**'],
     coverage: {
       exclude: [
         '**/index.ts', // Index files

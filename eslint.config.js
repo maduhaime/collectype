@@ -1,4 +1,4 @@
-import importPlugin from 'eslint-plugin-import';
+// import importPlugin from 'eslint-plugin-import';
 import prettierPlugin from 'eslint-plugin-prettier';
 import tseslint from '@typescript-eslint/eslint-plugin';
 import tsparser from '@typescript-eslint/parser';
@@ -16,7 +16,7 @@ export default [
     },
     plugins: {
       '@typescript-eslint': tseslint,
-      'import': importPlugin,
+      // 'import': importPlugin,
       'prettier': prettierPlugin,
     },
     rules: {
@@ -30,14 +30,14 @@ export default [
       'max-len': ['warn', { code: 120, ignoreUrls: true, ignoreComments: true }],
 
       // Imports
-      'import/no-duplicates': 'error',
-      'import/order': [
-        'error',
-        {
-          'groups': ['builtin', 'external', 'internal'],
-          'newlines-between': 'always',
-        },
-      ],
+      // 'import/no-duplicates': 'error',
+      // 'import/order': [
+      //   'error',
+      //   {
+      //     'groups': ['builtin', 'external', 'internal'],
+      //     'newlines-between': 'always',
+      //   },
+      // ],
 
       // Ignore unused args that start with _
       '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
