@@ -9,6 +9,7 @@ interface ArrayDummyType {
 describe('FullFunctions', () => {
   describe('Array family', () => {
     const data: ArrayDummyType[] = [{ arr: [1, 2, 3] }, { arr: [3, 2, 1] }, { arr: [] }, { arr: [1] }];
+    const indexedData: ArrayDummyType[] = [{ arr: [1, 2, 3] }, { arr: [3, 2, 1] }, { arr: [1] }];
 
     it('should return items with all array equals to a target one', () => {
       const ff = new FullFunctions<ArrayDummyType>(data);
@@ -36,22 +37,22 @@ describe('FullFunctions', () => {
     });
 
     it('should return items where value at index equals', () => {
-      const ff = new FullFunctions<ArrayDummyType>(data);
+      const ff = new FullFunctions<ArrayDummyType>(indexedData);
       expect(ff.arrayAtIndexEquals('arr', 0, 1).items).toEqual([{ arr: [1, 2, 3] }, { arr: [1] }]);
     });
 
     it('should return items where value at index not equals', () => {
-      const ff = new FullFunctions<ArrayDummyType>(data);
-      expect(ff.arrayAtIndexNotEquals('arr', 0, 1).items).toEqual([{ arr: [3, 2, 1] }, { arr: [] }]);
+      const ff = new FullFunctions<ArrayDummyType>(indexedData);
+      expect(ff.arrayAtIndexNotEquals('arr', 0, 1).items).toEqual([{ arr: [3, 2, 1] }]);
     });
 
     it('should return items where value at index greater than', () => {
-      const ff = new FullFunctions<ArrayDummyType>(data);
+      const ff = new FullFunctions<ArrayDummyType>(indexedData);
       expect(ff.arrayAtIndexGreaterThan('arr', 0, 2).items).toEqual([{ arr: [3, 2, 1] }]);
     });
 
     it('should return items where value at index less than', () => {
-      const ff = new FullFunctions<ArrayDummyType>(data);
+      const ff = new FullFunctions<ArrayDummyType>(indexedData);
       expect(ff.arrayAtIndexLessThan('arr', 0, 2).items).toEqual([{ arr: [1, 2, 3] }, { arr: [1] }]);
     });
 
@@ -63,6 +64,11 @@ describe('FullFunctions', () => {
     it('should return items where value at index not in set', () => {
       const ff = new FullFunctions<ArrayDummyType>(data);
       expect(ff.arrayAtIndexNotIn('arr', 0, [1, 3]).items).toEqual([{ arr: [] }]);
+    });
+
+    it('should throw when array index comparison targets an out-of-range index', () => {
+      const ff = new FullFunctions<ArrayDummyType>(data);
+      expect(() => ff.arrayAtIndexEquals('arr', 0, 1)).toThrow(/out of bounds/i);
     });
 
     it('should return items that are disjoint with a target', () => {
