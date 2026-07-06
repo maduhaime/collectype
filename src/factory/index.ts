@@ -63,3 +63,14 @@ export * from './strings/stringPattern.js';
 export * from './strings/stringSize.js';
 export * from './strings/stringState.js';
 export * from './strings/stringSubstring.js';
+
+// URLs
+export * from './urls/urlHash.js';
+export * from './urls/urlHost.js';
+export * from './urls/urlHostname.js';
+export * from './urls/urlHref.js';
+export * from './urls/urlOrigin.js';
+export * from './urls/urlPathname.js';
+export * from './urls/urlPort.js';
+export * from './urls/urlProtocol.js';
+export * from './urls/urlState.js';

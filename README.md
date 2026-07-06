@@ -44,7 +44,7 @@ const collection = new Collection(people, BaseFunctions);
 // expect(collection.fn.where((p) => p.age > 20).items.map((p) => p.name)).toContain('George Clooney');
 ```
 
-Or use **120 prebuilt filtering methods** by injecting FullFunctions —
+Or use **177 prebuilt filtering methods** by injecting FullFunctions —
 this is a simple form of inversion of control: you pass the functions class
 as a dependency to the Collection constructor, making the collection's
 behavior fully configurable and extensible. This approach allows you to
@@ -168,7 +168,7 @@ const collection2 = new Collection(people, BaseFunctions);
   export type Constructor<T> = new (items: any[]) => T;
   ```
 
-For built-in filtering, sorting, and piping to work out of the box, your items should be plain objects with primitive fields: `string`, `number`, `boolean`, `Date`, `array`, or `object`. All these types are supported by default, with many advanced methods documented below.
+For built-in filtering, sorting, and piping to work out of the box, your items should usually be plain objects whose fields use supported built-in types such as `string`, `number`, `boolean`, `bigint`, `Date`, `Array`, `Map`, `Set`, `object`, or `URL`. All these types are supported by default, with many advanced methods documented below.
 
 If your data includes nested objects, you can still use CollecType, but you may need to write custom filters or predicates to manipulate those fields.
 
@@ -243,9 +243,9 @@ collection.fn.numberBetween('age', 18, 65).count;
 // expect(collection.fn.numberBetween('age', 18, 65).count).toBe(26);
 ```
 
-## Advanced methods (120) provided by FullFunctions
+## Advanced methods (177) provided by FullFunctions
 
-`FullFunctions` inherits all the capabilities of `BaseFunctions` and adds **120 strongly-typed filters** for arrays, bigints, booleans, dates, maps, numbers, objects, sets, and strings. All methods are strictly typed and support full TypeScript type inference.
+`FullFunctions` inherits all the capabilities of `BaseFunctions` and adds **177 strongly-typed filters** for arrays, bigints, booleans, dates, maps, numbers, objects, sets, strings, and URLs. All methods are strictly typed and support full TypeScript type inference.
 
 Each method takes the field name as its first argument, and TypeScript autocompletion will guide you based on the field's type.
 
@@ -325,6 +325,18 @@ Each method takes the field name as its first argument, and TypeScript autocompl
 - stringSizeEquals, stringSizeGreaterThan, stringSizeGreaterThanOrEquals, stringSizeLessThan, stringSizeLessThanOrEquals
 - stringIsBlank, stringIsEmpty, stringIsNotBlank, stringIsNotEmpty
 - stringEndsWith, stringExcludes, stringIncludes, stringStartsWith
+
+#### URL
+
+- urlHrefEquals, urlHrefNotEquals, urlHrefStartsWith, urlHrefEndsWith, urlHrefIncludes, urlHrefExcludes
+- urlOriginEquals, urlOriginNotEquals, urlOriginStartsWith, urlOriginEndsWith, urlOriginIncludes, urlOriginExcludes
+- urlProtocolEquals, urlProtocolNotEquals, urlProtocolStartsWith, urlProtocolEndsWith, urlProtocolIncludes, urlProtocolExcludes
+- urlHostEquals, urlHostNotEquals, urlHostStartsWith, urlHostEndsWith, urlHostIncludes, urlHostExcludes
+- urlHostnameEquals, urlHostnameNotEquals, urlHostnameStartsWith, urlHostnameEndsWith, urlHostnameIncludes, urlHostnameExcludes
+- urlPortEquals, urlPortNotEquals, urlPortStartsWith, urlPortEndsWith, urlPortIncludes, urlPortExcludes
+- urlPathnameEquals, urlPathnameNotEquals, urlPathnameStartsWith, urlPathnameEndsWith, urlPathnameIncludes, urlPathnameExcludes
+- urlHashEquals, urlHashNotEquals, urlHashStartsWith, urlHashEndsWith, urlHashIncludes, urlHashExcludes
+- urlHasHash, urlHasSearch, urlHasPort, urlHasUsername, urlHasPassword, urlIsHttp, urlIsHttps, urlIsWs, urlIsWss
 
 ### Advanced method usage and hidden chaining
 
