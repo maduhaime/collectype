@@ -44,6 +44,12 @@ import {
   ObjectPrototypeRelationEnum,
   ObjectPrototypeStateEnum,
   ObjectStateEnum,
+  // Query enums
+  QueryEntryEnum,
+  QueryKeyEnum,
+  QuerySizeEnum,
+  QueryStateEnum,
+  QueryValueEnum,
   // Set enums
   SetArrayMembershipEnum,
   SetComparisonEnum,
@@ -110,6 +116,11 @@ import { objectPropertyFactory } from './factory/objects/objectProperty.js';
 import { objectPrototypeRelationFactory } from './factory/objects/objectPrototypeRelation.js';
 import { objectPrototypeStateFactory } from './factory/objects/objectPrototypeState.js';
 import { objectStateFactory } from './factory/objects/objectState.js';
+import { queryEntryFactory } from './factory/queries/queryEntry.js';
+import { queryKeyFactory } from './factory/queries/queryKey.js';
+import { querySizeFactory } from './factory/queries/querySize.js';
+import { queryStateFactory } from './factory/queries/queryState.js';
+import { queryValueFactory } from './factory/queries/queryValue.js';
 import { setArrayMembershipFactory } from './factory/sets/setArrayMembership.js';
 import { setComparisonFactory } from './factory/sets/setComparison.js';
 import { setIntersectionFactory } from './factory/sets/setIntersection.js';
@@ -405,6 +416,33 @@ export class FullFunctions<T> extends BaseFunctions<T> {
   objectIsHomogeneous = objectStateFactory<T, this>(this, ObjectStateEnum.IS_HOMOGENEOUS);
   objectHasArrayProp = objectStateFactory<T, this>(this, ObjectStateEnum.HAS_ARRAY_PROP);
   objectHasNoUndefined = objectStateFactory<T, this>(this, ObjectStateEnum.HAS_NO_UNDEFINED);
+
+  // ===========================
+  // Query factories
+  // ===========================
+
+  // Query Entry
+  queryContainsEntry = queryEntryFactory<T, this>(this, QueryEntryEnum.CONTAINS_ENTRY);
+  queryLacksEntry = queryEntryFactory<T, this>(this, QueryEntryEnum.LACKS_ENTRY);
+
+  // Query Key
+  queryContainsKey = queryKeyFactory<T, this>(this, QueryKeyEnum.CONTAINS_KEY);
+  queryLacksKey = queryKeyFactory<T, this>(this, QueryKeyEnum.LACKS_KEY);
+
+  // Query Size
+  querySizeEquals = querySizeFactory<T, this>(this, QuerySizeEnum.SIZE_EQUALS);
+  querySizeGreaterThan = querySizeFactory<T, this>(this, QuerySizeEnum.SIZE_GREATER_THAN);
+  querySizeGreaterThanOrEquals = querySizeFactory<T, this>(this, QuerySizeEnum.SIZE_GREATER_THAN_OR_EQUALS);
+  querySizeLessThan = querySizeFactory<T, this>(this, QuerySizeEnum.SIZE_LESS_THAN);
+  querySizeLessThanOrEquals = querySizeFactory<T, this>(this, QuerySizeEnum.SIZE_LESS_THAN_OR_EQUALS);
+
+  // Query State
+  queryIsEmpty = queryStateFactory<T, this>(this, QueryStateEnum.IS_EMPTY);
+  queryIsNotEmpty = queryStateFactory<T, this>(this, QueryStateEnum.IS_NOT_EMPTY);
+
+  // Query Value
+  queryContainsValue = queryValueFactory<T, this>(this, QueryValueEnum.CONTAINS_VALUE);
+  queryLacksValue = queryValueFactory<T, this>(this, QueryValueEnum.LACKS_VALUE);
 
   // ===========================
   // Set factories

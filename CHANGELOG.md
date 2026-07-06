@@ -7,6 +7,7 @@ All notable changes to this project will be documented in this file.
 ### Added
 
 - **FullFunctions URL family**: Added full `URL` predicate exposure from Predictype 0.12.0, including href, origin, protocol, host, hostname, port, pathname, hash, and URL state helpers.
+- **FullFunctions Query family**: Added full `URLSearchParams` predicate exposure from Predictype 0.12.0, including entry, key, value, size, and state helpers.
 - **Documentation**: Added README coverage and generated API documentation support for the new URL factories and `FullFunctions` URL methods.
 
 ### Fixed

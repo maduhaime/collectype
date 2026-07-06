@@ -50,6 +50,13 @@ export * from './objects/objectPrototypeRelation.js';
 export * from './objects/objectPrototypeState.js';
 export * from './objects/objectState.js';
 
+// Queries
+export * from './queries/queryEntry.js';
+export * from './queries/queryKey.js';
+export * from './queries/querySize.js';
+export * from './queries/queryState.js';
+export * from './queries/queryValue.js';
+
 // Sets
 export * from './sets/setComparison.js';
 export * from './sets/setRelation.js';
