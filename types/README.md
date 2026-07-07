@@ -1,0 +1,133 @@
+[**collectype v0.13.0**](../README.md)
+
+***
+
+[collectype](../modules.md) / types
+
+# types
+
+## References
+
+### FunctionsClass
+
+Re-exports [FunctionsClass](collection/type-aliases/FunctionsClass.md)
+
+***
+
+### PredicateFn
+
+Re-exports [PredicateFn](collection/type-aliases/PredicateFn.md)
+
+***
+
+### ChainableMethod
+
+Re-exports [ChainableMethod](collection/type-aliases/ChainableMethod.md)
+
+***
+
+### PageState
+
+Re-exports [PageState](info/type-aliases/PageState.md)
+
+***
+
+### SortState
+
+Re-exports [SortState](info/type-aliases/SortState.md)
+
+***
+
+### FilterSteps
+
+Re-exports [FilterSteps](info/type-aliases/FilterSteps.md)
+
+***
+
+### CollectionInfo
+
+Re-exports [CollectionInfo](info/type-aliases/CollectionInfo.md)
+
+***
+
+### ParsedPipeStep
+
+Re-exports [ParsedPipeStep](pipe/type-aliases/ParsedPipeStep.md)
+
+***
+
+### Constructor
+
+Re-exports [Constructor](utility/type-aliases/Constructor.md)
+
+***
+
+### ByType
+
+Re-exports [ByType](utility/type-aliases/ByType.md)
+
+***
+
+### Nullable
+
+Re-exports [Nullable](utility/type-aliases/Nullable.md)
+
+***
+
+### Optional
+
+Re-exports [Optional](utility/type-aliases/Optional.md)
+
+***
+
+### ValueOf
+
+Re-exports [ValueOf](utility/type-aliases/ValueOf.md)
+
+***
+
+### EnumOrString
+
+Re-exports [EnumOrString](utility/type-aliases/EnumOrString.md)
+
+***
+
+### Wherable
+
+Re-exports [Wherable](utility/type-aliases/Wherable.md)
+
+***
+
+### StringKeys
+
+Re-exports [StringKeys](utility/type-aliases/StringKeys.md)
+
+***
+
+### NumberKeys
+
+Re-exports [NumberKeys](utility/type-aliases/NumberKeys.md)
+
+***
+
+### BooleanKeys
+
+Re-exports [BooleanKeys](utility/type-aliases/BooleanKeys.md)
+
+***
+
+### ArrayKeys
+
+Re-exports [ArrayKeys](utility/type-aliases/ArrayKeys.md)
+
+***
+
+### DateKeys
+
+Re-exports [DateKeys](utility/type-aliases/DateKeys.md)
+
+***
+
+### ObjectKeys
+
+Re-exports [ObjectKeys](utility/type-aliases/ObjectKeys.md)
