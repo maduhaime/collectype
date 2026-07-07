@@ -11,6 +11,7 @@ export const people: Person[] = [
     industry: 'Film',
     quote: 'I believe in happy travels, not happy endings.',
     hobbies: ['motorcycle riding', 'traveling', 'activism', 'basketball'],
+    website: new URL('https://person-01.example.test/people/george-clooney?country=usa&industry=film'),
   },
   {
     name: 'Audrey Tautou',
@@ -21,6 +22,7 @@ export const people: Person[] = [
     industry: 'Film',
     quote: 'Chance is the nickname of Providence.',
     hobbies: ['photography', 'reading', 'traveling', 'fashion'],
+    website: new URL('https://person-02.example.test/people/audrey-tautou?country=france&industry=film'),
   },
   {
     name: 'Wayne Gretzky',
@@ -31,6 +33,7 @@ export const people: Person[] = [
     industry: 'Sport',
     quote: 'You miss 100% of the shots you don’t take.',
     hobbies: ['golf', 'baseball', 'coaching', 'charity work'],
+    website: new URL('https://person-03.example.test/people/wayne-gretzky?country=canada&industry=sport'),
   },
   {
     name: 'Greta Thunberg',
@@ -41,6 +44,7 @@ export const people: Person[] = [
     industry: 'Activism',
     quote: 'No one is too small to make a difference.',
     hobbies: ['sailing', 'reading', 'nature walks', 'public speaking'],
+    website: new URL('https://person-04.example.test/people/greta-thunberg?country=sweden&industry=activism'),
   },
   {
     name: 'David Beckham',
@@ -51,6 +55,7 @@ export const people: Person[] = [
     industry: 'Sport',
     quote: 'I still look at myself and want to improve.',
     hobbies: ['soccer', 'fashion', 'tattoos', 'cooking', 'photography'],
+    website: new URL('https://person-05.example.test/people/david-beckham?country=uk&industry=sport'),
   },
   {
     name: 'Rihanna Fenty',
@@ -61,6 +66,7 @@ export const people: Person[] = [
     industry: 'Music',
     quote: 'Let your beauty shine from within.',
     hobbies: ['singing', 'fashion', 'makeup', 'philanthropy', 'dancing'],
+    website: new URL('https://person-06.example.test/people/rihanna-fenty?country=barbados&industry=music'),
   },
   {
     name: 'Bill Gates',
@@ -71,6 +77,7 @@ export const people: Person[] = [
     industry: 'Tech',
     quote: 'Your most unhappy customers are your greatest source of learning.',
     hobbies: ['reading', 'bridge', 'philanthropy', 'tennis'],
+    website: new URL('https://person-07.example.test/people/bill-gates?country=usa&industry=tech'),
   },
   {
     name: 'Priyanka Chopra',
@@ -81,6 +88,7 @@ export const people: Person[] = [
     industry: 'Film',
     quote: 'Ambition is a word associated with women negatively.',
     hobbies: ['singing', 'traveling', 'writing', 'philanthropy'],
+    website: new URL('https://person-08.example.test/people/priyanka-chopra?country=india&industry=film'),
   },
   {
     name: 'Jack Ma',
@@ -91,6 +99,7 @@ export const people: Person[] = [
     industry: 'Tech',
     quote: 'Never give up. Today is hard, tomorrow will be worse.',
     hobbies: ['tai chi', 'reading', 'philanthropy', 'painting'],
+    website: new URL('https://person-09.example.test/people/jack-ma?country=china&industry=tech'),
   },
   {
     name: 'Simone Veil',
@@ -101,6 +110,7 @@ export const people: Person[] = [
     industry: 'Politics',
     quote: 'Hope is the most powerful weapon.',
     hobbies: ['reading', 'history', 'advocacy'],
+    website: new URL('https://person-10.example.test/people/simone-veil?country=france&industry=politics'),
   },
   {
     name: 'Dwayne Johnson',
@@ -111,6 +121,7 @@ export const people: Person[] = [
     industry: 'Film',
     quote: 'Success at anything will always come down to focus.',
     hobbies: ['weightlifting', 'acting', 'fishing', 'football'],
+    website: new URL('https://person-11.example.test/people/dwayne-johnson?country=usa&industry=film'),
   },
   {
     name: 'Angela Merkel',
@@ -121,6 +132,7 @@ export const people: Person[] = [
     industry: 'Politics',
     quote: 'Always be more than you appear and never appear to be more.',
     hobbies: ['hiking', 'opera', 'science', 'cooking'],
+    website: new URL('https://person-12.example.test/people/angela-merkel?country=germany&industry=politics'),
   },
   {
     name: 'Yannick Noah',
@@ -131,6 +143,7 @@ export const people: Person[] = [
     industry: 'Sport',
     quote: 'Victory is in having done your best.',
     hobbies: ['singing', 'tennis', 'philanthropy', 'gardening'],
+    website: new URL('https://person-13.example.test/people/yannick-noah?country=france&industry=sport'),
   },
   {
     name: 'Roger Federer',
@@ -141,6 +154,7 @@ export const people: Person[] = [
     industry: 'Sport',
     quote: 'Believe in your plan, but set short term goals.',
     hobbies: ['tennis', 'skiing', 'traveling', 'philanthropy'],
+    website: new URL('https://person-14.example.test/people/roger-federer?country=switzerland&industry=sport'),
   },
   {
     name: 'Oprah Winfrey',
@@ -151,6 +165,7 @@ export const people: Person[] = [
     industry: 'Media',
     quote: 'Turn your wounds into wisdom.',
     hobbies: ['reading', 'philanthropy', 'cooking', 'gardening'],
+    website: new URL('https://person-15.example.test/people/oprah-winfrey?country=usa&industry=media'),
   },
   {
     name: 'Katy Perry',
@@ -161,6 +176,7 @@ export const people: Person[] = [
     industry: 'Music',
     quote: 'Confidence lets you pull off almost anything.',
     hobbies: ['singing', 'yoga', 'collecting antiques', 'cooking'],
+    website: new URL('https://person-16.example.test/people/katy-perry?country=usa&industry=music'),
   },
   {
     name: 'Lionel Messi',
@@ -171,6 +187,7 @@ export const people: Person[] = [
     industry: 'Sport',
     quote: 'You have to fight to reach your dream.',
     hobbies: ['soccer', 'video games', 'family time', 'charity work'],
+    website: new URL('https://person-17.example.test/people/lionel-messi?country=argentina&industry=sport'),
   },
   {
     name: 'Serena Williams',
@@ -181,6 +198,7 @@ export const people: Person[] = [
     industry: 'Sport',
     quote: 'A champion is defined by how they recover from a fall.',
     hobbies: ['tennis', 'fashion', 'reading', 'business'],
+    website: new URL('https://person-18.example.test/people/serena-williams?country=usa&industry=sport'),
   },
   {
     name: 'Beyoncé Knowles',
@@ -191,6 +209,7 @@ export const people: Person[] = [
     industry: 'Music',
     quote: 'Power is not given to you. You have to take it.',
     hobbies: ['singing', 'dancing', 'fashion', 'philanthropy'],
+    website: new URL('https://person-19.example.test/people/beyonce-knowles?country=usa&industry=music'),
   },
   {
     name: 'Elon Musk',
@@ -201,6 +220,7 @@ export const people: Person[] = [
     industry: 'Tech',
     quote: 'If it matters enough, do it even if the odds are low.',
     hobbies: ['reading', 'video games', 'innovation', 'space exploration'],
+    website: new URL('https://person-20.example.test/people/elon-musk?country=south-africa&industry=tech'),
   },
   {
     name: 'Emma Watson',
@@ -211,6 +231,7 @@ export const people: Person[] = [
     industry: 'Film',
     quote: 'If not me, who? If not now, when?',
     hobbies: ['reading', 'yoga', 'activism', 'traveling'],
+    website: new URL('https://person-21.example.test/people/emma-watson?country=france&industry=film'),
   },
   {
     name: 'Usain Bolt',
@@ -221,6 +242,7 @@ export const people: Person[] = [
     industry: 'Sport',
     quote: 'Don’t think about the start of the race, think about the ending.',
     hobbies: ['cricket', 'soccer', 'music', 'dancing'],
+    website: new URL('https://person-22.example.test/people/usain-bolt?country=jamaica&industry=sport'),
   },
   {
     name: 'Malala Yousafzai',
@@ -231,6 +253,7 @@ export const people: Person[] = [
     industry: 'Activism',
     quote: 'One child, one teacher, one book, one pen can change the world.',
     hobbies: ['reading', 'writing', 'education advocacy'],
+    website: new URL('https://person-23.example.test/people/malala-yousafzai?country=pakistan&industry=activism'),
   },
   {
     name: 'Barack Obama',
@@ -241,6 +264,7 @@ export const people: Person[] = [
     industry: 'Politics',
     quote: 'The best way to not feel hopeless is to get up and do something.',
     hobbies: ['basketball', 'reading', 'golf', 'music'],
+    website: new URL('https://person-24.example.test/people/barack-obama?country=usa&industry=politics'),
   },
   {
     name: 'Adele Adkins',
@@ -251,6 +275,7 @@ export const people: Person[] = [
     industry: 'Music',
     quote: 'I have insecurities, but not with those who point them out.',
     hobbies: ['singing', 'cooking', 'collecting records'],
+    website: new URL('https://person-25.example.test/people/adele-adkins?country=uk&industry=music'),
   },
   {
     name: 'Cristiano Ronaldo',
@@ -261,6 +286,7 @@ export const people: Person[] = [
     industry: 'Sport',
     quote: 'Your love makes me strong, your hate makes me unstoppable.',
     hobbies: ['soccer', 'fitness', 'fashion', 'cars'],
+    website: new URL('https://person-26.example.test/people/cristiano-ronaldo?country=portugal&industry=sport'),
   },
   {
     name: 'Taylor Swift',
@@ -271,6 +297,7 @@ export const people: Person[] = [
     industry: 'Music',
     quote: 'No matter what happens in life, be good to people.',
     hobbies: ['songwriting', 'baking', 'reading', 'cats'],
+    website: new URL('https://person-27.example.test/people/taylor-swift?country=usa&industry=music'),
   },
   {
     name: 'Keanu Reeves',
@@ -281,6 +308,7 @@ export const people: Person[] = [
     industry: 'Film',
     quote: 'Paying attention can take you a long way.',
     hobbies: ['motorcycles', 'music', 'philanthropy', 'martial arts'],
+    website: new URL('https://person-28.example.test/people/keanu-reeves?country=lebanon&industry=film'),
   },
   {
     name: 'Simone Biles',
@@ -291,6 +319,7 @@ export const people: Person[] = [
     industry: 'Sport',
     quote: 'Regret risks that failed, not chances you never took.',
     hobbies: ['gymnastics', 'dogs', 'traveling', 'shopping'],
+    website: new URL('https://person-29.example.test/people/simone-biles?country=usa&industry=sport'),
   },
   {
     name: 'Shakira Mebarak',
@@ -301,5 +330,6 @@ export const people: Person[] = [
     industry: 'Music',
     quote: 'In this life, to earn your place you have to fight for it.',
     hobbies: ['singing', 'dancing', 'philanthropy', 'surfing'],
+    website: new URL('https://person-30.example.test/people/shakira-mebarak?country=colombia&industry=music'),
   },
 ];

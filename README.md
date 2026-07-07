@@ -346,29 +346,6 @@ Each method takes the field name as its first argument, and TypeScript autocompl
 - urlHashEquals, urlHashNotEquals, urlHashStartsWith, urlHashEndsWith, urlHashIncludes, urlHashExcludes
 - urlHasHash, urlHasSearch, urlHasPort, urlHasUsername, urlHasPassword, urlIsHttp, urlIsHttps, urlIsWs, urlIsWss
 
-### Query filtering example
-
-```typescript
-type SearchRequest = {
-  source: string;
-  query: URLSearchParams;
-};
-
-const requests: SearchRequest[] = [
-  { source: 'docs', query: new URLSearchParams('tag=ts&tag=ai&sort=desc') },
-  { source: 'api', query: new URLSearchParams('q=predicates&page=2') },
-  { source: 'empty', query: new URLSearchParams('') },
-];
-
-const collection = new Collection(requests, FullFunctions);
-
-// Keep requests containing a specific entry
-collection.fn.queryContainsEntry('query', ['tag', 'ai']).items;
-
-// Keep requests where query string is not empty and contains key "q"
-collection.fn.queryIsNotEmpty('query').queryContainsKey('query', 'q').items;
-```
-
 ### Advanced method usage and hidden chaining
 
 This section demonstrates how to leverage advanced filtering, custom domain logic, and method chaining in CollecType. By extending the functions class, you can encapsulate complex business rules and compose them fluently.

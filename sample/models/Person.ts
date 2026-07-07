@@ -17,4 +17,5 @@ export type Person = {
   industry?: string;
   quote?: string;
   hobbies?: string[];
+  website: URL;
 };
