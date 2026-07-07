@@ -44,7 +44,7 @@ const collection = new Collection(people, BaseFunctions);
 // expect(collection.fn.where((p) => p.age > 20).items.map((p) => p.name)).toContain('George Clooney');
 ```
 
-Or use **190 prebuilt filtering methods** by injecting FullFunctions —
+Or use **266 prebuilt filtering methods** by injecting FullFunctions —
 this is a simple form of inversion of control: you pass the functions class
 as a dependency to the Collection constructor, making the collection's
 behavior fully configurable and extensible. This approach allows you to
@@ -243,9 +243,9 @@ collection.fn.numberBetween('age', 18, 65).count;
 // expect(collection.fn.numberBetween('age', 18, 65).count).toBe(26);
 ```
 
-## Advanced methods (190) provided by FullFunctions
+## Advanced methods (266) provided by FullFunctions
 
-`FullFunctions` inherits all the capabilities of `BaseFunctions` and adds **190 strongly-typed filters** for arrays, bigints, booleans, dates, maps, numbers, objects, queries, sets, strings, and URLs. All methods are strictly typed and support full TypeScript type inference.
+`FullFunctions` inherits all the capabilities of `BaseFunctions` and adds **266 strongly-typed filters** for arrays, bigints, booleans, dates, maps, numbers, objects, queries, sets, strings, and URLs. All methods are strictly typed and support full TypeScript type inference.
 
 Each method takes the field name as its first argument, and TypeScript autocompletion will guide you based on the field's type.
 

@@ -2,13 +2,33 @@
 
 All notable changes to this project will be documented in this file.
 
-# [0.12.0] - 2026-06-26
+# [0.13.0] - 2026-07-06
 
 ### Added
 
 - **FullFunctions URL family**: Added full `URL` predicate exposure from Predictype 0.12.0, including href, origin, protocol, host, hostname, port, pathname, hash, and URL state helpers.
 - **FullFunctions Query family**: Added full `URLSearchParams` predicate exposure from Predictype 0.12.0, including entry, key, value, size, and state helpers.
+- **Query ergonomics**: Query methods now accept both `URLSearchParams` and `URL` fields in Collectype. When a `URL` is provided, filtering uses `url.searchParams`.
 - **Documentation**: Added README coverage and generated API documentation support for the new URL factories and `FullFunctions` URL methods.
+
+### Changed
+
+- **Query factories**: Updated all query factories (`queryEntry`, `queryKey`, `querySize`, `queryState`, `queryValue`) to accept `URL | URLSearchParams` fields and forward values directly to PredicType query predicates.
+
+### Tests
+
+- **Query family coverage**: Updated `FullFunctions.Query.spec.ts` to validate query predicates with a mixed dataset containing both `URLSearchParams` and `URL` values.
+- **Regression safety**: Confirmed all query operations (entry, key, value, size, state) still behave correctly after the PredicType 0.13.0 query input changes.
+- **Factory guard coverage**: Added targeted guard-clause tests across Array, BigInt, Boolean, Map, Number, Object, Query, String, URL, and Set families to exercise `undefined` / invalid-value branches.
+- **StepManager coverage**: Added a dedicated `StepManager.spec.ts` to cover nested steps, empty-stack error handling, reset behavior, and defensive copy behavior for tracked steps.
+- **Coverage increase**: Improved global coverage to **98.10% statements**, **94.44% branches**, **100% functions**, and **100% lines** (`25` test files, `381` tests passing).
+
+### Documentation
+
+- **Factory examples**: Added `@example` and `@remarks` sections to all query factory files in `src/factory/queries` to align with the documentation style of other factory families.
+- **LLMs guide**: Added a project-level [llms.txt](llms.txt) file to provide AI-oriented usage guidance and a concise map of the library.
+
+# [0.12.0] - 2026-06-26
 
 ### Fixed
 
