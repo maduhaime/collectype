@@ -11,6 +11,25 @@ import { ByType, Wherable } from '../../types/utility.js';
  * @param {Parameters<typeof PredicType.url.pathname>[1]} oper - The URL pathname operation to perform.
  * @returns {<K extends keyof ByType<T, URL>>(field: K, target: Parameters<typeof PredicType.url.pathname>[2]) => C}
  *   Returns a function that takes a URL field on `T`, compares its `pathname`, and filters the context.
+ *
+ * @example
+ * // Example based on sample/models/Person and sample/data/person
+ * import { BaseFunctions, urlPathnameFactory } from 'collectype';
+ * import { Person } from '../../../sample/models/Person';
+ * import { people } from '../../../sample/data/person';
+ *
+ * class PersonFunctions extends BaseFunctions<Person> {
+ *   urlPathnameIncludes = urlPathnameFactory<Person, this>(this, 'includes');
+ * }
+ *
+ * const fn = new PersonFunctions(people);
+ * const filtered = fn.urlPathnameIncludes('website', '/people/');
+ * // filtered contains people whose website pathname includes the expected segment
+ *
+ * @remarks
+ * - Only fields of type `URL` are supported.
+ * - The operation and target must match the signature of `PredicType.url.pathname`.
+ * - Returns a new filtered context; does not mutate the original.
  */
 export function urlPathnameFactory<T, C extends Wherable<T, C>>(
   ctx: C,

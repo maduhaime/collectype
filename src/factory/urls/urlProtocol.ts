@@ -11,6 +11,25 @@ import { ByType, Wherable } from '../../types/utility.js';
  * @param {Parameters<typeof PredicType.url.protocol>[1]} oper - The URL protocol operation to perform.
  * @returns {<K extends keyof ByType<T, URL>>(field: K, target: Parameters<typeof PredicType.url.protocol>[2]) => C}
  *   Returns a function that takes a URL field on `T`, compares its `protocol`, and filters the context.
+ *
+ * @example
+ * // Example based on sample/models/Person and sample/data/person
+ * import { BaseFunctions, urlProtocolFactory } from 'collectype';
+ * import { Person } from '../../../sample/models/Person';
+ * import { people } from '../../../sample/data/person';
+ *
+ * class PersonFunctions extends BaseFunctions<Person> {
+ *   urlProtocolEquals = urlProtocolFactory<Person, this>(this, 'equals');
+ * }
+ *
+ * const fn = new PersonFunctions(people);
+ * const filtered = fn.urlProtocolEquals('website', 'https:');
+ * // filtered contains people whose website protocol equals the target value
+ *
+ * @remarks
+ * - Only fields of type `URL` are supported.
+ * - The operation and target must match the signature of `PredicType.url.protocol`.
+ * - Returns a new filtered context; does not mutate the original.
  */
 export function urlProtocolFactory<T, C extends Wherable<T, C>>(
   ctx: C,
