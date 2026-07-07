@@ -43,5 +43,29 @@ describe('FullFunctions', () => {
       const ff = new FullFunctions<MapDummyType>(data);
       expect(ff.mapIsNotEmpty('map').items).toEqual([{ map: m1 }, { map: m2 }]);
     });
+
+    it('should return items where map has entry', () => {
+      const ff = new FullFunctions<MapDummyType>(data);
+      expect(ff.mapHasEntry('map', ['a', 1]).items).toEqual([{ map: m1 }]);
+    });
+
+    it('should return items where map lacks entry', () => {
+      const ff = new FullFunctions<MapDummyType>(data);
+      expect(ff.mapLacksEntry('map', ['a', 1]).items).toEqual([{ map: m2 }, { map: m3 }]);
+    });
+
+    it('should cover guard clauses for map factories with undefined values', () => {
+      interface GuardMapDummyType {
+        map?: Map<string, number>;
+      }
+
+      const guardData: GuardMapDummyType[] = [{ map: m1 }, { map: m2 }, { map: undefined }];
+      expect(new FullFunctions<GuardMapDummyType>(guardData).mapHasEntry('map', ['a', 1]).items).toEqual([{ map: m1 }]);
+      const lacksEntryItems = new FullFunctions<GuardMapDummyType>(guardData).mapLacksEntry('map', ['a', 1]).items;
+      expect(lacksEntryItems.some((item) => item.map === undefined)).toBe(false);
+      expect(new FullFunctions<GuardMapDummyType>(guardData).mapContainsValue('map', 10).items).toEqual([{ map: m2 }]);
+      expect(new FullFunctions<GuardMapDummyType>(guardData).mapSizeGreaterThan('map', 1).items).toEqual([{ map: m1 }, { map: m2 }]);
+      expect(new FullFunctions<GuardMapDummyType>(guardData).mapIsNotEmpty('map').items).toEqual([{ map: m1 }, { map: m2 }]);
+    });
   });
 });

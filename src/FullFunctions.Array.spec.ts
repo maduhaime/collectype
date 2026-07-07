@@ -73,12 +73,7 @@ describe('FullFunctions', () => {
 
     it('should return items that are disjoint with a target', () => {
       const ff = new FullFunctions<ArrayDummyType>(data);
-      expect(ff.arrayDisjoint('arr', [4, 5]).items).toEqual([
-        { arr: [1, 2, 3] },
-        { arr: [3, 2, 1] },
-        { arr: [] },
-        { arr: [1] },
-      ]);
+      expect(ff.arrayDisjoint('arr', [4, 5]).items).toEqual([{ arr: [1, 2, 3] }, { arr: [3, 2, 1] }, { arr: [] }, { arr: [1] }]);
     });
 
     it('should return items that intersect with a target', () => {
@@ -174,6 +169,28 @@ describe('FullFunctions', () => {
     it('should return items where array is not empty', () => {
       const ff = new FullFunctions<ArrayDummyType>([{ arr: [] }, { arr: [1] }]);
       expect(ff.arrayIsNotEmpty('arr').items).toEqual([{ arr: [1] }]);
+    });
+
+    it('should cover guard clauses for array factories with undefined values', () => {
+      interface GuardArrayDummyType {
+        arr?: number[];
+      }
+
+      const guardData: GuardArrayDummyType[] = [{ arr: [1, 2, 3] }, { arr: [1] }, { arr: [2] }, { arr: undefined }];
+      const make = (): FullFunctions<GuardArrayDummyType> => new FullFunctions<GuardArrayDummyType>(guardData);
+      const assertGuarded = (items: GuardArrayDummyType[]): void => {
+        expect(Array.isArray(items)).toBe(true);
+        expect(items.some((item) => item.arr === undefined)).toBe(false);
+      };
+
+      assertGuarded(make().arrayEquals('arr', [1, 2, 3]).items);
+      assertGuarded(make().arrayAtIndexEquals('arr', 0, 1).items);
+      assertGuarded(make().arrayIntersects('arr', [1]).items);
+      assertGuarded(make().arrayIncludes('arr', 1).items);
+      assertGuarded(make().arraySubsetOf('arr', [1, 2, 3]).items);
+      assertGuarded(make().arrayStartsWith('arr', [1]).items);
+      assertGuarded(make().arraySizeGreaterThanOrEquals('arr', 1).items);
+      assertGuarded(make().arrayIsNotEmpty('arr').items);
     });
   });
 });

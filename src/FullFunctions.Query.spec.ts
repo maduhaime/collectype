@@ -3,7 +3,7 @@ import { describe, expect, it } from 'vitest';
 import { FullFunctions } from './FullFunctions.js';
 
 interface QueryDummyType {
-  query: URL | URLSearchParams;
+  query?: URL | URLSearchParams;
 }
 
 describe('FullFunctions', () => {
@@ -12,8 +12,9 @@ describe('FullFunctions', () => {
     const queryB = new URLSearchParams('q=predicates&page=2');
     const queryC = new URL('https://example.com/?status=active&role=admin&role=editor');
     const queryD = new URL('https://example.com/');
+    const queryInvalid = undefined;
 
-    const data: QueryDummyType[] = [{ query: queryA }, { query: queryB }, { query: queryC }, { query: queryD }];
+    const data: QueryDummyType[] = [{ query: queryA }, { query: queryB }, { query: queryC }, { query: queryD }, { query: queryInvalid }];
 
     const entryCases: Array<{
       method: 'queryContainsEntry' | 'queryLacksEntry';

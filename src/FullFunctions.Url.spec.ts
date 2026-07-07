@@ -105,5 +105,28 @@ describe('FullFunctions', () => {
         expect(result).toEqual(testCase.expected.map((url) => ({ url })));
       });
     }
+
+    it('should cover guard clauses for URL factories with undefined values', () => {
+      interface GuardUrlDummyType {
+        url?: URL;
+      }
+
+      const guardData: GuardUrlDummyType[] = [{ url: urlA }, { url: urlE }, { url: undefined }];
+      const make = (): FullFunctions<GuardUrlDummyType> => new FullFunctions<GuardUrlDummyType>(guardData);
+      const assertGuarded = (items: GuardUrlDummyType[]): void => {
+        expect(Array.isArray(items)).toBe(true);
+        expect(items.some((item) => item.url === undefined)).toBe(false);
+      };
+
+      assertGuarded(make().urlHrefIncludes('url', 'example').items);
+      assertGuarded(make().urlOriginIncludes('url', 'example').items);
+      assertGuarded(make().urlProtocolEquals('url', 'https:').items);
+      assertGuarded(make().urlHostIncludes('url', 'example').items);
+      assertGuarded(make().urlHostnameIncludes('url', 'example').items);
+      assertGuarded(make().urlPortEquals('url', '').items);
+      assertGuarded(make().urlPathnameStartsWith('url', '/').items);
+      assertGuarded(make().urlHashExcludes('url', 'intro').items);
+      assertGuarded(make().urlIsHttps('url').items);
+    });
   });
 });
