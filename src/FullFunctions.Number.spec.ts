@@ -42,14 +42,7 @@ describe('FullFunctions', () => {
 
     it('should return items where number is finite', () => {
       const ff = new FullFunctions<NumberDummyType>(data);
-      expect(ff.numberIsFinite('num').items).toEqual([
-        { num: 1 },
-        { num: 2 },
-        { num: 3 },
-        { num: 0 },
-        { num: -1 },
-        { num: 2.5 },
-      ]);
+      expect(ff.numberIsFinite('num').items).toEqual([{ num: 1 }, { num: 2 }, { num: 3 }, { num: 0 }, { num: -1 }, { num: 2.5 }]);
     });
 
     it('should return items where number is integer', () => {
@@ -64,13 +57,7 @@ describe('FullFunctions', () => {
 
     it('should return items where number is positive', () => {
       const ff = new FullFunctions<NumberDummyType>(data);
-      expect(ff.numberIsPositive('num').items).toEqual([
-        { num: 1 },
-        { num: 2 },
-        { num: 3 },
-        { num: Infinity },
-        { num: 2.5 },
-      ]);
+      expect(ff.numberIsPositive('num').items).toEqual([{ num: 1 }, { num: 2 }, { num: 3 }, { num: Infinity }, { num: 2.5 }]);
     });
 
     it('should return items where number is negative', () => {
@@ -90,13 +77,7 @@ describe('FullFunctions', () => {
 
     it('should return items where number is not between', () => {
       const ff = new FullFunctions<NumberDummyType>(data);
-      expect(ff.numberNotBetween('num', 1, 3).items).toEqual([
-        { num: 0 },
-        { num: -1 },
-        { num: NaN },
-        { num: Infinity },
-        { num: -Infinity },
-      ]);
+      expect(ff.numberNotBetween('num', 1, 3).items).toEqual([{ num: 0 }, { num: -1 }, { num: NaN }, { num: Infinity }, { num: -Infinity }]);
     });
 
     it('should return items where number is strictly between', () => {
@@ -117,6 +98,19 @@ describe('FullFunctions', () => {
         { num: -Infinity },
         // { num: 2.5 },
       ]);
+    });
+
+    it('should cover number range branches with undefined values', () => {
+      interface GuardNumberDummyType {
+        num?: number;
+      }
+
+      const guardData: GuardNumberDummyType[] = [{ num: 1 }, { num: 2 }, { num: 4 }, { num: undefined }];
+      expect(new FullFunctions<GuardNumberDummyType>(guardData).numberBetween('num', 1, 3).items).toEqual([{ num: 1 }, { num: 2 }]);
+      const notBetweenItems = new FullFunctions<GuardNumberDummyType>(guardData).numberNotBetween('num', 1, 3).items;
+      expect(Array.isArray(notBetweenItems)).toBe(true);
+      const strictNotBetweenItems = new FullFunctions<GuardNumberDummyType>(guardData).numberStrictNotBetween('num', 1, 3).items;
+      expect(Array.isArray(strictNotBetweenItems)).toBe(true);
     });
   });
 });

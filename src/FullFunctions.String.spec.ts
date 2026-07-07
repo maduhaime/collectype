@@ -35,12 +35,7 @@ describe('FullFunctions', () => {
 
     it('should return items where string excludes', () => {
       const ff = new FullFunctions<StringDummyType>(data);
-      expect(ff.stringExcludes('str', 'abc').items).toEqual([
-        { str: '' },
-        { str: ' ' },
-        { str: 'ABC' },
-        { str: 'def' },
-      ]);
+      expect(ff.stringExcludes('str', 'abc').items).toEqual([{ str: '' }, { str: ' ' }, { str: 'ABC' }, { str: 'def' }]);
     });
 
     it('should return items where string starts with', () => {
@@ -60,12 +55,7 @@ describe('FullFunctions', () => {
 
     it('should return items where string not matches pattern', () => {
       const ff = new FullFunctions<StringDummyType>(data);
-      expect(ff.stringNotMatches('str', /^abc/).items).toEqual([
-        { str: '' },
-        { str: ' ' },
-        { str: 'ABC' },
-        { str: 'def' },
-      ]);
+      expect(ff.stringNotMatches('str', /^abc/).items).toEqual([{ str: '' }, { str: ' ' }, { str: 'ABC' }, { str: 'def' }]);
     });
 
     it('should return items where string is empty', () => {
@@ -85,13 +75,7 @@ describe('FullFunctions', () => {
 
     it('should return items where string is not blank', () => {
       const ff = new FullFunctions<StringDummyType>(data);
-      expect(ff.stringIsNotBlank('str').items).toEqual([
-        { str: 'abc' },
-        { str: 'ABC' },
-        { str: 'abc def' },
-        { str: 'def' },
-        { str: 'abcabc' },
-      ]);
+      expect(ff.stringIsNotBlank('str').items).toEqual([{ str: 'abc' }, { str: 'ABC' }, { str: 'abc def' }, { str: 'def' }, { str: 'abcabc' }]);
     });
 
     it('should return items where string size equals', () => {
@@ -107,6 +91,29 @@ describe('FullFunctions', () => {
     it('should return items where string size less than', () => {
       const ff = new FullFunctions<StringDummyType>(data);
       expect(ff.stringSizeLessThan('str', 3).items).toEqual([{ str: '' }, { str: ' ' }]);
+    });
+
+    it('should return items where string is in target list', () => {
+      const ff = new FullFunctions<StringDummyType>(data);
+      expect(ff.stringIn('str', ['abc', 'def']).items).toEqual([{ str: 'abc' }, { str: 'def' }]);
+    });
+
+    it('should return items where string is not in target list', () => {
+      const ff = new FullFunctions<StringDummyType>(data);
+      expect(ff.stringNotIn('str', ['abc', 'def']).items).toEqual([{ str: '' }, { str: ' ' }, { str: 'ABC' }, { str: 'abc def' }, { str: 'abcabc' }]);
+    });
+
+    it('should cover guard clauses for string factories with undefined values', () => {
+      interface GuardStringDummyType {
+        str?: string;
+      }
+
+      const guardData: GuardStringDummyType[] = [{ str: 'abc' }, { str: 'def' }, { str: undefined }];
+      expect(new FullFunctions<GuardStringDummyType>(guardData).stringIn('str', ['abc']).items).toEqual([{ str: 'abc' }]);
+      const notInItems = new FullFunctions<GuardStringDummyType>(guardData).stringNotIn('str', ['abc']).items;
+      expect(notInItems.some((item) => item.str === undefined)).toBe(false);
+      expect(new FullFunctions<GuardStringDummyType>(guardData).stringIncludes('str', 'd').items).toEqual([{ str: 'def' }]);
+      expect(new FullFunctions<GuardStringDummyType>(guardData).stringIsNotEmpty('str').items).toEqual([{ str: 'abc' }, { str: 'def' }]);
     });
   });
 });

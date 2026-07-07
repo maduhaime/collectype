@@ -52,20 +52,12 @@ describe('FullFunctions', () => {
 
     it('should return items where set is subset of', () => {
       const ff = new FullFunctions<SetDummyType>(data);
-      expect(ff.setSubsetOf('set', new Set([1, 2, 3])).items).toEqual([
-        { set: s1 },
-        { set: s2 },
-        { set: s3 },
-        { set: s4 },
-        { set: s5 },
-      ]);
+      expect(ff.setSubsetOf('set', new Set([1, 2, 3])).items).toEqual([{ set: s1 }, { set: s2 }, { set: s3 }, { set: s4 }, { set: s5 }]);
     });
 
     it('should return items where set is strict subset of', () => {
       const ff = new FullFunctions<SetDummyType>(data);
-      expect(ff.setStrictSubsetOf('set', new Set([1, 2, 3])).items).toEqual(
-        expect.arrayContaining([{ set: s3 }, { set: s5 }, { set: s4 }]),
-      );
+      expect(ff.setStrictSubsetOf('set', new Set([1, 2, 3])).items).toEqual(expect.arrayContaining([{ set: s3 }, { set: s5 }, { set: s4 }]));
     });
 
     it('should return items where set is superset of', () => {
@@ -135,6 +127,21 @@ describe('FullFunctions', () => {
     it('should return items where sets have same elements', () => {
       const ff = new FullFunctions<SetDummyType>(data);
       expect(ff.setSameElements('set', new Set([3, 2, 1])).items).toEqual([{ set: s1 }, { set: s2 }]);
+    });
+
+    it('should cover set membership factories with guard clauses', () => {
+      interface GuardSetDummyType {
+        set?: Set<number>;
+      }
+
+      const guardData: GuardSetDummyType[] = [{ set: new Set([1, 2, 3]) }, { set: new Set([2, 3]) }, { set: undefined }];
+      const ff = new FullFunctions<GuardSetDummyType>(guardData);
+
+      expect(ff.setContainsAll('set', [2, 3]).items).toEqual([{ set: new Set([1, 2, 3]) }, { set: new Set([2, 3]) }]);
+      expect(ff.setContainsAny('set', [3, 9]).items).toEqual([{ set: new Set([1, 2, 3]) }, { set: new Set([2, 3]) }]);
+      expect(ff.setExcludesAll('set', [9]).items).toEqual([{ set: new Set([1, 2, 3]) }, { set: new Set([2, 3]) }]);
+      expect(ff.setIncludes('set', 2).items).toEqual([{ set: new Set([1, 2, 3]) }, { set: new Set([2, 3]) }]);
+      expect(ff.setExcludes('set', 9).items).toEqual([{ set: new Set([1, 2, 3]) }, { set: new Set([2, 3]) }]);
     });
   });
 });

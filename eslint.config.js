@@ -27,7 +27,7 @@ export default [
       'no-unused-vars': 'off',
 
       // Max line length
-      'max-len': ['warn', { code: 120, ignoreUrls: true, ignoreComments: true }],
+      'max-len': ['warn', { code: 150, ignoreUrls: true, ignoreComments: true }],
 
       // Imports
       // 'import/no-duplicates': 'error',

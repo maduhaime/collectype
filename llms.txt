@@ -1,0 +1,167 @@
+# collectype
+
+> CollecType is a modern, type-safe collection utility for TypeScript with fluent, chainable filtering, sorting, pagination, and pipeline composition.
+
+## Project Links
+
+- Home: https://maduhaime.github.io/collectype/
+- API reference: https://maduhaime.github.io/collectype/modules
+- Changelog: https://github.com/maduhaime/collectype/blob/main/CHANGELOG.md
+- Package: https://www.npmjs.com/package/collectype
+- Source: https://github.com/maduhaime/collectype
+
+## Core Architecture
+
+CollecType is built around two primary abstractions:
+
+1. `Collection<T, F>`
+- A typed wrapper over your raw items array.
+- Exposes `collection.items` (raw/original items) and `collection.fn` (functions instance).
+
+2. Functions classes (`BaseFunctions<T>`, `FullFunctions<T>`, or custom subclasses)
+- `BaseFunctions` provides core query mechanics (`where`, `sort`, `page`, `pipe`, `begin`, `end`, etc.).
+- `FullFunctions` extends `BaseFunctions` and exposes built-in typed filters by data family.
+
+### Important Behavioral Rule
+
+Functions methods are chainable and mutate the internal working set on the same instance (`this`).
+For independent queries, instantiate a fresh functions/collection instance.
+
+---
+
+## AI Usage Rules
+
+### Always Prefer Typed Family Methods
+
+For typed filtering, use methods aligned to the field type family:
+
+- `string*` for `string` fields
+- `number*` for `number` fields
+- `boolean*` for `boolean` fields
+- `bigint*` for `bigint` fields
+- `date*` for `Date` fields
+- `array*` for array fields
+- `map*` for `Map` fields
+- `set*` for `Set` fields
+- `object*` for object fields
+- `query*` for `URLSearchParams` and `URL` query scenarios
+- `url*` for `URL` fields
+
+Do not invent method names. Use methods that exist on `BaseFunctions`/`FullFunctions` or custom subclasses.
+
+### Query Family Special Case
+
+Query methods accept both `URLSearchParams` and `URL` values. `URL` inputs are evaluated through query semantics.
+
+### Use `where` for Domain-Specific Logic
+
+When built-in typed methods do not match the need, use `where((item) => boolean)` in custom function classes.
+
+---
+
+## BaseFunctions Contract
+
+Core methods:
+
+- Chainable: `all()`, `where()`, `sort()`, `page()`, `pipe()`, `begin()`, `end()`
+- Read-only state: `items`, `count`, `info`
+
+### `info` Tracking
+
+`info` provides current execution state:
+
+- `count`: current item count
+- `steps`: tracked step names (`'_unknown_'` for unnamed filters)
+- `sort`: current sorting metadata
+- `page`: current pagination metadata
+
+### Pipe Constraints
+
+- `pipe('...')` executes expression chains dynamically.
+- Reserved/internal methods are blocked in pipe expressions.
+- `page()` is not available in pipe expressions; use direct chaining.
+
+---
+
+## FullFunctions Scope
+
+`FullFunctions` extends `BaseFunctions` and currently exposes **266 strongly-typed filters**.
+
+Data families covered:
+
+- Arrays
+- BigInt
+- Boolean
+- Date
+- Map
+- Number
+- Object
+- Query
+- Set
+- String
+- URL
+
+Method names are intentionally explicit and family-prefixed (for discoverability and type-guided usage).
+
+---
+
+## Composition Pattern (Recommended)
+
+Use factory composition in custom functions classes:
+
+- Extend `BaseFunctions<T>` or `FullFunctions<T>`
+- Add project/domain methods
+- Optionally compose with exported factories (e.g., `stringComparisonFactory`, `numberRangeFactory`)
+
+This pattern keeps business rules explicit, testable, and reusable.
+
+---
+
+## Type Safety Expectations
+
+- Field names are constrained by TypeScript utility typing (family-compatible keys only).
+- Prefer compiler-guided usage over casts.
+- Do not silence type errors with `any` if an equivalent typed method exists.
+
+---
+
+## Practical Guidance for AI Generation
+
+1. Start with `Collection(items, FullFunctions)` when broad filtering is needed.
+2. Use `Collection(items, BaseFunctions)` plus custom subclass methods for domain workflows.
+3. Keep chains readable and deterministic.
+4. Use fresh instances for independent test assertions because chains are stateful.
+5. Prefer direct chaining over `pipe` unless dynamic runtime expressions are required.
+
+---
+
+## Example
+
+```typescript
+import { Collection, FullFunctions } from 'collectype';
+
+type Person = {
+  name: string;
+  age: number;
+  hobbies?: string[];
+  website?: URL;
+};
+
+const people: Person[] = [
+  { name: 'Alice', age: 30, hobbies: ['fishing'], website: new URL('https://example.com/?tag=pro') },
+  { name: 'Bob', age: 17, hobbies: ['gaming'], website: new URL('https://example.com/') },
+];
+
+const c = new Collection(people, FullFunctions);
+
+const adultsWithTag = c.fn
+  .numberGreaterOrEqual('age', 18)
+  .queryContainsKey('website', 'tag')
+  .items;
+```
+
+---
+
+## Scope
+
+CollecType is a TypeScript library distributed via npm and documented on GitHub/GitHub Pages. It is not a hosted service.

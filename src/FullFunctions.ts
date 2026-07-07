@@ -44,6 +44,12 @@ import {
   ObjectPrototypeRelationEnum,
   ObjectPrototypeStateEnum,
   ObjectStateEnum,
+  // Query enums
+  QueryEntryEnum,
+  QueryKeyEnum,
+  QuerySizeEnum,
+  QueryStateEnum,
+  QueryValueEnum,
   // Set enums
   SetArrayMembershipEnum,
   SetComparisonEnum,
@@ -59,6 +65,16 @@ import {
   StringStateEnum,
   StringSubstringEnum,
   SetIntersectionEnum,
+  // URL enums
+  UrlHashEnum,
+  UrlHostEnum,
+  UrlHostnameEnum,
+  UrlHrefEnum,
+  UrlOriginEnum,
+  UrlPathnameEnum,
+  UrlPortEnum,
+  UrlProtocolEnum,
+  UrlStateEnum,
 } from 'predictype';
 
 import { BaseFunctions } from './BaseFunctions.js';
@@ -100,6 +116,11 @@ import { objectPropertyFactory } from './factory/objects/objectProperty.js';
 import { objectPrototypeRelationFactory } from './factory/objects/objectPrototypeRelation.js';
 import { objectPrototypeStateFactory } from './factory/objects/objectPrototypeState.js';
 import { objectStateFactory } from './factory/objects/objectState.js';
+import { queryEntryFactory } from './factory/queries/queryEntry.js';
+import { queryKeyFactory } from './factory/queries/queryKey.js';
+import { querySizeFactory } from './factory/queries/querySize.js';
+import { queryStateFactory } from './factory/queries/queryState.js';
+import { queryValueFactory } from './factory/queries/queryValue.js';
 import { setArrayMembershipFactory } from './factory/sets/setArrayMembership.js';
 import { setComparisonFactory } from './factory/sets/setComparison.js';
 import { setIntersectionFactory } from './factory/sets/setIntersection.js';
@@ -113,6 +134,15 @@ import { stringPatternFactory } from './factory/strings/stringPattern.js';
 import { stringSizeFactory } from './factory/strings/stringSize.js';
 import { stringStateFactory } from './factory/strings/stringState.js';
 import { stringSubstringFactory } from './factory/strings/stringSubstring.js';
+import { urlHashFactory } from './factory/urls/urlHash.js';
+import { urlHostFactory } from './factory/urls/urlHost.js';
+import { urlHostnameFactory } from './factory/urls/urlHostname.js';
+import { urlHrefFactory } from './factory/urls/urlHref.js';
+import { urlOriginFactory } from './factory/urls/urlOrigin.js';
+import { urlPathnameFactory } from './factory/urls/urlPathname.js';
+import { urlPortFactory } from './factory/urls/urlPort.js';
+import { urlProtocolFactory } from './factory/urls/urlProtocol.js';
+import { urlStateFactory } from './factory/urls/urlState.js';
 
 export class FullFunctions<T> extends BaseFunctions<T> {
   // ===========================
@@ -388,6 +418,33 @@ export class FullFunctions<T> extends BaseFunctions<T> {
   objectHasNoUndefined = objectStateFactory<T, this>(this, ObjectStateEnum.HAS_NO_UNDEFINED);
 
   // ===========================
+  // Query factories
+  // ===========================
+
+  // Query Entry
+  queryContainsEntry = queryEntryFactory<T, this>(this, QueryEntryEnum.CONTAINS_ENTRY);
+  queryLacksEntry = queryEntryFactory<T, this>(this, QueryEntryEnum.LACKS_ENTRY);
+
+  // Query Key
+  queryContainsKey = queryKeyFactory<T, this>(this, QueryKeyEnum.CONTAINS_KEY);
+  queryLacksKey = queryKeyFactory<T, this>(this, QueryKeyEnum.LACKS_KEY);
+
+  // Query Size
+  querySizeEquals = querySizeFactory<T, this>(this, QuerySizeEnum.SIZE_EQUALS);
+  querySizeGreaterThan = querySizeFactory<T, this>(this, QuerySizeEnum.SIZE_GREATER_THAN);
+  querySizeGreaterThanOrEquals = querySizeFactory<T, this>(this, QuerySizeEnum.SIZE_GREATER_THAN_OR_EQUALS);
+  querySizeLessThan = querySizeFactory<T, this>(this, QuerySizeEnum.SIZE_LESS_THAN);
+  querySizeLessThanOrEquals = querySizeFactory<T, this>(this, QuerySizeEnum.SIZE_LESS_THAN_OR_EQUALS);
+
+  // Query State
+  queryIsEmpty = queryStateFactory<T, this>(this, QueryStateEnum.IS_EMPTY);
+  queryIsNotEmpty = queryStateFactory<T, this>(this, QueryStateEnum.IS_NOT_EMPTY);
+
+  // Query Value
+  queryContainsValue = queryValueFactory<T, this>(this, QueryValueEnum.CONTAINS_VALUE);
+  queryLacksValue = queryValueFactory<T, this>(this, QueryValueEnum.LACKS_VALUE);
+
+  // ===========================
   // Set factories
   // ===========================
 
@@ -467,4 +524,83 @@ export class FullFunctions<T> extends BaseFunctions<T> {
   stringExcludes = stringSubstringFactory<T, this>(this, StringSubstringEnum.EXCLUDES);
   stringIncludes = stringSubstringFactory<T, this>(this, StringSubstringEnum.INCLUDES);
   stringStartsWith = stringSubstringFactory<T, this>(this, StringSubstringEnum.STARTS_WITH);
+
+  // ===========================
+  // URL factories
+  // ===========================
+
+  // URL Hash
+  urlHashEquals = urlHashFactory<T, this>(this, UrlHashEnum.EQUALS);
+  urlHashNotEquals = urlHashFactory<T, this>(this, UrlHashEnum.NOT_EQUALS);
+  urlHashStartsWith = urlHashFactory<T, this>(this, UrlHashEnum.STARTS_WITH);
+  urlHashEndsWith = urlHashFactory<T, this>(this, UrlHashEnum.ENDS_WITH);
+  urlHashIncludes = urlHashFactory<T, this>(this, UrlHashEnum.INCLUDES);
+  urlHashExcludes = urlHashFactory<T, this>(this, UrlHashEnum.EXCLUDES);
+
+  // URL Host
+  urlHostEquals = urlHostFactory<T, this>(this, UrlHostEnum.EQUALS);
+  urlHostNotEquals = urlHostFactory<T, this>(this, UrlHostEnum.NOT_EQUALS);
+  urlHostStartsWith = urlHostFactory<T, this>(this, UrlHostEnum.STARTS_WITH);
+  urlHostEndsWith = urlHostFactory<T, this>(this, UrlHostEnum.ENDS_WITH);
+  urlHostIncludes = urlHostFactory<T, this>(this, UrlHostEnum.INCLUDES);
+  urlHostExcludes = urlHostFactory<T, this>(this, UrlHostEnum.EXCLUDES);
+
+  // URL Hostname
+  urlHostnameEquals = urlHostnameFactory<T, this>(this, UrlHostnameEnum.EQUALS);
+  urlHostnameNotEquals = urlHostnameFactory<T, this>(this, UrlHostnameEnum.NOT_EQUALS);
+  urlHostnameStartsWith = urlHostnameFactory<T, this>(this, UrlHostnameEnum.STARTS_WITH);
+  urlHostnameEndsWith = urlHostnameFactory<T, this>(this, UrlHostnameEnum.ENDS_WITH);
+  urlHostnameIncludes = urlHostnameFactory<T, this>(this, UrlHostnameEnum.INCLUDES);
+  urlHostnameExcludes = urlHostnameFactory<T, this>(this, UrlHostnameEnum.EXCLUDES);
+
+  // URL Href
+  urlHrefEquals = urlHrefFactory<T, this>(this, UrlHrefEnum.EQUALS);
+  urlHrefNotEquals = urlHrefFactory<T, this>(this, UrlHrefEnum.NOT_EQUALS);
+  urlHrefStartsWith = urlHrefFactory<T, this>(this, UrlHrefEnum.STARTS_WITH);
+  urlHrefEndsWith = urlHrefFactory<T, this>(this, UrlHrefEnum.ENDS_WITH);
+  urlHrefIncludes = urlHrefFactory<T, this>(this, UrlHrefEnum.INCLUDES);
+  urlHrefExcludes = urlHrefFactory<T, this>(this, UrlHrefEnum.EXCLUDES);
+
+  // URL Origin
+  urlOriginEquals = urlOriginFactory<T, this>(this, UrlOriginEnum.EQUALS);
+  urlOriginNotEquals = urlOriginFactory<T, this>(this, UrlOriginEnum.NOT_EQUALS);
+  urlOriginStartsWith = urlOriginFactory<T, this>(this, UrlOriginEnum.STARTS_WITH);
+  urlOriginEndsWith = urlOriginFactory<T, this>(this, UrlOriginEnum.ENDS_WITH);
+  urlOriginIncludes = urlOriginFactory<T, this>(this, UrlOriginEnum.INCLUDES);
+  urlOriginExcludes = urlOriginFactory<T, this>(this, UrlOriginEnum.EXCLUDES);
+
+  // URL Pathname
+  urlPathnameEquals = urlPathnameFactory<T, this>(this, UrlPathnameEnum.EQUALS);
+  urlPathnameNotEquals = urlPathnameFactory<T, this>(this, UrlPathnameEnum.NOT_EQUALS);
+  urlPathnameStartsWith = urlPathnameFactory<T, this>(this, UrlPathnameEnum.STARTS_WITH);
+  urlPathnameEndsWith = urlPathnameFactory<T, this>(this, UrlPathnameEnum.ENDS_WITH);
+  urlPathnameIncludes = urlPathnameFactory<T, this>(this, UrlPathnameEnum.INCLUDES);
+  urlPathnameExcludes = urlPathnameFactory<T, this>(this, UrlPathnameEnum.EXCLUDES);
+
+  // URL Port
+  urlPortEquals = urlPortFactory<T, this>(this, UrlPortEnum.EQUALS);
+  urlPortNotEquals = urlPortFactory<T, this>(this, UrlPortEnum.NOT_EQUALS);
+  urlPortStartsWith = urlPortFactory<T, this>(this, UrlPortEnum.STARTS_WITH);
+  urlPortEndsWith = urlPortFactory<T, this>(this, UrlPortEnum.ENDS_WITH);
+  urlPortIncludes = urlPortFactory<T, this>(this, UrlPortEnum.INCLUDES);
+  urlPortExcludes = urlPortFactory<T, this>(this, UrlPortEnum.EXCLUDES);
+
+  // URL Protocol
+  urlProtocolEquals = urlProtocolFactory<T, this>(this, UrlProtocolEnum.EQUALS);
+  urlProtocolNotEquals = urlProtocolFactory<T, this>(this, UrlProtocolEnum.NOT_EQUALS);
+  urlProtocolStartsWith = urlProtocolFactory<T, this>(this, UrlProtocolEnum.STARTS_WITH);
+  urlProtocolEndsWith = urlProtocolFactory<T, this>(this, UrlProtocolEnum.ENDS_WITH);
+  urlProtocolIncludes = urlProtocolFactory<T, this>(this, UrlProtocolEnum.INCLUDES);
+  urlProtocolExcludes = urlProtocolFactory<T, this>(this, UrlProtocolEnum.EXCLUDES);
+
+  // URL State
+  urlHasHash = urlStateFactory<T, this>(this, UrlStateEnum.HAS_HASH);
+  urlHasSearch = urlStateFactory<T, this>(this, UrlStateEnum.HAS_SEARCH);
+  urlHasPort = urlStateFactory<T, this>(this, UrlStateEnum.HAS_PORT);
+  urlHasUsername = urlStateFactory<T, this>(this, UrlStateEnum.HAS_USERNAME);
+  urlHasPassword = urlStateFactory<T, this>(this, UrlStateEnum.HAS_PASSWORD);
+  urlIsHttp = urlStateFactory<T, this>(this, UrlStateEnum.IS_HTTP);
+  urlIsHttps = urlStateFactory<T, this>(this, UrlStateEnum.IS_HTTPS);
+  urlIsWs = urlStateFactory<T, this>(this, UrlStateEnum.IS_WS);
+  urlIsWss = urlStateFactory<T, this>(this, UrlStateEnum.IS_WSS);
 }

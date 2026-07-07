@@ -50,6 +50,13 @@ export * from './objects/objectPrototypeRelation.js';
 export * from './objects/objectPrototypeState.js';
 export * from './objects/objectState.js';
 
+// Queries
+export * from './queries/queryEntry.js';
+export * from './queries/queryKey.js';
+export * from './queries/querySize.js';
+export * from './queries/queryState.js';
+export * from './queries/queryValue.js';
+
 // Sets
 export * from './sets/setComparison.js';
 export * from './sets/setRelation.js';
@@ -63,3 +70,14 @@ export * from './strings/stringPattern.js';
 export * from './strings/stringSize.js';
 export * from './strings/stringState.js';
 export * from './strings/stringSubstring.js';
+
+// URLs
+export * from './urls/urlHash.js';
+export * from './urls/urlHost.js';
+export * from './urls/urlHostname.js';
+export * from './urls/urlHref.js';
+export * from './urls/urlOrigin.js';
+export * from './urls/urlPathname.js';
+export * from './urls/urlPort.js';
+export * from './urls/urlProtocol.js';
+export * from './urls/urlState.js';

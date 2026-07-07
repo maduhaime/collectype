@@ -39,5 +39,23 @@ describe('FullFunctions', () => {
       const ff = new FullFunctions<BooleanDummyType>(data);
       expect(ff.booleanIsFalse('flag').items).toEqual([{ flag: false }]);
     });
+
+    it('should cover guard clauses for boolean factories with undefined values', () => {
+      interface GuardBooleanDummyType {
+        flag?: boolean;
+      }
+
+      const guardData: GuardBooleanDummyType[] = [{ flag: true }, { flag: false }, { flag: undefined }];
+      const make = (): FullFunctions<GuardBooleanDummyType> => new FullFunctions<GuardBooleanDummyType>(guardData);
+      const assertGuarded = (items: GuardBooleanDummyType[]): void => {
+        expect(Array.isArray(items)).toBe(true);
+        expect(items.some((item) => item.flag === undefined)).toBe(false);
+      };
+
+      assertGuarded(make().booleanEquals('flag', true).items);
+      assertGuarded(make().booleanNotEquals('flag', true).items);
+      assertGuarded(make().booleanIsTrue('flag').items);
+      assertGuarded(make().booleanIsFalse('flag').items);
+    });
   });
 });
